@@ -11,6 +11,10 @@ class ImageCollection(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "Image"
+        verbose_name_plural = "Images"
+
     def __str__(self):
         return self.title
 
@@ -44,12 +48,20 @@ class BaseOptions(models.Model):
 class Topic(BaseOptions):
     pass
 
+    class Meta:
+        verbose_name = "Topic"
+        verbose_name_plural = "Topics"
+
     def __str__(self):
         return self.title
 
 
 class WikiCategory(BaseOptions):
     pass
+
+    class Meta:
+        verbose_name = "Wiki Category"
+        verbose_name_plural = "Wiki Categories"
 
     def __str__(self):
         return self.title
@@ -63,6 +75,10 @@ class Wiki(BaseOptions):
     tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags")
     page_type = models.ForeignKey(Topic, on_delete=models.PROTECT)
 
+    class Meta:
+        verbose_name = "Wiki"
+        verbose_name_plural = "Wikis"
+
     def __str__(self):
         return self.title
 
@@ -71,6 +87,10 @@ class NewsCategory(BaseOptions):
     intro_body = models.ForeignKey(
         Wiki, on_delete=models.PROTECT, blank=True, null=True
     )
+
+    class Meta:
+        verbose_name = "News Category"
+        verbose_name_plural = "News Categories"
 
     def __str__(self):
         return self.title
@@ -81,6 +101,10 @@ class News(BaseOptions):
     body = models.TextField(blank=True)
     ref = models.TextField(blank=True)
     tags = models.ManyToManyField(NewsCategory, related_name="news_tags")
+
+    class Meta:
+        verbose_name = "News"
+        verbose_name_plural = "News"
 
     def __str__(self):
         return self.title
@@ -116,6 +140,10 @@ class PcSpecs(BaseOptions):
     amazon_url = models.URLField()
     reviews = models.TextField(blank=True)
 
+    class Meta:
+        verbose_name = "PC Specs"
+        verbose_name_plural = "PC Specs"
+
     def __str__(self):
         return self.title
 
@@ -128,6 +156,10 @@ class SetupSettings(BaseOptions):
     specs = models.ManyToManyField(PcSpecs, related_name="person_specs")
     ref = models.TextField(blank=True)
     tags = models.ManyToManyField(Wiki, related_name="things_linked")
+
+    class Meta:
+        verbose_name = "Setup and Settings"
+        verbose_name_plural = "Setup and Settings"
 
     def __str__(self):
         return self.title
