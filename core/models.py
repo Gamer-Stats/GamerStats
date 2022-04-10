@@ -234,7 +234,7 @@ class SetupSettings(BaseOptions):
         related_name="player_settings",
     )
     setup_body = RichTextField(blank=True)
-    specs = models.ManyToManyField(PcSpecs, related_name="person_specs")
+    specs = models.ManyToManyField(PcSpecs, related_name="person_specs", blank=True)
     ref = models.TextField(blank=True)
     tags = models.ManyToManyField(Wiki, related_name="things_linked", blank=True)
     related = models.ManyToManyField("self", blank=True)
