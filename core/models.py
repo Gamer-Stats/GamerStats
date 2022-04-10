@@ -1,19 +1,58 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 from django.utils.text import slugify
+from datetime import datetime
+from ckeditor.fields import RichTextField
+
+from jsoneditor.fields.django3_jsonfield import JSONField
+
+
+def upload_dir(instance, filename):
+    return "{0}/{1}/{2}/{3}".format(
+        instance.get_image_type_display(),
+        datetime.today().year,
+        datetime.today().month,
+        filename,
+    ).lower()
 
 
 class ImageCollection(models.Model):
-    title = models.CharField(max_length=30)
-    image = models.ImageField()
-    caption = models.CharField(max_length=50, blank=True)
-    alt = models.CharField(max_length=50)
+    IMAGE_TYPES = (("N", "News"), ("S", "PcSpecs"), ("P", "Profile"), ("C", "Category"))
+    title = models.CharField(max_length=70)
+    image = models.ImageField(upload_to=upload_dir)
+    image_type = models.CharField(max_length=1, choices=IMAGE_TYPES)
+    caption = models.CharField(max_length=100, blank=True)
+    alt = models.CharField(max_length=70)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Image"
         verbose_name_plural = "Images"
+
+    def __str__(self):
+        return self.title
+
+
+class SEOImage(models.Model):
+    title = models.CharField(max_length=30)
+    hd_image = models.ImageField(upload_to="hd/", blank=True)
+    sd_image = models.ImageField(upload_to="sd/", blank=True)
+
+    class Meta:
+        verbose_name = "SEO Image"
+        verbose_name_plural = "SEO Images"
+
+    def __str__(self):
+        return self.title
+
+
+class JsonData(models.Model):
+    title = models.CharField(max_length=25)
+    data = JSONField(blank=True)
+
+    class Meta:
+        verbose_name = "JSON Data"
+        verbose_name_plural = "JSON Data"
 
     def __str__(self):
         return self.title
@@ -31,9 +70,10 @@ class BaseOptions(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    meta_title = models.CharField(max_length=70)
+    meta_title = models.CharField(max_length=70, blank=True)
     meta_description = models.TextField(blank=True)
     canonical_url = models.URLField(blank=True, null=True)
+    index_page = models.BooleanField(default=True)
     publish = models.BooleanField(default=False)
 
     class Meta:
@@ -68,7 +108,20 @@ class WikiCategory(BaseOptions):
 
 
 class Wiki(BaseOptions):
-    info_box = models.TextField(blank=True, help_text="will change")
+    meta_images = models.ForeignKey(
+        SEOImage,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="seo_images_wiki",
+    )
+    info_box = models.ForeignKey(
+        JsonData,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="wiki_info",
+    )
     overview = models.TextField(blank=True)
     body = models.TextField(blank=True)
     ref = models.TextField(blank=True)
@@ -136,7 +189,22 @@ class PcSpecs(BaseOptions):
         ("con", "Controller"),
         ("o", "Other"),
     )
-    specs_type = models.CharField(max_length=4, choices=SPECS_TYPE, default="o")
+    PC_SECTION = (
+        ("O", "Others"),
+        ("GG", "Gaming Gear"),
+        ("GPS", "Gaming PC Setup"),
+        ("SPS", "Streaming PC Setup"),
+    )
+    section = models.CharField(
+        max_length=3,
+        choices=PC_SECTION,
+        default="O",
+        help_text="""GG: Monitor, Mouse, Mousepad, Keyboard, Headset
+        |===| GPS: CPU, GPU, MB, RAM, Case, HDD, SSD, PowerSupply, LCOOL, Fans
+        |===| SPS: Second Mon, ARM, Mic, CAM, WebCam, Chair, Ctrl Panel, AMP,
+        Studio Lit, Light Kit, USB""",
+    )
+    specs_type = models.CharField(max_length=10, choices=SPECS_TYPE, default="o")
     amazon_url = models.URLField()
     reviews = models.TextField(blank=True)
 
@@ -149,13 +217,27 @@ class PcSpecs(BaseOptions):
 
 
 class SetupSettings(BaseOptions):
-    overview = models.TextField(blank=True)
-    settings_body = models.TextField(blank=True)
-    settings = ArrayField(models.CharField(max_length=30, blank=True))
-    setup_body = models.TextField(blank=True)
+    meta_images = models.ForeignKey(
+        SEOImage,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="seo_images_setup",
+    )
+    overview = RichTextField(blank=True)
+    settings_body = RichTextField(blank=True)
+    settings = models.ForeignKey(
+        JsonData,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="player_settings",
+    )
+    setup_body = RichTextField(blank=True)
     specs = models.ManyToManyField(PcSpecs, related_name="person_specs")
     ref = models.TextField(blank=True)
-    tags = models.ManyToManyField(Wiki, related_name="things_linked")
+    tags = models.ManyToManyField(Wiki, related_name="things_linked", blank=True)
+    related = models.ManyToManyField("self", blank=True)
 
     class Meta:
         verbose_name = "Setup and Settings"

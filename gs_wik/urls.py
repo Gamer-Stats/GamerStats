@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("core.urls")),
-    path("", include("libthumbor.django.urls")),
 ]
 
 if settings.DEBUG:
