@@ -30,7 +30,7 @@ class ImageCollection(models.Model):
         verbose_name_plural = "Images"
 
     def __str__(self):
-        return self.title
+        return self.title + " > " + self.get_image_type_display()  # type: ignore
 
 
 class SEOImage(models.Model):
@@ -47,7 +47,9 @@ class SEOImage(models.Model):
 
 
 class JsonData(models.Model):
+    DATA_TYPE = (("I", "Wiki Info"), ("S", "Player Settings"))
     title = models.CharField(max_length=25)
+    data_type = models.CharField(max_length=1, choices=DATA_TYPE, default="S")
     data = JSONField(blank=True)
 
     class Meta:
@@ -60,7 +62,7 @@ class JsonData(models.Model):
 
 class BaseOptions(models.Model):
     title = models.CharField(max_length=80)
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(max_length=80, blank=True)
     avatar = models.ForeignKey(
         ImageCollection,
         on_delete=models.SET_NULL,
@@ -125,15 +127,17 @@ class Wiki(BaseOptions):
     overview = models.TextField(blank=True)
     body = models.TextField(blank=True)
     ref = models.TextField(blank=True)
-    tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags")
-    page_type = models.ForeignKey(Topic, on_delete=models.PROTECT)
+    tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags", blank=True)
+    page_type = models.ForeignKey(
+        Topic, on_delete=models.PROTECT, related_name="wiki_topic"
+    )
 
     class Meta:
         verbose_name = "Wiki"
         verbose_name_plural = "Wikis"
 
     def __str__(self):
-        return self.title
+        return self.title + " > " + self.page_type.title  # type: ignore
 
 
 class NewsCategory(BaseOptions):
@@ -236,7 +240,20 @@ class SetupSettings(BaseOptions):
     setup_body = RichTextField(blank=True)
     specs = models.ManyToManyField(PcSpecs, related_name="person_specs", blank=True)
     ref = models.TextField(blank=True)
-    tags = models.ManyToManyField(Wiki, related_name="things_linked", blank=True)
+    team = models.ForeignKey(
+        Wiki,
+        on_delete=models.SET_NULL,
+        related_name="related_team",
+        null=True,
+        blank=True,
+    )
+    game = models.ForeignKey(
+        Wiki,
+        on_delete=models.SET_NULL,
+        related_name="related_game",
+        null=True,
+        blank=True,
+    )
     related = models.ManyToManyField("self", blank=True)
 
     class Meta:
