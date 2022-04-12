@@ -36,14 +36,16 @@ class PcSpecsAdmin(admin.ModelAdmin):
 
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
+    list_display = ("title", "avatar")
     search_fields = ["title"]
     list_filter = ["page_type"]
+    autocomplete_fields = ("avatar",)
 
 
 @admin.register(SetupSettings)
 class SetupAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ("title", "avatar")
+    list_display = ("title", "avatar", "team", "game")
     autocomplete_fields = ("specs", "team", "related", "avatar")
 
 

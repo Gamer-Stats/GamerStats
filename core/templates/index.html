@@ -70,7 +70,19 @@
         </div>
     </div>
 </section>
-{% include "components/news_loop.html" %}
+<!-- News Section -->
+<section class="max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 lg:px-8">
+    <header class="sm:flex sm:items-baseline sm:justify-between">
+        <h2 class="pb-2 text-2xl font-extrabold tracking-tight text-gray-900">Latest Esports and Gaming News </h2>
+        <a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">Esports
+            and Gaming News<span aria-hidden="true"> →</span></a>
+    </header>
+    {% include "components/news_loop.html" %}
+    <div class="mt-12 sm:hidden">
+        <a href="#" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">Esports
+            and gaming news<span aria-hidden="true"> →</span></a>
+    </div>
+</section>
 <!-- CSGO Players Setup -->
 <div class="bg-gray-800 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

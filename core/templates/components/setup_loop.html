@@ -1,19 +1,41 @@
 {% load age %}
-<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 lg:gap-8">
-    {% for i in news %}
-    <article class="group aspect-w-4 aspect-h-3 rounded-lg overflow-hidden sm:relative">
+<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 lg:gap-8">
+    {% for i in players_cat %}
+    <article class="group aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:relative">
         <img src="{{ i.avatar.image.url }}" alt="{{ i.meta_title }}"
-            class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition">
+            class="object-center object-cover bg-gray-800 group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition">
         <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0">
         </div>
         <div class="p-6 sm:absolute right-0 top-0">
             <p class="text-right">
-                {% for tag in i.tags.all %}
                 <span
                     class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-400 text-black">
-                    {{ tag.title }}
+                    {% if obj.page_type.title == "Game" %}
+
+                    {% if i.team.title %}
+
+                    {{ i.team.title }} Roster
+
+                    {% else %}
+
+                    Content Creator
+
+                    {% endif %}
+
+                    {% else %}
+
+                    {% if i.game.title == "Counter-Strike: Global Offensive" %}
+
+                    CS:GO
+
+                    {% else %}
+
+                    {{ i.game.title }}
+
+                    {% endif %}
+
+                    {% endif %}
                 </span>
-                {% endfor %}
             </p>
         </div>
         <div class="p-6 flex items-end sm:absolute sm:inset-0">
@@ -21,16 +43,16 @@
                 <h3 class="font-semibold text-white">
                     <a href="{{ i.slug }}">
                         <span class="absolute inset-0"></span>
-                        {{ i.title }}
+                        {{ i.title }} <span class="sr-only">Settings and Setup</span>
                     </a>
                 </h3>
-                <p class="mt-2 text-sm font-medium text-white">
-                    <span class="sr-only">This news article was published on
+                <p class="sr-only mt-2 text-sm font-medium text-white">
+                    <span>This news article was published on
                         <time datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
                             {{ i.created_at }}
                         </time>
                     </span>
-                    <span class="sr-only">Last Updated</span>
+                    <span>Last Updated</span>
                     <time datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
                         {{ i.updated_at|article_age|safe }}
                     </time>
