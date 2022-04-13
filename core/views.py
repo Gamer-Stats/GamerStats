@@ -50,8 +50,9 @@ def setup(request):
     return render(request, template_name, context)
 
 
-def setup_filter(request, slug):
+def setup_filter(request, slug, url_type):
     obj = get_object_or_404(Wiki, Q(slug=slug) & (Q(page_type=3) | Q(page_type=4)))
+    url_type = obj.page_type
     players_cat = SetupSettings.objects.filter(Q(game=obj) | Q(team=obj)).distinct()[
         0:16
     ]
@@ -60,5 +61,13 @@ def setup_filter(request, slug):
     page_num = request.GET.get("page")
     players_cat = paginator.get_page(page_num)
     template_name = "players_cat.html"
-    context = {"players_cat": players_cat, "obj": obj}
+    context = {"players_cat": players_cat, "obj": obj, "url_type": url_type}
+    return render(request, template_name, context)
+
+
+def setup_single(request, slug):
+    obj = get_object_or_404(SetupSettings, slug=slug)
+
+    template_name = "player_setup.html"
+    context = {"obj": obj}
     return render(request, template_name, context)

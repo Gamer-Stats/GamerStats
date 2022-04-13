@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block main %}
+{% include "components/breadcrumb.html" %}
+
+<main class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
+    <article class="bg-gray-100">
+        <!-- Profile header -->
+        <div>
+            <div>
+                <img class="h-48 w-full object-cover md:h-64" src="{{ obj.meta_images.hd_image.url }}" alt="">
+            </div>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                    <div class="flex">
+                        <img class="bg-gray-800 h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                            src="{{ obj.avatar.image.url }}" alt="">
+                    </div>
+                    <div
+                        class="hidden mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                        <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                            <button type="button"
+                                class="px-1 sm:inline-flex justify-center border-b-2 border-indigo-500 shadow-sm text-sm font-medium text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-600 hover:text-white transition">
+                                <span>{{ obj.title }} Wiki</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5"
+                                    x-description="Heroicon name: solid/arrow-narrow-right" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class=" mt-6 min-w-0 flex-1">
+                    <h1 class="text-2xl font-bold text-gray-900">
+                        {{ obj.meta_title }}
+                    </h1>
+                    <div class="text-sm mt-3">{{ obj.overview|safe }}</div>
+                </div>
+                <button type="button"
+                    class="inline-flex sm:hidden mt-6 px-1 justify-center border-b-2 border-indigo-500 shadow-sm text-sm font-medium text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-500 hover:text-white transition">
+                    <span>{{ obj.title }} Wiki</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5"
+                        x-description="Heroicon name: solid/arrow-narrow-right" viewBox="0 0 20 20" fill="currentColor"
+                        aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        {% include 'components/setup_tabs.html' %}
+
+        <!-- Description list -->
+        <section class="mt-8 max-w-5xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
+            <h2 id="{{ obj.title }}-Settings" class="text-2xl mb-6">
+                <strong>{{ obj.title }} {{ obj.game.title }} Settings</strong>
+            </h2>
+            <div class="bg-white sm:divide-y sm:divide-gray-200 shadow rounded-lg">
+                {% for title, values in obj.settings.data.items %}
+                <section class="py-6 px-4 sm:px-6 lg:px-8">
+                    <h3 id="{{ title }}" class="mb-4 text-xl text-indigo-500"><strong>{{ title }}</strong></h3>
+                    <dl class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+                        {% for k, v in values.items %}
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font text-gray-500">
+                                {{ k }}
+                            </dt>
+                            <dd class="mt-1 text-base font-medium text-gray-900">
+                                {{ v }}
+                            </dd>
+                        </div>
+                        {% endfor %}
+                    </dl>
+                </section>
+                {% endfor %}
+            </div>
+        </section>
+        <!-- Team member list -->
+        <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
+            <h2 class="text-sm font-medium text-gray-500">Team members</h2>
+            <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                <div
+                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                            alt="">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <a href="#" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            <p class="text-sm font-medium text-gray-900">
+                                Leslie Alexander
+                            </p>
+                            <p class="text-sm text-gray-500 truncate">
+                                Co-Founder / CEO
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                            alt="">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <a href="#" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            <p class="text-sm font-medium text-gray-900">
+                                Michael Foster
+                            </p>
+                            <p class="text-sm text-gray-500 truncate">
+                                Co-Founder / CTO
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                            alt="">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <a href="#" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            <p class="text-sm font-medium text-gray-900">
+                                Dries Vincent
+                            </p>
+                            <p class="text-sm text-gray-500 truncate">
+                                Manager, Business Relations
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                            alt="">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <a href="#" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            <p class="text-sm font-medium text-gray-900">
+                                Lindsay Walton
+                            </p>
+                            <p class="text-sm text-gray-500 truncate">
+                                Front-end Developer
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </article>
+</main>
+
+{% endblock %}
