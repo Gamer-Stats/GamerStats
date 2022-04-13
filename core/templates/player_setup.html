@@ -4,7 +4,7 @@
 {% include "components/breadcrumb.html" %}
 
 <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
-    <article class="bg-gray-100">
+    <article>
         <!-- Profile header -->
         <div>
             <div>
@@ -19,17 +19,9 @@
                     <div
                         class="hidden mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                            <button type="button"
-                                class="px-1 sm:inline-flex justify-center border-b-2 border-indigo-500 shadow-sm text-sm font-medium text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-600 hover:text-white transition">
-                                <span>{{ obj.title }} Wiki</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5"
-                                    x-description="Heroicon name: solid/arrow-narrow-right" viewBox="0 0 20 20"
-                                    fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd"
-                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
+                            <a href="#"
+                                class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">Read
+                                TenZ Wiki<span aria-hidden="true"> →</span></a>
                         </div>
                     </div>
                 </div>
@@ -37,19 +29,11 @@
                     <h1 class="text-2xl font-bold text-gray-900">
                         {{ obj.meta_title }}
                     </h1>
-                    <div class="text-sm mt-3">{{ obj.overview|safe }}</div>
+                    <div class="text-sm mt-3 text-gray-900">{{ obj.overview|safe }}</div>
                 </div>
-                <button type="button"
-                    class="inline-flex sm:hidden mt-6 px-1 justify-center border-b-2 border-indigo-500 shadow-sm text-sm font-medium text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-indigo-500 hover:text-white transition">
-                    <span>{{ obj.title }} Wiki</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5"
-                        x-description="Heroicon name: solid/arrow-narrow-right" viewBox="0 0 20 20" fill="currentColor"
-                        aria-hidden="true">
-                        <path fill-rule="evenodd"
-                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
+                <a href="#"
+                    class="mt-4 inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:hidden">Read
+                    TenZ Wiki<span aria-hidden="true"> →</span></a>
             </div>
         </div>
 
@@ -58,13 +42,33 @@
 
         <!-- Description list -->
         <section class="mt-8 max-w-5xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-            <h2 id="{{ obj.title }}-Settings" class="text-2xl mb-6">
-                <strong>{{ obj.title }} {{ obj.game.title }} Settings</strong>
+            <h2 id="{{ obj.title }}-Settings" class="text-xl mb-6">
+                <strong class="font-semibold">{{ obj.title }} {{ obj.game.title }} Settings</strong>
             </h2>
             <div class="bg-white sm:divide-y sm:divide-gray-200 shadow rounded-lg">
                 {% for title, values in obj.settings.data.items %}
                 <section class="py-6 px-4 sm:px-6 lg:px-8">
-                    <h3 id="{{ title }}" class="mb-4 text-xl text-indigo-500"><strong>{{ title }}</strong></h3>
+                    <h3 id="{{ title }}" class="mb-4 text-xl text-indigo-500">
+                        <strong class="font-semibold">{{ title }}</strong>
+                    </h3>
+                    {% if title == "Video Settings" or title == "Monitor settings" %}
+                    {% for k, v in values.items %}
+                    <h4 class="mt-6 uppercase mb-4 text-sm font-medium text-gray-600">{{ k }}</h4>
+                    <dl class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+                        {% for kk, vv in v.items %}
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font text-gray-500">
+                                {{ kk }}
+                            </dt>
+                            <dd class="mt-1 text-base font-medium text-gray-900">
+                                {{ vv }}
+                            </dd>
+                        </div>
+                        {% endfor %}
+                    </dl>
+                    {% endfor %}
+                    {% else %}
+
                     <dl class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
                         {% for k, v in values.items %}
                         <div class="sm:col-span-1">
@@ -77,6 +81,8 @@
                         </div>
                         {% endfor %}
                     </dl>
+
+                    {% endif %}
                 </section>
                 {% endfor %}
             </div>
