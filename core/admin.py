@@ -45,7 +45,7 @@ class WikiAdmin(admin.ModelAdmin):
 @admin.register(SetupSettings)
 class SetupAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ("title", "avatar", "team", "game")
+    list_display = ("title", "meta_images", "team")
     autocomplete_fields = ("specs", "team", "related", "avatar")
 
 

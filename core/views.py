@@ -1,6 +1,8 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
+from django.core.exceptions import ObjectDoesNotExist
+
 
 from core.models import News, NewsCategory, SetupSettings, Wiki
 
@@ -67,7 +69,23 @@ def setup_filter(request, slug, url_type):
 
 def setup_single(request, slug):
     obj = get_object_or_404(SetupSettings, slug=slug)
+    if obj.game.title == "Counter-Strike: Global Offensive":  # type: ignore
+        game = "CS:GO"
+    else:
+        game = obj.game.title  # type: ignore
+
+    if obj.is_pro:
+        teammates = SetupSettings.objects.filter(
+            Q(team=obj.team) & Q(game=obj.game)
+        ).exclude(title=obj.title)
+    else:
+        teammates = obj.related.all()  # type: ignore
+
+    try:
+        wiki = Wiki.objects.get(title=obj.title)
+    except ObjectDoesNotExist:
+        wiki = None
 
     template_name = "player_setup.html"
-    context = {"obj": obj}
+    context = {"obj": obj, "teammates": teammates, "game": game, "wiki": wiki}
     return render(request, template_name, context)

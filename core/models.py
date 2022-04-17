@@ -209,6 +209,7 @@ class PcSpecs(BaseOptions):
         Studio Lit, Light Kit, USB""",
     )
     specs_type = models.CharField(max_length=10, choices=SPECS_TYPE, default="o")
+    price = models.PositiveIntegerField(blank=True, null=True)
     amazon_url = models.URLField()
     reviews = models.TextField(blank=True)
 
@@ -221,6 +222,7 @@ class PcSpecs(BaseOptions):
 
 
 class SetupSettings(BaseOptions):
+    is_pro = models.BooleanField(default=True)
     meta_images = models.ForeignKey(
         SEOImage,
         on_delete=models.SET_NULL,

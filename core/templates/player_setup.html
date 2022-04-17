@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
 {% block main %}
+
+{% load normal %}
+{% load age %}
+{% load specs_price %}
+
 {% include "components/breadcrumb.html" %}
 
 <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
     <article>
         <!-- Profile header -->
-        <div>
+        <section class="pb-4">
             <div>
                 <img class="h-48 w-full object-cover md:h-64" src="{{ obj.meta_images.hd_image.url }}" alt="">
             </div>
@@ -16,44 +21,64 @@
                         <img class="bg-gray-800 h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                             src="{{ obj.avatar.image.url }}" alt="">
                     </div>
-                    <div
-                        class="hidden mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                        <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                            <a href="#"
+                    <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                        <div class="mt-6 flex flex-col justify-stretch space-y-2">
+                            <span class="text-xs block text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="sr-only">Last Updated</span>
+                                <time datetime="{{ obj.updated_at|date:'Y-m-d' }}T{{ obj.updated_at|date:'H:iO' }}">
+                                    {{ obj.updated_at|article_age }}
+                                </time>
+                            </span>
+                            {% if wiki is not None %}
+                            <a href="{{ wiki.slug }}"
                                 class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">Read
-                                TenZ Wiki<span aria-hidden="true"> →</span></a>
+                                {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class=" mt-6 min-w-0 flex-1">
+                <div class="mt-2 sm:mt-6 min-w-0 flex-1">
                     <h1 class="text-2xl font-bold text-gray-900">
                         {{ obj.meta_title }}
                     </h1>
-                    <div class="text-sm mt-3 text-gray-900">{{ obj.overview|safe }}</div>
+                    <div class="max-w-full prose prose-indigo text-sm text-gray-500 mt-3">{{ obj.overview|safe }}</div>
                 </div>
-                <a href="#"
+
+                <a href="{{ wiki.slug }}"
                     class="mt-4 inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:hidden">Read
-                    TenZ Wiki<span aria-hidden="true"> →</span></a>
+                    {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
             </div>
-        </div>
+        </section>
 
         <!-- Tabs -->
         {% include 'components/setup_tabs.html' %}
 
-        <!-- Description list -->
-        <section class="mt-8 max-w-5xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-            <h2 id="{{ obj.title }}-Settings" class="text-xl mb-6">
-                <strong class="font-semibold">{{ obj.title }} {{ obj.game.title }} Settings</strong>
+        {% if obj.settings.data %}
+        <!-- || Settings -->
+        <section class="mt-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="{{ obj.title }}-{{ obj.game.title }}-Settings" class="text-gray-900 text-xl mb-4">
+                <strong>{{ obj.title }} {{ obj.game.title }} Settings</strong>
             </h2>
-            <div class="bg-white sm:divide-y sm:divide-gray-200 shadow rounded-lg">
+            {% if obj.settings_body %}
+            <div class="prose max-w-full text-sm  prose-indigo text-gray-500 mt-3 pb-5">
+                {{ obj.settings_body }}
+            </div>
+            {% endif %}
+            <div class="bg-white divide-y divide-gray-200 border rounded-lg">
                 {% for title, values in obj.settings.data.items %}
                 <section class="py-6 px-4 sm:px-6 lg:px-8">
-                    <h3 id="{{ title }}" class="mb-4 text-xl text-indigo-500">
+                    <h3 id="{{ obj.title }}-{{ title|removespace }}" class="capitalize mb-4 text-lg text-indigo-500">
                         <strong class="font-semibold">{{ title }}</strong>
                     </h3>
                     {% if title == "Video Settings" or title == "Monitor settings" %}
                     {% for k, v in values.items %}
-                    <h4 class="mt-6 uppercase mb-4 text-sm font-medium text-gray-600">{{ k }}</h4>
+                    <h4 class="mt-6 uppercase mb-4 text-sm font-medium text-gray-600">
+                        {{ k }}</h4>
                     <dl class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
                         {% for kk, vv in v.items %}
                         <div class="sm:col-span-1">
@@ -87,93 +112,230 @@
                 {% endfor %}
             </div>
         </section>
-        <!-- Team member list -->
-        <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
-            <h2 class="text-sm font-medium text-gray-500">Team members</h2>
-            <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-                <div
-                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                    <div class="flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                            alt="">
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <a href="#" class="focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900">
-                                Leslie Alexander
-                            </p>
-                            <p class="text-sm text-gray-500 truncate">
-                                Co-Founder / CEO
-                            </p>
-                        </a>
-                    </div>
-                </div>
-
-                <div
-                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                    <div class="flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                            alt="">
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <a href="#" class="focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900">
-                                Michael Foster
-                            </p>
-                            <p class="text-sm text-gray-500 truncate">
-                                Co-Founder / CTO
-                            </p>
-                        </a>
-                    </div>
-                </div>
-
-                <div
-                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                    <div class="flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                            alt="">
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <a href="#" class="focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900">
-                                Dries Vincent
-                            </p>
-                            <p class="text-sm text-gray-500 truncate">
-                                Manager, Business Relations
-                            </p>
-                        </a>
-                    </div>
-                </div>
-
-                <div
-                    class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
-                    <div class="flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                            alt="">
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <a href="#" class="focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900">
-                                Lindsay Walton
-                            </p>
-                            <p class="text-sm text-gray-500 truncate">
-                                Front-end Developer
-                            </p>
-                        </a>
-                    </div>
-                </div>
-
+        {% endif %}
+        <!-- || Setup -->
+        <section class="mt-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="{{ obj.title }}-Setup" class="text-gray-900 text-xl mb-4">
+                <strong>{{ obj.title }} Setup</strong>
+            </h2>
+            {% if obj.setup_body %}
+            <div class="prose max-w-full prose-indigo text-sm text-gray-500 mt-3 pb-5">
+                {{ obj.setup_body|safe }}
             </div>
-        </div>
+            {% endif %}
+            <div class="bg-white divide-y border divide-gray-200 rounded-lg">
+                <section class="py-6 px-4 sm:px-6 lg:px-8">
+                    <header class="flex items-baseline justify-between">
+                        <h3 id="{{ obj.title }}-Gaming-Gear" class="capitalize text-lg mb-4 text-indigo-500">
+                            <strong class="font-semibold">Gaming Gear</strong>
+                        </h3>
+                        <p class="text-xs text-gray-500">
+                            Click on image to learn more
+                        </p>
+                    </header>
+                    <ul role="list"
+                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
+                        {% for spec in obj.specs.all %}
+                        {% if spec.section == "GG" %}
+                        <li class="relative">
+                            <div
+                                class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                                <img src="{{ spec.avatar.image.url }}" alt=""
+                                    class="object-cover pointer-events-none group-hover:opacity-75 transition">
+                                <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
+                                    target="_blank">
+                                    <span class="sr-only">View details for {{ spec }}</span>
+                                </a>
+                            </div>
+                            <h4 class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+                                {{ spec.get_specs_type_display }}
+                            </h4>
+                            <p class="block text-xs font-medium text-gray-500 pointer-events-none">
+                                {{ spec }}
+                            </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </section>
+                <section class="py-6 px-4 sm:px-6 lg:px-8">
+                    <header class="flex items-baseline justify-between">
+                        <h3 id="{{ obj.title }}-PC-Setup" class="capitalize text-lg mb-4 text-indigo-500">
+                            <strong class="font-semibold">Gaming PC Setup</strong>
+                        </h3>
+                        <p class="text-xs text-gray-500">
+                            Click on image to learn more
+                        </p>
+                    </header>
+                    <ul role="list"
+                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
+                        {% for spec in obj.specs.all %}
+                        {% if spec.section == "GPS" %}
+                        <li class="relative">
+                            <div
+                                class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                                <img src="{{ spec.avatar.image.url }}" alt=""
+                                    class="object-cover pointer-events-none group-hover:opacity-75 transition">
+                                <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
+                                    target="_blank">
+                                    <span class="sr-only">View details for {{ spec }}</span>
+                                </a>
+                            </div>
+                            <h4 class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+                                {{ spec.get_specs_type_display }}
+                            </h4>
+                            <p class="block text-xs font-medium text-gray-500 pointer-events-none">
+                                {{ spec }}
+                            </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </section>
+                <section class="py-6 px-4 sm:px-6 lg:px-8">
+                    <header class="flex items-baseline justify-between">
+                        <h3 id="{{ obj.title }}-Streaming-Setup" class="capitalize text-lg mb-4 text-indigo-500">
+                            <strong class="font-semibold">Streaming Setup</strong>
+                        </h3>
+                        <p class="text-xs text-gray-500">
+                            Click on image to learn more
+                        </p>
+                    </header>
+                    <ul role="list"
+                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
+                        {% for spec in obj.specs.all %}
+                        {% if spec.section == "SPS" %}
+                        <li class="relative">
+                            <div
+                                class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                                <img src="{{ spec.avatar.image.url }}" alt=""
+                                    class="object-cover pointer-events-none group-hover:opacity-75 transition">
+                                <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
+                                    target="_blank">
+                                    <span class="sr-only">View details for {{ spec }}</span>
+                                </a>
+                            </div>
+                            <h4 class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+                                {{ spec.get_specs_type_display }}
+                            </h4>
+                            <p class="block text-xs font-medium text-gray-500 pointer-events-none">
+                                {{ spec }}
+                            </p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+        </section>
+        <!-- || Setup Cost -->
+        <section class="mt-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="{{ obj.title }}-Setup-Cost" class="text-gray-900 text-xl mb-4">
+                <strong>{{ obj.title }} Setup Cost</strong>
+            </h2>
+            <div class="overflow-hidden border rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-900">
+                        <tr>
+                            <th scope="col"
+                                class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Item
+                            </th>
+                            <th scope="col"
+                                class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Brand &amp; Model
+                            </th>
+                            <th scope="col"
+                                class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for spec in obj.specs.all %}
+                        <tr class="bg-white border-b">
+                            <td class="px-4 py-3 text-sm font-medium text-gray-900">
+                                {{ spec.get_specs_type_display }}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-gray-500">
+                                {{ spec.title }}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-gray-500">
+                                ${{ spec.price|calcprice }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="bg-white border-b">
+                            <td colspan="2"
+                                class="px-4 py-3 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
+                                Total
+                            </td>
+                            <td class="px-4 py-4 text-sm text-gray-500">
+                                {{ obj.specs.all|get_total }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- || Related -->
+        <section class="mt-8 mb-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {% if obj.is_pro %}
+            <h2 id="{{ obj.title }}-Teammates" class="text-gray-900 text-xl mb-4">
+                <strong>{{ obj.title }} Teammates</strong>
+            </h2>
+            {% else %}
+            <h2 id="{{ obj.title }}-Streamers" class="text-gray-900 text-xl mb-4">
+                <strong>{{ obj.title }} Related Streamers</strong>
+            </h2>
+            {% endif %}
+
+            <ul role="list" class="grid grid-cols-1 gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {% for mate in teammates %}
+                <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+                    <div class="flex-1 flex flex-col py-4 px-2 sm:p-8">
+                        <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full"
+                            src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}">
+                        <h3 class="mt-4 sm:mt-6 text-gray-900 text-sm font-medium">{{ mate.title }}</h3>
+                        <dl class="mt-1 flex-grow flex flex-col justify-between">
+                            <!-- <dt class="sr-only">Title</dt>
+                            <dd class="text-gray-500 text-sm">Paradigm Representative</dd> -->
+                            <dt class="sr-only">Role</dt>
+                            <dd class="mt-3">
+                                <span class="px-2 py-1 text-indigo-800 text-xs font-medium bg-indigo-100 rounded-full">
+                                    {% if obj.is_pro %}
+                                    {{ game }} Pro
+                                    {% else %}
+                                    {{ mate.game.title }}
+                                    {% endif %}
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div>
+                        <div class="-mt-px flex divide-x divide-gray-200">
+                            <div class="w-0 flex-1 flex">
+                                <a href="{% url 'setup_single' mate.slug %}"
+                                    class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-2 sm:py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span class="ml-2 text-xs">View
+                                        <span class="sr-only">{{ mate.title }} {{ game }}</span>
+                                        Settings</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
     </article>
 </main>
 
