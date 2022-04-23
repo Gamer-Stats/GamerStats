@@ -8,4 +8,5 @@ urlpatterns = [
     path("setup/", views.setup, name="setup"),
     path("setup/<slug:slug>/", views.setup_single, name="setup_single"),
     path("setup/<url_type>/<slug:slug>/", views.setup_filter, name="setup_filter"),
+    path("wiki/<slug:slug>/", views.wiki_single, name="wiki_single")
 ]

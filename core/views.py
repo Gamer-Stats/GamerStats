@@ -89,3 +89,10 @@ def setup_single(request, slug):
     template_name = "player_setup.html"
     context = {"obj": obj, "teammates": teammates, "game": game, "wiki": wiki}
     return render(request, template_name, context)
+
+def wiki_single(request, slug):
+    obj = get_object_or_404(Wiki, slug=slug)
+
+    template_name = "wiki_single.html"
+    context = {"obj": obj}
+    return render(request, template_name, context)
