@@ -2,7 +2,7 @@ asgiref==3.5.0
 backports.zoneinfo==0.2.1
 boto3==1.21.35
 botocore==1.24.37
-Django==4.0.3
+Django==4.0.4
 django-appconf==1.0.5
 django-ckeditor==6.3.0
 django-compressor==3.1

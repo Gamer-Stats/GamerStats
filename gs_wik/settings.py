@@ -9,7 +9,7 @@ SECRET_KEY = config("S_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.2"]
+ALLOWED_HOSTS = ["192.168.1.6", "127.0.0.1"]
 
 
 # Application definition
