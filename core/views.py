@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.core.exceptions import ObjectDoesNotExist
 
 
-from core.models import News, NewsCategory, SetupSettings, Wiki
+from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 
 def index(request):
@@ -90,8 +90,17 @@ def setup_single(request, slug):
     context = {"obj": obj, "teammates": teammates, "game": game, "wiki": wiki}
     return render(request, template_name, context)
 
+
 def wiki_single(request, slug):
     obj = get_object_or_404(Wiki, slug=slug)
+
+    template_name = "wiki_single.html"
+    context = {"obj": obj}
+    return render(request, template_name, context)
+
+
+def wiki_archives(request, slug):
+    obj = get_object_or_404(WikiCategory, slug=slug)
 
     template_name = "wiki_single.html"
     context = {"obj": obj}
