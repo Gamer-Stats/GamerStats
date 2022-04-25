@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block main %}
 
-<main class="relative py-10 overflow-hidden">
-  <article class="max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
+<main
+  class="max-w-7xl mx-auto relative py-10 overflow-hidden px-4 sm:px-6 lg:px-8"
+>
+  <article class="relative">
     <header class="text-lg border-b pb-3">
       <h1
         class="mt-2 block text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl"
@@ -158,11 +160,20 @@ Heroicon name: outline/chevron-down"
           </div>
         </dl>
         <div class="mt-4 prose prose-indigo text-gray-500">
-          {{ obj.body|safe|linebreaks }}
+          {{ obj.body|safe }}
         </div>
       </div>
     </div>
   </article>
+  <aside class="max-w-4xl py-2 mt-4">
+    {% for i in obj.tags.all %}
+    <a
+      class="inline-block py-1 px-2 mb-2 rounded-md bg-gray-100 text-xs border border-gray-300 text-gray-700 hover:text-indigo-600 hover:border-indigo-600"
+      href="{{ i.slug }}"
+      >{{ i }}</a
+    >
+    {% endfor %}
+  </aside>
 </main>
 
 {% endblock %}
