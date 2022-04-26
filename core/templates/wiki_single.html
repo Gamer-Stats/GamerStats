@@ -11,98 +11,46 @@
         {{ obj.title }}
       </h1>
     </header>
-    <div class="sm:grid sm:grid-flow-col mt-6">
+    <div class="sm:grid md:grid-flow-col mt-6">
       <div
-        class="sm:order-2 sm:max-w-xl overflow-hidden border rounded-lg mb-4 sm:mb-0"
+        class="md:order-2 mb-4 md:mb-0 md:max-w-md"
         style="height: min-content"
       >
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-800">
-            <tr>
-              <th
-                scope="col"
-                colspan="2"
-                class="px-4 py-3 text-xs font-medium text-white uppercase tracking-wider"
-              >
-                {{ obj.title }} Esports Career
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white border-b">
-              <th
-                scope="row"
-                class="px-4 py-3 text-sm text-left font-medium text-gray-900"
-              >
-                Team
-              </th>
-              <td class="px-4 py-3 text-sm text-gray-500">Natus Vincere</td>
-            </tr>
-            <tr class="bg-white border-b">
-              <th
-                scope="row"
-                class="px-4 py-3 text-sm text-left font-medium text-gray-900"
-              >
-                Role
-              </th>
-              <td class="px-4 py-3 text-sm text-gray-500">AWPer</td>
-            </tr>
-            <tr class="bg-white border-b">
-              <th
-                scope="row"
-                class="px-4 py-3 text-sm text-left font-medium text-gray-900"
-              >
-                Game
-              </th>
-              <td class="px-4 py-3 text-sm text-gray-500">
-                Counter-Strike: Global Offensive
-              </td>
-            </tr>
-            <tr>
-              <th
-                scope="col"
-                colspan="2"
-                class="px-4 py-3 bg-gray-800 text-xs font-medium text-white uppercase tracking-wider"
-              >
-                {{ obj.title }} Personal Information
-              </th>
-            </tr>
-            <tr class="bg-white border-b">
-              <th
-                scope="row"
-                class="px-4 py-3 text-sm text-left font-medium text-gray-900"
-              >
-                Team
-              </th>
-              <td class="px-4 py-3 text-sm text-gray-500">Natus Vincere</td>
-            </tr>
-            <tr class="bg-white border-b">
-              <th
-                scope="row"
-                class="px-4 py-3 text-sm text-left font-medium text-gray-900"
-              >
-                Role
-              </th>
-              <td class="px-4 py-3 text-sm text-gray-500">AWPer</td>
-            </tr>
-            <tr class="bg-white border-b">
-              <th
-                scope="row"
-                class="px-4 py-3 text-sm text-left font-medium text-gray-900"
-              >
-                Game
-              </th>
-              <td class="px-4 py-3 text-sm text-gray-500">
-                Counter-Strike: Global Offensive
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="border overflow-hidden rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-800">
+              <tr>
+                <th
+                  scope="col"
+                  colspan="2"
+                  class="px-4 py-3 text-xs font-medium text-white uppercase tracking-wider"
+                >
+                  {{ obj.title }} Information
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for field, value in obj.info_box.data.items %}
+              <tr class="bg-white border-b">
+                <th
+                  scope="row"
+                  class="px-4 py-2 text-sm text-left font-medium text-gray-900"
+                >
+                  {{ field }}
+                </th>
+                <td class="px-4 py-2 text-sm text-gray-500">{{ value }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="sm:order-1 mr-4">
+      <div class="md:order-1 md:mr-4">
+        {% if obj.overview %}
         <div class="mb-4 text-base text-gray-500">
           {{ obj.overview|safe|linebreaks }}
         </div>
+        {% endif %}
         <dl
           class="border bg-gray-200 border-gray-300 space-y-6 divide-y divide-gray-200 rounded-md"
         >
@@ -146,20 +94,14 @@ Heroicon name: outline/chevron-down"
               </button>
             </dt>
             <dd
-              class="pr-12 rounded-md rounded-t-0 bg-gray-100 px-4 py-2"
+              class="pr-12 rounded-md rounded-t-0 bg-gray-100 px-4 py-2 divide-y divide-gray-200"
               id="faq-0"
               x-show="open"
               style="display: none"
-            >
-              <p class="text-base text-gray-500">
-                I don't know, but the flag is a big plus. Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Quas cupiditate laboriosam
-                fugiat.
-              </p>
-            </dd>
+            ></dd>
           </div>
         </dl>
-        <div class="mt-4 prose prose-indigo text-gray-500">
+        <div id="wikiBody" class="mt-4 prose prose-indigo text-gray-500">
           {{ obj.body|safe }}
         </div>
       </div>
@@ -175,5 +117,24 @@ Heroicon name: outline/chevron-down"
     {% endfor %}
   </aside>
 </main>
+
+<script defer>
+  let h2 = document.getElementsByTagName("h2");
+  for (let i = 0; i < h2.length; i++) {
+    let a = document.createElement("a");
+    id = h2[i].innerText.replace(/ /g, "-");
+    h2[i].id = id;
+    a.href = `#${id}`;
+    a.classList.add(
+      "text-gray-600",
+      "text-sm",
+      "block",
+      "py-2",
+      "hover:text-indigo-500"
+    );
+    a.innerText = h2[i].innerText;
+    document.getElementById("faq-0").appendChild(a);
+  }
+</script>
 
 {% endblock %}
