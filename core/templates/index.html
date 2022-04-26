@@ -28,7 +28,7 @@
       <div class="p-6 flex items-end">
         <div>
           <h2 class="font-semibold text-white">
-            <a href="#">
+            <a href="/setup/games/counter-strike-global-offensive/">
               <span class="absolute inset-0"></span>
               CS:GO Pros Settings and Setup
             </a>
@@ -54,7 +54,7 @@
       <div class="p-6 flex items-end sm:absolute sm:inset-0">
         <div>
           <h3 class="font-semibold text-white">
-            <a href="#">
+            <a href="/setup/games/valorant/">
               <span class="absolute inset-0"></span>
               VALORANT Pros Settings &amp; Setup
             </a>
@@ -100,7 +100,7 @@
       Latest Esports and Gaming News
     </h2>
     <a
-      href="#"
+      href="{% url 'news' %}"
       class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
       >Esports and Gaming News<span aria-hidden="true"> →</span></a
     >
@@ -108,13 +108,13 @@
   {% include "components/news_loop.html" %}
   <div class="mt-12 sm:hidden">
     <a
-      href="#"
+      href="{% url 'news' %}"
       class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
       >Esports and gaming news<span aria-hidden="true"> →</span></a
     >
   </div>
 </section>
-<!-- CSGO Players Setup -->
+<!-- Players Setup -->
 <div class="bg-gray-800 py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div>
@@ -136,7 +136,7 @@
           />
         </div>
         <div class="flex-1 min-w-0">
-          <a href="{{ i.slug }}" class="focus:outline-none">
+          <a href="{% url 'setup_single' i.slug %}" class="focus:outline-none">
             <span class="absolute inset-0" aria-hidden="true"></span>
             <p class="text-base font-medium text-gray-200">
               {{ i }} Settings &amp; Setup
@@ -151,7 +151,7 @@
     </div>
     <div class="text-center mt-12">
       <a
-        href="#"
+        href="{% url 'setup' %}"
         class="bg-indigo-500 border border-transparent rounded-md py-3 px-5 font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 transition"
       >
         View All Settings &amp; Setup
@@ -168,7 +168,7 @@
         Latest Wiki Articles
       </h2>
       <a
-        href="#"
+        href="{% url 'wiki' %}"
         class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"
         >View All Wikis<span aria-hidden="true"> →</span></a
       >
@@ -193,7 +193,7 @@
         <div class="p-6 flex items-end">
           <div>
             <h3 class="font-semibold text-white">
-              <a href="{{ wiki.slug }}">
+              <a href="{% url 'wiki_single' wiki.slug %}">
                 <span class="absolute inset-0"></span>
                 {{ wiki.title }}
               </a>
@@ -207,7 +207,7 @@
       {% endfor %}
       <div class="mt-6 sm:hidden">
         <a
-          href="#"
+          href="{% url 'wiki' %}"
           class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"
           >View All Wikis<span aria-hidden="true"> →</span></a
         >

@@ -1,40 +1,46 @@
-{% extends 'base.html' %}
-{% block main %}
+{% extends 'base.html' %} {% block main %}
 <!-- News Section -->
 <section class="max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 lg:px-8">
-    <header class="sm:flex sm:items-baseline sm:justify-between">
-        <h1 class="pb-2 text-2xl font-extrabold tracking-tight text-gray-900">{{ obj.title }} Players Settings and Setup
-        </h1>
-    </header>
-    {% include 'components/setup_loop.html' %}
+  <header class="sm:flex sm:items-baseline sm:justify-between">
+    <h1 class="pb-2 text-2xl font-extrabold tracking-tight text-gray-900">
+      {{ obj.title }} Players Settings and Setup
+    </h1>
+  </header>
+  {% include 'components/setup_loop.html' %}
 </section>
-<nav class="px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
-    <div class="hidden sm:block">
-        <p class="text-sm text-gray-700">
-            Showing
-            <!-- space -->
-            <span class="font-medium">{{ players_cat.number }}</span>
-            <!-- space -->
-            of
-            <!-- space -->
-            <span class="font-medium">{{ players_cat.paginator.num_pages }}</span>
-            <!-- space -->
-            Pages
-        </p>
-    </div>
-    <div class="flex-1 flex justify-between sm:justify-end">
-        {% if players_cat.has_previous %}
-        <a href="?page={{ players_cat.previous_page_number }}"
-            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Previous
-        </a>
-        {% endif %}
-        {% if players_cat.has_next %}
-        <a href="?page={{ players_cat.next_page_number }}"
-            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Next
-        </a>
-        {% endif %}
-    </div>
+<nav
+  class="px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+  aria-label="Pagination"
+>
+  <div class="hidden sm:block">
+    <p class="text-sm text-gray-700">
+      Showing
+      <!-- space -->
+      <span class="font-medium">{{ players_cat.number }}</span>
+      <!-- space -->
+      of
+      <!-- space -->
+      <span class="font-medium">{{ players_cat.paginator.num_pages }}</span>
+      <!-- space -->
+      Pages
+    </p>
+  </div>
+  <div class="flex-1 flex justify-between sm:justify-end">
+    {% if players_cat.has_previous %}
+    <a
+      href="?page={{ players_cat.previous_page_number }}"
+      class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+    >
+      Previous
+    </a>
+    {% endif %} {% if players_cat.has_next %}
+    <a
+      href="?page={{ players_cat.next_page_number }}"
+      class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+    >
+      Next
+    </a>
+    {% endif %}
+  </div>
 </nav>
 {% endblock %}
