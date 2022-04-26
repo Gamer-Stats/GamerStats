@@ -34,12 +34,18 @@ class PcSpecsAdmin(admin.ModelAdmin):
     search_fields = ["title"]
 
 
+@admin.register(JsonData)
+class JsonDataAdmin(admin.ModelAdmin):
+    search_fields = ["title"]
+    list_filter = ["data_type"]
+
+
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
     list_display = ("title", "avatar")
     search_fields = ["title"]
     list_filter = ["page_type"]
-    autocomplete_fields = ("avatar",)
+    autocomplete_fields = ("avatar", "info_box")
 
 
 @admin.register(SetupSettings)
@@ -53,4 +59,3 @@ class SetupAdmin(admin.ModelAdmin):
 admin.site.register(WikiCategory)
 admin.site.register(NewsCategory)
 admin.site.register(SEOImage)
-admin.site.register(JsonData)
