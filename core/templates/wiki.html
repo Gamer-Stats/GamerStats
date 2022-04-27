@@ -1,16 +1,21 @@
-{% extends 'base.html' %} {% block main %}
+{% extends 'base.html' %} {% block main %}{% load thumbnail %}
 <main>
     {% include "components/breadcrumb_wiki_cat.html" %}
     <!-- News Section -->
     <section class="max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 lg:px-8">
         <header class="sm:flex sm:items-baseline sm:justify-between">
             <h1 class="pb-2 text-2xl font-extrabold tracking-tight text-gray-900">
+                {% if wiki_cat %}
                 {{ wiki_cat.title }}
+                {% else %}
+                Esports Players, Streamers, and Games Wiki
+                {% endif %}
             </h1>
         </header>
         {% include 'components/wiki_loop.html' %}
     </section>
-    <nav class="px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+        aria-label="Pagination">
         <div class="hidden sm:block">
             <p class="text-sm text-gray-700">
                 Showing
