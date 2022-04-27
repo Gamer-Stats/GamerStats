@@ -82,10 +82,6 @@ def setup_filter(request, slug, url_type):
 # Setup Single
 def setup_single(request, slug):
     obj = get_object_or_404(SetupSettings, slug=slug)
-    if obj.game.title == "Counter-Strike: Global Offensive":  # type: ignore
-        game = "CS:GO"
-    else:
-        game = obj.game.title  # type: ignore
 
     if obj.is_pro:
         teammates = SetupSettings.objects.filter(
@@ -100,22 +96,42 @@ def setup_single(request, slug):
         wiki = None
 
     template_name = "player_setup.html"
-    context = {"obj": obj, "teammates": teammates, "game": game, "wiki": wiki}
+    context = {"obj": obj, "teammates": teammates, "wiki": wiki}
     return render(request, template_name, context)
 
 
 # Wiki Main
-def wiki(request, slug):
-    obj = get_object_or_404(WikiCategory, slug=slug)
+def wiki(request):
+    wikis = Wiki.objects.all().exclude(Q(page_type=3) | Q(page_type=4))
+    paginator = Paginator(wikis, 20)
 
-    template_name = "wiki_single.html"
-    context = {"obj": obj}
+    page_num = request.GET.get("page")
+    obj = paginator.get_page(page_num)
+
+    name = "wiki_main"
+    template_name = "wiki.html"
+    context = {"obj": obj, "name": name}
+    return render(request, template_name, context)
+
+
+# Wiki Category/Tag
+def wiki_filter(request, slug):
+    wiki_cat = get_object_or_404(WikiCategory, slug=slug)
+    wiki = Wiki.objects.filter(tags=wiki_cat).distinct()
+    paginator = Paginator(wiki, 20)
+
+    page_num = request.GET.get("page")
+    obj = paginator.get_page(page_num)
+
+    name = "wiki_cat"
+    template_name = "wiki.html"
+    context = {"obj": obj, "name": name, "wiki_cat": wiki_cat}
     return render(request, template_name, context)
 
 
 # Wiki Single
 def wiki_single(request, slug):
-    obj = get_object_or_404(Wiki, slug=slug)
+    obj = get_object_or_404(Wiki, slug=slug, publish=True)
 
     template_name = "wiki_single.html"
     context = {"obj": obj}

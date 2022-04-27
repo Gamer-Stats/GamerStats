@@ -5,54 +5,50 @@
 {% load normal %}
 {% load age %}
 {% load specs_price %}
-
-{% include "components/breadcrumb.html" %}
-
-<main class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
-    <article>
+<main class="flex-1 relative focus:outline-none xl:order-last">
+    {% include "components/breadcrumb_single.html" %}
+    <article class="max-w-5xl mx-auto md:border-gray-200 md:border-r md:border-l">
         <!-- Profile header -->
-        <section class="pb-4">
-            <div>
-                <img class="h-48 w-full object-cover md:h-72" src="{{ obj.meta_images.hd_image.url }}" alt="">
-            </div>
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-                    <div class="flex">
-                        <img class="bg-gray-800 h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                            src="{{ obj.avatar.image.url }}" alt="">
-                    </div>
-                    <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                        <div class="mt-6 flex flex-col justify-stretch space-y-2">
-                            <span class="text-xs block text-gray-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span class="sr-only">Last Updated</span>
-                                <time datetime="{{ obj.updated_at|date:'Y-m-d' }}T{{ obj.updated_at|date:'H:iO' }}">
-                                    {{ obj.updated_at|article_age }}
-                                </time>
-                            </span>
-                            {% if wiki is not None %}
-                            <a href="{{ wiki.slug }}"
-                                class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">Read
-                                {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
-                            {% endif %}
-                        </div>
+        <section class="">
+            <img class="h-48 w-full object-cover sm:h-72" src="{{ obj.meta_images.hd_image.url }}"
+                alt="{{ obj.meta_title }}">
+            <div class="-mt-12 sm:-mt-16 sm:px-6 lg:px-8 px-4 sm:flex sm:items-end sm:space-x-5">
+                <div class="flex">
+                    <img class="bg-gray-800 h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                        src="{{ obj.avatar.image.url }}" alt="{{ obj.title }}">
+                </div>
+                <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                    <div class="mt-6 flex flex-col justify-stretch space-y-2">
+                        <span class="text-xs block text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="sr-only">Last Updated</span>
+                            <time datetime="{{ obj.updated_at|date:'Y-m-d' }}T{{ obj.updated_at|date:'H:iO' }}">
+                                {{ obj.updated_at|article_age }}
+                            </time>
+                        </span>
+                        {% if wiki is not None %}
+                        <a href="{% url 'wiki_single' wiki.slug %}"
+                            class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">Read
+                            {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="mt-2 sm:mt-6 min-w-0 flex-1">
-                    <h1 class="text-2xl font-bold text-gray-900">
-                        {{ obj.meta_title }}
-                    </h1>
-                    <div class="max-w-full prose prose-indigo text-sm text-gray-500 mt-3">{{ obj.overview|safe }}</div>
-                </div>
-
-                <a href="{{ wiki.slug }}"
-                    class="mt-4 inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:hidden">Read
-                    {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
             </div>
+            <div class="mt-2 sm:px-6 lg:px-8 px-4 sm:mt-6 min-w-0 flex-1">
+                <h1 class="text-2xl font-bold text-gray-900">
+                    {{ obj.meta_title }}
+                </h1>
+                <div class="prose prose-indigo text-sm text-gray-500 mt-4">{{ obj.overview|safe }}</div>
+            </div>
+            {% if wiki is not None %}
+            <a href="{% url 'wiki_single' wiki.slug %}"
+                class="sm:px-6 lg:px-8 px-4 mt-4 inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:hidden">Read
+                {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
+            {% endif %}
         </section>
 
         <!-- Tabs -->
@@ -60,7 +56,7 @@
 
         {% if obj.settings.data %}
         <!-- || Settings -->
-        <section class="mt-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section class="mt-8 sm:px-6 lg:px-8 px-4">
             <h2 id="{{ obj.title }}-{{ obj.game.title }}-Settings" class="text-gray-900 text-xl mb-4">
                 <strong>{{ obj.title }} {{ obj.game.title }} Settings</strong>
             </h2>
@@ -114,7 +110,7 @@
         </section>
         {% endif %}
         <!-- || Setup -->
-        <section class="mt-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section class="mt-8 px-4 sm:px-6 lg:px-8">
             <h2 id="{{ obj.title }}-Setup" class="text-gray-900 text-xl mb-4">
                 <strong>{{ obj.title }} Setup</strong>
             </h2>
@@ -229,12 +225,12 @@
             </div>
         </section>
         <!-- || Setup Cost -->
-        <section class="mt-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section class="mt-8 px-4 sm:px-6 lg:px-8">
             <h2 id="{{ obj.title }}-Setup-Cost" class="text-gray-900 text-xl mb-4">
                 <strong>{{ obj.title }} Setup Cost</strong>
             </h2>
             <div class="overflow-hidden border rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full">
                     <thead class="bg-gray-900">
                         <tr>
                             <th scope="col"
@@ -251,12 +247,12 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-200 bg-white">
                         {% for spec in obj.specs.all %}
-                        <tr class="bg-white border-b">
-                            <td class="px-4 py-3 text-sm font-medium text-gray-900">
+                        <tr>
+                            <th scope="row" class="px-4 py-3 text-sm text-left font-medium text-gray-900">
                                 {{ spec.get_specs_type_display }}
-                            </td>
+                            </th>
                             <td class="px-4 py-3 text-sm text-gray-500">
                                 {{ spec.title }}
                             </td>
@@ -265,12 +261,12 @@
                             </td>
                         </tr>
                         {% endfor %}
-                        <tr class="bg-white border-b">
-                            <td colspan="2"
+                        <tr>
+                            <th scope="row" colspan="2"
                                 class="px-4 py-3 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                                 Total
-                            </td>
-                            <td class="px-4 py-4 text-sm text-gray-500">
+                            </th>
+                            <td class="px-4 py-3 text-sm text-gray-500">
                                 {{ obj.specs.all|get_total }}
                             </td>
                         </tr>
@@ -279,7 +275,7 @@
             </div>
         </section>
         <!-- || Related -->
-        <section class="mt-8 mb-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section class="mt-8 pb-8 px-4 sm:px-6 lg:px-8">
             {% if obj.is_pro %}
             <h2 id="{{ obj.title }}-Teammates" class="text-gray-900 text-xl mb-4">
                 <strong>{{ obj.title }} Teammates</strong>
@@ -292,23 +288,29 @@
 
             <ul role="list" class="grid grid-cols-1 gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {% for mate in teammates %}
-                <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+                <li class="col-span-1 flex flex-col text-center bg-white rounded-lg border divide-y divide-gray-200">
                     <div class="flex-1 flex flex-col py-4 px-2 sm:p-8">
-                        <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full"
-                            src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}">
+                        <a href="{% url 'setup_single' mate.slug %}">
+                            <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full"
+                                src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}"></a>
                         <h3 class="mt-4 sm:mt-6 text-gray-900 text-sm font-medium">{{ mate.title }}</h3>
                         <dl class="mt-1 flex-grow flex flex-col justify-between">
                             <!-- <dt class="sr-only">Title</dt>
                             <dd class="text-gray-500 text-sm">Paradigm Representative</dd> -->
                             <dt class="sr-only">Role</dt>
                             <dd class="mt-3">
-                                <span class="px-2 py-1 text-indigo-800 text-xs font-medium bg-indigo-100 rounded-full">
+                                <a class="px-2 py-1 text-indigo-800 text-xs font-medium bg-indigo-100 rounded-full"
+                                    href="/setup/game/{{ mate.game.slug }}/">
                                     {% if obj.is_pro %}
-                                    {{ game }} Pro
+                                    {% if mate.game.title == "Counter-Strike: Global Offensive" %}
+                                    CS:GO Pro
+                                    {% else %}
+                                    {{ mate.game.title }} Pro
+                                    {% endif %}
                                     {% else %}
                                     {{ mate.game.title }}
                                     {% endif %}
-                                </span>
+                                </a>
                             </dd>
                         </dl>
                     </div>
@@ -325,7 +327,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <span class="ml-2 text-xs">View
+                                    <span class="ml-2 text-sm">View
                                         <span class="sr-only">{{ mate.title }} {{ game }}</span>
                                         Settings</span>
                                 </a>

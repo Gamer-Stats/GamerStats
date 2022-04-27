@@ -1,30 +1,82 @@
 {% extends 'base.html' %} {% block main %}
 
-<main
-  class="max-w-7xl mx-auto relative py-10 overflow-hidden px-4 sm:px-6 lg:px-8"
->
-  <article class="relative">
+<main class="">
+  <div class=" bg-gray-100 border-b">
+    <div class="max-w-7xl mx-auto border-t border-gray-200 py-3 px-4 sm:px-10">
+      <nav class="flex" aria-label="Breadcrumb">
+        <div class="flex sm:hidden">
+          <a href="{% url 'index' %}"
+            class="group inline-flex space-x-3 text-xs font-medium text-gray-500 hover:text-gray-700">
+            <svg class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-600"
+              x-description="Heroicon name: solid/arrow-narrow-left" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span>Back to Homepage</span>
+          </a>
+        </div>
+        <div class="hidden sm:block">
+          <ol role="list" class="flex items-center space-x-4">
+            <li>
+              <div>
+                <a href="{% url 'index' %}" class="text-gray-400 hover:text-gray-500">
+                  <svg class="flex-shrink-0 h-5 w-5" x-description="Heroicon name: solid/home"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path
+                      d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                    </path>
+                  </svg>
+                  <span class="sr-only">Home</span>
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg class="flex-shrink-0 h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z"></path>
+                </svg>
+                <a href="{% url 'wiki' %}" class="ml-4 text-xs font-medium text-gray-500 hover:text-gray-700">Wiki</a>
+              </div>
+            </li>
+
+            <li>
+              <div class="flex items-center">
+                <svg class="flex-shrink-0 h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z"></path>
+                </svg>
+                <a href="{{ request.build_absolute_uri }}"
+                  class="ml-4 text-xs font-medium text-gray-500 hover:text-gray-700" aria-current="page">
+                  {{ obj.title }}
+                </a>
+              </div>
+            </li>
+
+          </ol>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!-- Main -->
+  <article class="max-w-7xl mx-auto relative py-10 overflow-hidden px-4 sm:px-6 lg:px-8">
     <header class="text-lg border-b pb-3">
-      <h1
-        class="mt-2 block text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl"
-      >
+      <h1 class="mt-2 block text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
         {{ obj.title }}
       </h1>
     </header>
     <div class="sm:grid md:grid-flow-col mt-6">
-      <div
-        class="md:order-2 mb-4 md:mb-0 md:max-w-md"
-        style="height: min-content"
-      >
-        <div class="border overflow-hidden rounded-lg">
+      <div class="md:order-2 mb-4 md:mb-0 md:max-w-md" style="height: min-content">
+        <div class="border border-b-0 bg-gray-800 rounded-lg rounded-b-0">
+          <img class="w-56 h-56 mx-auto" src="{{ obj.avatar.image.url }}" alt="{{ obj.title }} Wiki">
+        </div>
+        <div class="border border-t-0 overflow-hidden rounded-lg rounded-t-0">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-800">
               <tr>
-                <th
-                  scope="col"
-                  colspan="2"
-                  class="px-4 py-3 text-xs font-medium text-white uppercase tracking-wider"
-                >
+                <th scope="col" colspan="2" class="px-4 py-3 text-xs font-medium text-white uppercase tracking-wider">
                   {{ obj.title }} Information
                 </th>
               </tr>
@@ -32,10 +84,7 @@
             <tbody>
               {% for field, value in obj.info_box.data.items %}
               <tr class="bg-white border-b">
-                <th
-                  scope="row"
-                  class="px-4 py-2 text-sm text-left font-medium text-gray-900"
-                >
+                <th scope="row" class="px-4 py-2 text-sm text-left font-medium text-gray-900">
                   {{ field }}
                 </th>
                 <td class="px-4 py-2 text-sm text-gray-500">{{ value }}</td>
@@ -51,54 +100,28 @@
           {{ obj.overview|safe|linebreaks }}
         </div>
         {% endif %}
-        <dl
-          class="border bg-gray-200 border-gray-300 space-y-6 divide-y divide-gray-200 rounded-md"
-        >
+        <dl class="border bg-gray-200 border-gray-300 space-y-6 divide-y divide-gray-200 rounded-md">
           <div x-data="{ open: false }">
             <dt class="text-lg">
-              <button
-                type="button"
-                x-description="Expand/collapse question button"
-                class="text-left w-full flex justify-between items-center text-gray-400 py-2 px-3"
-                aria-controls="faq-0"
-                @click="open = !open"
-                aria-expanded="false"
-                x-bind:aria-expanded="open.toString()"
-              >
+              <button type="button" x-description="Expand/collapse question button"
+                class="text-left w-full flex justify-between items-center text-gray-400 py-2 px-3" aria-controls="faq-0"
+                @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
                 <span class="text-base font-medium text-gray-600">
                   Table of Content
                 </span>
                 <span class="ml-6 h-7 flex items-center">
-                  <svg
-                    class="h-6 w-6 transform rotate-0"
-                    x-description="Expand/collapse icon, toggle classes based on question open state.
+                  <svg class="h-6 w-6 transform rotate-0" x-description="Expand/collapse icon, toggle classes based on question open state.
 
-Heroicon name: outline/chevron-down"
-                    x-state:on="Open"
-                    x-state:off="Closed"
-                    :class="{ '-rotate-180': open, 'rotate-0': !(open) }"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
+Heroicon name: outline/chevron-down" x-state:on="Open" x-state:off="Closed"
+                    :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </span>
               </button>
             </dt>
-            <dd
-              class="pr-12 rounded-md rounded-t-0 bg-gray-100 px-4 py-2 divide-y divide-gray-200"
-              id="faq-0"
-              x-show="open"
-              style="display: none"
-            ></dd>
+            <dd class="pr-12 rounded-md rounded-t-0 bg-gray-100 px-4 py-2 divide-y divide-gray-200" id="faq-0"
+              x-show="open" style="display: none"></dd>
           </div>
         </dl>
         <div id="wikiBody" class="mt-4 prose prose-indigo text-gray-500">
@@ -107,13 +130,10 @@ Heroicon name: outline/chevron-down"
       </div>
     </div>
   </article>
-  <aside class="max-w-4xl py-2 mt-4">
+  <aside class="max-w-7xl mx-auto pb-4 px-4 sm:px-6">
     {% for i in obj.tags.all %}
-    <a
-      class="inline-block py-1 px-2 mb-2 rounded-md bg-gray-100 text-xs border border-gray-300 text-gray-700 hover:text-indigo-600 hover:border-indigo-600"
-      href="{{ i.slug }}"
-      >{{ i }}</a
-    >
+    <a class="inline-block py-1 px-2 mb-2 rounded-md bg-gray-100 text-xs border border-gray-300 text-gray-700 hover:text-indigo-600 hover:border-indigo-600"
+      href="{% url 'wiki_filter' i.slug %}">{{ i }}</a>
     {% endfor %}
   </aside>
 </main>

@@ -10,5 +10,6 @@ urlpatterns = [
     path("setup/<slug:slug>/", views.setup_single, name="setup_single"),
     path("setup/<url_type>/<slug:slug>/", views.setup_filter, name="setup_filter"),
     path("wiki/", views.wiki, name="wiki"),
-    path("wiki/<slug:slug>/", views.wiki_single, name="wiki_single")
+    path("wiki/<slug:slug>/", views.wiki_single, name="wiki_single"),
+    path("wiki/categories/<slug:slug>/", views.wiki_filter, name="wiki_filter")
 ]
