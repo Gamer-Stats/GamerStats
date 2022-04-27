@@ -50,11 +50,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://gamerstats.net/static/favicon-16x16.png" />
   <link rel="shortcut icon" type="image/png" sizes="any" href="https://gamerstats.net/static/favicon.ico" crossorigin />
   <!-- Site Assets -->
-  <link rel="preload" href="{% static 'Inter-roman.var.woff2' %}" as="font" type="font/woff2" />
-  <!-- <link rel="stylesheet" href="{% static 'app.css' %}" /> -->
+  <link rel="preload" href="{% static 'Inter-roman.var.woff2' %}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{% static 'components-v2.css' %}" />
-
-  <script src="{% static 'components-v2.js' %}"></script>
+  <script src="{% static 'components-v2.js' %}" defer></script>
   <script src="{% static 'alpine.js' %}" defer></script>
 </head>
 

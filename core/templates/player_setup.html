@@ -11,14 +11,19 @@
     <article class="divide-y divide-gray-200 max-w-5xl mx-auto md:border-gray-200 md:border-r md:border-l">
         <!-- Profile header -->
         <section class="bg-gray-50 pb-6">
-            {% thumbnail obj.meta_images.hd_image "1022x288" as im %}
-            <img class="h-48 w-full object-cover sm:h-72" src="{{ im.url }}" alt="{{ obj.meta_title }}">
+            <img class="h-48 w-full object-cover sm:h-72" srcset='
+            {% thumbnail obj.meta_images.hd_image "414x192" quality=95 format="WEBP" as im %}
+            {{ im.url }} 1w,
             {% endthumbnail %}
+            {% thumbnail obj.meta_images.hd_image "1022x288" quality=95 format="WEBP" as im %}
+            {{ im.url }} 800w
+            {% endthumbnail %}' sizes="(max-width: 600px) 1px, 800px" src="{{ obj.meta_images.hd_image.url }}"
+                alt="{{ obj.meta_title }}">
             <div class="-mt-12 sm:-mt-16 sm:px-6 lg:px-8 px-4 sm:flex sm:items-end sm:space-x-5">
                 <div class="flex">
-                    {% thumbnail obj.avatar.image "128x128" as im %}
-                    <img class="bg-gray-600 rounded-full ring-4 ring-white h-32 w-32" src="{{ im.url }}"
-                        alt="{{ obj.title }}">
+                    {% thumbnail obj.avatar.image "128x128" quality=95 format="WEBP" as im %}
+                    <img class="bg-gray-600 rounded-full ring-4 ring-white h-32 w-32" srcset="{{ im.url }}"
+                        src="{{ obj.avatar.image.url }}" alt="{{ obj.title }}">
                     {% endthumbnail %}
                 </div>
                 <div class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
@@ -114,7 +119,6 @@
         </section>
         {% endif %}
         <!-- || Setup -->
-
         <section class="py-8 pb-12  px-4 sm:px-6 lg:px-8">
             <h2 id="{{ obj.title }}-Setup" class="text-gray-900 text-xl mb-4">
                 <strong>{{ obj.title }} Setup</strong>
@@ -141,8 +145,8 @@
                         <li class="relative">
                             <div
                                 class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                {% thumbnail spec.avatar.image "190x190" format="PNG" as im %}
-                                <img src="{{ im.url }}" alt="{{ spec }}"
+                                {% thumbnail spec.avatar.image "190x190" quality=90 format="WEBP" as im %}
+                                <img srcset="{{ im.url }}" src="{{ spec.avatar.image.url }}" alt="{{ spec }}"
                                     class="object-cover pointer-events-none group-hover:opacity-75 transition">
                                 {% endthumbnail %}
                                 <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
@@ -177,8 +181,8 @@
                         <li class="relative">
                             <div
                                 class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                {% thumbnail spec.avatar.image "190x190" format="PNG" as im %}
-                                <img src="{{ im.url }}" alt="{{ spec }}"
+                                {% thumbnail spec.avatar.image "190x190" quality=90 format="WEBP" as im %}
+                                <img srcset="{{ im.url }}" src="{{ spec.avatar.image.url }}" alt="{{ spec }}"
                                     class="object-cover pointer-events-none group-hover:opacity-75 transition">
                                 {% endthumbnail %}
                                 <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
@@ -213,8 +217,8 @@
                         <li class="relative">
                             <div
                                 class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                {% thumbnail spec.avatar.image "190x190" format="PNG" as im %}
-                                <img src="{{ im.url }}" alt="{{ spec }}"
+                                {% thumbnail spec.avatar.image "190x190" quality=90 format="WEBP" as im %}
+                                <img srcset="{{ im.url }}" src="{{ spec.avatar.image.url }}" alt="{{ spec }}"
                                     class="object-cover pointer-events-none group-hover:opacity-75 transition">
                                 {% endthumbnail %}
                                 <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
@@ -303,9 +307,9 @@
                 <li class="col-span-1 flex flex-col text-center bg-gray-50 rounded-lg border divide-y divide-gray-200">
                     <div class="flex-1 flex flex-col py-4 px-2 sm:p-8">
                         <a href="{% url 'setup_single' mate.slug %}">
-                            {% thumbnail mate.avatar.image "128x128" as im %}
-                            <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full" src="{{ im.url }}"
-                                alt="{{ mate.title }}">
+                            {% thumbnail mate.avatar.image "128x128" quality=95 format="WEBP" as im %}
+                            <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full" srcset="{{ im.url }}"
+                                src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}">
                             {% endthumbnail %}
                         </a>
                         <h3 class="mt-4 sm:mt-6 text-gray-900 text-sm font-medium">{{ mate.title }}</h3>
