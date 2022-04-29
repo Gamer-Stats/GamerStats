@@ -31,10 +31,11 @@ def news(request):
 
 # News Single
 def news_single(request, slug):
-    news = News.objects.get(slug=slug)
+    obj = get_object_or_404(News, slug=slug, publish=True)
+    news = News.objects.all().exclude(title=obj)[:3]
 
-    template_name = "news_setup.html"
-    context = {"news": news}
+    template_name = "news_single.html"
+    context = {"obj": obj, "news": news}
     return render(request, template_name, context)
 
 
