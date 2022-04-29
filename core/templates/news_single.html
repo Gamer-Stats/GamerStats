@@ -62,7 +62,7 @@
   </div>
   <!-- Article -->
   <article class="max-w-7xl mx-auto px-4 sm:px-10">
-    <header class="pt-6 sm:pt-8 pb-8">
+    <header class="py-6 sm:py-8">
       <h1 class="mb-4 text-gray-900 text-2xl sm:text-4xl font-extrabold tracking-tight">{{ obj.title }}</h1>
       <p class="mb-4 sm:my-5 text-xs sm:text-sm font-medium text-gray-500">
         <span class="sr-only">This news article was published on
@@ -76,14 +76,17 @@
         </time>
         <span> by Gamer Stats </span>
       </p>
-      <img class="sm:h-120 object-cover" srcset='
-            {% thumbnail obj.meta_images.hd_image "414x192" quality=95 format="WEBP" as im %}
+      <figure>
+        <img class="rounded w-h-198 sm:w-h-450 object-cover" srcset='
+            {% thumbnail obj.avatar.image "352x198" quality=85 format="WEBP" as im %}
             {{ im.url }} 1w,
             {% endthumbnail %}
-            {% thumbnail obj.meta_images.hd_image "1022x288" quality=95 format="WEBP" as im %}
+            {% thumbnail obj.avatar.image "800x450" quality=85 format="WEBP" as im %}
             {{ im.url }} 800w
             {% endthumbnail %}' sizes="(max-width: 600px) 1px, 800px" src="{{ obj.avatar.image.url }}"
-        alt="{{ obj.title }}">
+          alt="{{ obj.title }}">
+        <figcaption class="text-xs text-gray-500 pt-2">{{ obj.avatar.caption }}</figcaption>
+      </figure>
     </header>
     <section class="prose prose-indigo text-gray-500 mb-8">
       <h2 class="mb-4 text-base sm:text-xl">{{ obj.meta_description }}</h2>
