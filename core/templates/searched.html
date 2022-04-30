@@ -1,0 +1,101 @@
+{% extends 'base.html' %} {% block main %} {% load age %} {% load thumbnail %}
+<main class="max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 lg:px-8">
+    <header class="text-center">
+        <h1 class="pb-2 sm:text-4xl text-3xl font-extrabold tracking-tight text-gray-900">
+            Found ({{ count }}) results for your search <span class="text-indigo-600"><q>{{ query }}</q></span>
+        </h1>
+    </header>
+    </section>
+    {% if players_cat %}
+    <!-- Setup Settings -->
+    <section class="mt-10">
+        <h2 class="sm:text-2xl text-xl font-extrabold tracking-tight text-gray-900">Pro Settings &amp; Setup</h2>
+        <div class="mt-6 grid gap-y-4 gap-x-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 lg:gap-8">
+            {% for i in players_cat %}
+            <article class="group aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:relative">
+                <img srcset='{% thumbnail i.avatar.image "164x164" quality=95 format="WEBP" as im %}{{ im.url }} 1w, {% endthumbnail %} {% thumbnail i.avatar.image "280x280" quality=95 format="WEBP" as im %} {{ im.url }} 800w {% endthumbnail %}'
+                    sizes="(max-width: 600px) 1px, 800px" src="{{ i.avatar.image.url }}" alt="{{ i.meta_title }}"
+                    class="object-center object-cover bg-gray-800 group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition" />
+                <div aria-hidden="true"
+                    class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0"></div>
+                <div class="text-right p-6 sm:absolute right-4 top-3 sr-only sm:not-sr-only">
+                    <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-400 text-black">
+                        Settings
+                    </span>
+                </div>
+                <div class="p-6 flex items-end sm:absolute sm:inset-0">
+                    <div>
+                        <h3 class="font-semibold text-white">
+                            <a href="{% url 'setup_single' i.slug %}">
+                                <span class="absolute inset-0"></span>
+                                {{ i.title }} <span class="sr-only">Settings and Setup</span>
+                            </a>
+                        </h3>
+                        <p class="sr-only mt-2 text-sm font-medium text-white">
+                            <span>Published on
+                                <time datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                                    {{ i.created_at }}
+                                </time>
+                            </span>
+                            <span>Last Updated</span>
+                            <time datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                                {{ i.updated_at|article_age|safe }}
+                            </time>
+                            <span> by Gamer Stats </span>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    {% if wiki %}
+    <!-- Wikis -->
+    <section class="mt-10">
+        <h2 class="sm:text-2xl text-xl font-extrabold tracking-tight text-gray-900">Wiki Articles</h2>
+        <div class="mt-6 grid gap-y-4 gap-x-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 lg:gap-8">
+            {% for i in wiki %}
+            <article class="group aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:relative">
+                <img srcset='{% thumbnail i.avatar.image "164x164" quality=95 format="WEBP" as im %}{{ im.url }} 1w, {% endthumbnail %} {% thumbnail i.avatar.image "280x280" quality=95 format="WEBP" as im %} {{ im.url }} 800w {% endthumbnail %}'
+                    sizes="(max-width: 600px) 1px, 800px" src="{{ i.avatar.image.url }}" alt="{{ i.meta_title }}"
+                    class="object-center object-cover bg-gray-800 group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition" />
+                <div aria-hidden="true"
+                    class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0"></div>
+                <div class="text-right p-6 sm:absolute right-4 top-3 sr-only sm:not-sr-only">
+                    <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-400 text-black">
+                        Wiki
+                    </span>
+                </div>
+                <div class="p-6 flex items-end sm:absolute sm:inset-0">
+                    <div>
+                        <h3 class="font-semibold text-white">
+                            <a href="{% url 'wiki_single' i.slug %}">
+                                <span class="absolute inset-0"></span>
+                                {{ i.title }} <span class="sr-only">Biography, career, and everything you need to
+                                    know</span>
+                            </a>
+                        </h3>
+                        <p class="sr-only mt-2 text-sm font-medium text-white">
+                            <span>Published on
+                                <time datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                                    {{ i.created_at }}
+                                </time>
+                            </span>
+                            <span>Last Updated</span>
+                            <time datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                                {{ i.updated_at|article_age|safe }}
+                            </time>
+                            <span> by Gamer Stats </span>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</main>
+{% endblock %}

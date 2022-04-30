@@ -3,6 +3,7 @@ from core import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("search/", views.search, name="search"),
     path("news/", views.news, name="news"),
     path("news/<slug:slug>/", views.news_single, name="news_single"),
     path("news/categories/<slug:slug>/", views.news_filter, name="news_filter"),

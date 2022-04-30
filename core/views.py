@@ -144,7 +144,6 @@ def wiki_single(request, slug):
 
 # Email Subscribe
 def subscribe(request):
-    print("non")
     if request.method == "POST":
         subs_form = SubscribeForm(request.POST)
         if subs_form.is_valid():
@@ -154,4 +153,18 @@ def subscribe(request):
 
     template_name = "base.html"
     context = {"subs_form": subs_form}
+    return render(request, template_name, context)
+
+
+# Search
+def search(request):
+    if request.method == "GET":
+        query = request.GET.get("searched")
+        wiki = Wiki.objects.filter(Q(title__icontains=query) | Q(overview__icontains=query)
+                                   ).exclude(Q(page_type=3) | Q(page_type=4))
+        players_cat = SetupSettings.objects.filter(Q(title__icontains=query) | Q(overview__icontains=query))
+        count = len(wiki) + len(players_cat)
+
+    template_name = "searched.html"
+    context = {"players_cat": players_cat, "wiki": wiki, "query": query, "count": count}
     return render(request, template_name, context)
