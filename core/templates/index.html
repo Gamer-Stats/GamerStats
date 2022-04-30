@@ -10,7 +10,9 @@
 
   <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
     <div class="group aspect-w-2 aspect-h-2 rounded-lg overflow-hidden sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
-      <img src="{% static '1.png' %}"
+      <img
+        srcset="{% static 'PGL-Major-Stockholm-2021-mob.webp' %} 1w, {% static 'PGL-Major-Stockholm-2021.webp' %} 800w"
+        sizes="(max-width: 600px) 1px, 800px" src="{% static 'PGL-Major-Stockholm-2021.png' %}"
         alt="PGL Major Stockholm 2021 CSGO Winner Natus Vincere's players; s1mple, electroNic, Boombl4, Perfecto, and b1t celebrating."
         class="transition object-center object-cover group-hover:opacity-75" />
       <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-75"></div>
@@ -29,7 +31,9 @@
       </div>
     </div>
     <div class="group aspect-w-2 aspect-h-2 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-full">
-      <img src="{% static '2.jpg' %}"
+      <img
+        srcset="{% static 'VALORING-Champions-Tour-2021-winner-Acend-mob.webp' %} 1w, {% static 'VALORING-Champions-Tour-2021-winner-Acend.webp' %} 800w"
+        sizes="(max-width: 600px) 1px, 800px" src="{% static 'VALORING-Champions-Tour-2021-winner-Acend.png' %}"
         alt="VALORING Champions Tour 2021 winner Acend team players and coach Laurynas 'Nbs' Kisielius celebrating their victory."
         class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition" />
       <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0">
@@ -49,7 +53,10 @@
       </div>
     </div>
     <div class="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-full">
-      <img src="{% static '3.jpg' %}" alt="Twitch streamers and content creators; Summit1G, shroud, and DrDisRespect"
+      <img
+        srcset="{% static 'streamers-pc-specs-setup-mob.webp' %} 1w, {% static 'streamers-pc-specs-setup.webp' %} 800w"
+        sizes="(max-width: 600px) 1px, 800px" src="{% static 'streamers-pc-specs-setup.jpg' %}"
+        alt="Twitch streamers and content creators; Summit1G, shroud, and DrDisRespect"
         class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition" />
       <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0">
       </div>
