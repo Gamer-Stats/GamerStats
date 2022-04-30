@@ -1,11 +1,4 @@
-{% extends "base.html" %}
-
-{% block main %}
-
-{% load normal %}
-{% load age %}
-{% load specs_price %}
-{% load thumbnail %}
+{% extends "base.html" %}{% block main %}{% load normal %}{% load age %}{% load specs_price %}{% load thumbnail %}
 <main class="flex-1 relative focus:outline-none xl:order-last">
     {% include "components/breadcrumb_single.html" %}
     <article class="divide-y divide-gray-200 max-w-5xl mx-auto md:border-gray-200 md:border-r md:border-l">
@@ -60,7 +53,7 @@
             {% endif %}
         </section>
 
-        <!-- Tabs -->
+        <!-- || Tabs -->
         {% include 'components/setup_tabs.html' %}
 
         {% if obj.settings.data %}

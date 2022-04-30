@@ -1,22 +1,15 @@
 {% load thumbnail %}{% load age %}
-<div
-  class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 lg:gap-8"
->
+<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 lg:gap-8">
   {% for i in news %}
-  <article
-    class="group aspect-w-4 aspect-h-3 rounded-lg overflow-hidden sm:relative"
-  >
-  <img class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition" srcset='{% thumbnail i.avatar.image "352x243" quality=85 format="WEBP" as im %}{{ im.url }}{% endthumbnail %}' src="{{ obj.avatar.image.url }}" alt="{{ i.title }}">
-    <div
-      aria-hidden="true"
-      class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0"
-    ></div>
+  <article class="group aspect-w-4 aspect-h-3 rounded-lg overflow-hidden sm:relative">
+    <img class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition"
+      srcset='{% thumbnail i.avatar.image "352x243" quality=85 format="WEBP" as im %}{{ im.url }}{% endthumbnail %}'
+      src="{{ i.avatar.image.url }}" alt="{{ i.title }}">
+    <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0"></div>
     <div class="p-6 sm:absolute right-0 top-0">
       <p class="text-right">
         {% for tag in i.tags.all %}
-        <span
-          class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-400 text-black"
-        >
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-400 text-black">
           {{ tag.title }}
         </span>
         {% endfor %}
@@ -31,18 +24,13 @@
           </a>
         </h3>
         <p class="mt-2 text-sm font-medium text-white">
-          <span class="sr-only"
-            >This news article was published on
-            <time
-              datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}"
-            >
+          <span class="sr-only">This news article was published on
+            <time datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
               {{ i.created_at }}
             </time>
           </span>
           <span class="sr-only">Last Updated</span>
-          <time
-            datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}"
-          >
+          <time datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
             {{ i.updated_at|article_age|safe }}
           </time>
           <span> by Gamer Stats </span>

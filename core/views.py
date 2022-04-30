@@ -41,14 +41,14 @@ def news_single(request, slug):
 
 # News Tags/Category
 def news_filter(request, slug):
-    tags = get_object_or_404(NewsCategory, slug=slug)
-    news = News.objects.filter(tags=tags)
+    cats = get_object_or_404(NewsCategory, slug=slug)
+    news = News.objects.filter(tags=cats)
     paginator = Paginator(news, 12)
 
     page_num = request.GET.get("page")
     tags = paginator.get_page(page_num)
     template_name = "news_cat.html"
-    context = {"news": news, "tags": tags}
+    context = {"news": news, "tags": tags, "cats": cats}
     return render(request, template_name, context)
 
 

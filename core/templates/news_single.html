@@ -2,7 +2,6 @@
 {% block custom_meta %}
 <link rel="preload" href="#" as="image" id="preloadImage">
 {% endblock %}
-
 <main class="">
   <div class="bg-gray-100 border-b">
     <div class="max-w-7xl text-gray-500 mx-auto border-t border-gray-200 py-3 px-4 sm:px-10">
@@ -91,7 +90,8 @@
     <footer class="text-gray-500 mb-8">
       <p class="sr-only">Posted in: </p>
       {% for i in obj.tags.all %}
-      <a class="text-sm bg-gray-800 p-1 px-2 rounded text-gray-300 hover:bg-indigo-600" href="{{ i.slug }}">{{ i }}</a>
+      <a class="text-sm bg-gray-800 p-1 px-2 rounded text-gray-300 hover:bg-indigo-600"
+        href="{% url 'news_filter' i.slug %}">{{ i }}</a>
       {% endfor %}
     </footer>
   </article>
