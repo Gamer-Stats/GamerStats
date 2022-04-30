@@ -1,10 +1,12 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.core.exceptions import ObjectDoesNotExist
 
-
 from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
+
+from core.forms import SubscribeForm
 
 
 # Homepage
@@ -12,6 +14,7 @@ def index(request):
     ss = SetupSettings.objects.all()[:9]
     wikis = Wiki.objects.all().exclude(Q(page_type=3) | Q(page_type=4))[:3]
     news = News.objects.all()[:7]
+
     template_name = "index.html"
     context = {"ss": ss, "wikis": wikis, "news": news}
     return render(request, template_name, context)
@@ -136,4 +139,19 @@ def wiki_single(request, slug):
 
     template_name = "wiki_single.html"
     context = {"obj": obj}
+    return render(request, template_name, context)
+
+
+# Email Subscribe
+def subscribe(request):
+    print("non")
+    if request.method == "POST":
+        subs_form = SubscribeForm(request.POST)
+        if subs_form.is_valid():
+            return HttpResponse("You sucessfully joined the list!")
+    else:
+        subs_form = SubscribeForm()
+
+    template_name = "base.html"
+    context = {"subs_form": subs_form}
     return render(request, template_name, context)

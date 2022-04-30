@@ -264,3 +264,11 @@ class SetupSettings(BaseOptions):
 
     def __str__(self):
         return self.title
+
+
+class Subscribe(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.email

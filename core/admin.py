@@ -2,6 +2,7 @@ from django.contrib import admin
 from core.models import (
     JsonData,
     SEOImage,
+    Subscribe,
     Wiki,
     WikiCategory,
     NewsCategory,
@@ -59,3 +60,4 @@ class SetupAdmin(admin.ModelAdmin):
 admin.site.register(WikiCategory)
 admin.site.register(NewsCategory)
 admin.site.register(SEOImage)
+admin.site.register(Subscribe)
