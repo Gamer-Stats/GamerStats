@@ -1,4 +1,4 @@
-{% load age %}
+{% load thumbnail %}{% load age %}
 <div
   class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 lg:gap-8"
 >
@@ -6,11 +6,7 @@
   <article
     class="group aspect-w-4 aspect-h-3 rounded-lg overflow-hidden sm:relative"
   >
-    <img
-      src="{{ i.avatar.image.url }}"
-      alt="{{ i.meta_title }}"
-      class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition"
-    />
+  <img class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full transition" srcset='{% thumbnail i.avatar.image "352x243" quality=85 format="WEBP" as im %}{{ im.url }}{% endthumbnail %}' src="{{ obj.avatar.image.url }}" alt="{{ i.title }}">
     <div
       aria-hidden="true"
       class="bg-gradient-to-b from-transparent to-black opacity-75 sm:absolute sm:inset-0"
