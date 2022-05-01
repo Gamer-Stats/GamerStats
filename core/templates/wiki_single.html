@@ -68,7 +68,7 @@
       </h1>
     </header>
     <div class="sm:grid md:grid-flow-col mt-6">
-      <div class="md:order-2 mb-4 md:mb-0 md:max-w-md" style="height: min-content">
+      <div class="md:order-2 mb-4 md:mb-0 md:max-w-md lg:w-96" style="height: min-content">
         <div class="border border-b-0 bg-gray-800 rounded-lg rounded-b-0">
           <img class="w-56 h-56 mx-auto" srcset='
           {% thumbnail obj.avatar.image "224x224" quality=95 format="WEBP" as im %}
@@ -113,17 +113,17 @@
                   Table of Content
                 </span>
                 <span class="ml-6 h-7 flex items-center">
-                  <svg class="h-6 w-6 transform rotate-0" x-description="Expand/collapse icon, toggle classes based on question open state.
-
-Heroicon name: outline/chevron-down" x-state:on="Open" x-state:off="Closed"
-                    :class="{ '-rotate-180': open, 'rotate-0': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <svg class="h-6 w-6 transform rotate-0"
+                    x-description="Expand/collapse icon, toggle classes based on question open state. Heroicon name: outline/chevron-down"
+                    x-state:on="Open" x-state:off="Closed" :class="{ '-rotate-180': open, 'rotate-0': !(open) }"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </span>
               </button>
             </dt>
-            <dd class="pr-12 rounded-md rounded-t-0 bg-gray-100 px-4 py-2 divide-y divide-gray-200" id="faq-0"
+            <dd class="pr-12 rounded-md rounded-t-0 bg-gray-50 px-4 py-2 divide-y divide-gray-200" id="faq-0"
               x-show="open" style="display: none"></dd>
           </div>
         </dl>
