@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = config("S_KEY")
 SECRET_KEY = "django-insecure-calfa6oj0vtz7s+d@l((!e*tumhz%a7xm@^8ml&doz^p3nm6!#"
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["192.168.1.6", "127.0.0.1"]
 
@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "core",
     "compressor",
     "sorl.thumbnail",
@@ -101,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
@@ -133,6 +134,24 @@ STATICFILES_FINDERS = (
 THUMBNAIL_DEBUG = True
 
 # COMPRESS_ENABLED = True
+
+SITE_ID = 1
+
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_AGE = 1209600
+
+SESSION_COOKIE_DOMAIN = "gamerstats.net"
+
+SECURE_HSTS_SECONDS = 3600
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_HSTS_PRELOAD = True
 
 # # AWS Settings
 
