@@ -73,7 +73,7 @@ class BaseOptions(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     meta_title = models.CharField(max_length=70, blank=True)
-    meta_description = models.TextField(blank=True)
+    meta_description = RichTextField(blank=True)
     canonical_url = models.URLField(blank=True, null=True)
     index_page = models.BooleanField(default=True)
     publish = models.BooleanField(default=False)
@@ -124,9 +124,9 @@ class Wiki(BaseOptions):
         null=True,
         related_name="wiki_info",
     )
-    overview = models.TextField(blank=True)
-    body = models.TextField(blank=True)
-    ref = models.TextField(blank=True)
+    overview = RichTextField(blank=True)
+    body = RichTextField(blank=True)
+    ref = RichTextField(blank=True)
     tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags", blank=True)
     page_type = models.ForeignKey(
         Topic, on_delete=models.PROTECT, related_name="wiki_topic"
@@ -154,9 +154,9 @@ class NewsCategory(BaseOptions):
 
 
 class News(BaseOptions):
-    overview = models.TextField(blank=True)
-    body = models.TextField(blank=True)
-    ref = models.TextField(blank=True)
+    overview = RichTextField(blank=True)
+    body = RichTextField(blank=True)
+    ref = RichTextField(blank=True)
     tags = models.ManyToManyField(NewsCategory, related_name="news_tags")
 
     class Meta:
@@ -211,7 +211,7 @@ class PcSpecs(BaseOptions):
     specs_type = models.CharField(max_length=10, choices=SPECS_TYPE, default="o")
     price = models.PositiveIntegerField(blank=True, null=True)
     amazon_url = models.URLField()
-    reviews = models.TextField(blank=True)
+    reviews = RichTextField(blank=True)
 
     class Meta:
         verbose_name = "PC Specs"
@@ -241,7 +241,7 @@ class SetupSettings(BaseOptions):
     )
     setup_body = RichTextField(blank=True)
     specs = models.ManyToManyField(PcSpecs, related_name="person_specs", blank=True)
-    ref = models.TextField(blank=True)
+    ref = RichTextField(blank=True)
     team = models.ForeignKey(
         Wiki,
         on_delete=models.SET_NULL,

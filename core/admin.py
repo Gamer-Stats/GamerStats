@@ -41,12 +41,17 @@ class JsonDataAdmin(admin.ModelAdmin):
     list_filter = ["data_type"]
 
 
+@admin.register(WikiCategory)
+class WikiCategoryAdmin(admin.ModelAdmin):
+    search_fields = ["title"]
+
+
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
     list_display = ("title", "avatar")
     search_fields = ["title"]
     list_filter = ["page_type"]
-    autocomplete_fields = ("avatar", "info_box")
+    autocomplete_fields = ("avatar", "info_box", "tags")
 
 
 @admin.register(SetupSettings)
@@ -57,7 +62,6 @@ class SetupAdmin(admin.ModelAdmin):
     autocomplete_fields = ("specs", "team", "related", "avatar")
 
 
-admin.site.register(WikiCategory)
 admin.site.register(NewsCategory)
 admin.site.register(SEOImage)
 admin.site.register(Subscribe)
