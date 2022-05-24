@@ -1,12 +1,11 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.core.exceptions import ObjectDoesNotExist
-
-from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 from core.forms import SubscribeForm
+from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 
 # Homepage
@@ -106,7 +105,8 @@ def setup_single(request, slug):
 
 # Wiki Main
 def wiki(request):
-    wikis = Wiki.objects.order_by("updated_at").exclude(Q(page_type=3) | Q(page_type=4) | Q(publish=False))
+    wikis = Wiki.objects.select_related("avatar__id", "page_type").values("title", "page_type__title", "slug", "updated_at", "avatar__image").order_by("-updated_at")
+    # wikis = Wiki.objects.values("title", "updated_at", "created_at", "slug", "avatar__image")
     paginator = Paginator(wikis, 20)
 
     page_num = request.GET.get("page")
