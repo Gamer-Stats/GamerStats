@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+
+{% block page_title %} {% if cats.meta_title %}  {{ cats.meta_title }} {% else %} Latest Esports News &amp; Gaming Updates - Gamer Stats {% endif %} {% endblock %}
+{% block page_title_t %}  {% if cats.meta_title %}  {{ cats.meta_title }} {% else %} Latest Esports News &amp; Gaming Updates - Gamer Stats {% endif %}  {% endblock %}
+{% block page_title_f %}  {% if cats.meta_title %}  {{ cats.meta_title }} {% else %} Latest Esports News &amp; Gaming Updates - Gamer Stats {% endif %}  {% endblock %}
+
+{% block meta_desc %}{{ cats.meta_description }}{% endblock %}
+{% block meta_desc_t %}{{ cats.meta_description }}{% endblock %}
+{% block meta_desc_f %}{{ cats.meta_description }}{% endblock %}
+
+{% block canonical_link %}{% if cats.canonical_url %}{{ cats.canonical_url }}{% else %}{{ request.build_absolute_uri }}{% endif %}{% endblock %}
+
+{% block p_img_f %}{{ cats.avatar.image.url }}{% endblock %}
+{% block p_img_t %}{{ cats.avatar.image.url }}{% endblock %}
+
+{% block p_img_w_f %}{{ cats.avatar.image.width }}{% endblock %}
+{% block p_img_h_f %}{{ cats.avatar.image.height }}{% endblock %}
+
+{% block p_img_alt_f %}{{ cats.avatar.alt }}{% endblock %}
+{% block p_img_alt_t %}{{ cats.avatar.alt }}{% endblock %}
+
 {% block main %}
 {% block custom_metas %}
 <script type="application/ld+json">
@@ -66,9 +86,9 @@
                       "position": 1,
                       "item": {
                           "@type": "WebPage",
-                          "@id": "https://gamerstats.net/",
-                          "url": "https://gamerstats.net/",
-                          "name": "Home"
+			  "@id": "https://gamerstats.net{% url 'news' %}",
+                          "url": "https://gamerstats.net{% url 'news' %}",
+                          "name": "News"
                       }
                   },
                   {
@@ -76,9 +96,9 @@
                     "position": 2,
                     "item": {
                         "@type": "WebPage",
-                        "@id": "https://gamerstats.net{% url 'news' %}",
-                        "url": "https://gamerstats.net{% url 'news' %}",
-                        "name": "Esports News"
+                        "@id": "{{ request.build_absolute_uri }}",
+                        "url": "{{ request.build_absolute_uri }}",
+			"name": "{{ cats.meta_title  }}"
                     }
                 }
               ]

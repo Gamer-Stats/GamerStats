@@ -1,0 +1,129 @@
+{% extends 'core/base.html' %} {% load urls_build %}
+
+{% block description %}
+If you're looking for your favorite Twitch streamer or YouTuber's setup, gaming gear, and streaming pc setup. Then
+here's everything you need to know about their peripherals like monitor, microphone, mouse, keyboard, graphics card,
+gaming chair, and so on...
+{% endblock %}
+
+
+{% block title %}Streamers and YouTubers Setup, Gaming Gear & PC Specs - GamerStats.net{% endblock %}
+
+{% block meta %}
+<link rel="canonical" href="https://gamerstats.net{% url 'ps_streamers' %}">
+
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Streamers and YouTubers Setup, Gaming Gear & PC Specs - GamerStats.net" />
+<meta property="og:description" content="If you're looking for your favorite Twitch streamer or YouTuber's setup, gaming gear, and streaming pc setup. Then
+    here's everything you need to know about their peripherals like monitor, microphone, mouse, keyboard, graphics card,
+    gaming chair, and so on..." />
+<meta property="og:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Streamers and YouTubers Setup, Gaming Gear & PC Specs" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net{% url 'ps_streamers' %}" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="Streamers and YouTubers Setup, Gaming Gear & PC Specs - GamerStats.net" />
+<meta name="twitter:description" content="If you're looking for your favorite Twitch streamer or YouTuber's setup, gaming gear, and streaming pc setup. Then
+    here's everything you need to know about their peripherals like monitor, microphone, mouse, keyboard, graphics card,
+    gaming chair, and so on..." />
+<meta name="twitter:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta name="twitter:image:alt" content="Streamers and YouTubers Setup, Gaming Gear & PC Specs" />
+<meta name="twitter:url" content="https://gamerstats.net{% url 'ps_streamers' %}" />
+{% endblock %}
+
+{% block main %}
+
+<main class="container-fluid">
+    <!-- Header 1. -->
+    <header class="list-page-header dotted-links">
+        <div class="container links">
+            <h1>Streamers PC Setup and Equipements</h1>
+            <p>This page covers popular content creators and streamers PC specs profiles from all popular platforms
+                including Twitch and YouTube. If you're looking for your favorite streamer's gaming pc configuration or
+                gaming gears? We got everything here from <a href="{% url 'ps_games' %}valorant/">VALORANT streamers
+                    Setup</a> to <a href="{% url 'ps_games' %}grand-theft-auto-v/">GTA V gamers pc specs</a>.</p>
+            <p>However, this page only includes content creators and streamers PC setup profiles. Use the following
+                links to filter through if you need:</p>
+            <div class="links">
+                <ul class="calm-list">
+                    <li><a href="{% url 'ps' %}">PC Specs - Main Page</a></li>
+                    <li><a href="{% url 'ps_esports_players' %}">View All Esports Professionals</a></li>
+                    <li><a href="{% url 'ps_games' %}">View Streamers and Professionals By Games</a></li>
+                    <li><a href="{% url 'ps_teams' %}">View Streamers and Professionals By Teams</a></li>
+                    <li><a href="{% url 'index' %}">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- / Header 1. -->
+    {% comment %}
+    <!-- PAGE NAV 2. -->
+    <nav class="stick-top">
+        <div class="archive-btn container">
+            <p>Filter Players By Team</p>
+            <div class="archive-btn-icons">
+                {% for i in game %}
+                <a href="{{ i.slug|game_url }}">
+                    <img aria-hidden="true" src="{{ i.image.url }}" alt="{{ i.team }}">
+                    <p class="hidden">{{ i.title }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </nav>
+    <!-- / PAGE NAV 2. -->
+    {% endcomment %}
+    <!-- Section 3. PC SPECS PROFILES -->
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Recently Updated Streamer's Setup</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in cc %}
+            <article class="card-design card-players border border-primary-hover">
+                {{ i.image.url|img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                            {{ i.title }} <br><small>{{ i.full_name }}</small>
+                        </a>
+                    </h3>
+                    <p class="small-cta">{{ i.title }}'s PC Setup</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- / Section 3. PC SPECS PROFILES -->
+
+    <!-- 4. Pagination -->
+
+    <div class="pagination container">
+        <span class="step-links">
+            {% if cc.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ cc.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ cc.number }} of {{ cc.paginator.num_pages }}.
+            </span>
+
+            {% if cc.has_next %}
+            <a href="?page={{ cc.next_page_number }}">next</a>
+            <a href="?page={{ cc.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <!-- / 4. Pagination -->
+</main>
+
+{% endblock %}

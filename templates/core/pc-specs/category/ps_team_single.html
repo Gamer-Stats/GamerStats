@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %} {% load urls_build %}
+
+{% block description %}
+{{ team.title }}'s esports professionals and streamers pc specs, gaming gear, and streaming setup in 2022. Find your
+favorite {{ team.nickname }} content creator's peripherals.
+{% endblock %}
+
+
+{% block title %}{{ team.title }}'s Esports Players & Creators PC Setup and Gaming Gear in 2022{% endblock %}
+
+{% block meta %}
+<link rel="canonical" href="https://gamerstats.net{{ team.slug|team_url }}">
+
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ team.title }}'s Esports Players & Creators PC Setup and Gaming Gear in 2022" />
+<meta property="og:description"
+    content="{{ team.title.nickname }}'s esports professionals and streamers pc specs, gaming gear, and streaming setup in 2022. Find your favorite {{ game.nickname }} content creator's peripherals." />
+<meta property="og:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="{{ team.title }}'s Esports Players & Creators PC Setup and Gaming Gear" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net{{ team.slug|team_url }}" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="{{ team.title }}'s Esports Players & Creators PC Setup and Gaming Gear in 2022" />
+<meta name="twitter:description"
+    content="{{ team.title.nickname }}'s esports professionals and streamers pc specs, gaming gear, and streaming setup in 2022. Find your favorite {{ game.nickname }} content creator's peripherals." />
+<meta name="twitter:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta name="twitter:image:alt" content="{{ team.title }}'s Esports Players & Creators PC Setup and Gaming Gear" />
+<meta name="twitter:url" content="https://gamerstats.net{{ team.slug|team_url }}" />
+{% endblock %}
+
+{% block main %}
+
+<main class="container archive archive-sidebar">
+    <!-- Header 1. -->
+    <header class="list-page-header secondary-surface team-card team archive-header">
+        <figure>
+            {{ team.main_image.url|team_img_url|safe }}
+            <figcaption>{{ team.title }}</figcaption>
+        </figure>
+        <div>
+            <h1 class="tab-heading">{{ team }} Players and Content Creator's Setup and Specs</h1>
+            <p>Check out your favorite esports professional or streamers' setup, gaming gear, and PC Specs from
+                {{ team }}!</p>
+            <div class="links">
+                <ul class="calm-list">
+                    <li><a href="{% url 'ps' %}">PC Specs - Main Page</a></li>
+                    <li><a href="{% url 'ps_games' %}">View Other Games Streamers and Professionals</a></li>
+                    <li><a href="{% url 'ps_teams' %}">Streamers and Players by Teams</a></li>
+                    <li><a href="{% url 'ps_esports_players' %}">View All Esports Players</a></li>
+                    <li><a href="{% url 'ps_streamers' %}">View All Streamers and Content Creators</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- / Header 1. -->
+
+    <!-- Section 2. PC SPECS PROFILES -->
+    <article class="section-spacing archive-main">
+        <header class="heading-para">
+            <h2 class="heading">Recently Updated</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in profiles %}
+            <article class="card-design card-players border border-primary-hover">
+                {{ i.image.url|img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <span class="full-name">{{ i.full_name }}</span>
+                        <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                            <span class="name-aka">aka</span>
+                            <span class="name-alias">{{ i.title }}</span>
+                        </a>
+                    </h3>
+                    {% if i.type == "E" %}
+                    <p>Professional {{ i.main_game }} player roster for {{ i.team }}.</p>
+                    {% else %}
+                    {% if i.team.title == "Blank" %}
+                    <p>Streamer and gaming content creator. Know for playing {{ i.main_game }}.</p>
+                    {% else %}
+                    <p>Content creator for {{ i.team }} and a {{ i.main_game }} streamer.
+                    </p>
+                    {% endif %}
+                    {% endif %}
+                    <p class="small-cta">{{ i.title }}'s PC SPECS</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </article>
+
+    <aside class="">
+        <h3 class="tab-head">See other teams esports players and streamer's PC Specs</h3>
+        <div class="list-grid">
+            {% for i in related %}
+            <article class="card-design team-card">
+                {{ i.main_image.url|team_img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a class="abs-link" href="{{ i.slug|team_url }}">
+                            <span>{{ i }} </span>
+                        </a>
+                    </h3>
+                    <p class="hide-desk">Checkout streamers of this games!</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <!-- / Section 2. PC SPECS PROFILES -->
+    <!-- 3. Pagination -->
+    <div class="pagination container">
+        <span class="step-links">
+            {% if profiles.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ profiles.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ profiles.number }} of {{ profiles.paginator.num_pages }}.
+            </span>
+
+            {% if profiles.has_next %}
+            <a href="?page={{ profiles.next_page_number }}">next</a>
+            <a href="?page={{ profiles.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <!-- / 3. Pagination -->
+</main>
+
+
+{% endblock %}

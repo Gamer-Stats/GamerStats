@@ -1,0 +1,107 @@
+{% extends 'core/base.html' %} {% load urls_build %}
+
+{% block description %}
+Esports Professional players and streamers PC Specs, gaming gear and streaming setup from Valorant and CS:GO to
+Dota 2 and Halo 2. Check out your favorite game's rosters.
+{% endblock %}
+
+
+{% block title %}Streamers and Esports Professional's Setup and Cost By Games - GamerStats.net{% endblock %}
+
+{% block meta %}
+<link rel="canonical" href="https://gamerstats.net{% url 'ps_games' %}">
+
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Streamers and Esports Professional's Setup and Cost By Games - GamerStats.net" />
+<meta property="og:description"
+    content="Esports Professional players and streamers PC Specs, gaming gear and streaming setup from Valorant and CS:GO to Dota 2 and Halo 2. Check out your favorite game's rosters." />
+<meta property="og:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Streamers and Esports Professional's Setup and Cost By Games" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net{% url 'ps_games' %}" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="Streamers and Esports Professional's Setup and Cost By Games - GamerStats.net" />
+<meta name="twitter:description"
+    content="Esports Professional players and streamers PC Specs, gaming gear and streaming setup from Valorant and CS:GO to Dota 2 and Halo 2. Check out your favorite game's rosters." />
+<meta name="twitter:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta name="twitter:image:alt" content="Streamers and Esports Professional's Setup and Cost By Games" />
+<meta name="twitter:url" content="https://gamerstats.net{% url 'ps_games' %}" />
+{% endblock %}
+
+{% block main %}
+
+<main class="container-fluid">
+    <!-- Header 1. -->
+    <header class="list-page-header dotted-links">
+        <div class="container">
+            <h1>Streamers and Pro's By Most Streamed Games</h1>
+            <p>This page covers most popular games across the streaming platforms. You can find esports professional
+                players and streamers by filtering through the game you want.</p>
+            <p>Filter your favorite roster player or streamer with the following pages:</p>
+            <div class="links">
+                <ul class="calm-list">
+                    <li><a href="{% url 'ps' %}">PC Specs - Main Page</a></li>
+                    <li><a href="{% url 'ps_teams' %}">View Streamers and Professionals By Teams</a></li>
+                    <li><a href="{% url 'ps_esports_players' %}">View All Esports Players</a></li>
+                    <li><a href="{% url 'ps_streamers' %}">View All Streamers and Content Creators</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+    <!-- / Header 1. -->
+
+    <!-- Section 2. PC SPECS PROFILES -->
+    <article class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Recently Updated Players In Teams</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in games %}
+            <article class="card-design game-item">
+                {{ i.main_image.url|game_img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a class="abs-link" href="{{ i.slug|game_url }}">
+                            <span>{{ i }} </span>
+                        </a>
+                    </h3>
+                    <p class="hide-desk">Checkout streamers of this games!</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </article>
+
+    <!-- / Section 2. PC SPECS PROFILES -->
+
+    <!-- 3. Pagination -->
+
+    <div class="pagination container">
+        <span class="step-links">
+            {% if games.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ games.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ games.number }} of {{ games.paginator.num_pages }}.
+            </span>
+
+            {% if games.has_next %}
+            <a href="?page={{ games.next_page_number }}">next</a>
+            <a href="?page={{ games.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <!-- / 3. Pagination -->
+</main>
+
+{% endblock %}

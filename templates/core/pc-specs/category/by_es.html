@@ -1,0 +1,118 @@
+{% extends 'core/base.html' %} {% load urls_build %}
+
+{% block description %}
+Wondering what's the secret souce behind a esports professional? Well, they all have nice setup with good pc specs. Find
+your favorite esports player from NAVI's roster player to Dota 2 players.
+{% endblock %}
+
+
+{% block title %}Esports Roster Players Setup, Gaming Gear & PC Specs - GamerStats.net{% endblock %}
+
+{% block meta %}
+<link rel="canonical" href="https://gamerstats.net{% url 'ps_esports_players' %}">
+
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Esports Roster Players Setup, Gaming Gear & PC Specs - GamerStats.net" />
+<meta property="og:description"
+    content="Wondering what's the secret souce behind a esports professional? Well, they all have nice setup with good pc specs. Find your favorite esports player from NAVI's roster player to Dota 2 players." />
+<meta property="og:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Esports Roster Players Setup, Gaming Gear & PC Specs" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net{% url 'ps_esports_players' %}" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="Esports Roster Players Setup, Gaming Gear & PC Specs - GamerStats.net" />
+<meta name="twitter:description"
+    content="Wondering what's the secret souce behind a esports professional? Well, they all have nice setup with good pc specs. Find your favorite esports player from NAVI's roster player to Dota 2 players." />
+<meta name="twitter:image" content="https://gamerstats.net/static/images/setup.png" />
+<meta name="twitter:image:alt" content="Esports Roster Players Setup, Gaming Gear & PC Specs - GamerStats.net" />
+<meta name="twitter:url" content="https://gamerstats.net{% url 'ps_esports_players' %}" />
+{% endblock %}
+
+{% block main %}
+
+<main class="container-fluid">
+    <!-- Header 1. -->
+    <header class="list-page-header dotted-links">
+        <div class="container">
+            <h1>Esports Professional Player's PC Specs</h1>
+            <p>Looking for your favorite esports player's Pc specs or gaming equipment? We got everything here from
+                Counter Strike: Global Offensive professionals to Dota 2 player roster.</p>
+            <p>This page only includes pc specs profiles of esports pro players. If you're looking for a Twitch
+                streamer or content creator or someone who is currently not a professional esports player or retired
+                from their pro career, then use the following pages to find:</p>
+            <div class="links">
+                <ul class="calm-list">
+                    <li><a href="{% url 'ps' %}">PC Specs - Main Page</a></li>
+                    <li><a href="{% url 'ps_games' %}">View Streamers and Professionals By Games</a></li>
+                    <li><a href="{% url 'ps_teams' %}">View Streamers and Professionals By Teams</a></li>
+                    <li><a href="{% url 'ps_streamers' %}">View All Streamers and Content Creators</a></li>
+                    <li><a href="{% url 'index' %}">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- / Header 1. -->
+    <!-- Section 3. PC SPECS PROFILES -->
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Recently Updated Player Roster</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in ep %}
+            <article class="card-design card-players border border-primary-hover">
+                {{ i.image.url|img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <span class="full-name">{{ i.full_name }}</span>
+                        <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                            <span class="name-aka">aka</span>
+                            <span class="name-alias">{{ i.title }}</span>
+                        </a>
+                    </h3>
+                    {% comment %}
+                    <div class="person-rel">
+                        <img src="{{ i.main_game.image.url }}" alt="{{ i.main_game }} Logo">
+                        <p>{{ i.main_game.nickname }}</p>
+                    </div>
+                    {% endcomment %}
+                    <p>Professional {{ i.main_game.nickname }} player roster for {{ i.team }}</p>
+                    <p class="small-cta">{{ i.title }}'s PC SPECS</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- / Section 3. PC SPECS PROFILES -->
+
+    <!-- 4. Pagination -->
+
+    <div class="pagination container">
+        <span class="step-links">
+            {% if ep.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ ep.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ ep.number }} of {{ ep.paginator.num_pages }}.
+            </span>
+
+            {% if ep.has_next %}
+            <a href="?page={{ ep.next_page_number }}">next</a>
+            <a href="?page={{ ep.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <!-- / 4. Pagination -->
+
+</main>
+
+{% endblock %}

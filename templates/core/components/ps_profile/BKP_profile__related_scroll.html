@@ -1,0 +1,41 @@
+{% load urls_build %}
+<section class="pc-tab secondary-surface related scrollbtns">
+    <header class="tab-head tab-head-icon">
+        <img src="{{ p.team.image.url }}" alt="{{ p.team }} Logo">
+        <h2 id="{{ p }}-{{ p.main_game.nickname }}-Teammates" class="m-0">
+            <strong>{{ p.team }} ({{ p.main_game.nickname }}) -
+                <span class="mute">Player Roster's PC Specs</span></strong>
+        </h2>
+    </header>
+    <div id="scrollBtns" class="list-grid">
+        {% for i in related %}
+        <article class="card-design card-players border border-primary-hover">
+            {{ i.image.url|img_url|safe }}
+            <div class="card-content">
+                <h3 class="card-title">
+                    <span class="full-name">{{ i.full_name }}</span>
+                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                        <span class="name-aka">aka</span>
+                        <span class="name-alias">{{ i.title }}</span>
+                    </a>
+                </h3>
+                <p class="small-cta">{{ i.title }}'s PC SPECS</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    <button id="scrollLeft">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="32" width="32">
+            <title>Scroll Left</title>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="15"
+                d="M328 112L184 256l144 144" />
+        </svg>
+    </button>
+    <button id="scrollRight">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="32" width="32">
+            <title>Scroll Forward</title>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="15"
+                d="M184 112l144 144-144 144" />
+        </svg>
+    </button>
+</section>

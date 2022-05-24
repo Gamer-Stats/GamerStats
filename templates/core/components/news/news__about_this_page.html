@@ -1,0 +1,66 @@
+{% load age %}
+<section id="about-this-post" class="article-meta">
+    <header>
+        <h2 class="m-0">About This Post</h2>
+    </header>
+    <div class="article-meta_content">
+        <span class="article-meta_date">
+            <span class="article-date">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="18" width="18">
+                    <title>Article Publish and Last Modified Time and Date</title>
+                    <path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z" fill="none"
+                        stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" d="M256 128v144h96" />
+                </svg>
+                <span>Originally published: <time class="entry-date"
+                        datetime="{{ news.created_at|date:'Y-m-d' }}T{{ news.created_at|date:'H:iO' }}">
+                        {{ news.created_at|article_age|safe }} ({{ news.created_at }}) UTC</time> <br>Last
+                    updated:
+                    <time class="updated" datetime="
+                {{ i.updated_at|date:'Y-m-d' }}T{{ news.updated_at|date:'H:iO' }}">
+                        {{ news.updated_at|article_age|safe }} ({{ news.updated_at }}) UTC</time></span>
+            </span>
+        </span>
+        <span class="article-meta_author">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="#35b729" width="18" height="18">
+                <title>Gamer Stats</title>
+                <defs>
+                    <image width="94" height="94" id="img1"
+                        href="data:image/png;base64,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" />
+                </defs>
+                <use href="#img1" x="2" y="1" />
+            </svg>
+            <span>By <a href="/">Gamer Stats</a></span>
+        </span>
+        <span class="article-meta_section-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16">
+                <title>Article Category and Tag</title>
+                <path
+                    d="M440 432H72a40 40 0 01-40-40V120a40 40 0 0140-40h75.89a40 40 0 0122.19 6.72l27.84 18.56a40 40 0 0022.19 6.72H440a40 40 0 0140 40v240a40 40 0 01-40 40zM32 192h448"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="30" />
+            </svg>
+            <ul class="article-meta_section-tag-i">
+                <li>{{ news.news_topic }} News</li>
+                {% for t in news.team.all %}
+                <li>{{ t.nickname }} News</li>
+                {% endfor %}
+                {% for p in news.person.all %}
+                <li>{{ p }}</li>
+                {% endfor %}
+                {% for g in news.game.all %}
+                <li>{{ g.nickname }} News and Rumors</li>
+                {% endfor %}
+            </ul>
+        </span>
+        <span class="article-meta_notice">If you have any feedback and want to share or any kind of question. You can
+            comment below or send us your query using the contact form on our <a href="{% url 'contact' %}">contact
+                page</a>.</span>
+    </div>
+    <div>
+        <h3 class="upper-heads" style="margin-bottom: 0;">Share this on:</h3>
+        {% include 'core/components/news/news__share-this.html' %}
+    </div>
+</section>
+{% include 'core/components/scripts/share-this.html' %}

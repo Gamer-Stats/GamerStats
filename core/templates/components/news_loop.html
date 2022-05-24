@@ -23,7 +23,7 @@
             {{ i.title }}
           </a>
         </h3>
-        <p class="mt-2 text-sm font-medium text-white">
+        <p class="mt-2 text-xs font-medium text-white">
           <span class="sr-only">This news article was published on
             <time datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
               {{ i.created_at }}
@@ -33,7 +33,11 @@
           <time datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
             {{ i.updated_at|article_age|safe }}
           </time>
-          <span> by Gamer Stats </span>
+          {% if i.writer %}
+        <a class="text-white" href="{{ i.writer.twitter }}" target="_blank">{{ i.writer.name }}</a>
+        {% else %}
+        <a class="text-white" href="https://twitter.com/thegamerstats/" target="_blank">Gamer Stats</a>
+        {% endif %}
         </p>
       </div>
     </div>

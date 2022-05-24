@@ -1,0 +1,49 @@
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+<!-- Article Single -->
+<meta name="article-author" content="Gamer Stats" />
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ p }} Setup 2022: Gaming Gear, PC Specs, Streaming PC &amp; Cost" />
+<meta property="og:description" content="{{ p.title }}'s setup: streaming pc, gaming setup, and pc specs including keyboard, mouse, monitor, graphics card in 2022. {% if p.type == 'E' %} {{ p.title }} is a {{ p.main_game }} pro player for {{ p.team }}. {% else %} {{ p.full_name }} {% if p.team.title != 'Blank' %} is full-time content creator for {{ p.team }} {% else %} is full-time streamer and can been seen playing {{ p.main_game }} frequently.{% endif %}{% endif %} " />
+<meta property="og:image" content="https://gamerstats.net{{ p.image.url }}" />
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="{{ p }} Setup 2022: Gaming Gear, PC Specs, Streaming PC &amp; Cost" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net/pc-specs/{{ p.slug }}/" />
+<meta property="article:publisher" content="https://www.facebook.com/GamerStats/" />
+<meta property="article:published_time" content="{{ p.updated_at|date:'Y-m-d' }}T{{ p.updated_at|date:'H:iO' }}" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="{{ p }}'s Setup 2022: Gaming Gear, PC Specs, Streaming PC &amp; Cost" />
+<meta name="twitter:description" content="{{ p.title }}'s setup: streaming pc, gaming setup, and pc specs including keyboard, mouse, monitor, graphics card in 2022. {% if p.type == 'E' %} {{ p.title }} is a {{ p.main_game }} pro player for {{ p.team }}. {% else %} {{ p.full_name }} {% if p.team.title != 'Blank' %} is full-time content creator for {{ p.team }} {% else %} is full-time streamer and can been seen playing {{ p.main_game }} frequently.{% endif %}{% endif %} " />
+<meta name="twitter:image" content="https://gamerstats.net{{ p.image.url }}" />
+<meta name="twitter:image:alt"  content="{{ p }} Setup 2022: Gaming Gear, PC Specs, Streaming PC &amp; Cost" />
+<meta name="twitter:url" content="https://gamerstats.net/pc-specs/{{ p.slug }}/" />
+
+{% if p.setup_intro_title and p.title == "TenZ" %}
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "TenZ Setup: $5000 PC Build - C9 TenZ",
+    "description": "{{ p.description }}",
+    "thumbnailUrl": "https://i.ytimg.com/vi/QhbSlirW594/maxresdefault.jpg",
+    "uploadDate": "2020-12-26",
+    "duration": "PT587S",
+    "contentUrl": " https://www.youtube.com/watch?v=QhbSlirW594",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/QhbSlirW594",
+    "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": { "@type": "WatchAction" },
+    "userInteractionCount": 2379832
+    }
+}
+</script>
+
+{% endif %}

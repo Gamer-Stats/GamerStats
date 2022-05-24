@@ -1,0 +1,371 @@
+{% extends 'core/base.html' %}
+
+{% block description %}Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers...{% endblock %}
+
+{% block title %}GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs{% endblock %}
+{% load static %}
+<!-- META DATA -->
+
+{% block meta %}
+<link rel="canonical" href="https://gamerstats.net">
+
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs" />
+<meta property="og:description"
+    content="Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers..." />
+<meta property="og:image" content="https://gamerstats.net{% static 'images/setup.png' %}" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Game Leaks, Esports News and Pro Players Setup" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs" />
+<meta name="twitter:description"
+    content="Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers..." />
+<meta name="twitter:image" content="https://gamerstats.net{% static 'images/setup.png' %}" />
+<meta name="twitter:image:alt" content="Game Leaks, Esports News and Pro Players Setup" />
+<meta name="twitter:url" content="https://gamerstats.net" />
+
+{% endblock %}
+
+{% block script %}
+<script type="application/ld+json">
+
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": "https://gamerstats.net/#organization",
+            "name": "Gamer Stats",
+            "url": "https://gamerstats.net/",
+            "sameAs": [
+                "https://www.facebook.com/GamerStats/",
+                "https://www.youtube.com/channel/UCl-xlnLd3GTSyhUjQ8SH8dg",
+                "https://twitter.com/TheGamerStats",
+                "https://www.instagram.com/thegamerstats/"
+            ],
+            "logo": {
+                "@type": "ImageObject",
+                "@id": "https://gamerstats.net/#logo",
+                "inLanguage": "en-US",
+                "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
+                "width": 500,
+                "height": 500,
+                "caption": "Gamer Stats"
+            },
+            "image": {
+                "@id": "https://gamerstats.net/#logo"
+            }
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://gamerstats.net/#website",
+            "url": "https://gamerstats.net/",
+            "name": "Gamer Stats",
+            "description": "Professional players and streamers setup, gaming gear, streaming setup, biographies. Also, Esports news, streamers rumors and game leaks for competitive games like CS:GO, VALORANT, Dota 2, PUBG, and so on...",
+            "publisher": {
+                "@id": "https://gamerstats.net/#organization"
+            },
+            "potentialAction": [
+                {
+                    "@type": "SearchAction",
+                    "target": "https://gamerstats.net/?search={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            ],
+            "inLanguage": "en-US"
+        },
+        {
+            "@type": "ImageObject",
+            "@id": "{{ request.build_absolute_uri }}#primaryimage",
+            "inLanguage": "en-US",
+            "url": "https://gamerstats.net{% static 'images/setup.png' %}",
+            "width": 1920,
+            "height": 1080,
+            "caption": "{{ p.title }} PC Specs"
+        },
+        {
+            "@type": "WebPage",
+            "@id": "{{ request.build_absolute_uri }}#webpage",
+            "url": "{{ request.build_absolute_uri }}",
+            "name": "Gamer Stats - Esports News, Streamers and Pro's Gossips, PC Setup, and Gaming Gear",
+            "isPartOf": {
+                "@id": "https://gamerstats.net/#website"
+            },
+            "primaryImageOfPage": {
+                "@id": "https://gamerstats.net/#primaryimage"
+            },
+            "inLanguage": "en-US"
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+{% load urls_build %}
+
+<main class="homepage">
+    <header class="secondary-surface">
+        <div class="list-page-header container flex">
+            <div class="left">
+                <h1 class="tab-heading">Gamer Stats - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs</h1>
+                <p>Search for your favorite streamer or professional esports player's setup, pc specs, gaming gear, team, and game!</p>
+                <form class="inline-form">
+                    <input type="text" name="search" placeholder="s1mple, shroud, VALORANT, NAVI, CS:GO...">
+                    <button class="btn-filled" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="right">
+                <img src="{% static 'images/gamer-stats-banner-540.webp' %}" alt="Gamer Stats">
+            </div>
+        </div>
+    </header>
+    <!-- Esports Players -->
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Pro Player's Setup</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in e_p %}
+            <article class="card-design card-players border border-primary-hover">
+                {{ i.image.url|img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">{{ i.title }}</h3>
+                    <p>Professional {{ i.main_game.nickname }} player roster for {{ i.team }}</p>
+                    <p class="small-cta"><a class="abs-link" href="{{ i.slug|pcspecs }}">{{ i.title }}'s Setup</a></p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="text-center pt-30">
+            <a class="btn btn-outline" href="{% url 'ps_esports_players' %}">View All Pro Players</a>
+        </div>
+    </section>
+    <!-- Streamers -->
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Updated Streamers Setup and Gear</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in c_c %}
+            <article class="card-design card-players border border-primary-hover">
+                {{ i.image.url|img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">{{ i.title }}</h3>
+                    <p class="small-cta"><a class="abs-link" href="{{ i.slug|pcspecs }}">{{ i.title }}'s Setup</a></p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="text-center pt-30">
+            <a class="btn btn-outline" href="{% url 'ps_streamers' %}">View All Streamers and YouTubers</a>
+        </div>
+    </section>
+    <!-- Esports Players By Teams -->
+    <section class="section-spacing">
+        <div class="container">
+            <header class="heading-para pt-30">
+                <h2 class="m-0 heading">Esports Player's PC Setup By Games</h2>
+            </header>
+            <section class="pc-tab secondary-surface">
+                <header class="heading-para tab-head-icon tab-head">
+                    <img class="tab-image" src="/media/games/icon/csgo-icon.png" alt="CS:GO Player's Setup">
+                    <h3 class="m-0">Counter Strike: Global Offensive Players</h3>
+                </header>
+                <div class="team-players-list-section">
+                    <section class="team-players-list border border-radius">
+                        <header class="headline">
+                            <img src="/media/teams/icon/natus-vincere-icon.png" alt="CS:GO Natus Vincere Players">
+                            <h4>Natus Vincere</h4>
+                        </header>
+                        {% for i in nv_players %}
+                        <article class="team-player">
+                            {{ i.image.url|img_url|safe }}
+                            <div>
+                                <h5 class="m-0">
+                                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                                        {{ i.full_name }}
+                                    </a>
+                                </h5>
+                                <p class="m-0" style="font-size: 14px;">(aka {{ i }})</p>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                    <section class="team-players-list border border-radius">
+                        <header class="headline">
+                            <img src="/media/teams/icon/faze-clan-icon.png" alt="CS:GO Faze Clan Players">
+                            <h4>Faze Clan</h4>
+                        </header>
+                        {% for i in fz_players %}
+                        <article class="team-player">
+                            {{ i.image.url|img_url|safe }}
+                            <div>
+                                <h5 class="m-0">
+                                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                                        {{ i.full_name }}
+                                    </a>
+                                </h5>
+                                <p class="m-0" style="font-size: 14px;">(aka {{ i }})</p>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                    <section class="team-players-list border border-radius">
+                        <header class="headline">
+                            <img src="/media/teams/icon/g2-esports-icon.png" alt="G2 Esports CS:GO Player Roster">
+                            <h4>G2 Esports</h4>
+                        </header>
+                        {% for i in g2_players %}
+                        <article class="team-player">
+                            {{ i.image.url|img_url|safe }}
+                            <div>
+                                <h5 class="m-0">
+                                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                                        {{ i.full_name }}
+                                    </a>
+                                </h5>
+                                <p class="m-0" style="font-size: 14px;">(aka {{ i }})</p>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                </div>
+                <div class="text-center pt-30">
+                    <a class="btn btn-outline" href="/pc-specs/games/counter-strike-global-offensive/">View All CS:GO Players</a>
+                </div>
+            </section>
+
+            <!-- VALORANT -->
+
+            <section class="pc-tab secondary-surface">
+                <header class="heading-para tab-head-icon tab-head">
+                    <img class="tab-image" src="/media/games/icon/valorant-icon.png" alt="VALORANT Pro Player's Setup">
+                    <h3 class="m-0">VALORANT Players</h3>
+                </header>
+                <div class="team-players-list-section">
+                    <section class="team-players-list border border-radius">
+                        <header class="headline">
+                            <img src="/media/teams/icon/acend-icon.png" alt="Acend VALORANT Players">
+                            <h4>Acend</h4>
+                        </header>
+                        {% for i in vlr_Acend %}
+                        <article class="team-player">
+                            {{ i.image.url|img_url|safe }}
+                            <div>
+                                <h5 class="m-0">
+                                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                                        {{ i.full_name }}
+                                    </a>
+                                </h5>
+                                <p class="m-0" style="font-size: 14px;">(aka {{ i }})</p>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                    <section class="team-players-list border border-radius">
+                        <header class="headline">
+                            <img src="/media/teams/icon/team-liquid-icon.png" alt="Team Liquid VALORANT Players">
+                            <h4>Team Liquid</h4>
+                        </header>
+                        {% for i in vlr_TL %}
+                        <article class="team-player">
+                            {{ i.image.url|img_url|safe }}
+                            <div>
+                                <h5 class="m-0">
+                                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                                        {{ i.full_name }}
+                                    </a>
+                                </h5>
+                                <p class="m-0" style="font-size: 14px;">(aka {{ i }})</p>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                    <section class="team-players-list border border-radius">
+                        <header class="headline">
+                            <img src="/media/teams/icon/g2-esports-icon.png" alt="Team Secret VALORANT Player Roster">
+                            <h4>Team Secret</h4>
+                        </header>
+                        {% for i in vlr_Secret %}
+                        <article class="team-player">
+                            {{ i.image.url|img_url|safe }}
+                            <div>
+                                <h5 class="m-0">
+                                    <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                                        {{ i.full_name }}
+                                    </a>
+                                </h5>
+                                <p class="m-0" style="font-size: 14px;">(aka {{ i }})</p>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                </div>
+                <div class="text-center pt-30">
+                    <a class="btn btn-outline" href="/pc-specs/games/valorant/">View All VALORANT
+                        Player Roster</a>
+                </div>
+            </section>
+        </div>
+    </section>
+    <section class="site-faq container">
+        <header class="heading-para tab-head-icon tab-head">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="#35b729" width="18" height="18">
+                <title>Gamer Stats</title>
+                <use href="#img1" x="2" y="1" />
+            </svg>
+            <h2 class="m-0">About - Gamer Stats</h2>
+        </header>
+        <div class="grid grid-50 about-us links">
+            <article class="pc-tab secondary-surface">
+                <h3 class="tab-heading">What is Gamer Stats?</h3>
+                <p><a href="/">Gamer Stats</a> is a free to use online database built for gamers by gamers. The
+                    primary focus of this website is to track live esports games (coming soon!), competitive matches,
+                    professional players, streamers news and rumours.</p>
+                <p>Gamer Stats also covers the PC Specs, equipment, and streaming setup of CS:GO, VALORANT, DOTA 2, and
+                    LoL's esports players as well as popular Twitch streamer and content creators from around the globe.
+                </p>
+            </article>
+            <article class="pc-tab secondary-surface">
+                <h3 class="tab-heading">When Gamer Stats was started?</h3>
+                <p>Gamer Stats was started in 2019, somewhere around the month of August and September. I (admin) am a
+                    full stack developer, I created this for posting my own gaming stories but later I turned that Gamer
+                    Stats into this, which you're seeing right now with the help of my cousin.</p>
+            </article>
+            <article class="pc-tab secondary-surface">
+                <h3 class="tab-heading">Who is working behind the website right now?</h3>
+                <p>My brother left after 3 months (approx.) in the end of 2019 as he moved to another city for a job and
+                    didn't had much time to put into this. But he did helped me to put a lot of things for the website.
+                </p>
+                <p>Right now, me and my neighbor is working on this. Recently, we created this new version of the
+                    website for better usability and accessibility. </p>
+            </article>
+            <article class="pc-tab secondary-surface">
+                <h3 class="tab-heading">How do you collect PC Specs of players and are they correct?</h3>
+                <p>We generally track them from their live streamers and follow them on all social media. We try to
+                    update them as soon as possible whenever someone change their specs or gaming equipements but if you
+                    notice any error then you can help us and submit the updated information using the form on our
+                    contact page.</p>
+            </article>
+            <article class="pc-tab secondary-surface">
+                <h3 class="tab-heading">What if I need help or want contact you?</h3>
+                <p>If you have any problem (anything related to the website or content) or want to send us your
+                    feedback. Then you can use the form on our contact page to submit your query.</p>
+            </article>
+        </div>
+        <footer class="text-center pt-30">
+            <a class="btn btn-outline" href="{% url 'contact' %}">Contact Us</a>
+        </footer>
+    </section>
+</main>
+
+{% endblock %}

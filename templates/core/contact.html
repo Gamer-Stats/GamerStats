@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %} {% load static %}
+
+{% block description %}Contact Gamer Stats: If you've have any questions or want to share your valuable feedback. Do reach us here.{% endblock %}
+
+{% block title %}Contact - Gamer Stats{% endblock %}
+{% block meta %}
+{% load static %}
+<link rel="canonical" href="https://gamerstats.net/contact/">
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Contact - Gamer Stats" />
+<meta property="og:description" content="Contact Gamer Stats: If you've have any questions or want to share your valuable feedback. Do reach us here." />
+<meta property="og:image" content="https://gamerstats.net{% static 'images/setup.png' %}" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Contact - Gamer Stats" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net/contact/" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="Contact - Gamer Stats" />
+<meta name="twitter:description" content="Contact Gamer Stats: If you've have any questions or want to share your valuable feedback. Do reach us here." />
+<meta name="twitter:image" content="https://gamerstats.net{% static 'images/setup.png' %}" />
+<meta name="twitter:image:alt" content="Contact - Gamer Stats" />
+<meta name="twitter:url" content="https://gamerstats.net/contact/" />
+
+{% endblock %}
+
+{% block main %}
+
+<main class="container">
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+    <article>
+        <h2>Share your questions, feedback, or information that need to be change!</h2>
+        <form id="contactForm" class="comment" method="POST">
+            {% csrf_token %}
+            <div class="input-control">
+                <div>
+                    <label for="id_name">Name</label>
+                    {{ contact_form.name }}
+                </div>
+                <div>
+                    <label for="id_email">Email</label>
+                    {{ contact_form.email }}
+                </div>
+            </div>
+            <div class="selectField">
+                <label for="id_topic">Reason</label>
+                {{ contact_form.topic }}
+            </div>
+            <label for="id_message">Message ({{ contact_form.message.help_text }})</label>
+            {{ contact_form.message }}
+            <button class="btn btn-filled" type="submit">Submit</button>
+        </form>
+    </article>
+</main>
+
+{% endblock %}

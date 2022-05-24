@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %} {% load urls_build %} {% load age %} {% load static %}
+
+{% block description %}Get all updates on esports and competitive matches as well game leaks, streamers and pro players' rumors.{% endblock %}
+
+{% block title %}Esports News, Game Leaks &amp; Streamers Rumors - Gamer Stats{% endblock %}
+
+<!-- META DATA -->
+
+{% block meta %}
+
+{% load static %}
+<link rel="canonical" href="https://gamerstats.net/news/">
+
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Esports News, Game Leaks &amp; Streamers Rumors - Gamer Stats" />
+<meta property="og:description" content="Get all updates on esports and competitive matches as well game leaks, streamers and pro players rumors." />
+<meta property="og:image" content="https://gamerstats.net{% static 'images/setup.png' %}" />
+<meta property=" og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Esports News, Game Leaks &amp; Streamers Rumors - Gamer Stats" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net/news/" />
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@TheGamerStats" />
+<meta name="twitter:creator" content="@TheGamerStats">
+<meta name="twitter:title" content="Esports News, Game Leaks &amp; Streamers Rumors - Gamer Stats" />
+<meta name="twitter:description" content="Get all updates on esports and competitive matches as well game leaks, streamers and pro players rumors." />
+<meta name="twitter:image" content="https://gamerstats.net{% static 'images/setup.png' %}" />
+<meta name="twitter:image:alt" content="Esports News, Game Leaks &amp; Streamers Rumors - Gamer Stats" />
+<meta name="twitter:url" content="https://gamerstats.net/news/" />
+
+{% endblock %}
+
+{% block main %}
+
+<main class="container news-archive">
+    <article>
+        {% include 'core/components/news/category__header.html' %}
+        <div class="featured-article">
+            {% for i in news %}
+            <article>
+                <a class="abs-link" href="{{ i.slug }}"><img src="{{ i.image.url }}" alt="{{ i }}"></a>
+                <div class=" article-content">
+                    <h2 class="article-heading"><a class="abs-link" href="{{ i.slug|s_news }}">{{ i }}</a></h2>
+                    <div class="article-intro">{{ i.intro|safe }}</div>
+                    <span class="article-date">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="18" width="18">
+                            <title>Updated Time and Date</title>
+                            <path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z"
+                                fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M256 128v144h96" />
+                        </svg>
+                        <time class="entry-date hidden"
+                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                            {{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}</time>
+                        <time class="updated" datetime="
+                        {{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                            {{ i.updated_at|article_age|safe }}</time>
+                    </span>
+                    <ul class="article-tag">
+                        <li>{{ i.news_topic }}</li>
+                        {% for t in i.team.all %}
+                        <li class="btn-text">{{ t.nickname }}</li>
+                        {% endfor %}
+                        {% for p in i.person.all %}
+                        <li>{{ p }}</li>
+                        {% endfor %}
+                        {% for g in i.game.all %}
+                        <li>{{ g.nickname }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </article>
+</main>
+
+{% endblock %}

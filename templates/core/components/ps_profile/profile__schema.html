@@ -1,0 +1,178 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": "https://gamerstats.net/#organization",
+            "name": "Gamer Stats",
+            "url": "https://gamerstats.net/",
+            "sameAs": [
+                "https://www.facebook.com/GamerStats/",
+                "https://www.youtube.com/channel/UCl-xlnLd3GTSyhUjQ8SH8dg",
+                "https://twitter.com/TheGamerStats",
+                "https://www.instagram.com/thegamerstats/"
+            ],
+            "logo": {
+                "@type": "ImageObject",
+                "@id": "https://gamerstats.net/#logo",
+                "inLanguage": "en-US",
+                "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
+                "width": 500,
+                "height": 500,
+                "caption": "Gamer Stats"
+            },
+            "image": {
+                "@id": "https://gamerstats.net/#logo"
+            }
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://gamerstats.net/#website",
+            "url": "https://gamerstats.net/",
+            "name": "Gamer Stats",
+            "description": "Pro Gamers Profiles, Pc Specs, Settings, Esports News, &amp; Biography",
+            "publisher": {
+                "@id": "https://gamerstats.net/#organization"
+            },
+            "potentialAction": [
+                {
+                    "@type": "SearchAction",
+                    "target": "https://gamerstats.net/?search={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            ],
+            "inLanguage": "en-US"
+        },
+        {
+            "@type": "ImageObject",
+            "@id": "{{ request.build_absolute_uri }}#primaryimage",
+            "inLanguage": "en-US",
+            "url": "{{ p.image.url }}",
+            "width": 1920,
+            "height": 1080,
+            "caption": "{{ p.title }} PC Specs"
+        },
+        {
+            "@type": "WebPage",
+            "@id": "{{ request.build_absolute_uri }}#webpage",
+            "url": "{{ request.build_absolute_uri }}",
+            "name": "{{ p }} Setup 2022: Gaming Gear, PC Specs, Streaming PC &amp; Cost - Gamer Stats",
+            "isPartOf": {
+                "@id": "https://gamerstats.net/#website"
+            },
+            "primaryImageOfPage": {
+                "@id": "{{ request.build_absolute_uri }}#primaryimage"
+            },
+            "datePublished": "{{ p.created_at|date:'Y-m-d' }}T{{ p.created_at|date:'H:iO' }}",
+            "dateModified": "{{ p.updated_at|date:'Y-m-d' }}T{{ p.updated_at|date:'H:iO' }}",
+            "breadcrumb": {
+                "@id": "{{ request.build_absolute_uri }}#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": [
+                        "{{ request.build_absolute_uri }}"
+                    ]
+                }
+            ]
+        },
+        {
+            "@type": "BreadcrumbList",
+            "@id": "{{ request.build_absolute_uri }}#breadcrumb",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                        "@type": "WebPage",
+                        "@id": "https://gamerstats.net/",
+                        "url": "https://gamerstats.net/",
+                        "name": "Home"
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                        "@type": "WebPage",
+                        "@id": "{{ request.build_absolute_uri }}",
+                        "url": "{{ request.build_absolute_uri }}",
+                        "name": "{{ p }} Setup 2022"
+                    }
+                }
+            ]
+        },
+        {
+            "@type": [
+                "Article"
+            ],
+            "@id": "{{ request.build_absolute_uri }}#article",
+            "isPartOf": {
+                "@id": "{{ request.build_absolute_uri }}#webpage"
+            },
+            "author": {
+                "@type": "Organization",
+                "@id": "https://gamerstats.net/#/schema/person/602d241ee9976648e6bd3046e4df2339",
+                "name": "Gamer Stats",
+                "url": "https://gamerstats.net/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://gamerstats.net/#organization",
+                "name": "Gamer Stats",
+                "url": "https://gamerstats.net/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
+                    "name": "Gamer Stats"
+                },
+                "sameAs": [
+                    "https://www.facebook.com/GamerStats/",
+                    "https://www.youtube.com/channel/UCl-xlnLd3GTSyhUjQ8SH8dg",
+                    "https://twitter.com/TheGamerStats",
+                    "https://www.instagram.com/thegamerstats/"
+                ]
+            },
+            "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": [
+                    ".mainHeadline",
+                    "#articleBody"
+                ]
+            },
+            "headline": "{{ p }} Setup 2022: Gaming Gear, PC Specs, Streaming PC &amp; Cost",
+            "datePublished": "{{ p.created_at|date:'Y-m-d' }}T{{ p.created_at|date:'H:iO' }}",
+            "dateModified": "{{ p.updated_at|date:'Y-m-d' }}T{{ p.updated_at|date:'H:iO' }}",
+            "articleSection": "PC Specs and Setup",
+            "mainEntityOfPage": {
+                "@id": "{{ request.build_absolute_uri }}#webpage"
+            },
+            "commentCount": 0,
+            "image": {
+                "@type": "ImageObject",
+                "@id": "{{ p.image.url }}#primaryimage",
+                "url": "{{ p.image.url }}",
+                "width": 1920,
+                "height": 1080,
+                "caption": "{{ p.title }} PC Specs"
+            },
+            "keywords": "{{ p.title }} Setup, {{ p.title }} Gaming Gear, {{ p.title }} PC Cost, {{ p.title }} PC Specs",
+            "inLanguage": "en-US",
+            "potentialAction": [
+                {
+                    "@type": "CommentAction",
+                    "name": "Comment",
+                    "target": [
+                        "{{ request.build_absolute_uri }}#respond"
+                    ]
+                }
+            ],
+            "copyrightYear": "{{ p.updated_at|date:'Y' }}",
+            "copyrightHolder": {
+                "@id": "https://gamerstats.net/#organization"
+            }
+        }
+    ]
+}

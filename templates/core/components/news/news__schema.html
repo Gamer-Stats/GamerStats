@@ -1,0 +1,177 @@
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": "https://gamerstats.net/#organization",
+            "name": "Gamer Stats",
+            "url": "https://gamerstats.net/",
+            "sameAs": [
+                "https://www.facebook.com/GamerStats/",
+                "https://www.youtube.com/channel/UCl-xlnLd3GTSyhUjQ8SH8dg",
+                "https://twitter.com/TheGamerStats",
+                "https://www.instagram.com/thegamerstats/"
+            ],
+            "logo": {
+                "@type": "ImageObject",
+                "@id": "https://gamerstats.net/#logo",
+                "inLanguage": "en-US",
+                "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
+                "width": 500,
+                "height": 500,
+                "caption": "Gamer Stats"
+            },
+            "image": {
+                "@id": "https://gamerstats.net/#logo"
+            }
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://gamerstats.net/#website",
+            "url": "https://gamerstats.net/",
+            "name": "Gamer Stats",
+            "description": "Pro Gamers Profiles, Pc Specs, Settings, Esports News, &amp; Biography",
+            "publisher": {
+                "@id": "https://gamerstats.net/#organization"
+            },
+            "potentialAction": [
+                {
+                    "@type": "SearchAction",
+                    "target": "https://gamerstats.net/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            ],
+            "inLanguage": "en-US"
+        },
+        {
+            "@type": "ImageObject",
+            "@id": "{{ request.build_absolute_uri }}#primaryimage",
+            "inLanguage": "en-US",
+            "url": "{{ news.image.url }}",
+            "width": "{{ news.image.width }}",
+            "height": "{{ news.image.height }}",
+            "caption": "{{ news.title }}"
+        },
+        {
+            "@type": "WebPage",
+            "@id": "{{ request.build_absolute_uri }}#webpage",
+            "url": "{{ request.build_absolute_uri }}",
+            "name": "{{ news.title }}",
+            "isPartOf": {
+                "@id": "https://gamerstats.net/#website"
+            },
+            "primaryImageOfPage": {
+                "@id": "https://gamerstats.net/{{ news.image.url }}#primaryimage"
+            },
+            "datePublished": "{{ news.created_at|date:'Y-m-d' }}T{{ news.created_at|date:'H:iO' }}",
+            "dateModified": "{{ news.updated_at|date:'Y-m-d' }}T{{ news.updated_at|date:'H:iO' }}",
+            "breadcrumb": {
+                "@id": "{{ request.build_absolute_uri }}#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": [
+                        "{{ request.build_absolute_uri }}"
+                    ]
+                }
+            ]
+        },
+        {
+            "@type": "BreadcrumbList",
+            "@id": "{{ request.build_absolute_uri }}#breadcrumb",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                        "@type": "WebPage",
+                        "@id": "https://gamerstats.net/news/",
+                        "url": "https://gamerstats.net/news/",
+                        "name": "News"
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                        "@type": "WebPage",
+                        "@id": "{{ request.build_absolute_uri }}",
+                        "url": "{{ request.build_absolute_uri }}",
+                        "name": "{{ news.title }}"
+                    }
+                }
+            ]
+        },
+        {
+            "@type": [
+                "NewsArticle"
+            ],
+            "@id": "{{ request.build_absolute_uri }}#article",
+            "isPartOf": {
+                "@id": "{{ request.build_absolute_uri }}#webpage"
+            },
+            "author": {
+                "@type": "Organization",
+                "name": "Gamer Stats",
+                "url": "https://gamerstats.net/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://gamerstats.net/#organization",
+                "name": "Gamer Stats",
+                "url": "https://gamerstats.net/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
+                    "name": "Gamer Stats"
+                },
+                "sameAs": [
+                    "https://www.facebook.com/GamerStats/",
+                    "https://www.youtube.com/channel/UCl-xlnLd3GTSyhUjQ8SH8dg",
+                    "https://twitter.com/TheGamerStats",
+                    "https://www.instagram.com/thegamerstats/"
+                ]
+            },
+            "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": [
+                    ".mainHeadline",
+                    ".article-body"
+                ]
+            },
+            "headline": "{{ news.title }}",
+            "datePublished": "{{ news.created_at|date:'Y-m-d' }}T{{ news.created_at|date:'H:iO' }}",
+            "dateModified": "{{ news.updated_at|date:'Y-m-d' }}T{{ news.updated_at|date:'H:iO' }}",
+            "articleSection": "{{ news.news_topic }} News and Rumors",
+            "mainEntityOfPage": {
+                "@id": "{{ request.build_absolute_uri }}#webpage"
+            },
+            "commentCount": 0,
+            "image": {
+                "@type": "ImageObject",
+                "@id": "{{ news.image.url }}#primaryimage",
+                "url": "{{ news.image.url }}",
+                "width": "{{ news.image.width }}",
+                "height": "{{ news.image.height }}",
+                "caption": "{{ news.title }} PC Specs"
+            },
+            "keywords": "{{ news.news_topic }} News and Rumors{% for i in news.person.all %}, {{ i }} News {% endfor %} {% for i in news.game.all %}, {{ i }} News {% endfor %} {% for i in news.team.all %}, {{ i }} News {% endfor %}",
+            "inLanguage": "en-US",
+            "potentialAction": [
+                {
+                    "@type": "CommentAction",
+                    "name": "Comment",
+                    "target": [
+                        "{{ request.build_absolute_uri }}#Comments"
+                    ]
+                }
+            ],
+            "copyrightYear": "{{ news.updated_at|date:'Y' }}",
+            "copyrightHolder": {
+                "@id": "https://gamerstats.net/#organization"
+            }
+        }
+    ]
+}

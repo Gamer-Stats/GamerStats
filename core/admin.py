@@ -11,7 +11,13 @@ from core.models import (
     PcSpecs,
     SetupSettings,
     News,
+    Author,
 )
+
+
+@admin.action(description='Mark as published')
+def make_published(modeladmin, request, queryset):
+    queryset.update(publish=True)
 
 
 @admin.register(Topic)
@@ -40,17 +46,19 @@ class JsonDataAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_filter = ["data_type"]
 
-
 @admin.register(WikiCategory)
 class WikiCategoryAdmin(admin.ModelAdmin):
     search_fields = ["title"]
+    list_display = ["title", "publish"]
+    list_filter = ["publish"]
+    actions = [make_published]
 
 
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
-    list_display = ("title", "avatar")
+    list_display = ("title", "publish")
     search_fields = ["title"]
-    list_filter = ["page_type"]
+    list_filter = ["page_type", "publish"]
     autocomplete_fields = ("avatar", "info_box", "tags")
 
 
@@ -58,10 +66,11 @@ class WikiAdmin(admin.ModelAdmin):
 class SetupAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ("title", "meta_images", "game")
-    list_filter = ["game"]
+    list_filter = ["is_pro"]
     autocomplete_fields = ("specs", "team", "related", "avatar")
 
 
 admin.site.register(NewsCategory)
 admin.site.register(SEOImage)
 admin.site.register(Subscribe)
+admin.site.register(Author)

@@ -1,4 +1,31 @@
-{% extends "base.html" %} {% load static %} {% block main %} {% load thumbnail %}
+{% extends "base.html" %} {% load static %} {% load thumbnail %}
+
+{% block page_title %}GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs{% endblock %}
+{% block page_title_f %}GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs{% endblock %}
+{% block page_title_t %}GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs{% endblock %}
+
+{% block meta_desc %}Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers...{% endblock %}
+{% block meta_desc_f %}Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers...{% endblock %}
+{% block meta_desc_t %}Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers...{% endblock %}
+
+{% block canonical_link %}{% if canonical_url %}{{ obj.canonical_url }}{% else %}{{ request.build_absolute_uri }}{% endif %}{% endblock %}
+
+{% block p_img %}{% static 'gamer-stats-banner.png' %}{% endblock %}
+{% block p_img_f %}{% static 'gamer-stats-banner.png' %}{% endblock %}
+{% block p_img_t %}{% static 'gamer-stats-banner.png' %}{% endblock %}
+
+{% block p_img_w %}1200{% endblock %}
+{% block p_img_w_f %}1200{{ obj.meta_images.hd_image.width }}{% endblock %}
+{% block p_img_w_t %}1200{{ obj.meta_images.hd_image.width }}{% endblock %}
+
+{% block p_img_h %}675{% endblock %}
+{% block p_img_h_f %}675{% endblock %}
+{% block p_img_h_t %}675{% endblock %}
+
+{% block p_img_alt %}Gamer Stats - Pro Settings{% endblock %}
+{% block p_img_alt_f %}Gamer Stats - Pro Settings{% endblock %}
+{% block p_img_alt_t %}Gamer Stats - Pro Settings{% endblock %}
+
 {% block custom_metas %}
 <script type="application/ld+json">
   {
@@ -59,6 +86,7 @@
   }
   </script>
 {% endblock %}
+{% block main %}
 <!-- HERO SECTION -->
 <section class="max-w-7xl mx-auto py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
   <header class="sm:flex sm:items-baseline sm:justify-between">
@@ -135,7 +163,6 @@
     </div>
   </div>
 </section>
-<img src="{% static '404.webp' %}" alt="rooooooooo">
 <!-- News Section -->
 <section class="max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 lg:px-8">
   <header class="sm:flex sm:items-baseline sm:justify-between">
@@ -221,9 +248,9 @@
                 {{ wiki.title }}
               </a>
             </h3>
-            <p aria-hidden="true" class="mt-1 text-sm text-white">
-              {{ wiki.meta_description }}
-            </p>
+            <div class="mt-1 text-sm text-white">
+	    {{ wiki.meta_description|truncatewords:10|safe }}
+            </div>
           </div>
         </div>
       </div>

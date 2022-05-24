@@ -13,49 +13,44 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="robots" content="max-image-preview:large" />
   <meta property="og:locale" content="en_US" />
-  <title>
-    GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors
-    &amp; PC Specs
-  </title>
-  <meta name="description"
-    content="Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers..." />
-  <link rel="canonical" href="https://gamerstats.net" />
-
+  <title>{% block page_title %}{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}{% endblock %}" />
+  <link rel="canonical" href="{% block canonical_link %}{% endblock %}" />
+  <!-- CDN -->
+  <link rel="preconnect" href="https://cdn.gamerstats.net/">
+  <link rel="dns-prefetch" href="https://cdn.gamerstats.net/">
   <!--Open Graph Metadata-->
   <meta property="og:type" content="article" />
-  <meta property="og:title"
-    content="GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs" />
-  <meta property="og:description"
-    content="Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers..." />
-  <meta property="og:image" content="https://gamerstats.net/static/setup.png" />
-  <meta property=" og:image:width" content="1920" />
-  <meta property="og:image:height" content="1080" />
-  <meta property="og:image:alt" content="Game Leaks, Esports News and Pro Players Setup" />
+  <meta property="og:title" content="{% block page_title_f %}{% endblock %}" />
+  <meta property="og:description" content="{% block meta_desc_f %}{% endblock %}" />
+  <meta property="og:image" content="{% block p_img_f %}{% endblock %}" />
+  <meta property="og:image:width" content="{% block p_img_w_f %}{% endblock %}" />
+  <meta property="og:image:height" content="{% block p_img_h_f %}{% endblock %}" />
+  <meta property="og:image:alt" content="{% block p_img_alt_f %}{% endblock %}" />
   <meta property="og:site_name" content="Gamer Stats" />
-  <meta property="og:url" content="https://gamerstats.net" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <!--Twitter Card Metadata-->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@TheGamerStats" />
   <meta name="twitter:creator" content="@TheGamerStats" />
-  <meta name="twitter:title"
-    content="GamerStats.net - Esports News, Pro Player's and Streamers Setup, Rumors &amp; PC Specs" />
-  <meta name="twitter:description"
-    content="Gamer Stats covers streamers and pro esports player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all Twitch streamers and YouTubers..." />
-  <meta name="twitter:image" content="https://gamerstats.net/static/setup.png" />
-  <meta name="twitter:image:alt" content="Game Leaks, Esports News and Pro Players Setup" />
-  <meta name="twitter:url" content="https://gamerstats.net" />
+  <meta name="twitter:title" content="{% block page_title_t %}{% endblock %}" />
+  <meta name="twitter:description" content="{% block meta_desc_t %}{% endblock %}" />
+  <meta name="twitter:image" content="{% block p_img_t %}{% endblock %}" />
+  <meta name="twitter:image:alt" content="{% block p_img_alt_t %}{% endblock %}" />
+  <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
   <!-- Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="https://gamerstats.net/static/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://gamerstats.net/static/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="https://gamerstats.net/static/favicon-16x16.png" />
-  <link rel="shortcut icon" type="image/png" sizes="any" href="https://gamerstats.net/static/favicon.ico" crossorigin />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}" crossorigin>
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}" crossorigin>
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}" crossorigin>
+  <link rel="shortcut icon" type="image/png" sizes="any" href="https://gamerstats.net/favicon.ico">
   <!-- Site Assets -->
-  <link rel="preload" href="{% static 'Inter-roman.var.woff2' %}" as="font" type="font/woff2" crossorigin>
-  {% block custom_metas %}
-  {% endblock %}
-  <link rel="stylesheet" href="{% static 'components-v2.css' %}" />
+  <link rel="stylesheet" href="{% static 'components-v2.css' %}">
   <script src="{% static 'components-v2.js' %}" defer></script>
   <script src="{% static 'alpine.js' %}" defer></script>
+  <!-- Analytics -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" crossorigin>
+  {% block custom_metas %}{% endblock %}
 </head>
 
 <body class="font-sans antialiased">
@@ -115,10 +110,10 @@
               About Us
             </h3>
             <p class="mt-4 space-y-4 text-base text-gray-300">
-              Gamer Stats is a free to use online database built for gamers by
-              gamers. The primary focus of this website is to track live
-              esports games (coming soon!), competitive matches, professional
-              players, streamers news and rumours.
+              Gamer Stats is a Esports news and gaming updates website. Gamer Stats also track the esports players and
+              content creators' game settings and pc setup.
+              <br /><b>Disclaimer:</b> <i>Purchases made using the retail links on this page may earn GamerStats a small
+                commission.</i>
             </p>
           </section>
         </div>
@@ -205,11 +200,20 @@
           </a>
         </div>
         <p class="mt-4 text-base text-gray-400 text-center lg:text-left md:mt-0 md:order-1">
-          © 2019 - 22 Gamer Stats. Some rights reserved.
+          © 2019 - 2022 <a href="{% url 'index' %}">Gamer Stats</a>. Some rights reserved. | <a
+            href="https://GadgetsBrief.com">Gadgets Brief</a> - For tech tutorials and guides.
         </p>
       </div>
     </div>
   </footer>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121670545-12"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-121670545-12');
+  </script>
 </body>
 
 </html>

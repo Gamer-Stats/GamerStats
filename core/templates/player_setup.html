@@ -1,4 +1,17 @@
-{% extends "base.html" %}{% block main %}{% load normal %}{% load age %}{% load specs_price %}{% load thumbnail %}
+{% extends "base.html" %}{% load normal %}{% load age %}{% load specs_price %}{% load thumbnail %}
+{% block page_title %}{{ obj.meta_title }}{% endblock %}
+{% block page_title_t %}{{ obj.meta_title }}{% endblock %}
+{% block page_title_f %}{{ obj.meta_title }}{% endblock %}
+{% block meta_desc %}{% if obj.meta_description %}{{ obj.meta_description }}{% else %}{{ obj.team.title }} {{ obj.title }} settings and setup, including crosshair, sensitivity, viewmodel, CFG, and Gaming PC Setup. Regular updates for {{ obj.game.title }}.{% endif %}{% endblock %}
+{% block meta_desc_t %}{% if obj.meta_description %}{{ obj.meta_description }}{% else %}{{ obj.team.title }} {{ obj.title }} settings and setup, including crosshair, sensitivity, viewmodel, CFG, and Gaming PC Setup. Regular updates for {{ obj.game.title }}.{% endif %}{% endblock %}
+{% block meta_desc_f %}{% if obj.meta_description %}{{ obj.meta_description }}{% else %}{{ obj.team.title }} {{ obj.title }} settings and setup, including crosshair, sensitivity, viewmodel, CFG, and Gaming PC Setup. Regular updates for {{ obj.game.title }}.{% endif %}{% endblock %}
+{% block canonical_link %}{% if obj.canonical_url %}{{ obj.canonical_url }}{% else %}{{ request.build_absolute_uri }}{% endif %}{% endblock %}
+{% block p_img_f %}{{ obj.meta_images.hd_image.url }}{% endblock %}
+{% block p_img_t %}{{ obj.meta_images.hd_image.url }}{% endblock %}
+{% block p_img_w_f %}{{ obj.meta_images.hd_image.width }}{% endblock %}
+{% block p_img_h_f %}{{ obj.meta_images.hd_image.height }}{% endblock %}
+{% block p_img_alt_f %}{{ obj.avatar.alt }}{% endblock %}
+{% block p_img_alt_t %}{{ obj.avatar.alt }}{% endblock %}
 {% block custom_metas %}
 <script type="application/ld+json">
   {
@@ -19,9 +32,9 @@
                   "@type": "ImageObject",
                   "@id": "https://gamerstats.net/#logo",
                   "inLanguage": "en-US",
-                  "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
-                  "width": 500,
-                  "height": 500,
+                  "url": "https://cdn.gamerstats.net/static/gamer-stats-logo-dark.png",
+                  "width": 542,
+                  "height": 129,
                   "caption": "Gamer Stats"
               },
               "image": {
@@ -50,9 +63,9 @@
               "@type": "ImageObject",
               "@id": "{{ request.build_absolute_uri }}#primaryimage",
               "inLanguage": "en-US",
-              "url": "https://gamerstats.net{{ obj.avatar.image.url }}",
-              "width": {{ obj.avatar.image.width }},
-              "height": {{ obj.avatar.image.height }},
+              "url": "{{ obj.meta_images.hd_image.url }}",
+              "width": {{ obj.meta_images.hd_image.width }},
+              "height": {{ obj.meta_images.hd_image.height }},
               "caption": "{{ obj.title }}"
           },
           {
@@ -85,36 +98,25 @@
               "@type": "BreadcrumbList",
               "@id": "{{ request.build_absolute_uri }}#breadcrumb",
               "itemListElement": [
-                  {
-                      "@type": "ListItem",
-                      "position": 1,
-                      "item": {
-                          "@type": "WebPage",
-                          "@id": "https://gamerstats.net/",
-                          "url": "https://gamerstats.net/",
-                          "name": "Home"
-                      }
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "item": {
-                        "@type": "WebPage",
-                        "@id": "https://gamerstats.net{% url 'setup' %}",
-                        "url": "https://gamerstats.net{% url 'setup' %}",
-                        "name": "Settings and Setup"
-                    }
-                },
-                  {
-                      "@type": "ListItem",
-                      "position": 3,
-                      "item": {
-                          "@type": "WebPage",
-                          "@id": "{{ request.build_absolute_uri }}",
-                          "url": "{{ request.build_absolute_uri }}",
-                          "name": "{{ obj.meta_title }}"
-                      }
-                  }
+	      		{
+				"@type": "ListItem",
+                    		"position": 1,
+                    		"item": {
+                        	"@type": "WebPage",
+                        	"@id": "https://gamerstats.net{% url 'setup' %}",
+                        	"url": "https://gamerstats.net{% url 'setup' %}",
+				"name": "{% if obj.is_pro %}Pro Settings{% else %}Setup{% endif %}"
+				}
+                	},
+                  	{
+                      		"@type": "ListItem",
+                      		"position": 2,
+                      		"item": {
+				"@type": "WebPage",
+                          	"@id": "{{ request.build_absolute_uri }}",
+                          	"name": "{{ obj.title }}"
+              	        	}
+                  	}
               ]
           },
           {
@@ -137,7 +139,7 @@
                   "url": "https://gamerstats.net/",
                   "logo": {
                       "@type": "ImageObject",
-                      "url": "https://gamerstats.net/static/images/gamer-stats-logo.svg",
+                      "url": "https://cdn.gamerstats.net/static/gamer-stats-logo-dark.png",
                       "name": "Gamer Stats"
                   },
                   "sameAs": [
@@ -148,18 +150,18 @@
                   ]
               },
               "headline": "{{ obj.meta_title }}",
-              "datePublished": "2022-03-26T00:00+0000",
-              "dateModified": "2022-03-31T18:37+0000",
-              "articleSection": "Settings and Setup",
+              "datePublished": "{{ obj.created_at|date:'Y-m-d' }}T{{ obj.created_at|date:'H:iO' }}",
+              "dateModified": "{{ obj.updated_at|date:'Y-m-d' }}T{{ obj.updated_at|date:'H:iO' }}",
+	      "articleSection": "{% if obj.is_pro %}Pro Setting {% else %}Setu {% endif %}",
               "mainEntityOfPage": {
                   "@id": "{{ request.build_absolute_uri }}#webpage"
               },
               "image": {
                   "@type": "ImageObject",
-                  "@id": "https://gamerstats.net{{ obj.avatar.image.url }}#primaryimage",
-                  "url": "https://gamerstats.net{{ obj.avatar.image.url }}",
-                  "width": {{ obj.avatar.image.width }},
-                  "height": {{ obj.avatar.image.height }},
+                  "@id": "{{ obj.meta_images.hd_image.url }}#primaryimage",
+                  "url": "{{ obj.meta_images.hd_image.url }}",
+                  "width": {{ obj.meta_images.hd_image.width }},
+                  "height": {{ obj.meta_images.hd_image.height }},
                   "caption": "{{ obj.title }}"
               },
               "keywords": "{{ obj.meta_title }}",
@@ -173,6 +175,8 @@
   }
   </script>
 {% endblock %}
+
+{% block main %}
 <main class="flex-1 relative focus:outline-none xl:order-last">
     {% include "components/breadcrumb_single.html" %}
     <article class="divide-y divide-gray-200 max-w-5xl mx-auto md:border-gray-200 md:border-r md:border-l">
@@ -188,8 +192,8 @@
                 alt="{{ obj.meta_title }}">
             <div class="-mt-12 sm:-mt-16 sm:px-6 lg:px-8 px-4 sm:flex sm:items-end sm:space-x-5">
                 <div class="flex">
-                    {% thumbnail obj.avatar.image "128x128" quality=95 format="WEBP" as im %}
-                    <img class="bg-gray-600 rounded-full ring-4 ring-white h-32 w-32" srcset="{{ im.url }}"
+                    {% thumbnail obj.avatar.image "158x158" quality=100 format="WEBP" as im %}
+                    <img class="bg-gray-800 rounded-full ring-4 ring-white h-32 w-32" srcset="{{ im.url }}"
                         src="{{ obj.avatar.image.url }}" alt="{{ obj.title }}">
                     {% endthumbnail %}
                 </div>
@@ -238,16 +242,16 @@
             </h2>
             {% if obj.settings_body %}
             <div class="prose max-w-full text-sm  prose-indigo text-gray-500 mt-3 pb-5">
-                {{ obj.settings_body }}
+                {{ obj.settings_body|safe }}
             </div>
             {% endif %}
-            <div class="bg-gray-50 divide-y divide-gray-200 border rounded-lg">
+            <div class="bg-white divide-y divide-gray-200 border rounded-lg">
                 {% for title, values in obj.settings.data.items %}
                 <section class="py-6 px-4 sm:px-6 lg:px-8">
-                    <h3 id="{{ obj.title }}-{{ title|removespace }}" class="capitalize mb-4 text-lg text-indigo-500">
+                    <h3 id="{{ obj.title }}-{{ title|removespace }}" class="capitalize mb-4 text-lg text-indigo-600">
                         <strong class="font-semibold">{{ title }}</strong>
                     </h3>
-                    {% if title == "Video Settings" or title == "Monitor settings" %}
+                    {% if title == "Video Settings" or title == "Monitor settings" or title == "Crosshair" and obj.game.title == "VALORANT"%}
                     {% for k, v in values.items %}
                     <h4 class="mt-6 uppercase mb-4 text-sm font-medium text-gray-600">
                         {{ k }}</h4>
@@ -295,10 +299,10 @@
                 {{ obj.setup_body|safe }}
             </div>
             {% endif %}
-            <div class="bg-gray-50 divide-y border divide-gray-200 rounded-lg">
+            <div class="bg-white divide-y border divide-gray-200 rounded-lg">
                 <section class="py-6 px-4 sm:px-6 lg:px-8">
                     <header class="flex items-baseline justify-between">
-                        <h3 id="{{ obj.title }}-Gaming-Gear" class="capitalize text-lg mb-4 text-indigo-500">
+                        <h3 id="{{ obj.title }}-Gaming-Gear" class="capitalize text-lg mb-4 text-indigo-600">
                             <strong class="font-semibold">Gaming Gear</strong>
                         </h3>
                         <p class="text-xs text-gray-500">
@@ -317,7 +321,7 @@
                                     class="object-cover pointer-events-none group-hover:opacity-75 transition">
                                 {% endthumbnail %}
                                 <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
-                                    target="_blank">
+                                    target="_blank" load="lazy">
                                     <span class="sr-only">View details for {{ spec }}</span>
                                 </a>
                             </div>
@@ -334,7 +338,7 @@
                 </section>
                 <section class="py-6 px-4 sm:px-6 lg:px-8">
                     <header class="flex items-baseline justify-between">
-                        <h3 id="{{ obj.title }}-PC-Setup" class="capitalize text-lg mb-4 text-indigo-500">
+                        <h3 id="{{ obj.title }}-PC-Setup" class="capitalize text-lg mb-4 text-indigo-600">
                             <strong class="font-semibold">Gaming PC Setup</strong>
                         </h3>
                         <p class="text-xs text-gray-500">
@@ -353,7 +357,7 @@
                                     class="object-cover pointer-events-none group-hover:opacity-75 transition">
                                 {% endthumbnail %}
                                 <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
-                                    target="_blank">
+                                    target="_blank" load="lazy">
                                     <span class="sr-only">View details for {{ spec }}</span>
                                 </a>
                             </div>
@@ -370,7 +374,7 @@
                 </section>
                 <section class="py-6 px-4 sm:px-6 lg:px-8">
                     <header class="flex items-baseline justify-between">
-                        <h3 id="{{ obj.title }}-Streaming-Setup" class="capitalize text-lg mb-4 text-indigo-500">
+                        <h3 id="{{ obj.title }}-Streaming-Setup" class="capitalize text-lg mb-4 text-indigo-600">
                             <strong class="font-semibold">Streaming Setup</strong>
                         </h3>
                         <p class="text-xs text-gray-500">
@@ -389,7 +393,7 @@
                                     class="object-cover pointer-events-none group-hover:opacity-75 transition">
                                 {% endthumbnail %}
                                 <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
-                                    target="_blank">
+                                    target="_blank" load="lazy">
                                     <span class="sr-only">View details for {{ spec }}</span>
                                 </a>
                             </div>
@@ -477,7 +481,7 @@
                         <a href="{% url 'setup_single' mate.slug %}">
                             {% thumbnail mate.avatar.image "128x128" quality=95 format="WEBP" as im %}
                             <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full" srcset="{{ im.url }}"
-                                src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}">
+                                src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}" load="lazy">
                             {% endthumbnail %}
                         </a>
                         <h3 class="mt-4 sm:mt-6 text-gray-900 text-sm font-medium">{{ mate.title }}</h3>

@@ -1,0 +1,146 @@
+{% extends 'core/base.html' %} 
+
+{% block description %}Esports Pro players' and streamers PC Specs, gaming gear and setup from Valorant and CS:GO to
+Dota 2 and Halo professionals. Check out your favorite.{% endblock %}
+
+{% block keywords %}{{ n.meta_keyword }}{% endblock %}
+
+{% block title %}Pro Players' PC Specs, Gaming Gear & Setup{% endblock %}
+
+<!-- META DATA -->
+
+{% block meta %}
+<!-- Article Single -->
+<meta name="article-author" content="Gamer Stats" />
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title"
+    content="{{ p.title }} {{ p.main_game.nickname }} PC Specs: Gaming Gear, Streaming Setup & Cost" />
+<meta property="og:description"
+    content="{{ p.team }}'s {{ p.title }} {{ p.main_game.nickname }} gaming pc setup, gaming gear, and {{ p.title }} pc cost. Includes keyboard, mouse, monitor, etc" />
+<meta property="og:image" content="https://gamerstats.net{{ p.image.url }}" />
+<meta property="og:image:width" content="500">
+<meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="{{ p.title }} PC Specs" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net/pc-specs/{{ p.slug }}/" />
+<meta property="article:publisher" content="https://www.facebook.com/GamerStats/" />
+<meta property="article:published_time" content="{{ p.updated_at|date:'Y-m-d' }}" />
+
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://gamerstats.net/pc-specs/{{ p.slug }}/" />
+<meta name="twitter:title"
+    content="{{ p.title }} {{ p.main_game.nickname }} PC Specs: Gaming Gear, Streaming Setup & Cost" />
+<meta name="twitter:description"
+    content="{{ p.team }}'s {{ p.title }} {{ p.main_game.nickname }} gaming pc setup and gaming gear including keyboard, mouse, monitor, etc" />
+<meta name="twitter:image:src" content="https://gamerstats.net{{ p.image.url }}" />
+<meta name="twitter:site" content="@TheGamerStats" />
+
+{% endblock %}
+
+{% block main %}
+
+{% load urls_build %}
+{% load static %}
+<main class="homepage" role="main">
+    <header class="secondary-surface">
+        <div class="list-page-header container flex">
+            <div class="left">
+                <h1 class="tab-heading">Gamer Stats - Esports News, Stats, Streamers Rumours, Equipements and Setup</h1>
+                <p>Search for your favorite streamer or professional esports player's gaming PC specification, setup,
+                    and biography!</p>
+                <form class="inline-form">
+                    <input type="text" name="search" placeholder="s1mple, shroud, VALORANT, NAVI, CS:GO...">
+                    <button class="btn-filled" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="right">
+                <img src="{% static 'images/esports_616.webp' %}" alt="Esports Players holding trophies and celebrating">
+            </div>
+        </div>
+    </header>
+    <!-- Esports Players -->
+    {% if sp %}
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Updated Esports Player's PC Specs</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in sp %}
+            <article class="card-design card-players border border-primary-hover">
+                {{ i.image.url|img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <span class="full-name">{{ i.full_name }}</span>
+                        <a class="abs-link" href="{{ i.slug|pcspecs }}">
+                            <span class="name-aka">aka</span>
+                            <span class="name-akas">{{ i.title }}</span>
+                        </a>
+                    </h3>
+                    <p class="small-cta">{{ i.title }}'s Setup</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="text-center pt-30 flex">
+            <a class="btn btn-outline" href="{% url 'ps_esports_players' %}">All Pro Players</a>
+            <a class="btn btn-outline" href="{% url 'ps_streamers' %}">All Streamers</a>
+        </div>
+    </section>
+    {% endif %}
+    <!-- Teams -->
+    {% if st %}
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">Filter Streamer and Players By Teams</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in st %}
+            <article class="card-design team-card">
+                {{ i.main_image.url|team_img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a class="abs-link" href="{{ i.slug|team_url }}">
+                            <span>{{ i }} </span>
+                        </a>
+                    </h3>
+                    <p class="hide-desk">Checkout PC Specs of {{ i.title }} players and streamers</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="text-center pt-30">
+            <a class="btn btn-outline" href="{% url 'ps_teams' %}">All Teams List</a>
+        </div>
+    </section>
+    {% endif %}
+    <!-- Games -->
+    {% if sg %}
+    <section class="container section-spacing">
+        <header class="heading-para">
+            <h2 class="heading">View Creators and Professional Players By Games</h2>
+        </header>
+        <div class="list-grid">
+            {% for i in sg %}
+            <article class="card-design game-item">
+                {{ i.main_image.url|game_img_url|safe }}
+                <div class="card-content">
+                    <h3 class="card-title">
+                        <a class="abs-link" href="{{ i.slug|game_url }}">
+                            <span>{{ i }} </span>
+                        </a>
+                    </h3>
+                    <p class="hide-desk">Checkout streamers of this games!</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="text-center pt-30">
+            <a class="btn btn-outline" href="{% url 'ps_games' %}">View All Games List</a>
+        </div>
+    </section>
+    {% endif %}
+</main>
+
+{% endblock %}

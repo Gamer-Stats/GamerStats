@@ -1,0 +1,319 @@
+{% extends 'core/base.html' %} {% load static %} {% load urls_build %}
+
+{% block description %}Esports Pro players' and streamers PC Specs, gaming gear and setup from Valorant and CS:GO to
+Dota 2 and Halo professionals. Check out your favorite.{% endblock %}
+
+{% block keywords %}{{ n.meta_keyword }}{% endblock %}
+
+{% block title %}Pro Players' PC Specs, Gaming Gear & Setup{% endblock %}
+
+<!-- META DATA -->
+
+{% block meta %}
+<!-- Article Single -->
+<meta name="article-author" content="Gamer Stats" />
+<!--Open Graph Metadata-->
+<meta property="og:type" content="article" />
+<meta property="og:title"
+    content="{{ p.title }} {{ p.main_game.nickname }} PC Specs: Gaming Gear, Streaming Setup & Cost" />
+<meta property="og:description"
+    content="{{ p.team }}'s {{ p.title }} {{ p.main_game.nickname }} gaming pc setup, gaming gear, and {{ p.title }} pc cost. Includes keyboard, mouse, monitor, etc" />
+<meta property="og:image" content="https://gamerstats.net{{ p.image.url }}" />
+<meta property="og:image:width" content="500">
+<meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="{{ p.title }} PC Specs" />
+<meta property="og:site_name" content="Gamer Stats" />
+<meta property="og:url" content="https://gamerstats.net/pc-specs/{{ p.slug }}/" />
+<meta property="article:publisher" content="https://www.facebook.com/GamerStats/" />
+<meta property="article:published_time" content="{{ p.updated_at|date:'Y-m-d' }}" />
+
+<!--Twitter Card Metadata-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://gamerstats.net/pc-specs/{{ p.slug }}/" />
+<meta name="twitter:title"
+    content="{{ p.title }} {{ p.main_game.nickname }} PC Specs: Gaming Gear, Streaming Setup & Cost" />
+<meta name="twitter:description"
+    content="{{ p.team }}'s {{ p.title }} {{ p.main_game.nickname }} gaming pc setup and gaming gear including keyboard, mouse, monitor, etc" />
+<meta name="twitter:image:src" content="https://gamerstats.net{{ p.image.url }}" />
+<meta name="twitter:site" content="@TheGamerStats" />
+
+{% endblock %}
+
+{% block main %}
+
+<main class="container news-archive">
+    <article>
+        {% include 'core/components/news/category__header.html' %}
+        <div class="featured-article">
+            <article>
+                <img src="/media/news/defaulf_news.jpg" alt="">
+                <div>
+                    <h2 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been leaked
+                    </h2>
+                    <p class="article-intro">Get latest updates from all around the esports arena, completitive matches,
+                        stats, streamers, esports player's rumors, and much more.</p>
+                    <span class="article-date">
+                        <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                            am</time>
+                        <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                    </span>
+                    <ul class="article-tag">
+                        <li><a href="#">Valorant</a></li>
+                        <li><a href="#">Esports</a></li>
+                    </ul>
+                </div>
+            </article>
+            <article>
+                <img src="/media/news/defaulf_news.jpg" alt="">
+                <div>
+                    <h2 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been leaked
+                    </h2>
+                    <p class="article-intro">Get latest updates from all around the esports arena, completitive
+                        matches, stats, streamers, esports player's rumors, and much more. </p>
+                    <span class="article-date">
+                        <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                            am</time>
+                        <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                    </span>
+                    <ul class="article-tag">
+                        <li><a href="#">Valorant</a></li>
+                        <li><a href="#">Esports</a></li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+        <div class="normal-article">
+            <div class="article-list">
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <p class="article-intro">Get latest updates from all around the esports arena, completitive.
+                        </p>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                        <ul class="article-tag">
+                            <li><a href="#">Valorant</a></li>
+                            <li><a href="#">Esports</a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <p class="article-intro">Get latest updates from all around the esports arena, completitive.
+                        </p>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                        <ul class="article-tag">
+                            <li><a href="#">Valorant</a></li>
+                            <li><a href="#">Esports</a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <p class="article-intro">Get latest updates from all around the esports arena, completitive.
+                        </p>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                        <ul class="article-tag">
+                            <li><a href="#">Valorant</a></li>
+                            <li><a href="#">Esports</a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <p class="article-intro">Get latest updates from all around the esports arena, completitive.
+                        </p>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                        <ul class="article-tag">
+                            <li><a href="#">Valorant</a></li>
+                            <li><a href="#">Esports</a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <p class="article-intro">Get latest updates from all around the esports arena, completitive.
+                        </p>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                        <ul class="article-tag">
+                            <li><a href="#">Valorant</a></li>
+                            <li><a href="#">Esports</a></li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+            <div class="trending-article">
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                ]<article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+                <article>
+                    <img src="/media/news/defaulf_news.jpg" alt="">
+                    <div>
+                        <h3 class="tab-heading article-heading">The new VALORANT agent abilities have reportedly been
+                            leaked
+                        </h3>
+                        <span class="article-date">
+                            <time class="entry-date hidden" datetime="2022-03-30T10:17:18-05:00">Mar 30, 2022 10:17
+                                am</time>
+                            <time class="updated" datetime="March 30, 2022, 10:17 GMT-0500">Mar 30, 2022 10:17 am</time>
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </article>
+</main>
+
+{% endblock %}

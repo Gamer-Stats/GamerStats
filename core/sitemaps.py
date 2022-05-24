@@ -22,7 +22,7 @@ class SetupSettings_Sitemap(sitemaps.Sitemap):
     protocol = "https"
 
     def items(self):
-        return SetupSettings.objects.all()
+        return SetupSettings.objects.filter(publish=True).order_by("-updated_at")
 
     def location(self, obj):
         return "/setup/" + obj.slug + "/"  # type: ignore
@@ -37,7 +37,7 @@ class Wiki_Sitemap(sitemaps.Sitemap):
     protocol = "https"
 
     def items(self):
-        return Wiki.objects.all()
+        return Wiki.objects.filter(publish=True).order_by("-updated_at")
 
     def location(self, obj):
         return "/wiki/" + obj.slug + "/"  # type: ignore
@@ -52,7 +52,7 @@ class News_Sitemap(sitemaps.Sitemap):
     protocol = "https"
 
     def items(self):
-        return News.objects.all()
+        return News.objects.filter(publish=True).order_by("-updated_at")
 
     def location(self, obj):
         return "/news/" + obj.slug + "/"  # type: ignore
