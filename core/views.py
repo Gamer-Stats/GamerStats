@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404, render
 from core.forms import SubscribeForm
 from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
+# from django.views.generic.detail import DetailView
+
+
 
 # Homepage
 def index(request):
@@ -103,7 +106,7 @@ def setup_single(request, slug):
     return render(request, template_name, context)
 
 
-# Wiki Main
+# Wiki Main op
 def wiki(request):
     wikis = Wiki.objects.select_related("avatar__id", "page_type").values("title", "page_type__title", "slug", "updated_at", "avatar__image").order_by("-updated_at")
     # wikis = Wiki.objects.values("title", "updated_at", "created_at", "slug", "avatar__image")
@@ -134,6 +137,12 @@ def wiki_filter(request, slug):
 
 
 # Wiki Single
+# class WikiSingle(DetailView):
+#     model = Wiki
+#     template_name = "wiki_single.html"
+#     context_object_name = 'obj'
+
+    # obj = get_object_or_404(Wiki, slug=slug, publish=True)
 def wiki_single(request, slug):
     obj = get_object_or_404(Wiki, slug=slug, publish=True)
 

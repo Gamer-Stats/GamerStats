@@ -1,8 +1,9 @@
-from django.urls import path
-from core import views
 from django.contrib.sitemaps.views import sitemap
+from django.urls import path
 
-from core.sitemaps import StaticViewSitemap, SetupSettings_Sitemap, Wiki_Sitemap, News_Sitemap
+from core import views
+from core.sitemaps import (News_Sitemap, SetupSettings_Sitemap,
+                           StaticViewSitemap, Wiki_Sitemap)
 
 sitemaps = {
     "static": StaticViewSitemap,
