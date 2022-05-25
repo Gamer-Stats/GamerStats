@@ -328,7 +328,16 @@
   </article>
   <aside class="max-w-5xl mx-auto mb-8 px-4 sm:px-10">
     <h2 class="mb-4 text-base sm:text-xl font-bold">Related news</h2>
+    {% for values in news %}
+    {% for k, v in values.items %}
+    <strong>{{ k }}</strong> <br>
+    <img src="{{ v }}" alt=""> <br>
+    {% endfor %}
+    {% endfor %}
+
+    {% comment %}
     {% include 'components/news_loop.html' %}
+    {% endcomment %}
   </aside>
 </main>
 <script>

@@ -177,7 +177,7 @@ class News(BaseOptions):
     overview = RichTextField(blank=True)
     body = RichTextUploadingField(blank=True)
     ref = RichTextField(blank=True)
-    tags = models.ManyToManyField(NewsCategory, related_name="news_tags")
+    tags = models.ManyToManyField(NewsCategory, related_name="news_tags", null=True, blank=True)
     writer = models.ForeignKey(
         Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="news_writer"
     )

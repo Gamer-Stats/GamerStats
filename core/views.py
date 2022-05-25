@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from core.forms import SubscribeForm
 from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
+# from django.views.decorators.cache import cache_page
 
 # Homepage - half op
 def index(request):
@@ -23,7 +24,7 @@ def index(request):
 
 # News Main op
 def news(request):
-    news = News.objects.prefetch_related(Prefetch("tags")).select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)
+    news = News.objects.prefetch_related("tags").select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)
     news = list(chain(news))
 
     template_name = "news_cat.html"
@@ -35,10 +36,13 @@ def news(request):
     return render(request, template_name, context)
 
 
-# News Single
+# News Single op
 def news_single(request, slug):
-    obj = get_object_or_404(News, slug=slug, publish=True)
-    news = News.objects.order_by("-updated_at").exclude(title=obj)[:3]
+    obj = News.objects.select_related("writer", "avatar").prefetch_related("tags").get(slug=slug)
+    news = []
+    for tg in obj.tags.all():
+        for i in tg.news_tags.select_related("avatar"):
+            news.append({i.title: i.avatar.image.url})
 
     template_name = "news_single.html"
     context = {"obj": obj, "news": news}
