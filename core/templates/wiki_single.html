@@ -318,7 +318,7 @@
     </div>
   </article>
   <aside class="max-w-7xl mx-auto pb-4 px-4 sm:px-6">
-    {% for i in obj.tags.all %}
+    {% for i in cats %}
     <a class="inline-block py-1 px-2 mb-2 rounded-md bg-gray-100 text-xs border border-gray-300 text-gray-700 hover:text-indigo-600 hover:border-indigo-600"
       href="{% url 'wiki_filter' i.slug %}">{{ i }}</a>
     {% endfor %}
