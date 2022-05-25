@@ -2,15 +2,12 @@ from itertools import chain
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
-from django.db.models import Q, prefetch_related_objects
+from django.db.models import Prefetch, Q, prefetch_related_objects
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from core.forms import SubscribeForm
 from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
-
-# from django.views.generic.detail import DetailView
-
 
 
 # Homepage
@@ -26,7 +23,9 @@ def index(request):
 
 # News Main
 def news(request):
-    news = News.objects.order_by("-updated_at").exclude(publish=False)
+    news = News.objects.prefetch_related(Prefetch("tags")).select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)
+    news = list(chain(news))
+
     template_name = "news_cat.html"
     paginator = Paginator(news, 12)
 
@@ -99,8 +98,8 @@ def setup_single(request, slug):
 
 # Wiki Main OP
 def wiki(request):
-    wikis = Wiki.objects.select_related("avatar__id", "page_type").values("title", "page_type__title", "slug", "updated_at", "avatar__image").order_by("-updated_at")
-    # wikis = Wiki.objects.values("title", "updated_at", "created_at", "slug", "avatar__image")
+    wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at")
+    wikis = list(chain(wikis))
     paginator = Paginator(wikis, 20)
 
     page_num = request.GET.get("page")
