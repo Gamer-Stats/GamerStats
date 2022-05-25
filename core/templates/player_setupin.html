@@ -210,11 +210,7 @@
                                 {{ obj.updated_at|article_age }}
                             </time>
                         </span>
-                        {% if wiki is not None %}
-                        <a href="{% url 'wiki_single' wiki.slug %}"
-                            class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">Read
-                            {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
-                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
@@ -224,11 +220,7 @@
                 </h1>
                 <div class="prose prose-indigo text-sm text-gray-500 mt-4">{{ obj.overview|safe }}</div>
             </div>
-            {% if wiki is not None %}
-            <a href="{% url 'wiki_single' wiki.slug %}"
-                class="sm:px-6 lg:px-8 px-4 mt-4 inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:hidden">Read
-                {{ obj.title }} Wiki<span aria-hidden="true"> →</span></a>
-            {% endif %}
+            
         </section>
 
         <!-- || Tabs -->
@@ -312,7 +304,6 @@
                     <ul role="list"
                         class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
                         {% for spec in obj.specs.all %}
-                        {% if spec.section == "GG" %}
                         <li class="relative">
                             <div
                                 class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
@@ -332,79 +323,6 @@
                                 {{ spec }}
                             </p>
                         </li>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
-                </section>
-                <section class="py-6 px-4 sm:px-6 lg:px-8">
-                    <header class="flex items-baseline justify-between">
-                        <h3 id="{{ obj.title }}-PC-Setup" class="capitalize text-lg mb-4 text-indigo-600">
-                            <strong class="font-semibold">Gaming PC Setup</strong>
-                        </h3>
-                        <p class="text-xs text-gray-500">
-                            Click on image to learn more
-                        </p>
-                    </header>
-                    <ul role="list"
-                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
-                        {% for spec in obj.specs.all %}
-                        {% if spec.section == "GPS" %}
-                        <li class="relative">
-                            <div
-                                class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                {% thumbnail spec.avatar.image "190x190" quality=90 format="WEBP" as im %}
-                                <img srcset="{{ im.url }}" src="{{ spec.avatar.image.url }}" alt="{{ spec }}"
-                                    class="object-cover pointer-events-none group-hover:opacity-75 transition">
-                                {% endthumbnail %}
-                                <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
-                                    target="_blank" load="lazy">
-                                    <span class="sr-only">View details for {{ spec }}</span>
-                                </a>
-                            </div>
-                            <h4 class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
-                                {{ spec.get_specs_type_display }}
-                            </h4>
-                            <p class="block text-xs font-medium text-gray-500 pointer-events-none">
-                                {{ spec }}
-                            </p>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
-                </section>
-                <section class="py-6 px-4 sm:px-6 lg:px-8">
-                    <header class="flex items-baseline justify-between">
-                        <h3 id="{{ obj.title }}-Streaming-Setup" class="capitalize text-lg mb-4 text-indigo-600">
-                            <strong class="font-semibold">Streaming Setup</strong>
-                        </h3>
-                        <p class="text-xs text-gray-500">
-                            Click on image to learn more
-                        </p>
-                    </header>
-                    <ul role="list"
-                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-8">
-                        {% for spec in obj.specs.all %}
-                        {% if spec.section == "SPS" %}
-                        <li class="relative">
-                            <div
-                                class="group block w-full aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                                {% thumbnail spec.avatar.image "190x190" quality=90 format="WEBP" as im %}
-                                <img srcset="{{ im.url }}" src="{{ spec.avatar.image.url }}" alt="{{ spec }}"
-                                    class="object-cover pointer-events-none group-hover:opacity-75 transition">
-                                {% endthumbnail %}
-                                <a href="{{ spec.amazon_url }}" class="absolute inset-0 focus:outline-none"
-                                    target="_blank" load="lazy">
-                                    <span class="sr-only">View details for {{ spec }}</span>
-                                </a>
-                            </div>
-                            <h4 class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
-                                {{ spec.get_specs_type_display }}
-                            </h4>
-                            <p class="block text-xs font-medium text-gray-500 pointer-events-none">
-                                {{ spec }}
-                            </p>
-                        </li>
-                        {% endif %}
                         {% endfor %}
                     </ul>
                 </section>
@@ -461,65 +379,29 @@
                 </table>
             </div>
         </section>
-        <section class="py-8 pb-12  pb-8 px-4 sm:px-6 lg:px-8">
-            {% if obj.is_pro %}
-            <h2 id="{{ obj.title }}-Teammates" class="text-gray-900 text-xl mb-4">
-                <strong>{{ obj.title }} Teammates</strong>
-            </h2>
-            {% else %}
-            <h2 id="{{ obj.title }}-Streamers" class="text-gray-900 text-xl mb-4">
-                <strong>{{ obj.title }} Related Streamers</strong>
-            </h2>
-            {% endif %}
+        <!-- Teammates -->
+        <section>
+            <ul>
 
-            <ul role="list" class="grid grid-cols-1 gap-3 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {% for mate in teammates %}
-                <li class="col-span-1 flex flex-col text-center bg-gray-50 rounded-lg border divide-y divide-gray-200">
+                {% for i in obj.related.all %}
+                <li>
                     <div class="flex-1 flex flex-col py-4 px-2 sm:p-8">
-                        <a href="{% url 'setup_single' mate.slug %}">
-                            {% thumbnail mate.avatar.image "128x128" quality=95 format="WEBP" as im %}
+                        <a href="{% url 'setup_single' i.slug %}">
+                            {% thumbnail i.avatar.image "128x128" quality=95 format="WEBP" as im %}
                             <img class="bg-gray-800 w-32 h-32 flex-shrink-0 mx-auto rounded-full" srcset="{{ im.url }}"
-                                src="{{ mate.avatar.image.url }}" alt="{{ mate.title }}" load="lazy">
+                                src="{{ i.avatar.image.url }}" alt="{{ i.title }}" load="lazy">
                             {% endthumbnail %}
                         </a>
-                        <h3 class="mt-4 sm:mt-6 text-gray-900 text-sm font-medium">{{ mate.title }}</h3>
+                        <h3 class="mt-4 sm:mt-6 text-gray-900 text-sm font-medium">{{ i.title }}</h3>
                         <dl class="mt-1 flex-grow flex flex-col justify-between">
                             <dt class="sr-only">Role</dt>
                             <dd class="mt-3">
                                 <a class="px-2 py-1 text-indigo-800 text-xs font-medium bg-indigo-100 rounded-full"
-                                    href="/setup/game/{{ mate.game.slug }}/">
-                                    {% if obj.is_pro %}
-                                    {% if mate.game.title == "Counter-Strike: Global Offensive" %}
-                                    CS:GO Pro
-                                    {% else %}
-                                    {{ mate.game.title }} Pro
-                                    {% endif %}
-                                    {% else %}
-                                    {{ mate.game.title }}
-                                    {% endif %}
+                                    href="/setup/game/{{ i.game.slug }}/">
+                                    {{ i.game.title }}
                                 </a>
                             </dd>
                         </dl>
-                    </div>
-                    <div>
-                        <div class="-mt-px flex divide-x divide-gray-200">
-                            <div class="w-0 flex-1 flex">
-                                <a href="{% url 'setup_single' mate.slug %}"
-                                    class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-2 sm:py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-                                    target="_blank">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    <span class="ml-2 text-sm">View
-                                        <span class="sr-only">{{ mate.title }} {{ game }}</span>
-                                        Settings</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </li>
                 {% endfor %}

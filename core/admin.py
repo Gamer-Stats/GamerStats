@@ -1,18 +1,8 @@
 from django.contrib import admin
-from core.models import (
-    JsonData,
-    SEOImage,
-    Subscribe,
-    Wiki,
-    WikiCategory,
-    NewsCategory,
-    ImageCollection,
-    Topic,
-    PcSpecs,
-    SetupSettings,
-    News,
-    Author,
-)
+
+from core.models import (Author, ImageCollection, JsonData, News, NewsCategory,
+                         PcSpecs, SEOImage, SetupSettings, Subscribe, Topic,
+                         Wiki, WikiCategory)
 
 
 @admin.action(description='Mark as published')
@@ -65,9 +55,9 @@ class WikiAdmin(admin.ModelAdmin):
 @admin.register(SetupSettings)
 class SetupAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ("title", "meta_images", "game")
+    list_display = ("title", "meta_images")
     list_filter = ["is_pro"]
-    autocomplete_fields = ("specs", "team", "related", "avatar")
+    autocomplete_fields = ("specs", "avatar")
 
 
 admin.site.register(NewsCategory)

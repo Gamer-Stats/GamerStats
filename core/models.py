@@ -1,9 +1,9 @@
+from datetime import datetime
+
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.text import slugify
-from datetime import datetime
-from ckeditor_uploader.fields import RichTextUploadingField
-from ckeditor.fields import RichTextField
-
 from jsoneditor.fields.django3_jsonfield import JSONField
 
 
@@ -279,7 +279,7 @@ class SetupSettings(BaseOptions):
         null=True,
         blank=True,
     )
-    related = models.ManyToManyField("self", blank=True)
+    # related = models.ManyToManyField("self", blank=True)
 
     class Meta:
         verbose_name = "Setup and Settings"

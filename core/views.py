@@ -1,6 +1,8 @@
+from itertools import chain
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, prefetch_related_objects
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
@@ -87,26 +89,18 @@ def setup_filter(request, slug, url_type):
 
 # Setup Single
 def setup_single(request, slug):
-    obj = get_object_or_404(SetupSettings, slug=slug)
+    # obj = get_object_or_404(SetupSettings, slug=slug)
 
-    if obj.is_pro:
-        teammates = SetupSettings.objects.filter(
-            Q(team=obj.team) & Q(game=obj.game)
-        ).exclude(title=obj.title)
-    else:
-        teammates = obj.related.all()  # type: ignore
-
-    try:
-        wiki = Wiki.objects.get(title=obj.title)
-    except ObjectDoesNotExist:
-        wiki = None
+    obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs__avatar").get(slug=slug)
+    teammates = SetupSettings.objects.filter(game=obj.game, team=obj.team).select_related("avatar", "game")
+    # objs = list(chain(obj.related))
 
     template_name = "player_setup.html"
-    context = {"obj": obj, "teammates": teammates, "wiki": wiki}
+    context = {"obj": obj, "teammates": teammates}
     return render(request, template_name, context)
 
 
-# Wiki Main op
+# Wiki Main OP
 def wiki(request):
     wikis = Wiki.objects.select_related("avatar__id", "page_type").values("title", "page_type__title", "slug", "updated_at", "avatar__image").order_by("-updated_at")
     # wikis = Wiki.objects.values("title", "updated_at", "created_at", "slug", "avatar__image")
