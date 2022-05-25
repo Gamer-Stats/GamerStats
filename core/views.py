@@ -40,8 +40,8 @@ def news(request):
 def news_single(request, slug):
     obj = News.objects.select_related("writer", "avatar").prefetch_related("tags").get(slug=slug)
     news = []
-    for tg in obj.tags.all():
-        for i in tg.news_tags.select_related("avatar"):
+    for nt in obj.tags.all():
+        for i in nt.news_tags.select_related("avatar")[:3]:
             news.append({i.title: i.avatar.image.url})
 
     template_name = "news_single.html"
