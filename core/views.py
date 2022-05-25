@@ -61,7 +61,7 @@ def news_filter(request, slug):
 
 # Setup Main
 def setup(request):
-    setups = SetupSettings.objects.order_by("-updated_at")
+    setups = SetupSettings.objects.select_related("avatar", "game").order_by("-updated_at")
     paginator = Paginator(setups, 20)
 
     page_num = request.GET.get("page")
@@ -89,11 +89,8 @@ def setup_filter(request, slug, url_type):
 
 # Setup Single
 def setup_single(request, slug):
-    # obj = get_object_or_404(SetupSettings, slug=slug)
-
     obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs__avatar").get(slug=slug)
-    teammates = SetupSettings.objects.filter(game=obj.game, team=obj.team).select_related("avatar", "game")
-    # objs = list(chain(obj.related))
+    teammates = SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team)).exclude(title=obj.title).select_related("avatar", "game")
 
     template_name = "player_setup.html"
     context = {"obj": obj, "teammates": teammates}
@@ -130,13 +127,6 @@ def wiki_filter(request, slug):
     return render(request, template_name, context)
 
 
-# Wiki Single
-# class WikiSingle(DetailView):
-#     model = Wiki
-#     template_name = "wiki_single.html"
-#     context_object_name = 'obj'
-
-    # obj = get_object_or_404(Wiki, slug=slug, publish=True)
 def wiki_single(request, slug):
     obj = get_object_or_404(Wiki, slug=slug, publish=True)
 
