@@ -13,12 +13,14 @@ from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 # Homepage - half op
 def index(request):
-    ss = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)[:9]
-    wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at").filter(publish=True)[:3]
-    news = News.objects.prefetch_related("tags").select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)[:7]
+    settings = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
+    pro_settings = settings.filter(is_pro=True)[:8]
+    
+    wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at").filter(publish=True)[:4]
+    news = News.objects.select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)[:5]
 
     template_name = "index.html"
-    context = {"ss": ss, "wikis": wikis, "news": news}
+    context = {"pro_settings": pro_settings, "wikis": wikis, "news": news}
     return render(request, template_name, context)
 
 

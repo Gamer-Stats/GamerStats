@@ -1,5 +1,6 @@
-from django import template
 import datetime
+
+from django import template
 
 register = template.Library()
 
@@ -38,3 +39,18 @@ def article_age(tag):
     #     return "{0} hour and {1} minutes ago".format(int(hours), int(mins))
     # elif hours > 2:
     #     return "{0} hours and {1} minutes ago".format(int(hours), int(mins))
+
+
+@register.filter
+def f_news(tag):
+    return tag[0:1]
+
+
+@register.filter
+def f2_news(tag):
+    return tag[1:2]
+
+
+@register.filter
+def f3_news(tag):
+    return tag[2:5]

@@ -46,7 +46,7 @@ class WikiCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
-    list_display = ("title", "publish")
+    list_display = ("title", "publish", "pk")
     search_fields = ["title"]
     list_filter = ["page_type", "publish"]
     autocomplete_fields = ("avatar", "info_box", "tags")
