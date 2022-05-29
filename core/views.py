@@ -26,15 +26,16 @@ def index(request):
 
 # News Main op
 def news(request):
-    news = News.objects.prefetch_related("tags").select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)
+    news = News.objects.select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)
+    news_cat = NewsCategory.objects.order_by("-updated_at").only("title", "slug")
     news = list(chain(news))
-
-    template_name = "news_cat.html"
     paginator = Paginator(news, 12)
 
     page_num = request.GET.get("page")
-    tags = paginator.get_page(page_num)
-    context = {"news": news, "tags": tags}
+    obj = paginator.get_page(page_num)
+
+    template_name = "news.html"
+    context = {"obj": obj, "news_cat": news_cat}
     return render(request, template_name, context)
 
 
@@ -64,17 +65,17 @@ def news_filter(request, slug):
     return render(request, template_name, context)
 
 
-# Setup Main - op
+# Setup Main - OP - PAGE DONE
 def setup(request):
-    setups = SetupSettings.objects.select_related("avatar", "game").order_by("-updated_at").filter(publish=True)
-    paginator = Paginator(setups, 20)
+    setups = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
+    setups = list(chain(setups))
+    setups = Paginator(setups, 20)
 
     page_num = request.GET.get("page")
-    players_cat = paginator.get_page(page_num)
+    obj = setups.get_page(page_num)
 
-    obj = "Streamers and Esports"
-    template_name = "players_cat.html"
-    context = {"players_cat": players_cat, "obj": obj}
+    template_name = "setup.html"
+    context = {"obj": obj}
     return render(request, template_name, context)
 
 
@@ -102,7 +103,7 @@ def setup_single(request, slug):
     return render(request, template_name, context)
 
 
-# Wiki Main - half op
+# Wiki Main - OP - PAGE DONE
 def wiki(request):
     wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at").filter(publish=True)
     wikis = list(chain(wikis))
@@ -111,9 +112,8 @@ def wiki(request):
     page_num = request.GET.get("page")
     obj = paginator.get_page(page_num)
 
-    name = "wiki_main"
     template_name = "wiki.html"
-    context = {"obj": obj, "name": name}
+    context = {"obj": obj}
     return render(request, template_name, context)
 
 

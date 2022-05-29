@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %} {% load age %}
+<!-- Head Elements -->
+{% block title %}Pro Settings and Setup{% endblock %}
+
+{% block content %}
+<main>
+  <!-- Page Header and Breadcrumb -->
+  <header class="border-bottom" style="background-color: #1f2936">
+    <nav class="container ps-3" aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 py-2">
+        <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">Pro Settings</li>
+      </ol>
+    </nav>
+    <h1 class="visually-hidden">Pro Settings and Setup</h1>
+  </header>
+
+  <!-- Main Content -->
+  <article class="container py-5">
+    <div class="row">
+      {% for i in obj %}
+      <article class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main">
+          <img class="img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}" alt="{{ i.title }}">
+          <div class="p-2 hover-element__border hover-element__border__jam">
+            <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
+            <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
+            </p>
+            <time class="visually-hidden" datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+              {{ i.updated_at|article_age }}</time>
+          </div>
+          <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
+            <span class="visually-hidden">{{ i.meta_title }}</span>
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
+      <ol class="pagination">
+        {% if obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ obj.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for i in obj.paginator %}
+        {% if i.number == obj.number %}
+        <li class="page-item active" aria-current="page">
+          <a class="page-link" href="?page={{ obj.number }}">{{ obj.number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ obj.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+      </ol>
+    </nav>
+  </article>
+</main>
+
+{% endblock %}
