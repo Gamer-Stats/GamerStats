@@ -69,13 +69,15 @@ def news_filter(request, slug):
 def setup(request):
     setups = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
     setups = list(chain(setups))
+    teams = Wiki.objects.filter(page_type=3)
+    games = Wiki.objects.filter(page_type=4)
     setups = Paginator(setups, 20)
 
     page_num = request.GET.get("page")
     obj = setups.get_page(page_num)
 
     template_name = "setup.html"
-    context = {"obj": obj}
+    context = {"obj": obj, "teams": teams, "games": games}
     return render(request, template_name, context)
 
 
@@ -106,6 +108,7 @@ def setup_single(request, slug):
 # Wiki Main - OP - PAGE DONE
 def wiki(request):
     wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at").filter(publish=True)
+    wiki_cat = WikiCategory.objects.order_by("-updated_at").only("title", "slug")[:30]
     wikis = list(chain(wikis))
     paginator = Paginator(wikis, 20)
 
@@ -113,7 +116,7 @@ def wiki(request):
     obj = paginator.get_page(page_num)
 
     template_name = "wiki.html"
-    context = {"obj": obj}
+    context = {"obj": obj, "wiki_cat": wiki_cat}
     return render(request, template_name, context)
 
 
