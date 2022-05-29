@@ -22,7 +22,7 @@
       <article class="container py-5">
         <div class="row">
           {% for i in obj %}
-          <article class="col-6 col-md-4 col-lg-3 mb-3">
+          <article class="col-6 col-md-4 col-lg-4 col-xl-3 mb-3">
             <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main">
               <img class="img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}" alt="{{ i.title }}">
               <div class="p-2 hover-element__border hover-element__border__jam">
@@ -85,11 +85,13 @@
           <div class="accordion-body p-2">
             <nav aria-label="Secondary">
               <ul class="list-unstyled">
-                {% for i in teams %}
+                {% for i in cats %}
+                {% if i.page_type.pk == 3 %}
                 <li class="">
                   <a class="text-muted text-14px text-decoration-none" href="{% url 'setup_filter' 'teams' i.slug %}">
                     {{ i.title }}</a>
                 </li>
+                {% endif %}
                 {% endfor %}
               </ul>
             </nav>
@@ -109,11 +111,13 @@
           <div class="accordion-body p-2">
             <nav aria-label="Secondary">
               <ul class="list-unstyled">
-                {% for i in games %}
+                {% for i in cats %}
+                {% if i.page_type.pk == 4 %}
                 <li class="">
                   <a class="text-muted text-14px text-decoration-none" href="{% url 'setup_filter' 'games' i.slug %}">
                     {{ i.title }}</a>
                 </li>
+                {% endif %}
                 {% endfor %}
               </ul>
             </nav>

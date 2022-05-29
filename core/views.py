@@ -11,6 +11,8 @@ from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 # from django.views.decorators.cache import cache_page
 
+
+
 # Homepage - half op
 def index(request):
     settings = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
@@ -66,18 +68,19 @@ def news_filter(request, slug):
 
 
 # Setup Main - OP - PAGE DONE
+# @cache_page(60 * 15)
 def setup(request):
     setups = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
     setups = list(chain(setups))
-    teams = Wiki.objects.filter(page_type=3)
-    games = Wiki.objects.filter(page_type=4)
+    cats = Wiki.objects.filter(Q(page_type=3) | Q(page_type=4)).select_related("page_type").only("title", "slug", "page_type")
+
     setups = Paginator(setups, 20)
 
     page_num = request.GET.get("page")
     obj = setups.get_page(page_num)
 
     template_name = "setup.html"
-    context = {"obj": obj, "teams": teams, "games": games}
+    context = {"obj": obj, "cats": cats}
     return render(request, template_name, context)
 
 
