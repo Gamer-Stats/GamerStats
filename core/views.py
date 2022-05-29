@@ -44,10 +44,7 @@ def news(request):
 # News Single op
 def news_single(request, slug):
     obj = News.objects.select_related("writer", "avatar").prefetch_related("tags").get(slug=slug)
-    news = []
-    for nt in obj.tags.all():
-        for i in nt.news_tags.select_related("avatar")[:3]:
-            news.append({i.title: i.avatar.image.url})
+    news = News.objects.select_related("writer", "avatar").order_by("-updated_at").filter(publish=True).distinct()[:3]
 
     template_name = "news_single.html"
     context = {"obj": obj, "news": news}

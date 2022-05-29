@@ -5,10 +5,10 @@
 {% block content %}
 <!-- Page Header and Breadcrumb -->
 <header class="container-fluid border-bottom" style="background-color: #1f2936">
-  <nav aria-label="breadcrumb" class="container">
-    <ol class="breadcrumb mb-0 py-2 flex-row">
-      <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'news' %}">News</a></li>
-      <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">
+  <nav aria-label="breadcrumb" class="container text-12px">
+    <ol class="breadcrumb mb-0 py-2 d-flex flex-row">
+      <li class="breadcrumb-item"><a class="text-secondary" href="{% url 'news' %}">News</a></li>
+      <li class="breadcrumb-item active align-self-end text-secondary text-truncate" aria-current="page">
         {{ obj.title }}
       </li>
     </ol>
@@ -25,7 +25,7 @@
             datetime="{{ obj.created_at|date:'Y-m-d' }}T{{ obj.created_at|date:'H:iO' }}">
             {{ obj.updated_at|article_age }}</time>
           <span class="text-12px text-muted text-uppercase">by {{ obj.writer }}</span>
-          <img class="d-block my-3 img-md rounded" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.avatar.caption }}">
+          <img class="d-block my-3 img-news rounded" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.avatar.caption }}">
           <div class="pt-2 border-bottom">
             {{ obj.overview|safe }}
           </div>
@@ -33,13 +33,38 @@
         <div class="article-body py-3">
           {{ obj.body|safe }}
         </div>
-        <!-- Article tags -->
-        <div class="bg-light">
-          {% for tag in obj.tags.all %}
-          <a class="btn btn-primary py-0 px-1 text-12px fw-semibold" href="{% url 'news_filter' tag.slug %}">
-            {{ tag }}</a>
-          {% endfor %}
-        </div>
+        <!-- Article Footer -->
+        <footer class="bg-light border-top pt-3 mt-3">
+          <p>Tagged:
+            {% for tag in obj.tags.all %}
+            <a class="btn btn-primary py-0 px-1 text-12px fw-semibold" href="{% url 'news_filter' tag.slug %}">
+              {{ tag }}</a>
+            {% endfor %}
+          </p>
+          <div class="row mt-4">
+            <h2 class="fs-6 fw-semibold text-uppercase">Related News:</h2>
+            {% for i in news %}
+            <article class="col-md-6 col-lg-4 mb-3">
+              <div
+                class="d-flex flex-row d-md-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
+                <figure class="col-4 col-md-12 m-0">
+                  <img class="object-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
+                  <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
+                </figure>
+                <div class="col-8 col-md-12 bg-light rounded p-2 hover-element__border">
+                  <time class="text-12px text-muted text-uppercase"
+                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                    {{ i.updated_at|article_age }}</time>
+                  <span class="text-12px text-muted text-uppercase">by {{ i.writer }}</span>
+                  <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
+                </div>
+                <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Read
+                    more about {{ i.title }}</span></a>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </footer>
       </article>
     </main>
     <aside class="col-md-4 mt-5 py-5" style="background-color: green"></aside>
@@ -49,14 +74,21 @@
 <script>
   let table = document.getElementsByTagName("table");
   for (let i = 0; i < table.length; i++) {
-    table[i].classList.add("table", "table-hover", "table-striped", "border", "border-secondary")
+    table[i].classList.add("table", "table-hover", "table-striped", "m-0");
+
+    let div = document.createElement("DIV");
+    div.classList.add("table-responsive", "border", "rounded");
+
+    table[i].parentNode.insertBefore(div, table[i]);
+    div.appendChild(table[i]);
+
   }
+  let th = document.getElementsByTagName("th");
+  for (let i = 0; i < th.length; i++) {
+    totalChar = th[i].textContent.length;
+    th[i].style.minWidth = totalChar * 8.5 + 'px';
+  }
+
 </script>
 
-<!--  {% for tags in news %}
-          {{ tags }}
-          {% for i in tags %}
-          {{ i }}
-          {% endfor %}
-          {% endfor %} -->
 {% endblock %}
