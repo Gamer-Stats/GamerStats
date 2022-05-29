@@ -74,7 +74,7 @@
                             datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
                             {{ i.updated_at|article_age }}</time>
                     </div>
-                    <a class="stretched-link" href="{{ i.slug }}">
+                    <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
                         <span class="visually-hidden">{{ i.meta_title }}</span>
                     </a>
                 </div>
@@ -98,7 +98,7 @@
                         <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
                         <div class="text-12px mb-0 d-inline-block">{{ i.meta_description|safe|truncatewords:12 }}</div>
                     </div>
-                    <a class="stretched-link" href="{{ i.slug }}">
+                    <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
                         <span class="visually-hidden">{{ i.meta_title }}</span>
                     </a>
                 </div>
