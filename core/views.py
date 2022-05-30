@@ -13,7 +13,7 @@ from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 
 
-# Homepage - half op
+# Homepage - half op DONE
 def index(request):
     settings = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
     pro_settings = settings.filter(is_pro=True)[:8]
@@ -100,7 +100,7 @@ def setup_single(request, slug):
     obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs__avatar").get(slug=slug)
     teammates = SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team)).exclude(title=obj.title).select_related("avatar", "game")
 
-    template_name = "player_setup.html"
+    template_name = "setup_single.html"
     context = {"obj": obj, "teammates": teammates}
     return render(request, template_name, context)
 

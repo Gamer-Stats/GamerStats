@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %} {% load age %}
+<!-- Head Elements -->
+{% block title %}Pro Settings and Setup{% endblock %}
+
+{% block content %}
+<!-- Page Header and Breadcrumb -->
+<header class="container-fluid border-bottom" style="background-color: #1f2936">
+    <nav aria-label="breadcrumb" class="container">
+        <ol class="breadcrumb mb-0 py-2 flex-row">
+            <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'setup' %}">Pro Settings</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">
+                {{ obj.meta_title }}
+            </li>
+        </ol>
+    </nav>
+    <h1 class="visually-hidden">Latest Esports News</h1>
+</header>
+<div class="container">
+    <div class="row flex-row">
+        <main class="col-md-10">
+            <!-- Main Content -->
+            <article class="container py-5">
+                <div class="row flex-row-reverse">
+                    <div class="col-md-8">
+                        <div class="border rounded shadow-sm overflow-hidden p-2">
+                            <h1 class="fs-3 fw-bold">{{ obj.meta_title }}</h1>
+                            <p class="text-12px text-muted text-uppercase">Last Updated:
+                                <time class="text-12px text-muted text-uppercase"
+                                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                                    {{ obj.updated_at|article_age }}</time>
+                            </p>
+                            <section class="text-15px">
+                                <h2 class="fs-4 fw-semibold">{{ obj.title }} {{ obj.game.title }} Settings</h2>
+                                {% for title, values in obj.settings.data.items %}
+                                <h3 class="mt-3 text-18px fw-semibold text-primary">{{ title }}</h3>
+                                <dl class="border-bottom">
+                                    <div class="d-flex flex-row flex-wrap">
+                                        {% for k,v in values.items %}
+                                        <div class="col-sm-3 mb-2">
+                                            <dt class="mb-1">{{ k }}</dt>
+                                            <dd>{{ v }}</dd>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </dl>
+                                {% endfor %}
+                                {{ obj.settings_body|safe }}
+                            </section>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border rounded shadow-sm overflow-hidden">
+                            <img class="img-fluid" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.meta_title }}">
+                            <img class="img-profile d-inline ms-2 rounded-circle border border-2 border-primary"
+                                src="{% static 'img/square.webp' %}" alt="{{ obj.title }}">
+                            <h2 class="d-inline fs-5 fw-bold">Full NAME</h2>
+                            <div class="p-2 text-15px">
+                                {{ obj.overview|safe }}
+                                <a class="btn btn-sm btn-primary" href="{% url 'wiki_single' obj.slug %}">
+                                    Read Wiki
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
+                    <ol class="pagination">
+                        <li>djkfhdjksh</li>
+                    </ol>
+                </nav>
+            </article>
+        </main>
+
+        <!-- || RELABELING -->
+
+        <!-- Sidebar -->
+        <aside class="col-md-2 py-5 accordion" role="complementary" id="accordionExample">
+            <div class="accordion-item bg-light">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed text-14px bg-light p-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false"
+                        aria-controls="collapseOne">
+                        By Teams
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body p-2">
+                        <nav aria-label="Secondary">
+                            <ul class="list-unstyled">
+                                {% for i in cats %}
+                                {% if i.page_type.pk == 3 %}
+                                <li class="">
+                                    <a class="text-muted text-14px text-decoration-none"
+                                        href="{% url 'setup_filter' 'teams' i.slug %}">
+                                        {{ i.title }}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Teams -->
+            <div class="accordion-item bg-light">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed text-14px bg-light p-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
+                        By Games
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body p-2">
+                        <nav aria-label="Secondary">
+                            <ul class="list-unstyled">
+                                {% for i in cats %}
+                                {% if i.page_type.pk == 4 %}
+                                <li class="">
+                                    <a class="text-muted text-14px text-decoration-none"
+                                        href="{% url 'setup_filter' 'games' i.slug %}">
+                                        {{ i.title }}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+{% endblock %}
