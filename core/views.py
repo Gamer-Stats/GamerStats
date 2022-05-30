@@ -95,7 +95,7 @@ def setup_filter(request, slug, url_type):
     return render(request, template_name, context)
 
 
-# Setup Single - half op
+# Setup Single - half op DONE
 def setup_single(request, slug):
     obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs__avatar").get(slug=slug)
     teammates = SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team)).exclude(title=obj.title).select_related("avatar", "game")

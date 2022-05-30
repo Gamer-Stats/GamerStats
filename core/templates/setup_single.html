@@ -19,9 +19,9 @@
 </header>
 <div class="container">
     <div class="row flex-row">
-        <main class="col-lg-10">
+        <main class="col-12">
             <!-- Main Content -->
-            <article class="container py-5 px-0 px-md-2">
+            <article class="container py-lg-5 pt-3 px-0 px-lg-2">
                 <div class="row flex-column-reverse flex-lg-row-reverse">
                     <div class="col-lg-8 mt-3 mt-lg-0">
                         <div class="">
@@ -32,12 +32,12 @@
                                     {{ obj.updated_at|article_age }}</time>
                             </p>
                             <section class="text-15px">
-                                <div class="border rounded overflow-hidden p-3 mb-4">
+                                <div class="border rounded overflow-hidden p-3 mb-3 mb-md-4">
                                     <h2 class="fs-5 fw-bold">{{ obj.title }} {{ obj.game.title }} Settings</h2>
                                     {{ obj.settings_body|safe }}
                                 </div>
                                 {% for title, values in obj.settings.data.items %}
-                                <div class="border rounded overflow-hidden p-3 mb-4">
+                                <div class="border rounded overflow-hidden p-3 mb-3 mb-md-4">
                                     <h3 class="text-18px text-primary">
                                         <strong class="fw-semibold">{{ title }}</strong>
                                     </h3>
@@ -79,11 +79,11 @@
                                         price</small>
                                     <div class="d-flex flex-wrap">
                                         {% for i in obj.specs.all %}
-                                        <div class="col">
-                                            <div class="overflow-hidden rounded mb-2 position-relative hover-element__main"
-                                                style="width: 140px;">
-                                                <img class="" src="{% static 'img/square.webp' %}" alt="{{ i.title }}"
-                                                    width="140" height="140" title="{{ i.title }}">
+                                        <div class="col-6 col-md-3">
+                                            <div
+                                                class="overflow-hidden rounded m-2 position-relative hover-element__main">
+                                                <img class="img-fluid" src="{% static 'img/square.webp' %}"
+                                                    alt="{{ i.title }}" title="{{ i.title }}">
                                                 <h3
                                                     class="text-14px text-uppercase mt-2 mb-1 fw-semibold text-primary hover-element__border hover-element__border__jam">
                                                     {{ i.get_specs_type_display }}
@@ -100,6 +100,24 @@
                                     </div>
                                 </div>
                             </section>
+                            <div class="border rounded bg-light p-3">
+                                <h2 class="fs-5 fw-bold mb-3">Related Player's Setup</h2>
+                                <ul class="list-unstyled d-flex flex-row flex-wrap mb-0">
+                                    {% for i in teammates %}
+                                    <li class="col-6 col-md-3">
+                                        <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
+                                            <img class="img-fluid" src="{% static 'img/square.webp' %}" alt="">
+                                            <h3
+                                                class="text-14px text-uppercase mt-2 fw-semibold text-primary hover-element__border hover-element__border__jam">
+                                                {{ i.title }}</h3>
+                                            <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
+                                                <span class="visually-hidden">{{ i.title }} settings and setup</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -119,76 +137,8 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Teammates -->
-                <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
-                    <ol class="pagination">
-                        <li>djkfhdjksh</li>
-                    </ol>
-                </nav>
             </article>
         </main>
-
-        <!-- || RELABELING -->
-
-        <!-- Sidebar -->
-        <aside class="col-lg-2 py-5 accordion" role="complementary" id="accordionExample">
-            <div class="accordion-item bg-light">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed text-14px bg-light p-2" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false"
-                        aria-controls="collapseOne">
-                        By Teams
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body p-2">
-                        <nav aria-label="Secondary">
-                            <ul class="list-unstyled">
-                                {% for i in cats %}
-                                {% if i.page_type.pk == 3 %}
-                                <li class="">
-                                    <a class="text-muted text-14px text-decoration-none"
-                                        href="{% url 'setup_filter' 'teams' i.slug %}">
-                                        {{ i.title }}</a>
-                                </li>
-                                {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <!-- Teams -->
-            <div class="accordion-item bg-light">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed text-14px bg-light p-2" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                        aria-controls="collapseTwo">
-                        By Games
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body p-2">
-                        <nav aria-label="Secondary">
-                            <ul class="list-unstyled">
-                                {% for i in cats %}
-                                {% if i.page_type.pk == 4 %}
-                                <li class="">
-                                    <a class="text-muted text-14px text-decoration-none"
-                                        href="{% url 'setup_filter' 'games' i.slug %}">
-                                        {{ i.title }}</a>
-                                </li>
-                                {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </aside>
     </div>
 </div>
 
