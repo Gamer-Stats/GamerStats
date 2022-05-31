@@ -2,7 +2,7 @@ from itertools import chain
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
-from django.db.models import Prefetch, Q, prefetch_related_objects
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
@@ -97,8 +97,8 @@ def setup_filter(request, slug, url_type):
 
 # Setup Single - half op DONE
 def setup_single(request, slug):
-    obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs__avatar").get(slug=slug)
-    teammates = SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team)).exclude(title=obj.title).select_related("avatar", "game")
+    obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs", "specs__avatar").get(slug=slug)
+    teammates = SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team)).exclude(title=obj.title).select_related("avatar")
 
     template_name = "setup_single.html"
     context = {"obj": obj, "teammates": teammates}

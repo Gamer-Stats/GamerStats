@@ -35,6 +35,7 @@ MANIFEST
 static
 media
 assets
+gsw
 
 # Installer logs
 pip-log.txt
