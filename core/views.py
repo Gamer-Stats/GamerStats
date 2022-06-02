@@ -12,14 +12,25 @@ from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
 # from django.views.decorators.cache import cache_page
 
 
-
 # Homepage - half op DONE
 def index(request):
-    settings = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
+    settings = (
+        SetupSettings.objects.select_related("avatar", "game", "team")
+        .order_by("-updated_at")
+        .filter(publish=True)
+    )
     pro_settings = settings.filter(is_pro=True)[:8]
-    
-    wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at").filter(publish=True)[:4]
-    news = News.objects.select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)[:5]
+
+    wikis = (
+        Wiki.objects.select_related("avatar", "page_type")
+        .order_by("-updated_at")
+        .filter(publish=True)[:4]
+    )
+    news = (
+        News.objects.select_related("avatar", "writer")
+        .order_by("-updated_at")
+        .filter(publish=True)[:5]
+    )
 
     template_name = "index.html"
     context = {"pro_settings": pro_settings, "wikis": wikis, "news": news}
@@ -28,7 +39,11 @@ def index(request):
 
 # News Main op
 def news(request):
-    news = News.objects.select_related("avatar", "writer").order_by("-updated_at").filter(publish=True)
+    news = (
+        News.objects.select_related("avatar", "writer")
+        .order_by("-updated_at")
+        .filter(publish=True)
+    )
     news_cat = NewsCategory.objects.order_by("-updated_at").only("title", "slug")
     news = list(chain(news))
     paginator = Paginator(news, 12)
@@ -43,8 +58,17 @@ def news(request):
 
 # News Single op
 def news_single(request, slug):
-    obj = News.objects.select_related("writer", "avatar").prefetch_related("tags").get(slug=slug)
-    news = News.objects.select_related("writer", "avatar").order_by("-updated_at").filter(publish=True).distinct()[:3]
+    obj = (
+        News.objects.select_related("writer", "avatar")
+        .prefetch_related("tags")
+        .get(slug=slug)
+    )
+    news = (
+        News.objects.select_related("writer", "avatar")
+        .order_by("-updated_at")
+        .filter(publish=True)
+        .distinct()[:3]
+    )
 
     template_name = "news_single.html"
     context = {"obj": obj, "news": news}
@@ -67,9 +91,17 @@ def news_filter(request, slug):
 # Setup Main - OP - PAGE DONE
 # @cache_page(60 * 15)
 def setup(request):
-    setups = SetupSettings.objects.select_related("avatar", "game", "team").order_by("-updated_at").filter(publish=True)
+    setups = (
+        SetupSettings.objects.select_related("avatar", "game", "team")
+        .order_by("-updated_at")
+        .filter(publish=True)
+    )
     setups = list(chain(setups))
-    cats = Wiki.objects.filter(Q(page_type=3) | Q(page_type=4)).select_related("page_type").only("title", "slug", "page_type")
+    cats = (
+        Wiki.objects.filter(Q(page_type=3) | Q(page_type=4))
+        .select_related("page_type")
+        .only("title", "slug", "page_type")
+    )
 
     setups = Paginator(setups, 20)
 
@@ -97,8 +129,18 @@ def setup_filter(request, slug, url_type):
 
 # Setup Single - half op DONE
 def setup_single(request, slug):
-    obj = SetupSettings.objects.select_related("settings", "avatar", "meta_images", "game", "team").prefetch_related("specs", "specs__avatar").get(slug=slug)
-    teammates = SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team)).exclude(title=obj.title).select_related("avatar")
+    obj = (
+        SetupSettings.objects.select_related(
+            "settings", "avatar", "meta_images", "game", "team"
+        )
+        .prefetch_related("specs", "specs__avatar")
+        .get(slug=slug)
+    )
+    teammates = (
+        SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team))
+        .exclude(title=obj.title)
+        .select_related("avatar")
+    )
 
     template_name = "setup_single.html"
     context = {"obj": obj, "teammates": teammates}
@@ -107,7 +149,11 @@ def setup_single(request, slug):
 
 # Wiki Main - OP - PAGE DONE
 def wiki(request):
-    wikis = Wiki.objects.select_related("avatar", "page_type").order_by("-updated_at").filter(publish=True)
+    wikis = (
+        Wiki.objects.select_related("avatar", "page_type")
+        .order_by("-updated_at")
+        .filter(publish=True)
+    )
     wiki_cat = WikiCategory.objects.order_by("-updated_at").only("title", "slug")[:30]
     wikis = list(chain(wikis))
     paginator = Paginator(wikis, 20)
@@ -137,11 +183,13 @@ def wiki_filter(request, slug):
 
 # wiki single - h-op
 def wiki_single(request, slug):
-    obj = Wiki.objects.select_related("avatar", "page_type", "meta_images", "info_box", "writer").get(slug=slug, publish=True)
+    obj = Wiki.objects.select_related(
+        "avatar", "page_type", "meta_images", "info_box", "writer"
+    ).get(slug=slug, publish=True)
     cats = obj.tags.all()
-
+    wikis = Wiki.objects.select_related("avatar").filter(Q(tags=cats) & Q(publish=True))
     template_name = "wiki_single.html"
-    context = {"obj": obj, "cats": cats}
+    context = {"obj": obj, "cats": cats, "wikis": wikis}
     return render(request, template_name, context)
 
 
@@ -163,9 +211,12 @@ def subscribe(request):
 def search(request):
     if request.method == "GET":
         query = request.GET.get("searched")
-        wiki = Wiki.objects.filter(Q(title__icontains=query) | Q(overview__icontains=query)
-                                   ).exclude(Q(page_type=3) | Q(page_type=4) | Q(publish=False))
-        players_cat = SetupSettings.objects.filter(Q(title__icontains=query) | Q(overview__icontains=query) & Q(publish=True))
+        wiki = Wiki.objects.filter(
+            Q(title__icontains=query) | Q(overview__icontains=query)
+        ).exclude(Q(page_type=3) | Q(page_type=4) | Q(publish=False))
+        players_cat = SetupSettings.objects.filter(
+            Q(title__icontains=query) | Q(overview__icontains=query) & Q(publish=True)
+        )
         count = len(wiki) + len(players_cat)
 
     template_name = "searched.html"

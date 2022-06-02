@@ -145,11 +145,16 @@ class Wiki(BaseOptions):
     body = RichTextUploadingField(blank=True)
     ref = RichTextField(blank=True)
     tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags", blank=True)
+    related = models.ManyToManyField("self", blank=True, null=True)
     page_type = models.ForeignKey(
         Topic, on_delete=models.PROTECT, related_name="wiki_topic"
     )
     writer = models.ForeignKey(
-        Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="wiki_writer"
+        Author,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="wiki_writer",
     )
 
     class Meta:
@@ -179,7 +184,11 @@ class News(BaseOptions):
     ref = RichTextField(blank=True)
     tags = models.ManyToManyField(NewsCategory, related_name="news_tags", blank=True)
     writer = models.ForeignKey(
-        Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="news_writer"
+        Author,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="news_writer",
     )
 
     class Meta:
@@ -295,8 +304,3 @@ class Subscribe(models.Model):
 
     def __str__(self):
         return self.email
-
-
-
-
-

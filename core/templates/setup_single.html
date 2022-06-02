@@ -15,7 +15,6 @@
             </li>
         </ol>
     </nav>
-    <h1 class="visually-hidden">Latest Esports News</h1>
 </header>
 <div class="container">
     <div class="row flex-row">
@@ -106,24 +105,24 @@
                                     <table class="table m-0 table-striped table-hover table-sm text-14px">
                                         <thead class="bg--dark">
                                             <tr>
-                                                <th class="fw-normal">Specs</th>
-                                                <th class="fw-normal">Brand</th>
-                                                <th class="fw-normal">Price</th>
+                                                <th class="fw-normal" title="{{ obj.title }} PC Specs">Specs</th>
+                                                <th class="fw-normal" title="Brand">Brand</th>
+                                                <th class="fw-normal" title="{{ obj.title }} Specs Cost">Price</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for i in obj.specs.all %}
                                             <tr>
-                                                <th  class="fw-normal" scope="row">{{ i.get_specs_type_display }}</th>
-                                                <td>{{ i.title }}</td>
-                                                <td>${{ i.price|calcprice }}</td>
+                                                <th title="{{ obj.title }}'s {{ i.get_specs_type_display }}" class="fw-normal" scope="row">{{ i.get_specs_type_display }}</th>
+                                                <td title="{{ i.title }}">{{ i.title }}</td>
+                                                <td title="Cost of {{ obj.title }}'s {{ i.title }} {{ i.get_specs_type_display }}">${{ i.price|calcprice }}</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th scope="row" colspan="2">Total {{ obj.title }} Setup Cost</th>
-                                                <td>{{ obj.specs.all|get_total }}</td>
+                                                <th scope="row" colspan="2">Total Cost of {{ obj.title }} Setup</th>
+                                                <td title="Total Cost of {{ obj.title }} Setup">{{ obj.specs.all|get_total }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
