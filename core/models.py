@@ -116,7 +116,19 @@ class Topic(BaseOptions):
 
 
 class WikiCategory(BaseOptions):
-    pass
+    CAT_LEVEL = (
+        ("c", "Country"),
+        ("t", "Teams"),
+        ("p", "Players"),
+    )
+    cat_level = models.CharField(null=True, blank=True, choices=CAT_LEVEL, max_length=1)
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        related_name="parent_cat",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "Wiki Category"
@@ -155,7 +167,7 @@ class Wiki(BaseOptions):
     controversies = RichTextUploadingField(blank=True, null=True)
     ref = RichTextField(blank=True)
     tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags", blank=True)
-    related = models.ManyToManyField("self", blank=True, null=True)
+    related = models.ManyToManyField("self", blank=True)
     page_type = models.ForeignKey(
         Topic, on_delete=models.PROTECT, related_name="wiki_topic"
     )

@@ -154,7 +154,11 @@ def wiki(request):
         .order_by("-updated_at")
         .filter(publish=True)
     )
-    wiki_cat = WikiCategory.objects.order_by("-updated_at").only("title", "slug")[:30]
+    wiki_cat = (
+        WikiCategory.objects.filter(publish=True)
+        .order_by("-updated_at")
+        .select_related("parent")
+    )
     wikis = list(chain(wikis))
     paginator = Paginator(wikis, 20)
 

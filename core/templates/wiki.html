@@ -5,86 +5,129 @@
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<header class="container-fluid border-bottom" style="background-color: #1f2936">
-    <nav aria-label="breadcrumb" class="container">
-        <ol class="breadcrumb mb-0 py-2 flex-row">
-            <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'index' %}">Home</a></li>
-            <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">
-                Esports Wikis</li>
+<div class="container-fluid bg-white">
+    <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
+        <ol class="breadcrumb mb-0 p-2 px-4 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+                Wiki
+            </li>
         </ol>
     </nav>
-    <h1 class="visually-hidden">Esports Wikis</h1>
-</header>
-
-<div class="container">
-    <div class="row flex-row-reverse">
-        <main class="col-md-10">
-            <article class="container py-5">
-                <div class="row">
-                    {% for i in obj %}
-                    <article class="col-6 col-md-4 col-lg-4 col-xl-3 mb-3">
-                        <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-                            <img class="img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}"
-                                alt="{{ i.title }}">
-                            <div class="p-2 hover-element__border hover-element__border__green">
-                                <span class="text-12px">Last updated: </span>
-                                <time class="text-12px"
-                                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                                    {{ i.updated_at|article_age }}</time>
-                                <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
-                                <div class="text-12px mb-0 d-inline-block">
-                                    {{ i.meta_description|safe|truncatewords:12 }}
-                                </div>
+    <header>
+        <h1 class="fs-3 fw-bold text-center pt-4 mb-4 d-block d-md-none">Esports Wiki</h1>
+    </header>
+    <div class="row flex-md-row-reverse flex-column-reverse">
+        <main class="col-12 col-md py-3 py-md-5">
+            <article class="row">
+                <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">Esports Wiki</h1>
+                {% for i in obj %}
+                <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
+                    <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
+                        <img class="col-5 img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}"
+                            alt="{{ i.title }}">
+                        <div class="col-7 p-2 hover-element__border hover-element__border__green">
+                            <span class="text-12px">Last updated: </span>
+                            <time class="text-12px"
+                                datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                                {{ i.updated_at|article_age }}</time>
+                            <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
+                            <div class="text-12px mb-0 d-inline-block">
+                                {{ i.meta_description|safe|truncatewords:5 }}
                             </div>
-                            <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
-                                <span class="visually-hidden">{{ i.meta_title }}</span>
-                            </a>
                         </div>
-                    </article>
-                    {% endfor %}
-                </div>
-                <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
-                    <ol class="pagination">
-                        {% if obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ obj.previous_page_number }}">Previous</a>
-                        </li>
-                        {% endif %}
-
-                        {% for i in obj.paginator %}
-                        {% if i.number == obj.number %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="?page={{ obj.number }}">{{ obj.number }}</a>
-                        </li>
-                        {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-
-                        {% if obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ obj.next_page_number }}">Next</a>
-                        </li>
-                        {% endif %}
-                    </ol>
-                </nav>
+                        <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
+                            <span class="visually-hidden">{{ i.meta_title }}</span>
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
             </article>
         </main>
-        <!-- Sidebar -->
-        <aside class="col-md-2 py-5" role="complementary">
-            <h2 class="fs-6 fw-bold text-uppercase mb-3">Wiki Categories</h2>
-            <nav aria-label="Secondary">
-                <ul class="bg-light list-unstyled">
+        <aside class="col-12 col-md border-end-md py-2 py-md-5 sidebar-nav" role="complementary">
+            <nav aria-label="Secondary" class="position-sticky top-0 d-grid">
+                <h2 class="fs-6 fw-bold text-uppercase mb-2 d-none d-md-block">Wiki Categories</h2>
+                <div class="accordion mx-1 d-none d-md-block" id="secondaryNav">
                     {% for i in wiki_cat %}
-                    <li class="">
-                        <a class="text-muted text-14px text-decoration-none" href="{% url 'news_filter' i.slug %}">
-                            {{ i.title }}</a>
-                    </li>
+                    {% if i.cat_level == "c" %}
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="{{ i.slug }}1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#{{ i.slug }}" aria-expanded="false" aria-controls="{{ i.slug }}">
+                                {{ i }}
+                            </button>
+                        </h3>
+                        <div id="{{ i.slug }}" class="accordion-collapse collapse" aria-labelledby="{{ i.slug }}1"
+                            data-bs-parent="#secondaryNav">
+                            <ul class="accordion-body list-group p-0" id="{{ i }}">
+                                {% for i in wiki_cat %}
+                                {% if i.cat_level == "p" or i.cat_level == "t" %}
+                                <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
+                                        class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
-                </ul>
+                </div>
+                <div class="dropdown d-block d-md-none">
+                    <button
+                        class="fs-6 fw-semibold w-100 d-flex justify-content-between align-items-center border-primary border-1 text-primary py-1 px-2 bg-light text-uppercase mb-2 d-block d-md-none"
+                        type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                        aria-controls="offcanvasExample">
+                        Categories
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path
+                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                    </button>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                        aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h2 class="fs-6 fw-bold text-uppercase mb-2">Wiki Categories</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="accordion mx-1" id="secondaryNav">
+                            {% for i in wiki_cat %}
+                            {% if i.cat_level == "c" %}
+                            <div class="accordion-item">
+                                <h3 class="accordion-header" id="{{ i.slug }}1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#{{ i.slug }}" aria-expanded="false"
+                                        aria-controls="{{ i.slug }}">
+                                        {{ i }}
+                                    </button>
+                                </h3>
+                                <div id="{{ i.slug }}" class="accordion-collapse collapse"
+                                    aria-labelledby="{{ i.slug }}1" data-bs-parent="#secondaryNav">
+                                    <ul class="accordion-body list-group p-0" id="{{ i }}">
+                                        {% for i in wiki_cat %}
+                                        {% if i.cat_level == "p" or i.cat_level == "t" %}
+                                        <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
+                                                class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
+                                                {{ i }}
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </nav>
         </aside>
     </div>
 </div>
-
 {% endblock %}

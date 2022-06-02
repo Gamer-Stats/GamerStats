@@ -5,23 +5,21 @@
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<div class="container-fluid border-bottom" style="background-color: #1f2936">
-  <nav aria-label="breadcrumb" class="container">
-    <ol class="breadcrumb mb-0 py-2 flex-row">
-      <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'wiki' %}">Wiki</a>
-      </li>
-      <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">
-        {{ obj.meta_title }}
-      </li>
-    </ol>
-  </nav>
-</div>
-<main class="container-fluid">
-  <article class="row mt-5">
-    <div class="col-lg-2 col-xl-1 border-end">
-      <nav class="text-12px" aria-label="table of contents">
-        <h2 class="fw-bold fs-6 text-uppercase">On this page</h2>
-        <ol class="ps-3">
+<nav aria-label="breadcrumb" class="container-fluid border-bottom bg--dark">
+  <ol class="breadcrumb mb-0 p-2 d-flex">
+    <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'wiki' %}">Wiki</a>
+    </li>
+    <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+      {{ obj.meta_title }}
+    </li>
+  </ol>
+</nav>
+<main class="container-fluid bg-white">
+  <article class="row pt-4 pt-md-5">
+    <div class="col-lg d-none d-lg-block border-end-lg" style="max-width: 180px;">
+      <nav class="text-12px border position-sticky top-0" aria-label="table of contents">
+        <h2 class="bg--dark fw-semibold p-2 fs-6 text-uppercase">On this page</h2>
+        <ol class="lh-lg">
           <li><a href="#early_life">Early Life</a></li>
           <li><a href="#career">Career</a></li>
           <li><a href="#team_history">Team History</a></li>
@@ -30,11 +28,11 @@
         </ol>
       </nav>
     </div>
-    <div class="col-lg-10 col-xl-11">
+    <div class="col-lg">
       <div class="d-flex flex-column flex-md-row-reverse">
         <div class="col-12 col-md-4">
           <div class="overview d-block d-md-none">
-            <h1 class="fs-3 fw-bold">{{ obj.title }}</h1>
+            <h1 class="fs-3 fw-bold">{{ obj.title }} - <i>{{ obj.full_name }}</i></h1>
             {{ obj.overview|safe }}
           </div>
           <table class="mx-auto">
@@ -59,14 +57,23 @@
             </tbody>
           </table>
         </div>
+
         <div class="col-12 col-md-8 heading-fix">
           <div class="overview d-none d-md-block">
-            <h1 class="fs-3 fw-bold">{{ obj.title }}
-              ({% for field, value in obj.info_box.data.items %}
-              {% if field == "Full Name" %}{{ value }}{% endif %}{% endfor %})
-            </h1>
+            <h1 class="fs-3 fw-bold">{{ obj.title }} - <i>{{ obj.full_name }}</i></h1>
             {{ obj.overview|safe }}
           </div>
+          <nav class="text-12px border d-inline-block d-lg-none mb-2" style="min-width: 180px;"
+            aria-label="table of contents">
+            <h2 class="bg--dark fw-semibold p-2 fs-6 text-uppercase">On this page</h2>
+            <ol class="lh-lg">
+              <li><a href="#early_life">Early Life</a></li>
+              <li><a href="#career">Career</a></li>
+              <li><a href="#team_history">Team History</a></li>
+              <li><a href="#achievements">Achievements</a></li>
+              <li><a href="#controversies">Controversies</a></li>
+            </ol>
+          </nav>
           <section class="text-14px pt-2">
             <h2 class="fs-4 fw-bold border-bottom pb-2" id="early_life">Early Life</h2>
             {{ obj.history|safe }}
@@ -80,7 +87,7 @@
             {{ obj.team_history|safe }}
           </section>
           <section class="text-14px pt-2">
-            <h2 class="fs-4 fw-bold border-bottom pb-2" id="achievements">Awares and Achievements</h2>
+            <h2 class="fs-4 fw-bold border-bottom pb-2" id="achievements">Awards and Achievements</h2>
             {{ obj.achievements|safe }}
           </section>
           <section class="text-14px pt-2">
