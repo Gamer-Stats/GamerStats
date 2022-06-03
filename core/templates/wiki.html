@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load static %} {% load age %}
 <!-- Head Elements -->
-{% block title %}Esports Wikis{% endblock %}
+{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}
+{% if cats_page.title %}{{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}
+{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+
+{% block description %}{% block og_description %}{% block tw_description %}Esports pro players and teams wiki
+{% endblock %}{% endblock %}{% endblock %}
+
+{% block tw_url %}{% block og_url %}{% block can_url %}
+https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }}/{% endif %}{% endblock %}
+{% endblock %}{% endblock %}
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
@@ -16,12 +25,14 @@
         </ol>
     </nav>
     <header class="d-block d-md-none">
-        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">Esports Wiki</h1>
+        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">{% if cats_page.title %}{{ cats_page.title }} Wiki
+            {% else %}Esports Players and Teams Wiki{% endif %}</h1>
     </header>
     <div class="row flex-md-row-reverse flex-column-reverse">
         <main class="col-12 col-md py-3 py-md-5">
             <article class="row">
-                <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">Esports Wiki</h1>
+                <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{% if cats_page.title %}
+                    {{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}</h1>
                 {% for i in obj %}
                 <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
                     <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
@@ -90,7 +101,8 @@
                                 {% for i in cats %}
                                 {% if i.cat_level == "p" or i.cat_level == "t" %}
                                 <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
-                                        class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
+                                        class="text-decoration-none text-muted d-block p-2"
+                                        href="{% url 'wiki_filter' i.slug %}">
                                         {{ i }}
                                     </a>
                                 </li>
@@ -138,7 +150,8 @@
                                         {% for i in cats %}
                                         {% if i.cat_level == "p" or i.cat_level == "t" %}
                                         <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
-                                                class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
+                                                class="text-decoration-none text-muted d-block p-2"
+                                                href="{% url 'wiki_filter' i.slug %}">
                                                 {{ i }}
                                             </a>
                                         </li>

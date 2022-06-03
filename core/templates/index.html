@@ -1,4 +1,16 @@
-{% extends 'base.html' %} {% load static %} {% load age %}
+{% extends 'base.html' %}
+{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}Esports News, Live Updates, Pro Settings
+and Setup{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+
+{% block description %}{% block og_description %}{% block tw_description %}Gamer Stats covers streamers and pro esports
+player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all
+Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
+
+{% block tw_url %}{% block og_url %}{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
+{% endblock %}{% endblock %}
+
+
+{% load static %}{% load age %}
 {% block content %}
 <main class="container py-3">
     <div class="row">
@@ -69,7 +81,7 @@
                     <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
                     <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}</p>
                 </div>
-                <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
+                <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
                     <span class="visually-hidden">{{ i.meta_title }}</span>
                 </a>
             </div>

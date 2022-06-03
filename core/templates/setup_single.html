@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% load static %} {% load age %} {% load specs_price %}
 <!-- Head Elements -->
-{% block title %}Pro Settings and Setup{% endblock %}
+{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}{{ obj.meta_title }}{% endblock %}
+{% endblock %}{% endblock %}{% endblock %}
+
+{% block description %}{% block og_description %}{% block tw_description %}{{ obj.meta_description }}
+{% endblock %}{% endblock %}{% endblock %}
+
+{% block tw_url %}{% block og_url %}{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}{% endblock %}
+{% endblock %}
+
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->

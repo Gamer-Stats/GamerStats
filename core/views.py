@@ -105,33 +105,14 @@ def setup(request):
         .filter(publish=True)
     )
     setups = list(chain(setups))
-    cats = (
-        WikiCategory.objects.filter(publish=True)
-        .order_by("-updated_at")
-        .select_related("parent")
-    )
 
-    setups = Paginator(setups, 20)
+    setups = Paginator(setups, 32)
 
     page_num = request.GET.get("page")
     obj = setups.get_page(page_num)
 
     template_name = "setup.html"
-    context = {"obj": obj, "cats": cats}
-    return render(request, template_name, context)
-
-
-# Setup Tags/Category
-def setup_filter(request, slug, url_type):
-    obj = get_object_or_404(Wiki, Q(slug=slug) & (Q(page_type=3) | Q(page_type=4)))
-    url_type = obj.page_type
-    players = SetupSettings.objects.filter(Q(game=obj) | Q(team=obj)).distinct()
-    paginator = Paginator(players, 20)
-
-    page_num = request.GET.get("page")
-    players_cat = paginator.get_page(page_num)
-    template_name = "players_cat.html"
-    context = {"players_cat": players_cat, "obj": obj, "url_type": url_type}
+    context = {"obj": obj}
     return render(request, template_name, context)
 
 
@@ -184,8 +165,15 @@ def wiki(request):
 
 # Wiki Category/Tag
 def wiki_filter(request, slug):
-    cats = get_object_or_404(WikiCategory, slug=slug, publish=True)
-    wiki = Wiki.objects.filter(tags=cats).exclude(publish=False).distinct()
+    cats_page = get_object_or_404(WikiCategory, slug=slug, publish=True)
+    wiki = Wiki.objects.filter(Q(publish=True) & Q(tags=cats_page))
+
+    cats = (
+        WikiCategory.objects.filter(publish=True)
+        .order_by("-updated_at")
+        .select_related("parent")
+    )
+
     paginator = Paginator(wiki, 20)
 
     page_num = request.GET.get("page")
@@ -193,7 +181,7 @@ def wiki_filter(request, slug):
 
     name = "cats"
     template_name = "wiki.html"
-    context = {"obj": obj, "name": name, "cats": cats}
+    context = {"obj": obj, "name": name, "cats_page": cats_page, "cats": cats}
     return render(request, template_name, context)
 
 

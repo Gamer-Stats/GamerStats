@@ -4,9 +4,13 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta property="og:locale" content="en_US" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="canonical" href="{% block can_url %}{% endblock %}" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <title>{% block title %}{% endblock %} - Gamer Stats</title>
+  <meta name="description" content="{% block description %}{% endblock %}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'styles/home.css' %}">
@@ -14,6 +18,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
+  <!--Open Graph Metadata-->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{% block og_title %}{% endblock %}" />
+  <meta property="og:description" content="{% block og_description %}{% endblock %}" />
+  <meta property="og:image" content="{% block og_img %}{% endblock %}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="675" />
+  <meta property="og:image:alt" content="{% block og_img_alt %}{% endblock %}" />
+  <meta property="og:site_name" content="Gamer Stats" />
+  <meta property="og:url" content="{% block og_url %}{% endblock %}" />
+  <!--Twitter Card Metadata-->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@TheGamerStats" />
+  <meta name="twitter:creator" content="@TheGamerStats" />
+  <meta name="twitter:title" content="{% block tw_title %}{% endblock %}" />
+  <meta name="twitter:description" content="{% block tw_description %}{% endblock %}" />
+  <meta name="twitter:image" content="{% block tw_img %}{% endblock %}" />
+  <meta name="twitter:image:alt" content="{% block tw_img_alt %}{% endblock %}" />
+  <meta name="twitter:url" content="{% block tw_url %}{% endblock %}" />
 </head>
 
 <body>
