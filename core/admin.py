@@ -1,11 +1,22 @@
 from django.contrib import admin
 
-from core.models import (Author, ImageCollection, JsonData, News, NewsCategory,
-                         PcSpecs, SEOImage, SetupSettings, Subscribe, Topic,
-                         Wiki, WikiCategory)
+from core.models import (
+    Author,
+    ImageCollection,
+    JsonData,
+    News,
+    NewsCategory,
+    PcSpecs,
+    SEOImage,
+    SetupSettings,
+    Subscribe,
+    Topic,
+    Wiki,
+    WikiCategory,
+)
 
 
-@admin.action(description='Mark as published')
+@admin.action(description="Mark as published")
 def make_published(modeladmin, request, queryset):
     queryset.update(publish=True)
 
@@ -36,6 +47,7 @@ class JsonDataAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_filter = ["data_type"]
 
+
 @admin.register(WikiCategory)
 class WikiCategoryAdmin(admin.ModelAdmin):
     search_fields = ["title"]
@@ -46,10 +58,10 @@ class WikiCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
-    list_display = ("title", "publish")
+    list_display = ("title", "publish", "pk")
     search_fields = ["title"]
     list_filter = ["page_type", "publish"]
-    autocomplete_fields = ("avatar", "info_box", "tags")
+    autocomplete_fields = ("avatar", "info_box", "tags", "related")
 
 
 @admin.register(SetupSettings)

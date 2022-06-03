@@ -43,17 +43,13 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.redirects",
     "core",
-    "compressor",
-    "sorl.thumbnail",
     "jsoneditor",
     "ckeditor",
     "ckeditor_uploader",
     "storages",
-    "corsheaders",
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -187,37 +183,37 @@ SITE_ID = 1
 
 # AWS Settings
 
-AWS_S3_REGION_NAME = config("AWS_REGION")
-AWS_ACCESS_KEY_ID = config("AWS_KEY")
-AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
+# AWS_S3_REGION_NAME = config("AWS_REGION")
+# AWS_ACCESS_KEY_ID = config("AWS_KEY")
+# AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
 
-AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
-AWS_S3_SECURE_URLS = True
+# AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
+# AWS_S3_SECURE_URLS = True
 
-AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
+# AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
 
-COMPRESS_STORAGE = "core.custom_storages.CachedS3BotoStorage"
+# COMPRESS_STORAGE = "core.custom_storages.CachedS3BotoStorage"
 
-STATICFILES_LOCATION = "static"
-STATICFILES_STORAGE = "core.custom_storages.StaticStorage"
+# STATICFILES_LOCATION = "static"
+# STATICFILES_STORAGE = "core.custom_storages.StaticStorage"
 
-STATIC_URL = config("AWS_DOMAIN") + "/"
+# STATIC_URL = config("AWS_DOMAIN") + "/"
 
-AWS_IS_GZIPPED = True
+# AWS_IS_GZIPPED = True
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
 
-# COMPRESS_URL = STATIC_URL
+# # COMPRESS_URL = STATIC_URL
 
-MEDIAFILES_LOCATION = "media"
-DEFAULT_FILE_STORAGE = "core.custom_storages.MediaStorage"
+# MEDIAFILES_LOCATION = "media"
+# DEFAULT_FILE_STORAGE = "core.custom_storages.MediaStorage"
 
-JSON_EDITOR_JS = "https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/8.6.4/jsoneditor.js"
-JSON_EDITOR_CSS = (
-    "https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/8.6.4/jsoneditor.css"
-)
+# JSON_EDITOR_JS = "https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/8.6.4/jsoneditor.js"
+# JSON_EDITOR_CSS = (
+#     "https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/8.6.4/jsoneditor.css"
+# )
 
 
 # CKEDITOR

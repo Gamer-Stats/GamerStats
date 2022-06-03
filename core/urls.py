@@ -2,8 +2,12 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
 from core import views
-from core.sitemaps import (News_Sitemap, SetupSettings_Sitemap,
-                           StaticViewSitemap, Wiki_Sitemap)
+from core.sitemaps import (
+    News_Sitemap,
+    SetupSettings_Sitemap,
+    StaticViewSitemap,
+    Wiki_Sitemap,
+)
 
 sitemaps = {
     "static": StaticViewSitemap,
@@ -26,12 +30,26 @@ urlpatterns = [
     path("news/categories/<slug:slug>/", views.news_filter, name="news_filter"),
     path("setup/", views.setup, name="setup"),
     path("setup/<slug:slug>/", views.setup_single, name="setup_single"),
-    path("setup/<url_type>/<slug:slug>/", views.setup_filter, name="setup_filter"),
     path("wiki/", views.wiki, name="wiki"),
     path("wiki/<slug:slug>/", views.wiki_single, name="wiki_single"),
     path("wiki/categories/<slug:slug>/", views.wiki_filter, name="wiki_filter"),
     # Sitemaps
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap",),
-    path("sitemap-news.xml", sitemap, {"sitemaps": news_sitemaps}, name="django.contrib.sitemaps.views.sitemap",),
-    path("sitemap-wiki.xml", sitemap, {"sitemaps": wiki_sitemaps}, name="django.contrib.sitemaps.views.sitemap",)
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path(
+        "sitemap-news.xml",
+        sitemap,
+        {"sitemaps": news_sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path(
+        "sitemap-wiki.xml",
+        sitemap,
+        {"sitemaps": wiki_sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]

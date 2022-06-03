@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %} {% load age %}
+<!-- Head Elements -->
+{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}
+{% if cats.title %}{{ cats.title }} News{% else %}Esports News{% endif %}
+{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+
+{% block description %}{% block og_description %}{% block tw_description %}Esports pro players and teams news
+{% endblock %}{% endblock %}{% endblock %}
+
+{% block tw_url %}{% block og_url %}{% block can_url %}
+https://gamerstats.net{% url 'news' %}{% if cats.slug %}{{ cats.slug }}/{% endif %}
+{% endblock %}{% endblock %}{% endblock %}
+
+{% block content %}
+<!-- Page Header and Breadcrumb -->
+<div class="container-fluid bg-white">
+    <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
+        <ol class="breadcrumb mb-0 p-2 px-4 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+                {{ cats.title }} News
+            </li>
+        </ol>
+    </nav>
+    <header class="d-block d-md-none">
+        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">{{ cats.title }} News</h1>
+    </header>
+    <div class="row flex-md-row-reverse flex-column-reverse">
+        <main class="col-md-10">
+            <!-- Main Content -->
+            <article class="py-md-5">
+                <div class="row">
+                    <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{{ cats.title }} News</h1>
+                    {% for i in obj %}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <article
+                            class="d-flex flex-row d-lg-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
+                            <figure class="col-4 col-lg-12 m-0">
+                                <img class="object-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
+                                <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
+                            </figure>
+                            <div class="col-8 col-lg-12 bg-light rounded p-2 hover-element__border">
+                                <time class="text-12px text-muted text-uppercase"
+                                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                                    {{ i.updated_at|article_age }}</time>
+                                <span class="text-12px text-muted text-uppercase">by {{ i.writer }}</span>
+                                <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
+                            </div>
+                            <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
+                                    class="visually-hidden">Read
+                                    more about {{ i.title }}</span></a>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
+                    <ol class="pagination">
+                        {% if obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ obj.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in obj.paginator %}
+                        {% if i.number == obj.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ obj.number }}">{{ obj.number }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ obj.next_page_number }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ol>
+                </nav>
+            </article>
+        </main>
+        <!-- Sidebar -->
+        <aside class="col-12 col-md border-end-md py-2 py-md-5 sidebar-nav" role="complementary" style="z-index: 1111;">
+            <nav aria-label="Secondary" class="secondary-nav position-sticky top-0 d-grid">
+                <h2 class="fs-6 fw-bold text-uppercase mb-2 d-none d-md-block">Categories</h2>
+                <ul class="list-group d-none d-md-block">
+                    <li class="list-group-item p-0">
+                        <a class="text-13px text-decoration-none p-2 px-3 d-block" href="{% url 'news' %}">
+                            All News</a>
+                    </li>
+                    {% for i in news_cat %}
+                    <li class="list-group-item p-0">
+                        <a class="text-13px text-decoration-none p-2 px-3 d-block"
+                            href="{% url 'news_filter' i.slug %}">
+                            {{ i.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="dropdown d-block d-md-none">
+                    <button
+                        class="fs-6 fw-semibold w-100 d-flex justify-content-between align-items-center border-primary border-1 text-primary py-1 px-2 bg-light text-uppercase mb-2 d-block d-md-none"
+                        type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                        aria-controls="offcanvasExample">
+                        Categories
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path
+                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                    </button>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                        aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h2 class="fs-6 fw-bold text-uppercase mb-2">Categories</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="list-group">
+                                {% for i in news_cat %}
+                                <li class="list-group-item p-0">
+                                    <a class="text-13px text-decoration-none p-2 px-3 d-block"
+                                        href="{% url 'news_filter' i.slug %}">
+                                        {{ i.title }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+    </div>
+</div>
+{% endblock %}

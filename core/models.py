@@ -116,7 +116,19 @@ class Topic(BaseOptions):
 
 
 class WikiCategory(BaseOptions):
-    pass
+    CAT_LEVEL = (
+        ("c", "Country"),
+        ("t", "Teams"),
+        ("p", "Players"),
+    )
+    cat_level = models.CharField(null=True, blank=True, choices=CAT_LEVEL, max_length=1)
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        related_name="parent_cat",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "Wiki Category"
@@ -127,6 +139,12 @@ class WikiCategory(BaseOptions):
 
 
 class Wiki(BaseOptions):
+    full_name = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="For team and game, use small name like Na’Vi and CS:GO",
+    )
     meta_images = models.ForeignKey(
         SEOImage,
         on_delete=models.SET_NULL,
@@ -142,14 +160,23 @@ class Wiki(BaseOptions):
         related_name="wiki_info",
     )
     overview = RichTextUploadingField(blank=True)
-    body = RichTextUploadingField(blank=True)
+    history = RichTextUploadingField(blank=True)
+    career = RichTextUploadingField(blank=True, null=True)
+    team_history = RichTextUploadingField(blank=True, null=True)
+    achievements = RichTextUploadingField(blank=True, null=True)
+    controversies = RichTextUploadingField(blank=True, null=True)
     ref = RichTextField(blank=True)
     tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags", blank=True)
+    related = models.ManyToManyField("self", blank=True)
     page_type = models.ForeignKey(
         Topic, on_delete=models.PROTECT, related_name="wiki_topic"
     )
     writer = models.ForeignKey(
-        Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="wiki_writer"
+        Author,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="wiki_writer",
     )
 
     class Meta:
@@ -179,7 +206,11 @@ class News(BaseOptions):
     ref = RichTextField(blank=True)
     tags = models.ManyToManyField(NewsCategory, related_name="news_tags", blank=True)
     writer = models.ForeignKey(
-        Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="news_writer"
+        Author,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="news_writer",
     )
 
     class Meta:
@@ -295,8 +326,3 @@ class Subscribe(models.Model):
 
     def __str__(self):
         return self.email
-
-
-
-
-
