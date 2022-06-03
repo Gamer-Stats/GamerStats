@@ -19,7 +19,7 @@ def index(request):
         .order_by("-updated_at")
         .filter(publish=True)
     )
-    pro_settings = settings.filter(is_pro=True)[:8]
+    pro_settings = settings.filter(is_pro=True)[:12]
 
     wikis = (
         Wiki.objects.select_related("avatar", "page_type")
@@ -58,11 +58,14 @@ def news(request):
 
 # News Single op
 def news_single(request, slug):
-    obj = (
-        News.objects.select_related("writer", "avatar")
-        .prefetch_related("tags")
-        .get(slug=slug)
-    )
+    try:
+        obj = (
+            News.objects.select_related("writer", "avatar")
+            .prefetch_related("tags")
+            .get(slug=slug)
+        )
+    except ObjectDoesNotExist:
+        return HttpResponse(status=404)
     news = (
         News.objects.select_related("writer", "avatar")
         .order_by("-updated_at")
@@ -78,13 +81,18 @@ def news_single(request, slug):
 # News Tags/Category
 def news_filter(request, slug):
     cats = get_object_or_404(NewsCategory, slug=slug)
-    news = News.objects.filter(tags=cats).exclude(publish=False)
+    news = (
+        News.objects.select_related("avatar", "writer")
+        .order_by("-updated_at")
+        .filter(Q(publish=True) & Q(tags=cats))
+    )
+    news_cat = NewsCategory.objects.order_by("-updated_at").only("title", "slug")
     paginator = Paginator(news, 12)
 
     page_num = request.GET.get("page")
-    tags = paginator.get_page(page_num)
-    template_name = "news_cat.html"
-    context = {"news": news, "tags": tags, "cats": cats}
+    obj = paginator.get_page(page_num)
+    template_name = "news.html"
+    context = {"news": news, "obj": obj, "cats": cats, "news_cat": news_cat}
     return render(request, template_name, context)
 
 
@@ -98,9 +106,9 @@ def setup(request):
     )
     setups = list(chain(setups))
     cats = (
-        Wiki.objects.filter(Q(page_type=3) | Q(page_type=4))
-        .select_related("page_type")
-        .only("title", "slug", "page_type")
+        WikiCategory.objects.filter(publish=True)
+        .order_by("-updated_at")
+        .select_related("parent")
     )
 
     setups = Paginator(setups, 20)
@@ -129,13 +137,17 @@ def setup_filter(request, slug, url_type):
 
 # Setup Single - half op DONE
 def setup_single(request, slug):
-    obj = (
-        SetupSettings.objects.select_related(
-            "settings", "avatar", "meta_images", "game", "team"
+    try:
+        obj = (
+            SetupSettings.objects.select_related(
+                "settings", "avatar", "meta_images", "game", "team"
+            )
+            .prefetch_related("specs", "specs__avatar")
+            .get(slug=slug)
         )
-        .prefetch_related("specs", "specs__avatar")
-        .get(slug=slug)
-    )
+    except ObjectDoesNotExist:
+        return HttpResponse(status=404)
+
     teammates = (
         SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team))
         .exclude(title=obj.title)
@@ -154,7 +166,7 @@ def wiki(request):
         .order_by("-updated_at")
         .filter(publish=True)
     )
-    wiki_cat = (
+    cats = (
         WikiCategory.objects.filter(publish=True)
         .order_by("-updated_at")
         .select_related("parent")
@@ -166,30 +178,34 @@ def wiki(request):
     obj = paginator.get_page(page_num)
 
     template_name = "wiki.html"
-    context = {"obj": obj, "wiki_cat": wiki_cat}
+    context = {"obj": obj, "cats": cats}
     return render(request, template_name, context)
 
 
 # Wiki Category/Tag
 def wiki_filter(request, slug):
-    wiki_cat = get_object_or_404(WikiCategory, slug=slug, publish=True)
-    wiki = Wiki.objects.filter(tags=wiki_cat).exclude(publish=False).distinct()
+    cats = get_object_or_404(WikiCategory, slug=slug, publish=True)
+    wiki = Wiki.objects.filter(tags=cats).exclude(publish=False).distinct()
     paginator = Paginator(wiki, 20)
 
     page_num = request.GET.get("page")
     obj = paginator.get_page(page_num)
 
-    name = "wiki_cat"
+    name = "cats"
     template_name = "wiki.html"
-    context = {"obj": obj, "name": name, "wiki_cat": wiki_cat}
+    context = {"obj": obj, "name": name, "cats": cats}
     return render(request, template_name, context)
 
 
 # wiki single - h-op
 def wiki_single(request, slug):
-    obj = Wiki.objects.select_related(
-        "avatar", "page_type", "meta_images", "info_box", "writer"
-    ).get(slug=slug, publish=True)
+    try:
+        obj = Wiki.objects.select_related(
+            "avatar", "page_type", "meta_images", "info_box", "writer"
+        ).get(slug=slug, publish=True)
+    except ObjectDoesNotExist:
+        return HttpResponse(status=404)
+
     cats = obj.tags.all()
     wikis = Wiki.objects.select_related("avatar").filter(Q(tags=cats) & Q(publish=True))
     template_name = "wiki_single.html"

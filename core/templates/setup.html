@@ -4,42 +4,41 @@
 {% block title %}Pro Settings and Setup{% endblock %}
 
 {% block content %}
-<!-- Page Header and Breadcrumb -->
-<header class="container-fluid border-bottom" style="background-color: #1f2936">
-  <nav aria-label="breadcrumb" class="container">
-    <ol class="breadcrumb mb-0 py-2 flex-row">
-      <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'index' %}">Home</a></li>
-      <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">
-        Esports News</li>
+
+<div class="container-fluid bg-white">
+  <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
+    <ol class="breadcrumb mb-0 p-2 px-4 d-flex">
+      <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
+      </li>
+      <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+        Pro Settings & Setup
+      </li>
     </ol>
   </nav>
-  <h1 class="visually-hidden">Latest Esports News</h1>
-</header>
-<div class="container">
-  <div class="row flex-row-reverse">
-    <main class="col-md-10">
-      <!-- Main Content -->
-      <article class="container py-5">
-        <div class="row">
-          {% for i in obj %}
-          <article class="col-6 col-md-4 col-lg-4 col-xl-3 mb-3">
-            <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-              <img class="img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}" alt="{{ i.title }}">
-              <div class="p-2 hover-element__border hover-element__border__jam">
-                <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
-                <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
-                </p>
-                <time class="visually-hidden" datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                  {{ i.updated_at|article_age }}</time>
-              </div>
-              <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
-                <span class="visually-hidden">{{ i.meta_title }}</span>
-              </a>
+  <header class="d-block d-md-none">
+    <h1 class="fs-3 fw-bold text-center pt-4 mb-4">Pro Settings and Setup</h1>
+  </header>
+  <div class="row flex-md-row-reverse flex-column-reverse">
+    <main class="col-12 col-md py-3 py-md-5">
+      <article class="row">
+        <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">Pro Settings and Setup</h1>
+        {% for i in obj %}
+        <article class="col-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+          <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main">
+            <img class="img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}" alt="{{ i.title }}">
+            <div class="p-2 hover-element__border hover-element__border__jam">
+              <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
+              <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
+              </p>
+              <time class="visually-hidden" datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                {{ i.updated_at|article_age }}</time>
             </div>
-          </article>
-          {% endfor %}
-        </div>
-
+            <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
+              <span class="visually-hidden">{{ i.meta_title }}</span>
+            </a>
+          </div>
+        </article>
+        {% endfor %}
         <!-- Pagination -->
         <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
           <ol class="pagination">
@@ -68,64 +67,87 @@
         </nav>
       </article>
     </main>
-
-    <!-- || RELABELING -->
-
-    <!-- Sidebar -->
-    <aside class="col-md-2 py-5 accordion" role="complementary" id="accordionExample">
-      <div class="accordion-item bg-light">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button collapsed text-14px bg-light p-2" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            By Teams
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-          data-bs-parent="#accordionExample">
-          <div class="accordion-body p-2">
-            <nav aria-label="Secondary">
-              <ul class="list-unstyled">
+    <aside class="col-12 col-md border-end-md py-2 py-md-5 sidebar-nav" role="complementary" style="z-index: 1111;">
+      <nav aria-label="Secondary" class="position-sticky top-0 d-grid">
+        <h2 class="fs-6 fw-bold text-uppercase mb-2 d-none d-md-block">Categories</h2>
+        <div class="accordion mx-1 d-none d-md-block" id="secondaryNav">
+          {% for i in cats %}
+          {% if i.cat_level == "c" %}
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="{{ i.slug }}1">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#{{ i.slug }}" aria-expanded="false" aria-controls="{{ i.slug }}">
+                {{ i }}
+              </button>
+            </h3>
+            <div id="{{ i.slug }}" class="accordion-collapse collapse" aria-labelledby="{{ i.slug }}1"
+              data-bs-parent="#secondaryNav">
+              <ul class="accordion-body list-group p-0" id="{{ i }}">
                 {% for i in cats %}
-                {% if i.page_type.pk == 3 %}
-                <li class="">
-                  <a class="text-muted text-14px text-decoration-none" href="{% url 'setup_filter' 'teams' i.slug %}">
-                    {{ i.title }}</a>
+                {% if i.cat_level == "p" or i.cat_level == "t" %}
+                <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
+                    class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
+                    {{ i }}
+                  </a>
                 </li>
                 {% endif %}
                 {% endfor %}
               </ul>
-            </nav>
+            </div>
           </div>
+          {% endif %}
+          {% endfor %}
         </div>
-      </div>
-      <!-- Teams -->
-      <div class="accordion-item bg-light">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed text-14px bg-light p-2" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            By Games
+        <div class="dropdown d-block d-md-none">
+          <button
+            class="fs-6 fw-semibold w-100 d-flex justify-content-between align-items-center border-primary border-1 text-primary py-1 px-2 bg-light text-uppercase mb-2 d-block d-md-none"
+            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample">
+            Categories
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots"
+              viewBox="0 0 16 16">
+              <path
+                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+            </svg>
           </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-          data-bs-parent="#accordionExample">
-          <div class="accordion-body p-2">
-            <nav aria-label="Secondary">
-              <ul class="list-unstyled">
-                {% for i in cats %}
-                {% if i.page_type.pk == 4 %}
-                <li class="">
-                  <a class="text-muted text-14px text-decoration-none" href="{% url 'setup_filter' 'games' i.slug %}">
-                    {{ i.title }}</a>
-                </li>
-                {% endif %}
-                {% endfor %}
-              </ul>
-            </nav>
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+              <h2 class="fs-6 fw-bold text-uppercase mb-2">Categories</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body accordion mx-1" id="secondaryNav">
+              {% for i in cats %}
+              {% if i.cat_level == "c" %}
+              <div class="accordion-item">
+                <h3 class="accordion-header" id="{{ i.slug }}1">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#{{ i.slug }}" aria-expanded="false" aria-controls="{{ i.slug }}">
+                    {{ i }}
+                  </button>
+                </h3>
+                <div id="{{ i.slug }}" class="accordion-collapse collapse" aria-labelledby="{{ i.slug }}1"
+                  data-bs-parent="#secondaryNav">
+                  <ul class="accordion-body list-group p-0" id="{{ i }}">
+                    {% for i in cats %}
+                    {% if i.cat_level == "p" or i.cat_level == "t" %}
+                    <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
+                        class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
+                        {{ i }}
+                      </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
     </aside>
   </div>
 </div>
-
 {% endblock %}

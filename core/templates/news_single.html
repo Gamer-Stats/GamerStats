@@ -4,89 +4,94 @@
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<header class="container-fluid border-bottom" style="background-color: #1f2936">
-  <nav aria-label="breadcrumb" class="container text-12px">
-    <ol class="breadcrumb mb-0 py-2 d-flex flex-row">
-      <li class="breadcrumb-item"><a class="text-secondary" href="{% url 'news' %}">News</a></li>
-      <li class="breadcrumb-item active align-self-end text-secondary text-truncate" aria-current="page">
-        {{ obj.title }}
+<div class="container-fluid">
+  <nav aria-label="breadcrumb" class="row bg--dark">
+    <ol class="breadcrumb mb-0 p-2 px-sm-4 d-flex">
+      <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'news' %}">News</a>
+      </li>
+      <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+        {{ obj.meta_title }}
       </li>
     </ol>
   </nav>
-</header>
-<!-- Mains -->
-<div class="container">
-  <div class="row flex-row">
-    <main class="col-md-8">
-      <article class="container py-5">
-        <header>
-          <h1 class="fs-3 fw-bold">{{ obj.title }}</h1>
-          <time class="text-12px text-muted text-uppercase"
-            datetime="{{ obj.created_at|date:'Y-m-d' }}T{{ obj.created_at|date:'H:iO' }}">
-            {{ obj.updated_at|article_age }}</time>
-          <span class="text-12px text-muted text-uppercase">by {{ obj.writer }}</span>
-          <img class="d-block my-3 img-news rounded" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.avatar.caption }}">
-          <div class="pt-2 border-bottom">
-            {{ obj.overview|safe }}
-          </div>
-        </header>
-        <div class="article-body py-3">
-          {{ obj.body|safe }}
-        </div>
-        <!-- Article Footer -->
-        <footer class="bg-light border-top pt-3 mt-3">
-          <p>Tagged:
-            {% for tag in obj.tags.all %}
-            <a class="btn btn-primary py-0 px-1 text-12px fw-semibold" href="{% url 'news_filter' tag.slug %}">
-              {{ tag }}</a>
-            {% endfor %}
-          </p>
-          <div class="row mt-4">
-            <h2 class="fs-6 fw-semibold text-uppercase">Related News:</h2>
-            {% for i in news %}
-            <article class="col-md-6 col-lg-4 mb-3">
-              <div
-                class="d-flex flex-row d-md-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
-                <figure class="col-4 col-md-12 m-0">
-                  <img class="object-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
-                  <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
-                </figure>
-                <div class="col-8 col-md-12 bg-light rounded p-2 hover-element__border">
-                  <time class="text-12px text-muted text-uppercase"
-                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                    {{ i.updated_at|article_age }}</time>
-                  <span class="text-12px text-muted text-uppercase">by {{ i.writer }}</span>
-                  <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
-                </div>
-                <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Read
-                    more about {{ i.title }}</span></a>
-              </div>
-            </article>
-            {% endfor %}
-          </div>
-        </footer>
-      </article>
-    </main>
-    <aside class="col-md-4 mt-5 py-5" style="background-color: green"></aside>
-  </div>
 </div>
+<!-- Mains -->
+<main class="container">
+  <article class="row">
+    <div class="col-md-10 py-3 py-sm-4 bg-white shadow-sm mx-auto">
+      <header>
+        <h1 class="fs-3 fw-bold">{{ obj.title }}</h1>
+        <span class="text-12px text-muted fw-semibold text-uppercase">
+          <address class="author"> By <span rel="author">{{ obj.writer }}</span></address> on
+          <time pubdate datetime="{{ obj.updated_at|date:'Y-m-d' }}T{{ obj.updated_at|date:'H:iO' }}">
+            {{ obj.updated_at|article_age }}
+          </time>
+        </span>
+        <img class="d-block my-3 img-fluid rounded" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.avatar.caption }}">
+        <div class="pt-2 border-bottom">
+          {{ obj.overview|safe }}
+        </div>
+      </header>
+      <div class="article-body py-3">
+        {{ obj.body|safe }}
+      </div>
+      <!-- Article Footer -->
+      <footer class="border-top pt-3 mt-3">
+        <h3 class="fs-6 fw-bold">TAGS: </h3>
+        {% for tag in obj.tags.all %}
+        <a class="text-light bg--dark text-16px px-1 rounded m-1" href="{% url 'news_filter' tag.slug %}">
+          {{ tag }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-box-arrow-in-up-right fw-semibold" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z" />
+            <path fill-rule="evenodd"
+              d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z" />
+          </svg>
+        </a>
+        {% endfor %}
+      </footer>
+    </div>
+  </article>
+  <aside class="row mt-4">
+    <div class="col-md-10 py-3 py-md-4 bg-white shadow-sm mx-auto">
+      <h2 class="fs-6 fw-bold text-uppercase">Related News:</h2>
+      <div class="flex-row row">
+        {% for i in news %}
+        <article class="col-md-6 col-lg-4 mb-3">
+          <div
+            class="d-flex flex-row d-md-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
+            <figure class="col-4 col-md-12 m-0">
+              <img class="object-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
+              <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
+            </figure>
+            <div class="col-8 col-md-12 bg-light rounded p-2 hover-element__border">
+              <time class="text-12px text-muted text-uppercase"
+                datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                {{ i.updated_at|article_age }}</time>
+              <span class="text-12px text-muted text-uppercase">by {{ i.writer }}</span>
+              <h3 class="mb-0 mt-1 text-15px">{{ i.title }}</h3>
+            </div>
+            <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Read
+                more about {{ i.title }}</span></a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+</main>
 
 <script>
   let table = document.getElementsByTagName("table");
   for (let i = 0; i < table.length; i++) {
-    table[i].classList.add("table", "table-hover", "table-striped", "m-0");
 
     let div = document.createElement("DIV");
-    div.classList.add("table-responsive", "border", "rounded");
+    div.classList.add("table-responsive", "text-12px");
 
     table[i].parentNode.insertBefore(div, table[i]);
     div.appendChild(table[i]);
 
-  }
-  let th = document.getElementsByTagName("th");
-  for (let i = 0; i < th.length; i++) {
-    totalChar = th[i].textContent.length;
-    th[i].style.minWidth = totalChar * 8.5 + 'px';
   }
 
 </script>

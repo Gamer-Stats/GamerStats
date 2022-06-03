@@ -15,8 +15,8 @@
             </li>
         </ol>
     </nav>
-    <header>
-        <h1 class="fs-3 fw-bold text-center pt-4 mb-4 d-block d-md-none">Esports Wiki</h1>
+    <header class="d-block d-md-none">
+        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">Esports Wiki</h1>
     </header>
     <div class="row flex-md-row-reverse flex-column-reverse">
         <main class="col-12 col-md py-3 py-md-5">
@@ -43,13 +43,39 @@
                     </div>
                 </article>
                 {% endfor %}
+                <!-- Pagination -->
+                <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
+                    <ol class="pagination">
+                        {% if obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ obj.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in obj.paginator %}
+                        {% if i.number == obj.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ obj.number }}">{{ obj.number }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ obj.next_page_number }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ol>
+                </nav>
             </article>
         </main>
-        <aside class="col-12 col-md border-end-md py-2 py-md-5 sidebar-nav" role="complementary">
+        <aside class="col-12 col-md border-end-md py-2 py-md-5 sidebar-nav" role="complementary" style="z-index: 1111;">
             <nav aria-label="Secondary" class="position-sticky top-0 d-grid">
                 <h2 class="fs-6 fw-bold text-uppercase mb-2 d-none d-md-block">Wiki Categories</h2>
                 <div class="accordion mx-1 d-none d-md-block" id="secondaryNav">
-                    {% for i in wiki_cat %}
+                    {% for i in cats %}
                     {% if i.cat_level == "c" %}
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="{{ i.slug }}1">
@@ -61,7 +87,7 @@
                         <div id="{{ i.slug }}" class="accordion-collapse collapse" aria-labelledby="{{ i.slug }}1"
                             data-bs-parent="#secondaryNav">
                             <ul class="accordion-body list-group p-0" id="{{ i }}">
-                                {% for i in wiki_cat %}
+                                {% for i in cats %}
                                 {% if i.cat_level == "p" or i.cat_level == "t" %}
                                 <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
                                         class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">
@@ -95,8 +121,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="accordion mx-1" id="secondaryNav">
-                            {% for i in wiki_cat %}
+                        <div class="offcanvas-body accordion mx-1" id="secondaryNav">
+                            {% for i in cats %}
                             {% if i.cat_level == "c" %}
                             <div class="accordion-item">
                                 <h3 class="accordion-header" id="{{ i.slug }}1">
@@ -109,7 +135,7 @@
                                 <div id="{{ i.slug }}" class="accordion-collapse collapse"
                                     aria-labelledby="{{ i.slug }}1" data-bs-parent="#secondaryNav">
                                     <ul class="accordion-body list-group p-0" id="{{ i }}">
-                                        {% for i in wiki_cat %}
+                                        {% for i in cats %}
                                         {% if i.cat_level == "p" or i.cat_level == "t" %}
                                         <li class="list-group-item rounded-0 border-end-0 border-start-0 p-0"><a
                                                 class="text-decoration-none text-muted d-block p-2" href="{{ i.slug }}">

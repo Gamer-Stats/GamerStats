@@ -6,22 +6,25 @@ News{% endblock %}
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<header class="container-fluid border-bottom" style="background-color: #1f2936">
-    <nav aria-label="breadcrumb" class="container">
-        <ol class="breadcrumb mb-0 py-2 flex-row">
-            <li class="breadcrumb-item"><a class="text-12px text-secondary" href="{% url 'index' %}">Home</a></li>
-            <li class="breadcrumb-item active text-12px align-self-end text-secondary" aria-current="page">
-                Esports News</li>
+<div class="container-fluid bg-white">
+    <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
+        <ol class="breadcrumb mb-0 p-2 px-4 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+                {{ cats.title }} News
+            </li>
         </ol>
     </nav>
-    <h1 class="visually-hidden">Latest Esports News</h1>
-</header>
-<div class="container">
-    <div class="row flex-row-reverse">
+    <header class="d-block d-md-none">
+        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">{{ cats.title }} News</h1>
+    </header>
+    <div class="row flex-md-row-reverse flex-column-reverse">
         <main class="col-md-10">
             <!-- Main Content -->
-            <article class="py-5">
+            <article class="py-md-5">
                 <div class="row">
+                    <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{{ cats.title }} News</h1>
                     {% for i in obj %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <article
@@ -60,7 +63,8 @@ News{% endblock %}
                             <a class="page-link" href="?page={{ obj.number }}">{{ obj.number }}</a>
                         </li>
                         {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a>
+                        </li>
                         {% endif %}
                         {% endfor %}
 
@@ -74,21 +78,56 @@ News{% endblock %}
             </article>
         </main>
         <!-- Sidebar -->
-        <aside class="col-md-2 py-5" role="complementary">
-            <h2 class="fs-6 fw-bold text-uppercase mb-3">News Categories</h2>
-            <nav aria-label="Secondary">
-                <ul class="bg-light list-unstyled">
+        <aside class="col-12 col-md border-end-md py-2 py-md-5 sidebar-nav" role="complementary" style="z-index: 1111;">
+            <nav aria-label="Secondary" class="secondary-nav position-sticky top-0 d-grid">
+                <h2 class="fs-6 fw-bold text-uppercase mb-2 d-none d-md-block">Categories</h2>
+                <ul class="list-group d-none d-md-block">
+                    <li class="list-group-item p-0">
+                        <a class="text-13px text-decoration-none p-2 px-3 d-block" href="{% url 'news' %}">
+                            All News</a>
+                    </li>
                     {% for i in news_cat %}
-                    <li class="">
-                        <a class="text-muted text-14px text-decoration-none" href="{% url 'news_filter' i.slug %}">
+                    <li class="list-group-item p-0">
+                        <a class="text-13px text-decoration-none p-2 px-3 d-block"
+                            href="{% url 'news_filter' i.slug %}">
                             {{ i.title }}</a>
                     </li>
                     {% endfor %}
                 </ul>
+                <div class="dropdown d-block d-md-none">
+                    <button
+                        class="fs-6 fw-semibold w-100 d-flex justify-content-between align-items-center border-primary border-1 text-primary py-1 px-2 bg-light text-uppercase mb-2 d-block d-md-none"
+                        type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                        aria-controls="offcanvasExample">
+                        Categories
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path
+                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                    </button>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                        aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h2 class="fs-6 fw-bold text-uppercase mb-2">Categories</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="list-group">
+                                {% for i in news_cat %}
+                                <li class="list-group-item p-0">
+                                    <a class="text-13px text-decoration-none p-2 px-3 d-block"
+                                        href="{% url 'news_filter' i.slug %}">
+                                        {{ i.title }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </aside>
     </div>
-
 </div>
-
 {% endblock %}

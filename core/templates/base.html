@@ -18,15 +18,19 @@
 
 <body>
   <nav class="navbar navbar-expand-lg bg-light border-bottom">
-    <div class="container-fluid">
+    <div class="container-fluid px-1 px-sm-2">
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img style="width: 240px;" src="{% static 'img/g-dark-light.svg' %}" alt="Gamer Stats">
+        <img style="width: 180px;" src="{% static 'img/g-dark-light.svg' %}" alt="Gamer Stats">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler border-0 p-0 me-2" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px;" fill="none" viewBox="0 0 24 24"
+          stroke="rgb(31 41 54)" stroke-width="2">
+          <title>Menu</title>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
       </button>
-      <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+      <div class="collapse navbar-collapse flex-row-reverse px-2" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link text-dark text-uppercase text-14px fw-500" aria-current="page"
@@ -54,7 +58,7 @@
   <!-- Footer -->
   <footer class="container-fluid bg-dark mt-3">
     <h2 class="visually-hidden">Footer</h2>
-    <div class="container py-5">
+    <div class="container pt-5 pb-3">
       <div class="row">
         <section class="col-md-5">
           <h3 class="visually-hidden">About Gamer Stats</h3>
@@ -114,52 +118,52 @@
               </g>
             </g>
           </svg>
-          <p class="mt-3 text-light">Gamer Stats is a Esports news and gaming updates website. Gamer Stats
+          <p class="mt-3 text-light text-13px">Gamer Stats is a Esports news and gaming updates website. Gamer Stats
             also track the esports players and content creators' game settings and pc setup.</p>
         </section>
         <section class="col-md-2">
-          <h3 class="fs-5 fw-bold text-light">Pro Settings</h3>
-          <ul class="mt-3 list-unstyled d-flex flex-column" style="grid-row-gap: 10px;">
+          <h3 class="fs-6 fw-semibold text-light">Pro Settings</h3>
+          <ul class="list-unstyled d-flex flex-column text-13px" style="grid-row-gap: 10px;">
             <li>
-              <a href="setup/games/counter-strike-global-offensive/" class="text-15px text-white">
+              <a href="setup/games/counter-strike-global-offensive/" class="text-light">
                 CS:GO Roster
               </a>
             </li>
 
             <li>
-              <a href="setup/games/valorant/" class="text-15px text-white">
+              <a href="setup/games/valorant/" class="text-light">
                 VALORANT Roster
               </a>
             </li>
           </ul>
         </section>
         <section class="col-md-2">
-          <h3 class="fs-5 fw-bold text-light">Esports News</h3>
-          <ul class="mt-3 list-unstyled d-flex flex-column" style="grid-row-gap: 10px;">
+          <h3 class="fs-6 fw-semibold text-light">Esports News</h3>
+          <ul class="list-unstyled d-flex flex-column text-13px" style="grid-row-gap: 10px;">
             <li>
-              <a href="{% url 'news' %}" class="text-15px text-white">Latest News</a>
+              <a href="{% url 'news' %}" class="text-light">Latest News</a>
             </li>
 
             <li>
-              <a href="{% url 'news_filter' 'valorant' %}" class="text-15px text-white">VALORANT News</a>
+              <a href="{% url 'news_filter' 'valorant' %}" class="text-light">VALORANT News</a>
             </li>
             <li>
-              <a href="{% url 'news_filter' 'csgo' %}" class="text-15px text-white">CS:GO News</a>
+              <a href="{% url 'news_filter' 'csgo' %}" class="text-light">CS:GO News</a>
             </li>
           </ul>
         </section>
         <section class="col-md-2">
-          <h3 class="fs-5 fw-bold text-light">Esports Wikis</h3>
-          <ul class="mt-3 list-unstyled d-flex flex-column" style="grid-row-gap: 10px;">
+          <h3 class="fs-6 fw-semibold text-light">Esports Wikis</h3>
+          <ul class="list-unstyled d-flex flex-column text-13px" style="grid-row-gap: 10px;">
             <li>
-              <a href="{% url 'wiki' %}" class="text-15px text-white">All Wikis</a>
+              <a href="{% url 'wiki' %}" class="text-light">All Wikis</a>
             </li>
 
             <li>
-              <a href="{% url 'wiki_single' 'valorant' %}" class="text-15px text-white">VALORANT Wiki</a>
+              <a href="{% url 'wiki_single' 'valorant' %}" class="text-light">VALORANT Wiki</a>
             </li>
             <li>
-              <a href="{% url 'wiki_single' 'counter-strike-global-offensive' %}" class="text-15px text-white">CS:GO
+              <a href="{% url 'wiki_single' 'counter-strike-global-offensive' %}" class="text-light">CS:GO
                 Wiki</a>
             </li>
           </ul>
@@ -169,12 +173,12 @@
     <div class="container py-3 border-top border-secondary">
       <div class="row">
         <div class="col-md-8">
-          <p class="text-secondary text-14px">
-            <strong>Disclaimer:</strong> Purchases made using the retail links on this page may earn
+          <p class="text-light text-13px">
+            <strong class="fw-semibold">Disclaimer:</strong> Purchases made using the retail links on this page may earn
             GamerStats a small commission.
           </p>
-          <p class="text-secondary text-14px">
-            © 2019 - 2022 Gamer Stats. Some rights reserved. | <a class="text-secondary"
+          <p class="text-light text-13px">
+            © 2019 - 2022 Gamer Stats. Some rights reserved. | <a class="text-light"
               href="https://gadgetsbrief.com">Gadgets Brief</a> - For tech tutorials and guides.
           </p>
         </div>
