@@ -1,0 +1,51 @@
+.related .list-grid {
+    flex-flow: row;
+    overflow: scroll;
+    grid-gap: 20px;
+  }
+  
+  /* width */
+  .related .list-grid::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .related .list-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  .related .list-grid::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  .related .list-grid::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  .scrollbtns {
+    position: relative;
+  }
+  
+  .scrollbtns #scrollLeft, .scrollbtns #scrollRight {
+    background-color: var(--primary-surface);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: solid 1px var(--grey);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .scrollbtns #scrollLeft {
+    left: 0;
+  }
+  
+  .scrollbtns #scrollRight {
+    right: 0;
+  }

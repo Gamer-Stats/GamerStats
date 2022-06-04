@@ -41,8 +41,8 @@
                 <h1 class="fs-3 fw-bold">{{ obj.meta_title }}</h1>
                 {{ obj.overview|safe }}
                 <a class="text-light bg--dark text-16px px-1 rounded" href="{% url 'wiki_single' obj.slug %}"
-                    title="s1mple Wiki">
-                    s1mple Wiki
+                    title="{{ obj.title }} Wiki">
+                    {{ obj.title }} Wiki
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-box-arrow-in-up-right fw-semibold" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -143,72 +143,27 @@
                 </table>
             </div>
         </section>
+        <section class="border rounded bg-light p-3">
+            <h2 class="fs-5 fw-bold mb-3">Related Player's Setup</h2>
+            <ul class="list-unstyled d-flex flex-row flex-wrap mb-0">
+                {% for i in teammates %}
+                <li class="col-6 col-md-3">
+                    <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
+                        <img class="img-fluid" src="{% static 'img/square.webp' %}" alt="">
+                        <h3
+                            class="text-14px text-uppercase mt-2 fw-semibold text-primary hover-element__border hover-element__border__jam">
+                            {{ i.title }}</h3>
+                        <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
+                            <span class="visually-hidden">{{ i.title }} settings and
+                                setup</span>
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
     </article>
 </main>
-<!-- <div class="container">
-        <div class="row flex-row">
-            <main class="col-12">
-                <!-- Main Content -->
-<!-- <article class="py-lg-5 pt-3 px-0 px-lg-2">
-                    <div class="row flex-column-reverse flex-lg-row-reverse">
-                        <div class="col-lg-8 mt-3 mt-lg-0">
-                            <div class="">
-                                <h1 class="fs-3 fw-bold px-2 px-md-0">{{ obj.meta_title }}</h1>
-                                <p class="text-12px text-muted text-uppercase px-2 px-md-0">Last Updated:
-                                    <time class="text-12px text-muted text-uppercase "
-                                        datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                                        {{ obj.updated_at|article_age }}</time>
-                                </p>
-
-                                
-                                
-
-
-
-                                <section class="border rounded bg-light p-3">
-                                    <h2 class="fs-5 fw-bold mb-3">Related Player's Setup</h2>
-                                    <ul class="list-unstyled d-flex flex-row flex-wrap mb-0">
-                                        {% for i in teammates %}
-                                        <li class="col-6 col-md-3">
-                                            <div
-                                                class="overflow-hidden rounded m-2 position-relative hover-element__main">
-                                                <img class="img-fluid" src="{% static 'img/square.webp' %}" alt="">
-                                                <h3
-                                                    class="text-14px text-uppercase mt-2 fw-semibold text-primary hover-element__border hover-element__border__jam">
-                                                    {{ i.title }}</h3>
-                                                <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
-                                                    <span class="visually-hidden">{{ i.title }} settings and
-                                                        setup</span>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="border rounded overflow-hidden">
-                                <img class="img-fluid" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.meta_title }}"
-                                    title="{{ obj.meta_title }}">
-                                <img class="img-profile d-inline ms-2 rounded-circle border border-2 border-primary"
-                                    src="{% static 'img/square.webp' %}" alt="{{ obj.title }}" title="{{ obj.title }}">
-                                <h2 class="d-inline fs-5 fw-bold">FULL NAME</h2>
-                                <div class="p-2 text-15px">
-                                    {{ obj.overview|safe }}
-                                    <a class="btn btn-sm btn-primary" href="{% url 'wiki_single' obj.slug %}"
-                                        title="s1mple Wiki">
-                                        s1mple Wiki
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </main>
-        </div>
-    </div>
-</div> -->
 
 
 {% endblock %}

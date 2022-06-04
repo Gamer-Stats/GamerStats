@@ -160,6 +160,7 @@ class Wiki(BaseOptions):
         related_name="wiki_info",
     )
     overview = RichTextUploadingField(blank=True)
+    body = RichTextUploadingField(blank=True)
     history = RichTextUploadingField(blank=True)
     career = RichTextUploadingField(blank=True, null=True)
     team_history = RichTextUploadingField(blank=True, null=True)
@@ -310,7 +311,7 @@ class SetupSettings(BaseOptions):
         null=True,
         blank=True,
     )
-    # related = models.ManyToManyField("self", blank=True)
+    related = models.ManyToManyField("self", blank=True)
 
     class Meta:
         verbose_name = "Setup and Settings"
