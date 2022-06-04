@@ -27,7 +27,7 @@
             {{ obj.updated_at|article_age }}
           </time>
         </span>
-        <img class="d-block my-3 img-fluid rounded" src="{% static 'img/s1mp.jpg' %}" alt="{{ obj.avatar.caption }}">
+        <img class="d-block my-3 object-img rounded" src="{{ obj.avatar.image.url }}" alt="{{ obj.avatar.caption }}">
         <div class="pt-2 border-bottom">
           {{ obj.overview|safe }}
         </div>
@@ -62,7 +62,7 @@
           <div
             class="d-flex flex-row d-md-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
             <figure class="col-4 col-md-12 m-0">
-              <img class="object-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
+              <img class="object-img" src="{{ i.avatar.image.url }}" alt="{{ i.title }}">
               <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
             </figure>
             <div class="col-8 col-md-12 bg-light rounded p-2 hover-element__border">

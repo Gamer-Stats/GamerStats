@@ -27,11 +27,13 @@
       <nav class="text-12px border position-sticky top-0" aria-label="table of contents">
         <h2 class="bg--dark fw-semibold p-2 fs-6 text-uppercase">On this page</h2>
         <ol class="lh-lg">
-          <li><a href="#early_life">Early Life</a></li>
-          <li><a href="#career">Career</a></li>
-          <li><a href="#team_history">Team History</a></li>
+          <li><a href="#{{ history_title|cut:' ' }}">{{ history_title }}</a></li>
+          <li><a href="#{{ career_title|cut:' ' }}">{{ career_title }}</a></li>
+          <li><a href="#{{ team_history_title|cut:' ' }}">{{ team_history_title }}</a></li>
           <li><a href="#achievements">Achievements</a></li>
+          {% if obj.controversies %}
           <li><a href="#controversies">Controversies</a></li>
+          {% endif %}
         </ol>
       </nav>
     </div>
@@ -39,7 +41,8 @@
       <div class="d-flex flex-column flex-md-row-reverse">
         <div class="col-12 col-md-4">
           <div class="overview d-block d-md-none">
-            <h1 class="fs-3 fw-bold">{{ obj.title }} - <i>{{ obj.full_name }}</i></h1>
+            <h1 class="fs-3 fw-bold">{{ obj.title }} {% if obj.full_name is not None %} - <i>{{ obj.full_name }}</i>
+              {% endif %}</h1>
             {{ obj.overview|safe }}
           </div>
           <table class="mx-auto">
@@ -47,8 +50,9 @@
               <tr>
                 <th colspan="2">
                   <figure class="d-block text-center figure mb-0">
-                    <img class="figure-img img-fluid rounded-circle border border-3 border-primary img-profile"
-                      src="{% static 'img/square.webp' %}" alt="{{ obj.title }}" title="{{ obj.title }}">
+                    <img
+                      class="figure-img img-fluid rounded-circle border border-3 border-primary img-profile bg-gradient bg-secondary"
+                      src="{{ obj.avatar.image.url }}" alt="{{ obj.title }}" title="{{ obj.title }}">
                     <figcaption>{{ obj.avatar.caption }}</figcaption>
                   </figure>
                 </th>
@@ -67,40 +71,63 @@
 
         <div class="col-12 col-md-8 heading-fix">
           <div class="overview d-none d-md-block">
-            <h1 class="fs-3 fw-bold">{{ obj.title }} - <i>{{ obj.full_name }}</i></h1>
+            <h1 class="fs-3 fw-bold">{{ obj.title }} {% if obj.full_name is not None %} - <i>{{ obj.full_name }}</i>
+              {% endif %}</h1>
             {{ obj.overview|safe }}
           </div>
           <nav class="text-12px border d-inline-block d-lg-none mb-2" style="min-width: 180px;"
             aria-label="table of contents">
             <h2 class="bg--dark fw-semibold p-2 fs-6 text-uppercase">On this page</h2>
             <ol class="lh-lg">
-              <li><a href="#early_life">Early Life</a></li>
-              <li><a href="#career">Career</a></li>
-              <li><a href="#team_history">Team History</a></li>
+              <li><a href="#{{ history_title|cut:' ' }}">{{ history_title }}</a></li>
+              <li><a href="#{{ career_title|cut:' ' }}">{{ career_title }}</a></li>
+              <li><a href="#{{ team_history_title|cut:' ' }}">{{ team_history_title }}</a></li>
               <li><a href="#achievements">Achievements</a></li>
+              {% if obj.controversies %}
               <li><a href="#controversies">Controversies</a></li>
+              {% endif %}
             </ol>
           </nav>
+
           <section class="text-14px pt-2">
-            <h2 class="fs-4 fw-bold border-bottom pb-2" id="early_life">Early Life</h2>
+            <h2 class="fs-4 fw-bold border-bottom pb-2" id="{{ history_title|cut:' ' }}">{{ history_title }}</h2>
+            {% if obj.history %}
             {{ obj.history|safe }}
+            {% else %}
+            This section requires references and more work.
+            {% endif %}
           </section>
           <section class="text-14px pt-2">
-            <h2 class="fs-4 fw-bold border-bottom pb-2" id="career">Career</h2>
+            <h2 class="fs-4 fw-bold border-bottom pb-2" id="{{ career_title|cut:' ' }}">{{ career_title }}</h2>
+            {% if obj.career %}
             {{ obj.career|safe }}
+            {% else %}
+            This section requires references and more work.
+            {% endif %}
           </section>
           <section class="text-14px pt-2">
-            <h2 class="fs-4 fw-bold border-bottom pb-2" id="team_history">Team History</h2>
+            <h2 class="fs-4 fw-bold border-bottom pb-2" id="{{ team_history_title|cut:' ' }}">{{ team_history_title }}
+            </h2>
+            {% if obj.team_history %}
             {{ obj.team_history|safe }}
+            {% else %}
+            This section requires references and more work.
+            {% endif %}
           </section>
           <section class="text-14px pt-2">
             <h2 class="fs-4 fw-bold border-bottom pb-2" id="achievements">Awards and Achievements</h2>
+            {% if obj.achievements %}
             {{ obj.achievements|safe }}
+            {% else %}
+            This section requires references and more work.
+            {% endif %}
           </section>
+          {% if obj.controversies %}
           <section class="text-14px pt-2">
             <h2 class="fs-4 fw-bold border-bottom pb-2" id="controversies">Controversies</h2>
             {{ obj.controversies|safe }}
           </section>
+          {% endif %}
         </div>
       </div>
     </div>

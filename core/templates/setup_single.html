@@ -24,14 +24,15 @@
         </ol>
     </nav>
 </div>
-<main class="container-md px-0 p-sm-2 bg-white shadow-sm">
-    <article class="flex-row">
-        <img class="img-fluid" srcset="{% static 'img/csgo-phone.png' %} 1w, {% static 'img/csgo.png' %} 500w"
+<main class="container px-0 px-sm-2">
+    <article class="px-2 p-sm-0 col-md-10 bg-white shadow-sm mx-auto">
+        <img class="object-img py-2 p-sm-2"
+            srcset="{% static 'img/csgo-phone.png' %} 1w, {% static 'img/csgo.png' %} 500w"
             sizes="(max-width: 600px) 1px, 800px" src=" {% static 'img/csgo.png' %}" alt="{{ obj.meta_title }}"
             title="{{ obj.meta_title }}">
         <div class="d-flex flex-column">
-            <img class="img-profile p-0 rounded-circle border border-4 border-primary mx-auto"
-                src="{% static 'img/square.webp' %}" alt="{{ obj.title }}" title="{{ obj.title }}"
+            <img class="img-profile p-0 rounded-circle border border-4 border-primary mx-auto bg-gradient bg-secondary"
+                src="{{ obj.avatar.image.url }}" alt="{{ obj.title }}" title="{{ obj.title }}"
                 style="margin-top: -80px;">
             <div class="mt-3 col-sm-8 mx-sm-auto text-center">
                 <span class="text-12px text-muted text-uppercase d-block">Last Updated:
@@ -91,21 +92,21 @@
             <h2 class="fs-5 fw-bold">{{ obj.title }} Setup</h2>
             {{ obj.setup_body|safe }}
             <small class="text-muted mb-3 d-inline-block">Click on the image to check price</small>
-            <div class="d-flex flex-wrap">
+            <div class="d-flex flex-wrap pc-specs">
                 {% for i in obj.specs.all %}
-                <div class="col-6 col-md-3 col-lg-2">
-                    <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
-                        <img class="img-fluid" src="{% static 'img/square.webp' %}" alt="{{ i.title }}"
-                            title="{{ i.title }}">
-                        <h3
-                            class="text-14px text-uppercase mt-2 mb-1 fw-semibold text-primary hover-element__border hover-element__border__jam">
-                            {{ i.get_specs_type_display }}
-                        </h3>
-                        <p class="text-12px">{{ i.title }}</p>
-                        <a class="stretched-link" href="{{ i.amazon_url }}" target="_blank" rel="nofollow">
-                            <span class="visually-hidden">Check Price of {{ i.title }}</span>
-                        </a>
+                <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
+                    <div class="sq-img-div">
+                        <img class="object-img bg-gradient bg-secondary" src="{{ i.avatar.image.url }}"
+                            alt="{{ i.title }}" title="{{ i.title }}">
                     </div>
+                    <h3
+                        class="text-14px text-uppercase mt-2 mb-1 fw-semibold text-primary hover-element__border hover-element__border__jam">
+                        {{ i.get_specs_type_display }}
+                    </h3>
+                    <p class="text-12px">{{ i.title }}</p>
+                    <a class="stretched-link" href="{{ i.amazon_url }}" target="_blank" rel="nofollow">
+                        <span class="visually-hidden">Check Price of {{ i.title }}</span>
+                    </a>
                 </div>
                 {% endfor %}
             </div>
@@ -143,13 +144,14 @@
                 </table>
             </div>
         </section>
-        <section class="border rounded bg-light p-3">
+        <section class="text-14px border-top px-3 pt-4 pb-2 pb-md-0 p-md-4">
             <h2 class="fs-5 fw-bold mb-3">Related Player's Setup</h2>
             <ul class="list-unstyled d-flex flex-row flex-wrap mb-0">
                 {% for i in teammates %}
                 <li class="col-6 col-md-3">
                     <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
-                        <img class="img-fluid" src="{% static 'img/square.webp' %}" alt="">
+                        <img class="object-img bg-gradient bg-secondary" src="{{ i.avatar.image.url }}"
+                            title="{{ i.meta_title }}" alt="{{ i.meta_title }}">
                         <h3
                             class="text-14px text-uppercase mt-2 fw-semibold text-primary hover-element__border hover-element__border__jam">
                             {{ i.title }}</h3>
@@ -164,6 +166,29 @@
         </section>
     </article>
 </main>
+<style>
+    .pc-specs div {
+        width: 180px;
+    }
+
+    .pc-specs .sq-img-div {
+        height: 180px;
+    }
+
+    @media (max-width: 500px) {
+        .pc-specs {
+            justify-content: space-between;
+        }
+
+        .pc-specs div {
+            width: 150px;
+        }
+
+        .pc-specs .sq-img-div {
+            height: 150px;
+        }
+    }
+</style>
 
 
 {% endblock %}

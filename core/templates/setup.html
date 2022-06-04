@@ -27,16 +27,17 @@
   <article class="row">
     <h1 class="fs-3 fw-bold text-center mb-4">Pro Settings and Setup</h1>
     {% for i in obj %}
-    <article class="col-6 col-lg-4 col-xxl-3 mb-3">
-      <div
-        class="d-flex flex-column flex-sm-row border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-        <img class="col-sm-5 img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}" alt="{{ i.title }}">
-        <div class="col-sm-7 p-2 hover-element__border hover-element__border__green">
+    <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
+      <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
+        <img class="col-auto bg--dark" src="{{ i.avatar.image.url }}" title="{{ i.title }}" alt="{{ i.title }}"
+          width="130" height="130">
+        <div class="col p-2 hover-element__border hover-element__border__green">
           <span class="text-12px">Last updated: </span>
           <time class="text-12px" datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
             {{ i.updated_at|article_age }}</time>
           <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
-          <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}</p>
+          <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
+          </p>
         </div>
         <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
           <span class="visually-hidden">{{ i.meta_title }}</span>

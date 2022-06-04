@@ -194,10 +194,34 @@ def wiki_single(request, slug):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
 
+    if obj.page_type.pk == 2:
+        history_title = "Early Life"
+        career_title = "Career"
+        team_history_title = "Team History"
+    elif obj.page_type.pk == 1:
+        history_title = "Early Life"
+        career_title = "Career"
+        team_history_title = "Esports"
+    elif obj.page_type.pk == 3:
+        history_title = "History"
+        career_title = "Organization"
+        team_history_title = "Former Members"
+    elif obj.page_type.pk == 4:
+        history_title = "Gameplay"
+        career_title = "Development"
+        team_history_title = "Organization"
+
     cats = obj.tags.all()
     wikis = Wiki.objects.select_related("avatar").filter(Q(tags=cats) & Q(publish=True))
     template_name = "wiki_single.html"
-    context = {"obj": obj, "cats": cats, "wikis": wikis}
+    context = {
+        "obj": obj,
+        "cats": cats,
+        "wikis": wikis,
+        "history_title": history_title,
+        "career_title": career_title,
+        "team_history_title": team_history_title,
+    }
     return render(request, template_name, context)
 
 

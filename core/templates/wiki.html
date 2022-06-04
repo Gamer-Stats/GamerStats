@@ -36,9 +36,9 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
                 {% for i in obj %}
                 <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
                     <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-                        <img class="col-5 img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}"
-                            alt="{{ i.title }}">
-                        <div class="col-7 p-2 hover-element__border hover-element__border__green">
+                        <img src="{{ i.avatar.image.url }}" title="{{ i.title }}" alt="{{ i.title }}" width="130"
+                            height="130">
+                        <div class="col p-2 hover-element__border hover-element__border__green">
                             <span class="text-12px">Last updated: </span>
                             <time class="text-12px"
                                 datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">

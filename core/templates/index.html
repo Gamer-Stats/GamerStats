@@ -12,107 +12,135 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
 
 {% load static %}{% load age %}
 {% block content %}
-<main class="container py-3">
-    <div class="row">
-        <h1 class="visually-hidden">Gamer Stats - Latest Esports News</h1>
-        <article class="col-lg-9">
-            <div class="card text-white hover-element__main shadow-sm">
-                {% for i in news %}
-                {% if forloop.counter == 1 %}
-                <img class="card-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
-                <div class="position-absolute bottom-0 p-2 rounded bg-black bg-gradient bg-opacity-75">
-                    <time class="card-text text-12px text-uppercase"
-                        datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                        {{ i.updated_at|article_age }}</time>
-                    <h2 class="mt-1 fs-4 heading-18px mb-0 hover-element__border">{{ i.title }}</h2>
+
+<div class=" bg-white">
+    <main class="container py-3">
+        <div class="row">
+            <h1 class="visually-hidden">Gamer Stats - Latest Esports News</h1>
+            <article class="col-lg-9">
+                <div class="card text-white hover-element__main shadow-sm">
+                    {% for i in news %}
+                    {% if forloop.counter == 1 %}
+                    <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" width="100%" height="100%">
+                    <div class="position-absolute bottom-0 p-2 rounded bg-black bg-gradient bg-opacity-75">
+                        <time class="card-text text-12px text-uppercase"
+                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                            {{ i.updated_at|article_age }}</time>
+                        <h2 class="mt-1 fs-4 heading-18px mb-0 hover-element__border">{{ i.title }}</h2>
+                    </div>
+                    <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
+                            class="visually-hidden">Continue
+                            reading {{ i.title }}</span></a>
+                    {% endif %}
+                    {% endfor %}
                 </div>
-                <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Continue
-                        reading {{ i.title }}</span></a>
+            </article>
+            <div class="col-lg-3 d-flex flex-column mt-3 mt-lg-0" style="grid-row-gap: 10px;">
+                {% for i in news %}
+                {% if forloop.counter == 2 %}
+                <article class="hover-element__main overflow-hidden position-relative shadow-sm border rounded">
+                    <img class="d-none d-xl-block img-fluid" src="{{ i.avatar.image.url }}" alt="{{ i.title }}">
+                    <div class="bg-light rounded p-2 hover-element__border">
+                        <time class="text-12px text-muted text-uppercase"
+                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                            {{ i.updated_at|article_age }}</time>
+                        <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
+                    </div>
+                    <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
+                            class="visually-hidden">Continue
+                            reading {{ i.title }}</span></a>
+                </article>
                 {% endif %}
                 {% endfor %}
-            </div>
-        </article>
-        <div class="col-lg-3 d-flex flex-column mt-3 mt-lg-0" style="grid-row-gap: 10px;">
-            {% for i in news %}
-            {% if forloop.counter == 2 %}
-            <article class="hover-element__main overflow-hidden position-relative shadow-sm border rounded">
-                <img class="d-none d-xl-block img-fluid" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
-                <div class="bg-light rounded p-2 hover-element__border">
+
+                {% for i in news %}
+                {% if forloop.counter > 2 %}
+                <article
+                    class="hover-element__main position-relative p-2 d-flex flex-column shadow-sm overflow-hidden border rounded">
                     <time class="text-12px text-muted text-uppercase"
                         datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
                         {{ i.updated_at|article_age }}</time>
-                    <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
-                </div>
-                <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Continue
-                        reading {{ i.title }}</span></a>
-            </article>
-            {% endif %}
-            {% endfor %}
-
-            {% for i in news %}
-            {% if forloop.counter > 2 %}
-            <article
-                class="hover-element__main position-relative p-2 d-flex flex-column shadow-sm overflow-hidden border rounded">
-                <time class="text-12px text-muted text-uppercase"
-                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                    {{ i.updated_at|article_age }}</time>
-                <h2 class="hover-element__border mb-0 mt-1 text-15px">{{ i.title }}</h2>
-                <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Continue
-                        reading {{ i.title }}</span></a>
-            </article>
-            {% endif %}
-            {% endfor %}
+                    <h2 class="hover-element__border mb-0 mt-1 text-15px">{{ i.title }}</h2>
+                    <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
+                            class="visually-hidden">Continue
+                            reading {{ i.title }}</span></a>
+                </article>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <span>
+                <a class="d-inline-block mt-4" href="{% url 'news' %}">View all news</a>
+            </span>
         </div>
-        <a class="d-inline-block mt-4" href="{% url 'news' %}">View all news</a>
-    </div>
 
-    <!-- Pro settings -->
-    <div class="row mt-5">
-        <h2 class="fw-bold fs-4 mb-4">Pro Settings and Setup</h2>
-        {% for i in pro_settings %}
-        <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
-            <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-                <img class="col-5 img-fluid" src="{% static 'img/square.webp' %}" title="{{ i.title }}"
-                    alt="{{ i.title }}">
-                <div class="col-7 p-2 hover-element__border hover-element__border__green">
-                    <span class="text-12px">Last updated: </span>
-                    <time class="text-12px" datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                        {{ i.updated_at|article_age }}</time>
-                    <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
-                    <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}</p>
+        <!-- Pro settings -->
+        <div class="row mt-5">
+            <h2 class="fw-bold fs-4 mb-4">Pro Settings and Setup</h2>
+            {% for i in pro_settings %}
+            <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
+                <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
+                    <img class="col-auto bg--dark" src="{{ i.avatar.image.url }}" title="{{ i.title }}"
+                        alt="{{ i.title }}" width="130" height="130">
+                    <div class="col p-2 hover-element__border hover-element__border__green">
+                        <span class="text-12px">Last updated: </span>
+                        <time class="text-12px"
+                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                            {{ i.updated_at|article_age }}</time>
+                        <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
+                        <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
+                        </p>
+                    </div>
+                    <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
+                        <span class="visually-hidden">{{ i.meta_title }}</span>
+                    </a>
                 </div>
-                <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
-                    <span class="visually-hidden">{{ i.meta_title }}</span>
-                </a>
-            </div>
-        </article>
-        {% endfor %}
-        <a class="d-inline-block mt-2" href="{% url 'setup' %}">View all pro setup</a>
-    </div>
-    <!-- Esports Wikis -->
-    <div class="row mt-5">
-        <h2 class="fw-bold fs-4 mb-4">Esports Wikis</h2>
-        {% for i in wikis %}
-        <article class="col-sm-6 col-md-4 col-lg-3 mb-3">
-            <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-                <img class="img-fluid" src="{% static 'images/p.jpg' %}" title="{{ i.title }}" alt="{{ i.title }}">
-                <div class="p-2 hover-element__border hover-element__border__green">
-                    <span class="text-12px text-muted lh-1">
-                        Last updated
-                        <address class="author"> by <span rel="author">{{ i.writer }}</span></address>,
-                        <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
-                            {{ i.updated_at|article_age }}
-                        </time>
-                    </span>
-                    <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
+            </article>
+            {% endfor %}
+            <span>
+                <a class="mt-2" href="{% url 'setup' %}">View all pro setup</a>
+            </span>
+        </div>
+
+        <!-- Esports Wikis -->
+        <div class="row mt-5">
+            <h2 class="fw-bold fs-4 mb-4">Esports Wikis</h2>
+            {% for i in wikis %}
+            <article class="col-sm-6 col-md-4 col-lg-3 mb-3">
+                <div class="border shadow-sm rounded overflow-hidden position-relative hover-element__main bg-light">
+                    <div class="square-img--main mx-auto text-center">
+                        <img src="{{ i.avatar.image.url }}" title="{{ i.title }}" alt="{{ i.title }}">
+                    </div>
+                    <div class="p-2 hover-element__border hover-element__border__green bg-white">
+                        <span class="text-12px text-muted lh-1">
+                            Last updated
+                            <address class="author"> by <span rel="author">{{ i.writer }}</span></address>,
+                            <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                                {{ i.updated_at|article_age }}
+                            </time>
+                        </span>
+                        <h3 class="fs-6 fw-semibold my-1 text-dark">{{ i.title }}</h3>
+                    </div>
+                    <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
+                        <span class="visually-hidden">{{ i.meta_title }}</span>
+                    </a>
                 </div>
-                <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
-                    <span class="visually-hidden">{{ i.meta_title }}</span>
-                </a>
-            </div>
-        </article>
-        {% endfor %}
-        <a class="d-inline-block mt-2" href="{% url 'wiki' %}">View all wikis</a>
-    </div>
-</main>
+            </article>
+            {% endfor %}
+            <span>
+                <a class="mt-2" href="{% url 'wiki' %}">View all wikis</a>
+            </span>
+        </div>
+    </main>
+</div>
+<style>
+    .square-img--main {
+        width: 240px;
+        height: 240px;
+    }
+
+    .square-img--main img {
+        width: min-content;
+        height: 240px;
+    }
+</style>
 {% endblock %}

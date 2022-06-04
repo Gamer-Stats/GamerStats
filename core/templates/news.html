@@ -20,25 +20,29 @@ https://gamerstats.net{% url 'news' %}{% if cats.slug %}{{ cats.slug }}/{% endif
             <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
             </li>
             <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
-                {{ cats.title }} News
+                {% if cats.title %}{{ cats.title }} News{% else %}Esports News{% endif %}
             </li>
         </ol>
     </nav>
     <header class="d-block d-md-none">
-        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">{{ cats.title }} News</h1>
+        <h1 class="fs-3 fw-bold text-center pt-4 mb-4">{% if cats.title %}{{ cats.title }} News{% else %}Esports News
+            {% endif %}
+        </h1>
     </header>
     <div class="row flex-md-row-reverse flex-column-reverse">
         <main class="col-md-10">
             <!-- Main Content -->
             <article class="py-md-5">
                 <div class="row">
-                    <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{{ cats.title }} News</h1>
+                    <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{% if cats.title %}{{ cats.title }}
+                        News{% else %}Esports News{% endif %}</h1>
                     {% for i in obj %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <article
                             class="d-flex flex-row d-lg-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
                             <figure class="col-4 col-lg-12 m-0">
-                                <img class="object-img" src="{% static 'img/s1mp.jpg' %}" alt="{{ i.title }}">
+                                <img class="object-img" src="{{ i.avatar.image.url }}" title="{{ i.title }}"
+                                    alt="{{ i.title }}">
                                 <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
                             </figure>
                             <div class="col-8 col-lg-12 bg-light rounded p-2 hover-element__border">

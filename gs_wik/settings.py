@@ -13,14 +13,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-# CORS_ALLOWED_ORIGINS = [
-#     "https://cdn.gamerstats.net"
-# ]
-
-# CORS_ALLOWED_ORIGIN_REGEXES = [
-#     r"^https://\w+\.gamerstats\.net$",
-# ]
-
 
 INTERNAL_IPS = [
     # ...
@@ -147,20 +139,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-# STATICFILES_FINDERS = (
-#     "django.contrib.staticfiles.finders.FileSystemFinder",
-#     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-#     "compressor.finders.CompressorFinder",
-# )
-
-# COMPRESS_ENABLED = True
-
-# COMPRESS_CSS_HASHING_METHOD = 'content'
-# COMPRESS_CSS_FILTERS = [
-#     'compressor.filters.css_default.CssAbsoluteFilter',
-#     'compressor.filters.cssmin.CSSMinFilter',
-# ]
-
 SITE_ID = 1
 
 # SECURE_SSL_REDIRECT = True
@@ -181,32 +159,31 @@ SITE_ID = 1
 
 # AWS Settings
 
-# AWS_S3_REGION_NAME = config("AWS_REGION")
-# AWS_ACCESS_KEY_ID = config("AWS_KEY")
-# AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
+AWS_S3_REGION_NAME = config("AWS_REGION")
+AWS_ACCESS_KEY_ID = config("AWS_KEY")
+AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
 
-# AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
-# AWS_S3_SECURE_URLS = True
+AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
+AWS_S3_SECURE_URLS = True
 
-# AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
+AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
 
-# COMPRESS_STORAGE = "core.custom_storages.CachedS3BotoStorage"
+COMPRESS_STORAGE = "core.custom_storages.CachedS3BotoStorage"
 
-# STATICFILES_LOCATION = "static"
-# STATICFILES_STORAGE = "core.custom_storages.StaticStorage"
+STATICFILES_LOCATION = "static"
+STATICFILES_STORAGE = "core.custom_storages.StaticStorage"
 
-# STATIC_URL = config("AWS_DOMAIN") + "/"
+STATIC_URL = config("AWS_DOMAIN") + "/"
 
-# AWS_IS_GZIPPED = True
+AWS_IS_GZIPPED = True
 
 # AWS_S3_OBJECT_PARAMETERS = {
 #     'CacheControl': 'max-age=86400',
 # }
 
-# # COMPRESS_URL = STATIC_URL
 
-# MEDIAFILES_LOCATION = "media"
-# DEFAULT_FILE_STORAGE = "core.custom_storages.MediaStorage"
+MEDIAFILES_LOCATION = "media"
+DEFAULT_FILE_STORAGE = "core.custom_storages.MediaStorage"
 
 # JSON_EDITOR_JS = "https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/8.6.4/jsoneditor.js"
 # JSON_EDITOR_CSS = (
