@@ -10,6 +10,54 @@
 {% block tw_url %}{% block og_url %}{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
 {% endblock %}{% endblock %}
 
+{% block schema %}
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{ obj.meta_title }}",
+        "image": ["{{ obj.avatar.image.url }}", "{{ obj.meta_images.hd_image.url }}"],
+        "datePublished": "{{ obj.created_at|date:'c' }}",
+        "dateModified": "{{ obj.updated_at|date:'c' }}",
+        "articleSection": "Wiki",
+        "author": {
+          "@type": "Person",
+          "name": "{{ obj.writer }}",
+          "url": "{{ obj.writer.twitter }}"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Gamer Stats",
+          "logo": "{% static 'img/g-dark.png' %}"
+        }
+      }
+</script>
+
+<script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Wiki",
+          "item": "https://gamerstats.net{% url 'wiki' %}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ obj.meta_title }}"
+        }
+      ]
+    }
+    
+</script>
+
+{% endblock %}
+
+
 {% block content %}
 <!-- Page Header and Breadcrumb -->
 <nav aria-label="breadcrumb" class="container-fluid border-bottom bg--dark">

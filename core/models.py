@@ -312,6 +312,7 @@ class SetupSettings(BaseOptions):
         blank=True,
     )
     related = models.ManyToManyField("self", blank=True)
+    writer = models.ForeignKey(Author, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         verbose_name = "Setup and Settings"

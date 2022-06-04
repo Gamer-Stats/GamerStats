@@ -37,6 +37,31 @@
   <meta name="twitter:image" content="{% block tw_img %}{% endblock %}" />
   <meta name="twitter:image:alt" content="{% block tw_img_alt %}{% endblock %}" />
   <meta name="twitter:url" content="{% block tw_url %}{% endblock %}" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Gamer Stats",
+      "url": "https://gamerstats.net",
+      "logo": "{% static 'img/g-dark.png' %}"
+    }
+  </script>
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://gamerstats.net/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://gamerstats.net/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+  </script>
+  {% block schema %}{% endblock %}
 </head>
 
 <body>
@@ -124,6 +149,17 @@
           </li>
         </ul>
       </div>
+      <button type="button" class="d-none d-lg-block btn btn-sm rounded-circle btn-dark bg--dark p-0"
+        data-bs-toggle="modal" data-bs-target="#searchFormModel" style="width: 30px; height: 30px;">
+        <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" height="18" width="18" stroke="#fff"
+          aria-hidden="true" fill="none">
+          <title>Search Model</title>
+          <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round"></circle>
+          <path d="M17.25 17.25L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
     </div>
   </nav>
 
@@ -131,7 +167,50 @@
   {% block content %}
   {% endblock %}
   <!-- / Main Content -->
-
+  <!-- Search Form -->
+  <!-- Modal -->
+  <div class="position-fixed" style="bottom: 10px; left: 10px">
+    <button type="button"
+      class="d-block d-lg-none btn btn-sm rounded-circle btn-primary border border-2 border-dark p-0"
+      data-bs-toggle="modal" data-bs-target="#searchFormModel" style="width: 40px; height: 40px; z-index: 222222222;">
+      <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" height="20" width="20" stroke="#fff"
+        aria-hidden="true" fill="none">
+        <title>Search Model</title>
+        <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round"></circle>
+        <path d="M17.25 17.25L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="modal fade" id="searchFormModel" tabindex="-1" aria-labelledby="searchForm" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchForm">Search</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-floating" action="/search">
+            <input type="text" class="form-control" id="floatingInputValue" name="q"
+              placeholder="s1mple, shroud, NiKo...">
+            <label for="floatingInputValue">Type here...</label>
+            <button type="button" class="mt-2 ms-auto d-block btn btn-primary">Search</button>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-start">
+          <span>&#128640;</span>
+          <span class="text-13px">
+            <a class="text-light bg--dark p-1 rounded text-decoration-none" href="/setup/s1mple/">s1mple</a>
+            <a class="text-light bg--dark p-1 rounded text-decoration-none" href="/setup/niko/">Niko</a>
+            <a class="text-light bg--dark p-1 rounded text-decoration-none" href="/setup/tenz/">TenZ</a>
+            <a class="text-light bg--dark p-1 rounded text-decoration-none" href="/setup/shroud/">shroud</a>
+            <a class="text-light bg--dark p-1 rounded text-decoration-none" href="/setup/zywoo/">ZywOo</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Footer -->
   <footer class="container-fluid bg-dark mt-3">
     <h2 class="visually-hidden">Footer</h2>

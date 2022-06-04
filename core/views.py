@@ -129,14 +129,30 @@ def setup_single(request, slug):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
 
-    teammates = (
-        SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team))
-        .exclude(title=obj.title)
-        .select_related("avatar")
-    )
+    if obj.team:
+        related = (
+            SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team))
+            .exclude(title=obj.title)
+            .select_related("avatar")
+        )
+        related_title = "Teammates"
+        bread = "Pro Settings"
+    else:
+        related = (
+            SetupSettings.objects.filter(game=obj.game)
+            .exclude(title=obj.title)
+            .select_related("avatar")
+        )[:8]
+        related_title = "Related"
+        bread = "Setup"
 
     template_name = "setup_single.html"
-    context = {"obj": obj, "teammates": teammates}
+    context = {
+        "obj": obj,
+        "related": related,
+        "related_title": related_title,
+        "bread": bread,
+    }
     return render(request, template_name, context)
 
 
@@ -242,10 +258,10 @@ def subscribe(request):
 # Search
 def search(request):
     if request.method == "GET":
-        query = request.GET.get("searched")
+        query = request.GET.get("q")
         wiki = Wiki.objects.filter(
-            Q(title__icontains=query) | Q(overview__icontains=query)
-        ).exclude(Q(page_type=3) | Q(page_type=4) | Q(publish=False))
+            Q(title__icontains=query) | Q(overview__icontains=query) & Q(publish=True)
+        )
         players_cat = SetupSettings.objects.filter(
             Q(title__icontains=query) | Q(overview__icontains=query) & Q(publish=True)
         )
