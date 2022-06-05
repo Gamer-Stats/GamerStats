@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from core.models import (
     Author,
+    Game,
     ImageCollection,
     JsonData,
     News,
@@ -70,6 +71,14 @@ class SetupAdmin(admin.ModelAdmin):
     list_display = ("title", "meta_images")
     list_filter = ["is_pro"]
     autocomplete_fields = ("specs", "avatar")
+
+
+@admin.register(Game)
+class GameAdmin(admin.ModelAdmin):
+    search_fields = ["title"]
+    list_display = ("title", "updated_at", "publish")
+    list_filter = ["publish"]
+    autocomplete_fields = ["game"]
 
 
 admin.site.register(NewsCategory)

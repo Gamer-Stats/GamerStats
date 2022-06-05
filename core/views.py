@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from core.forms import SubscribeForm
-from core.models import News, NewsCategory, SetupSettings, Wiki, WikiCategory
+from core.models import Game, News, NewsCategory, SetupSettings, Wiki, WikiCategory
 
 # from django.views.decorators.cache import cache_page
 
@@ -269,4 +269,13 @@ def search(request):
 
     template_name = "searched.html"
     context = {"players_cat": players_cat, "wiki": wiki, "query": query, "count": count}
+    return render(request, template_name, context)
+
+
+# Game
+def game(request, slug):
+    obj = Game.objects.get(slug=slug)
+
+    template_name = "game.html"
+    context = {"obj": obj}
     return render(request, template_name, context)

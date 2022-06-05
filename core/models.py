@@ -1,4 +1,5 @@
 from datetime import datetime
+from tkinter import CASCADE
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -317,6 +318,17 @@ class SetupSettings(BaseOptions):
     class Meta:
         verbose_name = "Setup and Settings"
         verbose_name_plural = "Setup and Settings"
+
+    def __str__(self):
+        return self.title
+
+
+class Game(BaseOptions):
+    game = models.ForeignKey(Wiki, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Game"
+        verbose_name_plural = "Games"
 
     def __str__(self):
         return self.title

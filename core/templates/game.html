@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+<!-- Titles -->
+{% block title %}{{ obj.meta_title }}{% endblock %}
+{% block og_title %}{{ obj.meta_title }}{% endblock %}
+{% block tw_title %}{{ obj.meta_title }}{% endblock %}
+<!-- descriptions -->
+{% block description %}{{ obj.meta_description }}{% endblock %}
+{% block og_description %}{{ obj.meta_description }}{% endblock %}
+{% block tw_description %}{{ obj.meta_description }}{% endblock %}
+<!-- meta urls -->
+{% block tw_url %}{{ request.build_absolute_uri }}{% endblock %}
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
+<!-- loading required assets  -->
+{% load static %} {% load age %}
+<!-- main page html -->
+{% block content %}
+<div class="container-fluid">
+    <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
+        <ol class="breadcrumb mb-0 p-2 px-4 d-flex">
+            <li class="breadcrumb-item">
+                <a class="text-12px text--light" href="{% url 'index' %}" title="Home - Gamer Stats">Home</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+                {{ obj.meta_title }}
+            </li>
+        </ol>
+    </nav>
+    <main class="row">
+        <div class="col-md-8 mx-auto section-boxes">
+            <header class="d-flex align-items-center gap-4">
+                <img class="img-sq__md rounded-4" src="{{ obj.avatar.image.url }}" alt="{{ obj.avatar.alt }}"
+                    title="{{ obj.avatar.caption }}">
+                <div>
+                    <h1 class="fs-3 fw-bold">{{ obj.game.title }}</h1>
+                    {{ obj.game.overview|safe }}
+                    <a class="link-btn" target="_blank" href="{% url 'wiki_single' obj.game.slug %}">
+                        {{ obj.game.title }} Wiki
+                    </a>
+                </div>
+            </header>
+            <section>
+                <h2 class="fs-4 fw-bold">Top CS:GO Esports Players</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Country</th>
+                            <th>Player</th>
+                            <th>Team</th>
+                            <th>Ratings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in obj.game.related_game.all %}
+                        <tr>
+                            <th scope="row">#</th>
+                            <td>IND</td>
+                            <td>{{ i }}</td>
+                            <td>{{ i.team.title }}</td>
+                            <td>00.00</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+</div>
+
+<style>
+    .img-sq__lg {
+        width: 300px;
+        height: 300px;
+    }
+
+    .img-sq__md {
+        width: 220px;
+        height: 220px;
+    }
+
+    .link-btn {
+        color: var(--bs-link-color);
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        column-gap: 2px;
+    }
+
+    .link-btn:after {
+        content: "";
+        background-image: url("{% static 'svg/link.svg' %}");
+        background-size: cover;
+        height: 16px;
+        width: 16px;
+        color: var(--bs-link-color);
+        display: inline-block;
+    }
+
+    .section-boxes>* {
+        background-color: #fff;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 25px 10px;
+        box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+        border-radius: var(--bs-border-radius);
+    }
+
+    .divide-y>* {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .divide-y>*:not(:first-child) {
+        border-top: solid 1px #f1f1f1;
+    }
+</style>
+{% endblock %}
