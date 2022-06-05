@@ -274,8 +274,11 @@ def search(request):
 
 # Game
 def game(request, slug):
-    obj = Game.objects.get(slug=slug)
+    obj = Game.objects.select_related("game", "avatar").get(slug=slug)
+    players = SetupSettings.objects.select_related("game", "team", "avatar").filter(
+        Q(publish=True) & Q(game=obj.game)
+    )[:10]
 
     template_name = "game.html"
-    context = {"obj": obj}
+    context = {"obj": obj, "players": players}
     return render(request, template_name, context)

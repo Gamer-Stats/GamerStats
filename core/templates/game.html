@@ -27,8 +27,8 @@
         </ol>
     </nav>
     <main class="row">
-        <div class="col-md-8 mx-auto section-boxes">
-            <header class="d-flex align-items-center gap-4">
+        <div class="col-lg-10 mx-auto section-boxes">
+            <header class="d-flex flex-md-row flex-column align-items-center gap-4">
                 <img class="img-sq__md rounded-4" src="{{ obj.avatar.image.url }}" alt="{{ obj.avatar.alt }}"
                     title="{{ obj.avatar.caption }}">
                 <div>
@@ -39,31 +39,74 @@
                     </a>
                 </div>
             </header>
-            <section>
-                <h2 class="fs-4 fw-bold">Top CS:GO Esports Players</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Country</th>
-                            <th>Player</th>
-                            <th>Team</th>
-                            <th>Ratings</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in obj.game.related_game.all %}
-                        <tr>
-                            <th scope="row">#</th>
-                            <td>IND</td>
-                            <td>{{ i }}</td>
-                            <td>{{ i.team.title }}</td>
-                            <td>00.00</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </section>
+            <div class="d-flex flex-xl-row flex-column gap-3">
+                <section class="col">
+                    <h2 class="fs-4 fw-bold mb-3">Top CS:GO Esports Players</h2>
+                    <div class="table-responsive text-14px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th>Maps</th>
+                                    <th>Rounds</th>
+                                    <th>Kills</th>
+                                    <th>Deaths</th>
+                                    <th>K/D</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in players %}
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <td>FLAG {{ i }}</td>
+                                    <td>{{ i.team.title }}</td>
+                                    <td>22222</td>
+                                    <td>5555555</td>
+                                    <td>1212122</td>
+                                    <td>4141414</td>
+                                    <td>1.5</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="col">
+                    <h2 class="fs-4 fw-bold mb-3">Top CS:GO Esports Players</h2>
+                    <div class="table-responsive text-14px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th>Maps</th>
+                                    <th>Rounds</th>
+                                    <th>Kills</th>
+                                    <th>Deaths</th>
+                                    <th>K/D</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in players %}
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <td>FLAG {{ i }}</td>
+                                    <td>{{ i.team.title }}</td>
+                                    <td>22222</td>
+                                    <td>5555555</td>
+                                    <td>1212122</td>
+                                    <td>4141414</td>
+                                    <td>1.5</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
 </div>

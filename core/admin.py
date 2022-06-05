@@ -10,6 +10,7 @@ from core.models import (
     PcSpecs,
     SEOImage,
     SetupSettings,
+    Stats,
     Subscribe,
     Topic,
     Wiki,
@@ -79,6 +80,14 @@ class GameAdmin(admin.ModelAdmin):
     list_display = ("title", "updated_at", "publish")
     list_filter = ["publish"]
     autocomplete_fields = ["game"]
+
+
+@admin.register(Stats)
+class StatsAdmin(admin.ModelAdmin):
+    search_fields = ["title"]
+    list_display = ("title", "updated_at", "publish")
+    list_filter = ["publish"]
+    autocomplete_fields = ["name"]
 
 
 admin.site.register(NewsCategory)

@@ -334,6 +334,24 @@ class Game(BaseOptions):
         return self.title
 
 
+class Stats(BaseOptions):
+    stats_type = models.ForeignKey(
+        Topic, on_delete=models.PROTECT, related_name="stats_tag"
+    )
+    name = models.ForeignKey(Wiki, on_delete=models.PROTECT, related_name="name_tag")
+    total_maps = models.PositiveIntegerField()
+    total_rounds = models.PositiveIntegerField()
+    kd = models.PositiveIntegerField()
+    kd_diff = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = "Stats"
+        verbose_name_plural = "Stats"
+
+    def __str__(self):
+        return self.title
+
+
 class Subscribe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField()
