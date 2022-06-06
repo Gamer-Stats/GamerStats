@@ -57,29 +57,28 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
     </header>
     <div class="row flex-md-row-reverse flex-column-reverse">
         <main class="col-12 col-md py-3 py-md-5">
-            <article class="row">
+            <article class="row esports-wikis gap-3">
                 <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{% if cats_page.title %}
-                    {{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}</h1>
+                    {{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}
+                </h1>
                 {% for i in obj %}
-                <article class="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <div
-                        class="border shadow-sm rounded overflow-hidden position-relative hover-element__main bg-light">
-                        <img class="square-img" src="{{ i.avatar.image.url }}" title="{{ i.title }}"
-                            alt="{{ i.title }}">
-                        <div class="p-2 hover-element__border hover-element__border__green bg-white">
-                            <span class="text-12px text-muted lh-1">
-                                Last updated
-                                <address class="author"> by <span rel="author">{{ i.writer }}</span></address>,
-                                <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
-                                    {{ i.updated_at|article_age }}
-                                </time>
-                            </span>
-                            <h3 class="fs-6 fw-semibold my-1 text-dark">{{ i.title }}</h3>
-                        </div>
-                        <a class="stretched-link" href="{% url 'wiki_single' i.slug %}">
-                            <span class="visually-hidden">{{ i.meta_title }}</span>
+                <article class="wiki rounded position-relative">
+                    <figure class="wiki-logo mb-0">
+                        <img src="{{ i.avatar.image.url }}" alt="{{ i }}">
+                        <figcaption class="visually-hidden">{{ i }}</figcaption>
+                    </figure>
+                    <span class="text-12px text-muted">
+                        <span class="visually-hidden">Last updated</span>
+                        <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                            {{ i.updated_at|article_age }}
+                        </time>
+                        <address class="author"> by <span rel="author">{{ i.writer }}</span></address>
+                    </span>
+                    <h3 class="fs-6 fw-semibold wiki-title text-dark mt-1">
+                        <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}">
+                            <span>{{ i.title }}</span>
                         </a>
-                    </div>
+                    </h3>
                 </article>
                 {% endfor %}
                 <!-- Pagination -->
@@ -90,22 +89,24 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
                             <a class="page-link" href="?page={{ obj.previous_page_number }}">Previous</a>
                         </li>
                         {% endif %}
-
-                        {% for i in obj.paginator %}
-                        {% if i.number == obj.number %}
+                        {% for i in obj.paginator.page_range %}
+                        {% if i < obj.number|add:5 %} {% if i > obj.number|add:-5 %}
+                        {% if i == obj.number %}
                         <li class="page-item active" aria-current="page">
                             <a class="page-link" href="?page={{ obj.number }}">{{ obj.number }}</a>
                         </li>
                         {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i.number }}">{{ i.number }}</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endif %}
                         {% endif %}
                         {% endfor %}
-
                         {% if obj.has_next %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ obj.next_page_number }}">Next</a>
                         </li>
                         {% endif %}
+
                     </ol>
                 </nav>
             </article>
@@ -208,5 +209,6 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
         width: 250px;
         height: 250px;
     }
+
 </style>
 {% endblock %}

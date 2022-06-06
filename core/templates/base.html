@@ -376,4 +376,159 @@
     crossorigin="anonymous"></script>
 </body>
 
+<style>
+  .img-sq__lg {
+    width: 300px;
+    height: 300px;
+  }
+
+  .img-sq__md {
+    width: 220px;
+    height: 220px;
+  }
+
+  .img-sq__sm {
+    width: 100px;
+    height: 100px;
+  }
+
+  .img-sq__xs {
+    width: 50px;
+    height: 50px;
+  }
+
+  .link-btn {
+    color: var(--bs-link-color);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 2px;
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: solid 2px currentColor;
+  }
+
+  .link-btn:hover {
+    color: var(--bg-default-dark);
+  }
+
+  .link-btn:after {
+    content: "";
+    background-image: url("{% static 'svg/link.svg' %}");
+    background-size: cover;
+    height: 16px;
+    width: 16px;
+    color: var(--bs-link-color);
+    display: inline-block;
+  }
+
+  .esports-teams,
+  .esports-wikis {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .team,
+  .wiki {
+    width: calc(50% - .5rem);
+    background-image: var(--bs-gradient);
+    --bs-bg-opacity: .3;
+    --bs-secondary-rgb: 233, 236, 239;
+    background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity));
+    padding: 8px;
+    text-align: center;
+    transition: all .25s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .wiki:hover {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    background-color: #fff;
+  }
+
+  .wiki-logo img {
+    width: 140px;
+    height: 140px;
+  }
+
+  @media (min-width: 500px) {
+
+    .esports-teams,
+    .esports-wikis {
+      justify-content: flex-start;
+    }
+
+    .team,
+    .wiki {
+      width: 150px;
+    }
+
+    .wiki {
+      width: 200px;
+    }
+
+    .wiki-logo img {
+      width: 180px;
+      height: 180px;
+    }
+
+  }
+
+  .team:hover,
+  .wiki:hover {
+    --bs-bg-opacity: 1;
+  }
+
+  .team-links {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .team-links__wiki,
+  .team-links__roster {
+    font-size: 12px;
+  }
+
+  .team-links__wiki:after,
+  .team-links__roster:after {
+    height: 14px;
+    width: 14px;
+  }
+
+  .txt-link {
+    text-decoration: none;
+    color: var(--bg-default-dark);
+    border-bottom: solid 2px currentColor;
+  }
+
+  .txt-link:hover {
+    color: var(--bs-link-color);
+  }
+
+  .table,
+  .table th,
+  .table td {
+    width: max-content;
+    vertical-align: middle;
+  }
+
+  .section-boxes>* {
+    background-color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 25px 10px;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+    border-radius: var(--bs-border-radius);
+  }
+
+  .divide-y>* {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .divide-y>*:not(:first-child) {
+    border-top: solid 1px #f1f1f1;
+  }
+</style>
+
 </html>

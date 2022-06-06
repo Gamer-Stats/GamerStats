@@ -32,7 +32,7 @@ def index(request):
     wikis = (
         Wiki.objects.select_related("avatar", "page_type")
         .order_by("-updated_at")
-        .filter(publish=True)[:4]
+        .filter(publish=True)[:12]
     )
     news = (
         News.objects.select_related("avatar", "writer")
