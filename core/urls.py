@@ -22,6 +22,7 @@ wiki_sitemaps = {
     "wiki_s": Wiki_Sitemap,
 }
 
+
 urlpatterns = [
     path("", views.index, name="index"),
     path("search/", views.search, name="search"),
@@ -34,6 +35,7 @@ urlpatterns = [
     path("wiki/<slug:slug>/", views.wiki_single, name="wiki_single"),
     path("wiki/categories/<slug:slug>/", views.wiki_filter, name="wiki_filter"),
     path("<slug:slug>/", views.game, name="game"),
+    path("<url_dir>/<slug:slug>/", views.team_section, name="team"),
     # Sitemaps
     path(
         "sitemap.xml",

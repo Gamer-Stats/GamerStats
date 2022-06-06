@@ -3,11 +3,19 @@ from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 
 from core.forms import SubscribeForm
-from core.models import Game, News, NewsCategory, SetupSettings, Wiki, WikiCategory
+from core.models import (
+    Game,
+    News,
+    NewsCategory,
+    SetupSettings,
+    TeamSection,
+    Wiki,
+    WikiCategory,
+)
 
 # from django.views.decorators.cache import cache_page
 
@@ -279,6 +287,20 @@ def game(request, slug):
         Q(publish=True) & Q(game=obj.game)
     )[:10]
 
+    teams = TeamSection.objects.select_related("avatar").filter(game_wiki=obj)
+
     template_name = "game.html"
-    context = {"obj": obj, "players": players}
+    context = {"obj": obj, "players": players, "teams": teams}
+    return render(request, template_name, context)
+
+
+def team_section(request, slug, url_dir):
+    obj = TeamSection.objects.select_related("game_wiki", "avatar", "team_wiki").get(
+        slug=slug
+    )
+    url_dir = obj.game_wiki.slug
+    if url_dir != request.path.split("/")[1]:
+        return HttpResponseNotFound(render(request, template_name="404.html"))
+    template_name = "team.html"
+    context = {"obj": obj}
     return render(request, template_name, context)

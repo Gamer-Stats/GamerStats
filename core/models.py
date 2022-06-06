@@ -334,19 +334,20 @@ class Game(BaseOptions):
         return self.title
 
 
-class Stats(BaseOptions):
-    stats_type = models.ForeignKey(
-        Topic, on_delete=models.PROTECT, related_name="stats_tag"
+class TeamSection(BaseOptions):
+    team_wiki = models.ForeignKey(
+        Wiki, on_delete=models.CASCADE, related_name="team_name"
     )
-    name = models.ForeignKey(Wiki, on_delete=models.PROTECT, related_name="name_tag")
-    total_maps = models.PositiveIntegerField()
-    total_rounds = models.PositiveIntegerField()
-    kd = models.PositiveIntegerField()
-    kd_diff = models.PositiveIntegerField()
+    game_wiki = models.ForeignKey(
+        Game, on_delete=models.CASCADE, related_name="game_name"
+    )
+    active_players = models.ManyToManyField(
+        SetupSettings, blank=True, related_name="active_squad"
+    )
 
     class Meta:
-        verbose_name = "Stats"
-        verbose_name_plural = "Stats"
+        verbose_name = "Team"
+        verbose_name_plural = "Teams"
 
     def __str__(self):
         return self.title

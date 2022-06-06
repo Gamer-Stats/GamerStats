@@ -39,74 +39,63 @@
                     </a>
                 </div>
             </header>
-            <div class="d-flex flex-xl-row flex-column gap-3">
-                <section class="col">
-                    <h2 class="fs-4 fw-bold mb-3">Top CS:GO Esports Players</h2>
-                    <div class="table-responsive text-14px">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Player</th>
-                                    <th>Team</th>
-                                    <th>Maps</th>
-                                    <th>Rounds</th>
-                                    <th>Kills</th>
-                                    <th>Deaths</th>
-                                    <th>K/D</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for i in players %}
-                                <tr>
-                                    <th scope="row">#</th>
-                                    <td>FLAG {{ i }}</td>
-                                    <td>{{ i.team.title }}</td>
-                                    <td>22222</td>
-                                    <td>5555555</td>
-                                    <td>1212122</td>
-                                    <td>4141414</td>
-                                    <td>1.5</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+            <section class="esports-teams-section">
+                <h2 class="fs-4 fw-bold mb-3">CS:GO Esports Teams</h2>
+                <div class="esports-teams gap-3">
+                    {% for i in teams %}
+                    <div class="team rounded">
+                        <figure class="team-logo">
+                            <img class="img-sq__sm" src="{{ i.avatar.image.url }}" alt="{{ i }}">
+                            <figcaption class="visually-hidden">{{ i }}</figcaption>
+                        </figure>
+                        <h3 class="fs-6 fw-bold">{{ i.title }}</h3>
+                        <div class="team-links">
+                            <a class="team-links__roster link-btn" href="{% url 'team' obj.slug i.slug %}">
+                                <span class="visually-hidden">{{ i }} CS:GO </span>Roster
+                            </a>
+                            <a class="team-links__wiki link-btn" href="{% url 'wiki_single' i.team_wiki.slug %}">
+                                <span class="visually-hidden">{{ i }} </span>Wiki
+                            </a>
+                        </div>
                     </div>
-                </section>
-                <section class="col">
-                    <h2 class="fs-4 fw-bold mb-3">Top CS:GO Esports Players</h2>
-                    <div class="table-responsive text-14px">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Player</th>
-                                    <th>Team</th>
-                                    <th>Maps</th>
-                                    <th>Rounds</th>
-                                    <th>Kills</th>
-                                    <th>Deaths</th>
-                                    <th>K/D</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for i in players %}
-                                <tr>
-                                    <th scope="row">#</th>
-                                    <td>FLAG {{ i }}</td>
-                                    <td>{{ i.team.title }}</td>
-                                    <td>22222</td>
-                                    <td>5555555</td>
-                                    <td>1212122</td>
-                                    <td>4141414</td>
-                                    <td>1.5</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+
+            <section class="">
+                <h2 class="fs-4 fw-bold mb-3">Top CS:GO Esports Players</h2>
+                <div class="table-responsive text-14px">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player</th>
+                                <th>Team</th>
+                                <th>Maps</th>
+                                <th>Rounds</th>
+                                <th>Kills</th>
+                                <th>Deaths</th>
+                                <th>K/D</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in players %}
+                            <tr>
+                                <th scope="row">#</th>
+                                <td>FLAG {{ i }}</td>
+                                <td>{{ i.team.title }}</td>
+                                <td>22222</td>
+                                <td>5555555</td>
+                                <td>1212122</td>
+                                <td>4141414</td>
+                                <td>1.5</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </main>
 </div>
@@ -120,6 +109,16 @@
     .img-sq__md {
         width: 220px;
         height: 220px;
+    }
+
+    .img-sq__sm {
+        width: 100px;
+        height: 100px;
+    }
+
+    .img-sq__xs {
+        width: 50px;
+        height: 50px;
     }
 
     .link-btn {
@@ -138,6 +137,50 @@
         width: 16px;
         color: var(--bs-link-color);
         display: inline-block;
+    }
+
+    .esports-teams {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .team {
+        width: 150px;
+        background-image: var(--bs-gradient);
+        --bs-bg-opacity: .3;
+        --bs-secondary-rgb: 233, 236, 239;
+        background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity));
+        padding: 8px;
+        text-align: center;
+        transition: all .25s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .team:hover {
+        --bs-bg-opacity: 1;
+    }
+
+    .team-links {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .team-links__wiki,
+    .team-links__roster {
+        font-size: 12px;
+    }
+
+    .team-links__wiki:after,
+    .team-links__roster:after {
+        height: 14px;
+        width: 14px;
+    }
+
+    .table,
+    .table th,
+    .table td {
+        width: max-content;
+        vertical-align: middle;
     }
 
     .section-boxes>* {
