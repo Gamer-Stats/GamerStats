@@ -1,5 +1,4 @@
 from datetime import datetime
-from tkinter import CASCADE
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -276,8 +275,34 @@ class PcSpecs(BaseOptions):
     def __str__(self):
         return self.title
 
+class GameProfile(BaseOptions):
+    game_wiki = models.ForeignKey(Wiki, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = "Game Profile"
+        verbose_name_plural = "Games Profiles"
+
+    def __str__(self):
+        return self.title
+
+
+class TeamProfile(BaseOptions):
+    team_wiki = models.ForeignKey(Wiki, on_delete=models.PROTECT)
+    esports_game = models.ForeignKey(GameProfile, on_delete=models.PROTECT)
+    active_members = models.ManyToManyField(Wiki, blank=True, related_name="active_roster")
+    inactive_members = models.ManyToManyField(Wiki, blank=True, related_name="inactive_roster")
+    former_members = models.ManyToManyField(Wiki, blank=True, related_name="former_roster")
+
+    class Meta:
+        verbose_name = "Team Profile"
+        verbose_name_plural = "Teams Profiles"
+
+    def __str__(self):
+        return self.title
+
 
 class SetupSettings(BaseOptions):
+    image_url = models.CharField(max_length=120, blank=True, null=True)
     is_pro = models.BooleanField(default=True)
     meta_images = models.ForeignKey(
         SEOImage,
@@ -299,14 +324,14 @@ class SetupSettings(BaseOptions):
     specs = models.ManyToManyField(PcSpecs, related_name="person_specs", blank=True)
     ref = RichTextField(blank=True)
     team = models.ForeignKey(
-        Wiki,
+        TeamProfile,
         on_delete=models.SET_NULL,
         related_name="related_team",
         null=True,
         blank=True,
     )
     game = models.ForeignKey(
-        Wiki,
+        GameProfile,
         on_delete=models.SET_NULL,
         related_name="related_game",
         null=True,
@@ -321,41 +346,3 @@ class SetupSettings(BaseOptions):
 
     def __str__(self):
         return self.title
-
-
-class Game(BaseOptions):
-    game = models.ForeignKey(Wiki, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = "Game"
-        verbose_name_plural = "Games"
-
-    def __str__(self):
-        return self.title
-
-
-class TeamSection(BaseOptions):
-    team_wiki = models.ForeignKey(
-        Wiki, on_delete=models.CASCADE, related_name="team_name"
-    )
-    game_wiki = models.ForeignKey(
-        Game, on_delete=models.CASCADE, related_name="game_name"
-    )
-    active_players = models.ManyToManyField(
-        SetupSettings, blank=True, related_name="active_squad"
-    )
-
-    class Meta:
-        verbose_name = "Team"
-        verbose_name_plural = "Teams"
-
-    def __str__(self):
-        return self.title
-
-
-class Subscribe(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField()
-
-    def __str__(self):
-        return self.email

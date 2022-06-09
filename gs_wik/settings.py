@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "storages",
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ WSGI_APPLICATION = "gs_wik.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabaseone",
+        "NAME": "mydatabasetwo",
     }
 }
 

@@ -74,44 +74,52 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
         </div>
 
         <!-- Pro settings -->
-        <div class="row border-bottom border py-5">
-            <h2 class="fw-bold fs-4 mb-4">Pro Settings and Setup</h2>
-            {% for i in pro_settings %}
-            <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
-                <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-                    <img class="col-auto bg--dark" src="{{ i.avatar.image.url }}" title="{{ i.title }}"
-                        alt="{{ i.title }}" width="130" height="130">
-                    <div class="col p-2 hover-element__border hover-element__border__green">
-                        <span class="text-12px">Last updated: </span>
-                        <time class="text-12px"
-                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                            {{ i.updated_at|article_age }}</time>
-                        <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
-                        <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
-                        </p>
-                    </div>
-                    <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
-                        <span class="visually-hidden">{{ i.meta_title }}</span>
-                    </a>
-                </div>
-            </article>
-            {% endfor %}
-            <span>
-                <a class="mt-3 link-btn" href="{% url 'setup' %}">View all pro setup</a>
-            </span>
-        </div>
+
+        <section class="section-main row mt-5 pb-5">
+            <h2 class="fs-4 fw-bold mb-3">Pro Players Settings</h2>
+            <div class="section-inner gap-3">
+                {% for i in setup %}
+                <article class="section-single rounded position-relative">
+                    {% if i.image_url %}
+                    <figure class="section-single__image">
+                        <img src="{{ i.image_url }}" alt="{{ i }}">
+                        <figcaption class="visually-hidden">{{ i }}</figcaption>
+                    </figure>
+                    {% endif %}
+                    <h3 class="fs-6 fw-semibold section-single__title">
+                        <a class="stretched-link txt-link" href="{% url 'setup_single' i.slug %}">
+                            <span>{{ i.title }}</span>
+                        </a>
+                    </h3>
+                    <p class="text-12px mb-0">{{ i.game__title }} professional for {{ i.team__title }}</p>
+                    <span class="text-12px text-muted">
+                        <span class="visually-hidden">Last updated</span>
+                        <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                            {{ i.updated_at|article_age }}
+                        </time>
+                        <address class="author"> by <span rel="author">{{ i.writer__name }}</span></address>
+                    </span>
+                </article>
+                {% endfor %}
+            </div>
+            <footer>
+                <a class="mt-3 link-btn" href="{% url 'setup' %}">View All Players</a>
+            </footer>
+        </section>
 
         <!-- Esports Wikis -->
 
-        <section class="esports-wiki-section row mt-5 pb-5">
+        <section class="section-main row mt-5 pb-5">
             <h2 class="fs-4 fw-bold mb-3">Esports Wikis</h2>
-            <div class="esports-wikis gap-3">
+            <div class="section-inner gap-3">
                 {% for i in wikis %}
-                <article class="wiki rounded position-relative">
-                    <figure class="wiki-logo mb-0">
+                <article class="section-single rounded position-relative">
+                    {% if i.avatar.image.url %}
+                    <figure class="section-single__image mb-0">
                         <img src="{{ i.avatar.image.url }}" alt="{{ i }}">
                         <figcaption class="visually-hidden">{{ i }}</figcaption>
                     </figure>
+                    {% endif %}
                     <span class="text-12px text-muted">
                         <span class="visually-hidden">Last updated</span>
                         <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
@@ -119,7 +127,7 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                         </time>
                         <address class="author"> by <span rel="author">{{ i.writer }}</span></address>
                     </span>
-                    <h3 class="fs-6 fw-semibold wiki-title mt-1">
+                    <h3 class="fs-6 fw-semibold section-single__title mt-1">
                         <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}">
                             <span>{{ i.title }}</span>
                         </a>

@@ -1,36 +1,29 @@
+import os
 from itertools import chain
 
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 
-from core.forms import SubscribeForm
-from core.models import (
-    Game,
-    News,
-    NewsCategory,
-    SetupSettings,
-    TeamSection,
-    Wiki,
-    WikiCategory,
-)
+from core.models import (GameProfile, News, NewsCategory, SetupSettings,
+                         TeamProfile, Wiki, WikiCategory)
 
 # from django.views.decorators.cache import cache_page
 
 
-# Homepage - half op DONE
+# Homepage
 def index(request):
-    settings = (
-        SetupSettings.objects.select_related("avatar", "game", "team")
-        .order_by("-updated_at")
-        .filter(publish=True)
+    setup = (
+        SetupSettings.objects.select_related("game__title", "team__title", "writer__name")
+        .order_by("-updated_at").values("team__title", "game__title", "title", "writer__name", "updated_at", "slug", "image_url")
+        .filter(publish=True)[:12]
     )
-    pro_settings = settings.filter(is_pro=True)[:12]
 
     wikis = (
-        Wiki.objects.select_related("avatar", "page_type")
+        Wiki.objects.select_related("avatar", "page_type", "writer")
         .order_by("-updated_at")
         .filter(publish=True)[:12]
     )
@@ -41,7 +34,7 @@ def index(request):
     )
 
     template_name = "index.html"
-    context = {"pro_settings": pro_settings, "wikis": wikis, "news": news}
+    context = {"setup": setup, "wikis": wikis, "news": news}
     return render(request, template_name, context)
 
 
@@ -249,17 +242,17 @@ def wiki_single(request, slug):
     return render(request, template_name, context)
 
 
-# Email Subscribe
-def subscribe(request):
-    if request.method == "POST":
-        subs_form = SubscribeForm(request.POST)
-        if subs_form.is_valid():
-            return HttpResponse("You sucessfully joined the list!")
-    else:
-        subs_form = SubscribeForm()
+# Game
+def gameprofile(request, slug):
+    obj = GameProfile.objects.get(slug=slug)
+    # players = SetupSettings.objects.select_related("game", "team", "avatar").filter(
+    #     Q(publish=True)
+    # )[:10]
 
-    template_name = "base.html"
-    context = {"subs_form": subs_form}
+    teams = TeamProfile.objects.filter(publish=True).order_by("-updated_at")
+
+    template_name = "game.html"
+    context = {"obj": obj, "teams": teams}
     return render(request, template_name, context)
 
 
@@ -279,28 +272,3 @@ def search(request):
     context = {"players_cat": players_cat, "wiki": wiki, "query": query, "count": count}
     return render(request, template_name, context)
 
-
-# Game
-def game(request, slug):
-    obj = Game.objects.select_related("game", "avatar").get(slug=slug)
-    players = SetupSettings.objects.select_related("game", "team", "avatar").filter(
-        Q(publish=True) & Q(game=obj.game)
-    )[:10]
-
-    teams = TeamSection.objects.select_related("avatar").filter(game_wiki=obj)
-
-    template_name = "game.html"
-    context = {"obj": obj, "players": players, "teams": teams}
-    return render(request, template_name, context)
-
-
-def team_section(request, slug, url_dir):
-    obj = TeamSection.objects.select_related("game_wiki", "avatar", "team_wiki").get(
-        slug=slug
-    )
-    url_dir = obj.game_wiki.slug
-    if url_dir != request.path.split("/")[1]:
-        return HttpResponseNotFound(render(request, template_name="404.html"))
-    template_name = "team.html"
-    context = {"obj": obj}
-    return render(request, template_name, context)

@@ -32,10 +32,10 @@
                 <img class="img-sq__md rounded-4" src="{{ obj.avatar.image.url }}" alt="{{ obj.avatar.alt }}"
                     title="{{ obj.avatar.caption }}">
                 <div>
-                    <h1 class="fs-3 fw-bold">{{ obj.game.title }}</h1>
-                    {{ obj.game.overview|safe }}
-                    <a class="link-btn" target="_blank" href="{% url 'wiki_single' obj.game.slug %}">
-                        {{ obj.game.title }} Wiki
+                    <h1 class="fs-3 fw-bold">{{ obj.game_wiki.title }}</h1>
+                    {{ obj.game_wiki.overview|safe }}
+                    <a class="link-btn" target="_blank" href="{% url 'wiki_single' obj.game_wiki.slug %}">
+                        {{ obj.game_wiki.title }} Wiki
                     </a>
                 </div>
             </header>
@@ -62,40 +62,6 @@
                 </div>
             </section>
 
-
-            <section class="">
-                <h2 class="fs-4 fw-bold mb-3">Top CS:GO Esports Players</h2>
-                <div class="table-responsive text-14px">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Player</th>
-                                <th>Team</th>
-                                <th>Maps</th>
-                                <th>Rounds</th>
-                                <th>Kills</th>
-                                <th>Deaths</th>
-                                <th>K/D</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for i in players %}
-                            <tr>
-                                <th scope="row">#</th>
-                                <td>FLAG {{ i }}</td>
-                                <td>{{ i.team.title }}</td>
-                                <td>22222</td>
-                                <td>5555555</td>
-                                <td>1212122</td>
-                                <td>4141414</td>
-                                <td>1.5</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
         </div>
     </main>
 </div>

@@ -57,16 +57,20 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
     </header>
     <div class="row flex-md-row-reverse flex-column-reverse">
         <main class="col-12 col-md py-3 py-md-5">
-            <article class="row esports-wikis gap-3">
+
+            <article class="section-main row mt-5 pb-5">
                 <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{% if cats_page.title %}
                     {{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}
                 </h1>
+                <div class="section-inner gap-3">
                 {% for i in obj %}
-                <article class="wiki rounded position-relative">
-                    <figure class="wiki-logo mb-0">
+                <article class="section-single rounded position-relative">
+                    {% if i.avatar.image.url %}
+                    <figure class="section-single__image mb-0">
                         <img src="{{ i.avatar.image.url }}" alt="{{ i }}">
                         <figcaption class="visually-hidden">{{ i }}</figcaption>
                     </figure>
+                    {% endif %}
                     <span class="text-12px text-muted">
                         <span class="visually-hidden">Last updated</span>
                         <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
@@ -74,13 +78,14 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
                         </time>
                         <address class="author"> by <span rel="author">{{ i.writer }}</span></address>
                     </span>
-                    <h3 class="fs-6 fw-semibold wiki-title text-dark mt-1">
+                    <h3 class="fs-6 fw-semibold section-single__title mt-1">
                         <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}">
                             <span>{{ i.title }}</span>
                         </a>
                     </h3>
                 </article>
                 {% endfor %}
+            </div>
                 <!-- Pagination -->
                 <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
                     <ol class="pagination">

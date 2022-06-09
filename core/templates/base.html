@@ -422,15 +422,14 @@
     display: inline-block;
   }
 
-  .esports-teams,
-  .esports-wikis {
+  .section-inner,
+  .section-inner, .section-inner {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
 
-  .team,
-  .wiki {
+  .section-single {
     width: calc(50% - .5rem);
     background-image: var(--bs-gradient);
     --bs-bg-opacity: .3;
@@ -441,41 +440,38 @@
     transition: all .25s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
-  .wiki:hover {
+  .section-single:hover {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     background-color: #fff;
   }
 
-  .wiki-logo img {
+  .section-single__image {
+    background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity))
+  }
+
+  .section-single__image img {
     width: 140px;
     height: 140px;
   }
 
   @media (min-width: 500px) {
 
-    .esports-teams,
-    .esports-wikis {
+    .section-inner {
       justify-content: flex-start;
     }
 
-    .team,
-    .wiki {
-      width: 150px;
-    }
-
-    .wiki {
+    .section-single {
       width: 200px;
     }
 
-    .wiki-logo img {
+    .section-single__image img {
       width: 180px;
       height: 180px;
     }
 
   }
 
-  .team:hover,
-  .wiki:hover {
+  .section-single:hover {
     --bs-bg-opacity: 1;
   }
 

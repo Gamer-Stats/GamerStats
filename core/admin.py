@@ -1,21 +1,8 @@
 from django.contrib import admin
 
-from core.models import (
-    Author,
-    Game,
-    ImageCollection,
-    JsonData,
-    News,
-    NewsCategory,
-    PcSpecs,
-    SEOImage,
-    SetupSettings,
-    Subscribe,
-    TeamSection,
-    Topic,
-    Wiki,
-    WikiCategory,
-)
+from core.models import (Author, GameProfile, ImageCollection, JsonData, News,
+                         NewsCategory, PcSpecs, SEOImage, SetupSettings,
+                         TeamProfile, Topic, Wiki, WikiCategory)
 
 
 @admin.action(description="Mark as published")
@@ -69,28 +56,28 @@ class WikiAdmin(admin.ModelAdmin):
 @admin.register(SetupSettings)
 class SetupAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ("title", "meta_images")
+    list_display = ("title", "team", "game", "publish", "is_pro")
     list_filter = ["is_pro"]
     autocomplete_fields = ("specs", "avatar")
+    readonly_fields = ["image_url"]
 
 
-@admin.register(Game)
-class GameAdmin(admin.ModelAdmin):
+@admin.register(GameProfile)
+class GameProfileAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ("title", "updated_at", "publish")
     list_filter = ["publish"]
-    autocomplete_fields = ["game"]
+    autocomplete_fields = ["game_wiki"]
 
 
-@admin.register(TeamSection)
-class TeamSectionAdmin(admin.ModelAdmin):
+@admin.register(TeamProfile)
+class TeamProfileAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ("title", "updated_at", "publish")
-    list_filter = ["publish"]
-    autocomplete_fields = ["team_wiki", "game_wiki", "active_players"]
+    list_display = ("title", "esports_game", "updated_at", "publish")
+    list_filter = ["publish", "esports_game"]
+    autocomplete_fields = ["team_wiki", "esports_game", "active_members", "inactive_members", "former_members"]
 
 
 admin.site.register(NewsCategory)
 admin.site.register(SEOImage)
-admin.site.register(Subscribe)
 admin.site.register(Author)
