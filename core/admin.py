@@ -47,7 +47,7 @@ class WikiCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Wiki)
 class WikiAdmin(admin.ModelAdmin):
-    list_display = ("title", "publish", "pk")
+    list_display = ("title", "avatar", "publish", "pk")
     search_fields = ["title"]
     list_filter = ["page_type", "publish"]
     autocomplete_fields = ("avatar", "info_box", "tags", "related")
@@ -75,7 +75,8 @@ class TeamProfileAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ("title", "esports_game", "updated_at", "publish")
     list_filter = ["publish", "esports_game"]
-    autocomplete_fields = ["team_wiki", "esports_game", "active_members", "inactive_members", "former_members"]
+    autocomplete_fields = ["team_wiki", "esports_game",
+                           "active_members", "inactive_members", "former_members"]
 
 
 admin.site.register(NewsCategory)

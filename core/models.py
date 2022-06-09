@@ -17,7 +17,8 @@ def upload_dir(instance, filename):
 
 
 class ImageCollection(models.Model):
-    IMAGE_TYPES = (("N", "News"), ("S", "PcSpecs"), ("P", "Profile"), ("C", "Category"))
+    IMAGE_TYPES = (("N", "News"), ("S", "PcSpecs"),
+                   ("P", "Profile"), ("C", "Category"))
     title = models.CharField(max_length=70)
     image = models.ImageField(upload_to=upload_dir)
     image_type = models.CharField(max_length=1, choices=IMAGE_TYPES)
@@ -31,7 +32,7 @@ class ImageCollection(models.Model):
         verbose_name_plural = "Images"
 
     def __str__(self):
-        return self.title + " > " + self.get_image_type_display()  # type: ignore
+        return self.title + " > " + self.get_image_type_display()
 
 
 class SEOImage(models.Model):
@@ -121,7 +122,8 @@ class WikiCategory(BaseOptions):
         ("t", "Teams"),
         ("p", "Players"),
     )
-    cat_level = models.CharField(null=True, blank=True, choices=CAT_LEVEL, max_length=1)
+    cat_level = models.CharField(
+        null=True, blank=True, choices=CAT_LEVEL, max_length=1)
     parent = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
@@ -167,7 +169,8 @@ class Wiki(BaseOptions):
     achievements = RichTextUploadingField(blank=True, null=True)
     controversies = RichTextUploadingField(blank=True, null=True)
     ref = RichTextField(blank=True)
-    tags = models.ManyToManyField(WikiCategory, related_name="wiki_tags", blank=True)
+    tags = models.ManyToManyField(
+        WikiCategory, related_name="wiki_tags", blank=True)
     related = models.ManyToManyField("self", blank=True)
     page_type = models.ForeignKey(
         Topic, on_delete=models.PROTECT, related_name="wiki_topic"
@@ -205,7 +208,8 @@ class News(BaseOptions):
     overview = RichTextField(blank=True)
     body = RichTextUploadingField(blank=True)
     ref = RichTextField(blank=True)
-    tags = models.ManyToManyField(NewsCategory, related_name="news_tags", blank=True)
+    tags = models.ManyToManyField(
+        NewsCategory, related_name="news_tags", blank=True)
     writer = models.ForeignKey(
         Author,
         on_delete=models.SET_NULL,
@@ -263,7 +267,8 @@ class PcSpecs(BaseOptions):
         |===| SPS: Second Mon, ARM, Mic, CAM, WebCam, Chair, Ctrl Panel, AMP,
         Studio Lit, Light Kit, USB""",
     )
-    specs_type = models.CharField(max_length=10, choices=SPECS_TYPE, default="o")
+    specs_type = models.CharField(
+        max_length=10, choices=SPECS_TYPE, default="o")
     price = models.PositiveIntegerField(blank=True, null=True)
     amazon_url = models.URLField()
     reviews = RichTextField(blank=True)
@@ -274,6 +279,7 @@ class PcSpecs(BaseOptions):
 
     def __str__(self):
         return self.title
+
 
 class GameProfile(BaseOptions):
     game_wiki = models.ForeignKey(Wiki, on_delete=models.PROTECT)
@@ -289,9 +295,12 @@ class GameProfile(BaseOptions):
 class TeamProfile(BaseOptions):
     team_wiki = models.ForeignKey(Wiki, on_delete=models.PROTECT)
     esports_game = models.ForeignKey(GameProfile, on_delete=models.PROTECT)
-    active_members = models.ManyToManyField(Wiki, blank=True, related_name="active_roster")
-    inactive_members = models.ManyToManyField(Wiki, blank=True, related_name="inactive_roster")
-    former_members = models.ManyToManyField(Wiki, blank=True, related_name="former_roster")
+    active_members = models.ManyToManyField(
+        Wiki, blank=True, related_name="active_roster")
+    inactive_members = models.ManyToManyField(
+        Wiki, blank=True, related_name="inactive_roster")
+    former_members = models.ManyToManyField(
+        Wiki, blank=True, related_name="former_roster")
 
     class Meta:
         verbose_name = "Team Profile"
@@ -321,7 +330,8 @@ class SetupSettings(BaseOptions):
         related_name="player_settings",
     )
     setup_body = RichTextField(blank=True)
-    specs = models.ManyToManyField(PcSpecs, related_name="person_specs", blank=True)
+    specs = models.ManyToManyField(
+        PcSpecs, related_name="person_specs", blank=True)
     ref = RichTextField(blank=True)
     team = models.ForeignKey(
         TeamProfile,
@@ -338,7 +348,8 @@ class SetupSettings(BaseOptions):
         blank=True,
     )
     related = models.ManyToManyField("self", blank=True)
-    writer = models.ForeignKey(Author, on_delete=models.SET_NULL, blank=True, null=True)
+    writer = models.ForeignKey(
+        Author, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         verbose_name = "Setup and Settings"

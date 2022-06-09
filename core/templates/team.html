@@ -20,13 +20,13 @@
     <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
         <ol class="breadcrumb mb-1 p-2 d-flex lh-1">
             <li class="breadcrumb-item">
-                <a class="text-12px text--light" href="{% url 'gameprofile' obj.game_wiki.slug %}"
+                <a class="text-12px text--light" href="{% url 'gameprofile' obj.esports_game.slug %}"
                     title="{{ obj.game_wiki.meta_title }}">
-                    {{ obj.game_wiki.title }}
+                    {{ obj.esports_game.title }}
                 </a>
             </li>
             <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
-                {{ obj.meta_title }} {{ obj.game_wiki.title }} Roster &amp; Stats
+                {{ obj.title }} {{ obj.esports_game.title }} Roster
             </li>
         </ol>
     </nav>
@@ -35,65 +35,80 @@
     <div class="section-boxes text-14px">
         <header class="d-flex flex-md-row flex-column align-items-center gap-4 ">
             <img class="img-sq__md bg-gradient bg-secondary rounded p-2" style="--bs-bg-opacity: .3;"
-                src="{{ obj.avatar.image.url }}" title="{{ obj.title }} {{ obj.game_wiki.title }} Esports Team"
-                alt="{{ obj.meta_title }} {{ obj.game_wiki.title }} Roster &amp; Stats">
+                src="{{ obj.avatar.image.url }}" title="{{ obj.title }} {{ obj.esports_game.title }} Esports Team"
+                alt="{{ obj.meta_title }} {{ obj.esports_game.title }} Roster Players">
             <div>
-                <h1 class="fs-3 fw-bold">{{ obj.meta_title }} {{ obj.game_wiki.title }} Roster</h1>
+                <h1 class="fs-3 fw-bold">{{ obj.meta_title }} {{ obj.esports_game.title }} Roster</h1>
                 {{ obj.team_wiki.overview|safe }}
                 <a class="link-btn" target="_blank" href="{% url 'wiki_single' obj.team_wiki.slug %}">
                     {{ obj.team_wiki.title }} Wiki
                 </a>
             </div>
         </header>
-        <section class="">
-            <h2 class="fs-4 fw-bold mb-3">Active {{ obj.game_wiki.title }} Roster Players</h2>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Profile</th>
-                            <th>Player</th>
-                            <th>Links</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in obj.active_players.all %}
-                        <tr>
-                            <td>
-                                <img class="img-sq__xs" src="{{ i.avatar.image.url }}" alt="{{ i }}" title="{{ i }}">
-                            </td>
-                            <td>{{ i }}</td>
-                            <td><a href="{% url 'setup_single' i.slug %}">{{ i }} CS:GO Settings</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <section>
+            <h2 class="fs-5 fw-bold mb-4">{{ obj.title }} Active {{ obj.esports_game }} Roster</h2>
+            <div class="section-inner gap-3">
+                {% for i in active_members %}
+                <div class="section-single section-single-md rounded position-relative">
+                    <figure>
+                        <img class="img-sq__md bg-secondary bg-gradient" src="{{ i.avatar.image.url }}"
+                            title="{{ i }} CS:GO Wiki" alt="{{ i.title }} Wiki">
+                        <figcaption class="visually-hidden">{{ i.title }}</figcaption>
+                    </figure>
+                    <h3 class="fs-6 fw-semibold section-single__title">
+                        <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}"
+                            title="{{ i.title }} {{ obj.esports_game }} Wiki">
+                            <span>{{ i.title }}</span>
+                            <span class="visually-hidden">{{ obj.esports_game }} Wiki</span>
+                        </a>
+                    </h3>
+                </div>
+                {% endfor %}
             </div>
         </section>
-        {% if obj.former_members %}
-        <section class="">
-            <h2 class="fs-4 fw-bold mb-3">Active {{ obj.game_wiki.title }} Roster Players</h2>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Profile</th>
-                            <th>Player</th>
-                            <th>Links</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in obj.active_players.all %}
-                        <tr>
-                            <td>
-                                <img class="img-sq__xs" src="{{ i.avatar.image.url }}" alt="{{ i }}" title="{{ i }}">
-                            </td>
-                            <td>{{ i }}</td>
-                            <td><a href="{% url 'setup_single' i.slug %}">{{ i }} CS:GO Settings</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        {% if inactive_members %}
+        <section>
+            <h2 class="fs-5 fw-bold mb-4">Inactive {{ obj.esports_game }} Roster</h2>
+            <div class="section-inner gap-3">
+                {% for i in inactive_members %}
+                <div class="section-single section-single-md rounded position-relative">
+                    <figure>
+                        <img class="img-sq__md bg-secondary bg-gradient" src="{{ i.avatar.image.url }}"
+                            title="{{ i }} CS:GO Wiki" alt="{{ i.title }} Wiki">
+                        <figcaption class="visually-hidden">{{ i }}</figcaption>
+                    </figure>
+                    <h3 class="fs-6 fw-semibold section-single__title">
+                        <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}"
+                            title="{{ i.title }} {{ obj.esports_game }} Wiki">
+                            <span>{{ i.title }}</span>
+                            <span class="visually-hidden">{{ obj.esports_game }} Wiki</span>
+                        </a>
+                    </h3>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        {% if former_members %}
+        <section>
+            <h2 class="fs-5 fw-bold mb-4">Former {{ obj.esports_game }} Roster</h2>
+            <div class="section-inner gap-3">
+                {% for i in former_members %}
+                <div class="section-single section-single-md rounded position-relative">
+                    <figure>
+                        <img class="img-sq__md bg-secondary bg-gradient" src="{{ i.avatar.image.url }}"
+                            title="{{ i }} CS:GO Wiki" alt="{{ i.title }} Wiki">
+                        <figcaption class="visually-hidden">{{ i }}</figcaption>
+                    </figure>
+                    <h3 class="fs-6 fw-semibold section-single__title">
+                        <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}"
+                            title="{{ i.title }} {{ obj.esports_game }} Wiki">
+                            <span>{{ i.title }}</span>
+                            <span class="visually-hidden">{{ obj.esports_game }} Wiki</span>
+                        </a>
+                    </h3>
+                </div>
+                {% endfor %}
             </div>
         </section>
         {% endif %}

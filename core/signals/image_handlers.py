@@ -2,8 +2,8 @@
 import os
 from pathlib import Path
 
-from core.models import SetupSettings
-from django.db.models.signals import post_save, pre_save
+from core.models import SetupSettings, TeamProfile
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from gs_wik.settings import MEDIA_ROOT
 from PIL import Image
@@ -11,9 +11,7 @@ from PIL import Image
 
 @receiver(pre_save, sender=SetupSettings)
 def get_image_url(sender, instance, **kwargs):
-    print(instance.avatar.image)
     instance.image_url = instance.avatar.image.url
-
 
 
 # P = 200 - 156
