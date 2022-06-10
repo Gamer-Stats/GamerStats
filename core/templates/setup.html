@@ -51,25 +51,39 @@
 <main class="container bg-white py-3 pb-md-5 pt-md-4 shadow-sm">
   <article class="row">
     <h1 class="fs-3 fw-bold text-center mb-4">Pro Settings and Setup</h1>
-    {% for i in obj %}
-    <article class="col-12 col-sm-6 col-lg-4 col-xxl-3 mb-3">
-      <div class="d-flex border shadow-sm rounded overflow-hidden position-relative hover-element__main">
-        <img class="col-auto bg--dark" src="{{ i.avatar.image.url }}" title="{{ i.title }}" alt="{{ i.title }}"
-          width="130" height="130">
-        <div class="col p-2 hover-element__border hover-element__border__green">
-          <span class="text-12px">Last updated: </span>
-          <time class="text-12px" datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-            {{ i.updated_at|article_age }}</time>
-          <h3 class="fs-6 fw-semibold my-1">{{ i.title }}</h3>
-          <p class="text-12px mb-0 d-inline-block">{{ i.game.title }} professional for {{ i.team.title }}
-          </p>
-        </div>
-        <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
-          <span class="visually-hidden">{{ i.meta_title }}</span>
-        </a>
-      </div>
-    </article>
-    {% endfor %}
+    <div class="section-inner gap-3">
+      {% for i in obj %}
+      <article class="section-single rounded position-relative">
+        {% if i.image_url %}
+        <figure class="section-single__image">
+          <picture>
+            <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
+            <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
+            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings" title="{{ i.title }}">
+          </picture>
+          <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
+        </figure>
+        {% endif %}
+        <h3 class="fs-6 fw-semibold section-single__title">
+          <a class="stretched-link txt-link" href="{% url 'setup_single' i.slug %}">
+            {{ i.title }} Settings
+          </a>
+        </h3>
+        {% if i.is_pro is true %}
+        <p class="text-12px mb-0">{{ i.game__title }} professional for {{ i.team__title }}</p>
+        {% else %}
+        <p class="text-12px mb-0">Streamer and Content Creator</p>
+        {% endif %}
+        <span class="text-12px text-muted text-uppercase">
+          <span class="visually-hidden">Last updated</span>
+          <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+            {{ i.updated_at|article_age }}
+          </time>
+          <address class="author"> by <span rel="author">{{ i.writer.name }}</span></address>
+        </span>
+      </article>
+      {% endfor %}
+    </div>
     <!-- Pagination -->
     <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
       <ol class="pagination">

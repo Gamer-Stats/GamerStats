@@ -39,7 +39,7 @@ def index(request):
     news = (
         News.objects.select_related("avatar", "writer")
         .order_by("-updated_at")
-        .filter(publish=True)[:5]
+        .filter(publish=True)[:12]
     )
 
     template_name = "index.html"
@@ -112,7 +112,8 @@ def news_filter(request, slug):
 # @cache_page(60 * 15)
 def setup(request):
     setups = (
-        SetupSettings.objects.select_related("avatar", "game", "team")
+        SetupSettings.objects.select_related(
+            "avatar", "game", "team", "writer")
         .order_by("-updated_at")
         .filter(publish=True)
     )
@@ -143,7 +144,9 @@ def setup_single(request, slug):
 
     if obj.team:
         related = (
-            SetupSettings.objects.filter(Q(game=obj.game) & Q(team=obj.team))
+            SetupSettings.objects.select_related(
+                "avatar", "game", "team", "writer"
+            ).filter(Q(game=obj.game) & Q(team=obj.team))
             .exclude(title=obj.title)
             .select_related("avatar")
         )
@@ -151,7 +154,9 @@ def setup_single(request, slug):
         bread = "Pro Settings"
     else:
         related = (
-            SetupSettings.objects.filter(game=obj.game)
+            SetupSettings.objects.select_related(
+                "avatar", "game", "team", "writer"
+            ).filter(game=obj.game)
             .exclude(title=obj.title)
             .select_related("avatar")
         )[:8]

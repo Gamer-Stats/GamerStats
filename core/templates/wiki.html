@@ -63,29 +63,33 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
                     {{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}
                 </h1>
                 <div class="section-inner gap-3">
-                {% for i in obj %}
-                <article class="section-single rounded position-relative">
-                    {% if i.avatar.image.url %}
-                    <figure class="section-single__image mb-0">
-                        <img src="{{ i.avatar.image.url }}" alt="{{ i }}">
-                        <figcaption class="visually-hidden">{{ i }}</figcaption>
-                    </figure>
-                    {% endif %}
-                    <span class="text-12px text-muted">
-                        <span class="visually-hidden">Last updated</span>
-                        <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
-                            {{ i.updated_at|article_age }}
-                        </time>
-                        <address class="author"> by <span rel="author">{{ i.writer }}</span></address>
-                    </span>
-                    <h3 class="fs-6 fw-semibold section-single__title mt-1">
-                        <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}">
-                            <span>{{ i.title }}</span>
-                        </a>
-                    </h3>
-                </article>
-                {% endfor %}
-            </div>
+                    {% for i in obj %}
+                    <article class="section-single rounded position-relative">
+                        {% if i.avatar.image.url %}
+                        <figure class="section-single__image">
+                            <picture>
+                                <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
+                                <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
+                                <img src="{{ i.avatar.image.url }}" alt="{{ i.title }} Wiki" title="{{ i.title }}">
+                            </picture>
+                            <figcaption class="visually-hidden">{{ i.title }} Wiki</figcaption>
+                        </figure>
+                        {% endif %}
+                        <span class="text-12px text-muted">
+                            <span class="visually-hidden">Last updated</span>
+                            <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+                                {{ i.updated_at|article_age }}
+                            </time>
+                            <address class="author"> by <span rel="author">{{ i.writer }}</span></address>
+                        </span>
+                        <h2 class="fs-6 fw-semibold section-single__title mt-1">
+                            <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}">
+                                <span>{{ i.title }}</span>
+                            </a>
+                        </h2>
+                    </article>
+                    {% endfor %}
+                </div>
                 <!-- Pagination -->
                 <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
                     <ol class="pagination">
@@ -214,6 +218,5 @@ https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }
         width: 250px;
         height: 250px;
     }
-
 </style>
 {% endblock %}

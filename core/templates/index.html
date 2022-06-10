@@ -15,57 +15,35 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
 
 <div class=" bg-white">
     <main class="container">
-        <div class="row border-bottom py-5">
-            <h1 class="visually-hidden">Gamer Stats - Latest Esports News</h1>
-            <article class="col-lg-9">
-                <div class="card text-white hover-element__main shadow-sm">
-                    {% for i in news %}
-                    {% if forloop.counter == 1 %}
-                    <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" width="100%" height="100%">
-                    <div class="position-absolute bottom-0 p-2 rounded bg-black bg-gradient bg-opacity-75">
-                        <time class="card-text text-12px text-uppercase"
-                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                            {{ i.updated_at|article_age }}</time>
-                        <h2 class="mt-1 fs-4 heading-18px mb-0 hover-element__border">{{ i.title }}</h2>
-                    </div>
-                    <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
-                            class="visually-hidden">Continue
-                            reading {{ i.title }}</span></a>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </article>
-            <div class="col-lg-3 d-flex flex-column mt-3 mt-lg-0" style="grid-row-gap: 10px;">
+        <div class="row border-bottom pt-3 pb-5 py-md-5">
+            <h1 class="fs-4 fw-bold mb-3">Gamer Stats - Latest Esports News</h1>
+            <div class="d-flex flex-column flex-md-row flex-md-wrap" style="gap: 12px;">
                 {% for i in news %}
-                {% if forloop.counter == 2 %}
-                <article class="hover-element__main overflow-hidden position-relative shadow-sm border rounded">
-                    <img class="d-none d-xl-block img-fluid" src="{{ i.avatar.image.url }}" alt="{{ i.title }}">
-                    <div class="bg-light rounded p-2 hover-element__border">
-                        <time class="text-12px text-muted text-uppercase"
-                            datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                            {{ i.updated_at|article_age }}</time>
-                        <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
-                    </div>
-                    <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
-                            class="visually-hidden">Continue
-                            reading {{ i.title }}</span></a>
-                </article>
-                {% endif %}
-                {% endfor %}
-
-                {% for i in news %}
-                {% if forloop.counter > 2 %}
                 <article
-                    class="hover-element__main position-relative p-2 d-flex flex-column shadow-sm overflow-hidden border rounded">
-                    <time class="text-12px text-muted text-uppercase"
-                        datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                        {{ i.updated_at|article_age }}</time>
-                    <h2 class="hover-element__border mb-0 mt-1 text-15px">{{ i.title }}</h2>
-                    <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
-                            class="visually-hidden">Continue
-                            reading {{ i.title }}</span></a>
+                    class="bg-light hover-element__main overflow-hidden position-relative border rounded news-article flex-wrap d-flex d-md-block">
+                    <figure class="m-0 col-auto">
+                        <picture>
+                            <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-304.webp">
+                            <source media="(max-width: 767px)" srcset="{{ i.avatar.image.url }}-128.webp">
+                            <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" title="{{ i.title }}">
+                        </picture>
+                        <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
+                    </figure>
+                    <div class="col rounded p-2 hover-element__border hover-element__border__jam">
+                        <span class="text-12px text-muted text-uppercase">
+                            <span class="visually-hidden">Last updated</span>
+                            <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+                                {{ i.updated_at|article_age }}
+                            </time>
+                            <address class="author"> by <span rel="author">{{ i.writer.username }}</span></address>
+                        </span>
+                        <h2 class="mb-0 mt-1 fs-6 fw-semibold">
+                            <a class="stretched-link txt-link border-0" href="{% url 'news_single' i.slug %}">
+                                {{ i.title }}
+                            </a>
+                        </h2>
+                    </div>
                 </article>
-                {% endif %}
                 {% endfor %}
             </div>
             <span>
@@ -74,7 +52,6 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
         </div>
 
         <!-- Pro settings -->
-
         <section class="section-main row mt-5 pb-5">
             <h2 class="fs-4 fw-bold mb-3">Pro Players Settings</h2>
             <div class="section-inner gap-3">
@@ -82,13 +59,18 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                 <article class="section-single rounded position-relative">
                     {% if i.image_url %}
                     <figure class="section-single__image">
-                        <img src="{{ i.image_url }}" alt="{{ i }}">
-                        <figcaption class="visually-hidden">{{ i }}</figcaption>
+                        <picture>
+                            <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
+                            <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
+                            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings"
+                                title="{{ i.title }}">
+                        </picture>
+                        <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
                     </figure>
                     {% endif %}
                     <h3 class="fs-6 fw-semibold section-single__title">
                         <a class="stretched-link txt-link" href="{% url 'setup_single' i.slug %}">
-                            <span>{{ i.title }}</span>
+                            {{ i.title }} Settings
                         </a>
                     </h3>
                     {% if i.is_pro is true %}
@@ -96,9 +78,9 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                     {% else %}
                     <p class="text-12px mb-0">Streamer and Content Creator</p>
                     {% endif %}
-                    <span class="text-12px text-muted">
+                    <span class="text-12px text-muted text-uppercase">
                         <span class="visually-hidden">Last updated</span>
-                        <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                        <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
                             {{ i.updated_at|article_age }}
                         </time>
                         <address class="author"> by <span rel="author">{{ i.writer__name }}</span></address>
@@ -119,14 +101,18 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                 {% for i in wikis %}
                 <article class="section-single rounded position-relative">
                     {% if i.avatar.image.url %}
-                    <figure class="section-single__image mb-0">
-                        <img src="{{ i.avatar.image.url }}" alt="{{ i }}">
-                        <figcaption class="visually-hidden">{{ i }}</figcaption>
+                    <figure class="section-single__image">
+                        <picture>
+                            <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
+                            <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
+                            <img src="{{ i.avatar.image.url }}" alt="{{ i.title }} Wiki" title="{{ i.title }}">
+                        </picture>
+                        <figcaption class="visually-hidden">{{ i.title }} Wiki</figcaption>
                     </figure>
                     {% endif %}
                     <span class="text-12px text-muted">
                         <span class="visually-hidden">Last updated</span>
-                        <time pubdate datetime="{{ i.updated_at|date:'Y-m-d' }}T{{ i.updated_at|date:'H:iO' }}">
+                        <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
                             {{ i.updated_at|article_age }}
                         </time>
                         <address class="author"> by <span rel="author">{{ i.writer }}</span></address>

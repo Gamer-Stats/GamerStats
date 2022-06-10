@@ -71,18 +71,26 @@
         </ol>
     </nav>
 </div>
-<main class="container px-0 px-sm-2">
-    <article class="px-2 p-sm-0 col-md-10 bg-white shadow-sm mx-auto">
+<main class="container-md px-0 px-sm-2">
+    <article class="px-2 p-sm-0 col-lg-10 bg-white shadow-sm mx-auto">
         <div>
-            <img class="object-img py-2 p-sm-2"
-                srcset="{% static 'img/csgo-phone.png' %} 1w, {% static 'img/csgo.png' %} 500w"
-                sizes="(max-width: 600px) 1px, 800px" src=" {% static 'img/csgo.png' %}" alt="{{ obj.meta_title }}"
-                title="{{ obj.meta_title }}">
+            <picture>
+                <source media="(min-width: 768px)" srcset="{% static 'img/csgo.webp' %}">
+                <source media="(max-width: 767px)" srcset="{% static 'img/csgo-phone.webp' %}">
+                <img src="{% static 'img/csgo.png' %}" alt="{{ obj.meta_title }}" title="{{ obj.meta_title }}"
+                    class="cover-img py-2 p-sm-2">
+            </picture>
         </div>
         <div class="d-flex flex-column">
-            <img class="img-profile p-0 rounded-circle border border-4 border-primary mx-auto bg-gradient bg-secondary"
-                src="{{ obj.avatar.image.url }}" alt="{{ obj.title }}" title="{{ obj.title }}"
-                style="margin-top: -80px;">
+            <figure class="mx-auto" style="margin-top: -80px;">
+                <picture>
+                    <img class="rounded-circle d-inline-block border border-5 border-white bg-secondary bg-gradient"
+                        srcset="{{ obj.image_url }}-140.webp, {{ obj.image_url }}-180.webp 1.2x"
+                        src="{{ obj.image_url }}" alt="{{ obj.meta_title }}" title="{{ obj.title }}" width="150"
+                        height="150">
+                </picture>
+                <figcaption class="visually-hidden">{{ obj.title }}</figcaption>
+            </figure>
             <div class="mt-3 col-sm-8 mx-sm-auto text-center">
                 <span class="text-12px text-muted text-uppercase d-block">Last Updated:
                     <time datetime="{{ obj.created_at|date:'c' }}">
@@ -153,17 +161,21 @@
             <div class="d-flex flex-wrap pc-specs">
                 {% for i in obj.specs.all %}
                 <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
-                    <div class="sq-img-div">
-                        <img class="object-img bg-gradient bg-secondary" src="{{ i.avatar.image.url }}"
-                            alt="{{ i.title }}" title="{{ i.title }}">
+                    <div class="section-single__image bg-gradient">
+                        <picture>
+                            <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
+                            <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
+                            <img src="{{ i.avatar.image.url }}" alt="{{ i.get_specs_type_display }}: {{ i.title }}"
+                                title="{{ i.title }}">
+                        </picture>
                     </div>
                     <h3
                         class="text-14px text-uppercase mt-2 mb-1 fw-semibold text-primary hover-element__border hover-element__border__jam">
                         {{ i.get_specs_type_display }}
                     </h3>
-                    <p class="text-12px">{{ i.title }}</p>
-                    <a class="stretched-link" href="{{ i.amazon_url }}" target="_blank" rel="nofollow">
-                        <span class="visually-hidden">Check Price of {{ i.title }}</span>
+                    <a class="stretched-link txt-link border-0 text-12px lh-1" href="{{ i.amazon_url }}" target="_blank"
+                        rel="nofollow">
+                        {{ i.title }}
                     </a>
                 </div>
                 {% endfor %}
@@ -204,23 +216,40 @@
         </section>
         <section class="text-14px border-top px-3 pt-4 pb-2 pb-md-0 p-md-4">
             <h2 class="fs-5 fw-bold mb-3" id="{{ related_title }}">{{ related_title }}</h2>
-            <ul class="list-unstyled d-flex flex-row flex-wrap mb-0">
+            <div class="section-inner gap-3">
                 {% for i in related %}
-                <li class="col-6 col-md-3">
-                    <div class="overflow-hidden rounded m-2 position-relative hover-element__main">
-                        <img class="object-img bg-gradient bg-secondary" src="{{ i.avatar.image.url }}"
-                            title="{{ i.meta_title }}" alt="{{ i.meta_title }}">
-                        <h3
-                            class="text-14px text-uppercase mt-2 fw-semibold text-primary hover-element__border hover-element__border__jam">
-                            {{ i.title }}</h3>
-                        <a class="stretched-link" href="{% url 'setup_single' i.slug %}">
-                            <span class="visually-hidden">{{ i.title }} settings and
-                                setup</span>
+                <article class="section-single rounded position-relative">
+                    {% if i.image_url %}
+                    <figure class="section-single__image">
+                        <picture>
+                            <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
+                            <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
+                            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings"
+                                title="{{ i.title }}">
+                        </picture>
+                        <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
+                    </figure>
+                    {% endif %}
+                    <h3 class="fs-6 fw-semibold section-single__title">
+                        <a class="stretched-link txt-link" href="{% url 'setup_single' i.slug %}">
+                            {{ i.title }} Settings
                         </a>
-                    </div>
-                </li>
+                    </h3>
+                    {% if i.is_pro is true %}
+                    <p class="text-12px mb-0">{{ i.game__title }} professional for {{ i.team__title }}</p>
+                    {% else %}
+                    <p class="text-12px mb-0">Streamer and Content Creator</p>
+                    {% endif %}
+                    <span class="text-12px text-muted text-uppercase">
+                        <span class="visually-hidden">Last updated</span>
+                        <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+                            {{ i.updated_at|article_age }}
+                        </time>
+                        <address class="author"> by <span rel="author">{{ i.writer.name }}</span></address>
+                    </span>
+                </article>
                 {% endfor %}
-            </ul>
+            </div>
         </section>
     </article>
 </main>
@@ -229,8 +258,11 @@
         width: 180px;
     }
 
-    .pc-specs .sq-img-div {
-        height: 180px;
+    .cover-img {
+        height: 410px;
+        width: -webkit-fill-available;
+        object-fit: cover;
+        object-position: center center;
     }
 
     @media (max-width: 500px) {
@@ -242,8 +274,8 @@
             width: 150px;
         }
 
-        .pc-specs .sq-img-div {
-            height: 150px;
+        .cover-img {
+            height: 300px;
         }
     }
 </style>

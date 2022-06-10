@@ -19,6 +19,7 @@ class TopicAdmin(admin.ModelAdmin):
 class ImageCollectionAdmin(admin.ModelAdmin):
     search_fields = ("title", "image_type")
     list_filter = ["image_type"]
+    list_display = ["title", "id"]
 
 
 @admin.register(News)

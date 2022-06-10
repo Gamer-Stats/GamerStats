@@ -1,17 +1,22 @@
 from datetime import datetime
+from io import BytesIO
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.text import slugify
 from jsoneditor.fields.django3_jsonfield import JSONField
+from PIL import Image
+
+from core.custom_storages import MediaStorage
 
 
 def upload_dir(instance, filename):
-    return "{0}/{1}/{2}/{3}".format(
+    return "{0}/{1}/{2}/{3}/{4}".format(
         instance.get_image_type_display(),
         datetime.today().year,
         datetime.today().month,
+        datetime.today().day,
         filename,
     ).lower()
 
@@ -33,6 +38,37 @@ class ImageCollection(models.Model):
 
     def __str__(self):
         return self.title + " > " + self.get_image_type_display()
+
+    def save(self):
+
+        super(ImageCollection, self).save()
+
+        if self.image_type == "N":
+            sizes = [
+                (720, 405),
+                (512, 288),
+                (304, 171),
+                (128, 72),
+            ]
+        elif self.image_type == "S" or self.image_type == "P":
+            sizes = [
+                (180, 180),
+                (140, 140),
+            ]
+
+        for size in sizes:
+            open_image = Image.open(self.image)
+            new_image = BytesIO()
+
+            open_image.thumbnail(size)
+            open_image.save(new_image, "WEBP", quality=90)
+
+            meida = MediaStorage()
+
+            meida.save(
+                "{0}-{1}.webp".format(self.image.name, size[0]), new_image)
+            new_image.close()
+            open_image.close()
 
 
 class SEOImage(models.Model):
@@ -205,6 +241,7 @@ class NewsCategory(BaseOptions):
 
 
 class News(BaseOptions):
+    images = JSONField(blank=True, null=True)
     overview = RichTextField(blank=True)
     body = RichTextUploadingField(blank=True)
     ref = RichTextField(blank=True)

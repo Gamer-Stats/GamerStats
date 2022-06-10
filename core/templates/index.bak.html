@@ -1,0 +1,19 @@
+<!-- <article class="col-lg-9">
+    <div class="card text-white hover-element__main shadow-sm">
+        {% for i in news %}
+        {% if forloop.counter == 1 %}
+        <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" width="{{ i.avatar.image.width }} / 2"
+            height="100%">
+        <div class="position-absolute bottom-0 p-2 rounded bg-black bg-gradient bg-opacity-75">
+            <time class="card-text text-12px text-uppercase"
+                datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
+                {{ i.updated_at|article_age }}</time>
+            <h2 class="mt-1 fs-4 heading-18px mb-0 hover-element__border">{{ i.title }}</h2>
+        </div>
+        <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
+                class="visually-hidden">Continue
+                reading {{ i.title }}</span></a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</article> -->

@@ -61,28 +61,36 @@ https://gamerstats.net{% url 'news' %}{% if cats.slug %}{{ cats.slug }}/{% endif
                 <div class="row">
                     <h1 class="fs-3 fw-bold text-center mb-4 d-none d-md-block">{% if cats.title %}{{ cats.title }}
                         News{% else %}Esports News{% endif %}</h1>
-                    {% for i in obj %}
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                    <div class="d-flex flex-column flex-md-row flex-md-wrap" style="gap: 12px;">
+                        {% for i in obj %}
                         <article
-                            class="d-flex flex-row d-lg-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
-                            <figure class="col-4 col-lg-12 m-0">
-                                <img class="object-img" src="{{ i.avatar.image.url }}" title="{{ i.title }}"
-                                    alt="{{ i.title }}">
+                            class="bg-light hover-element__main overflow-hidden position-relative border rounded news-article flex-wrap d-flex d-md-block">
+                            <figure class="m-0 col-auto">
+                                <picture>
+                                    <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-304.webp">
+                                    <source media="(max-width: 767px)" srcset="{{ i.avatar.image.url }}-128.webp">
+                                    <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" title="{{ i.title }}">
+                                </picture>
                                 <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
                             </figure>
-                            <div class="col-8 col-lg-12 bg-light rounded p-2 hover-element__border">
-                                <time class="text-12px text-muted text-uppercase"
-                                    datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                                    {{ i.updated_at|article_age }}</time>
-                                <span class="text-12px text-muted text-uppercase">by {{ i.writer }}</span>
-                                <h2 class="mb-0 mt-1 text-15px">{{ i.title }}</h2>
+                            <div class="col rounded p-2 hover-element__border hover-element__border__jam">
+                                <span class="text-12px text-muted text-uppercase">
+                                    <span class="visually-hidden">Last updated</span>
+                                    <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+                                        {{ i.updated_at|article_age }}
+                                    </time>
+                                    <address class="author"> by <span rel="author">{{ i.writer.username }}</span>
+                                    </address>
+                                </span>
+                                <h2 class="mb-0 mt-1 fs-6 fw-semibold">
+                                    <a class="stretched-link txt-link border-0" href="{% url 'news_single' i.slug %}">
+                                        {{ i.title }}
+                                    </a>
+                                </h2>
                             </div>
-                            <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span
-                                    class="visually-hidden">Read
-                                    more about {{ i.title }}</span></a>
                         </article>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
 
                 <!-- Pagination -->
