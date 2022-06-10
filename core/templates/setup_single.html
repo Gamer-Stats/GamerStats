@@ -74,12 +74,28 @@
 <main class="container-md px-0 px-sm-2">
     <article class="px-2 p-sm-0 col-lg-10 bg-white shadow-sm mx-auto">
         <div>
+            {% if obj.game.slug == "csgo" %}
             <picture>
                 <source media="(min-width: 768px)" srcset="{% static 'img/csgo.webp' %}">
                 <source media="(max-width: 767px)" srcset="{% static 'img/csgo-phone.webp' %}">
                 <img src="{% static 'img/csgo.png' %}" alt="{{ obj.meta_title }}" title="{{ obj.meta_title }}"
                     class="cover-img py-2 p-sm-2">
             </picture>
+            {% elif obj.game.slug == "valorant" %}
+            <picture>
+                <source media="(min-width: 768px)" srcset="{% static 'img/valorant.webp' %}">
+                <source media="(max-width: 767px)" srcset="{% static 'img/valorant-phone.webp' %}">
+                <img src="{% static 'img/valorant.jpg' %}" alt="{{ obj.meta_title }}" title="{{ obj.meta_title }}"
+                    class="cover-img py-2 p-sm-2">
+            </picture>
+            {% else %}
+            <picture>
+                <source media="(min-width: 768px)" srcset="{% static 'img/gs-profile.webp' %}">
+                <source media="(max-width: 767px)" srcset="{% static 'img/gs-profile-phone.webp' %}">
+                <img src="{% static 'img/gs-profile.png' %}" alt="{{ obj.meta_title }}" title="{{ obj.meta_title }}"
+                    class="cover-img py-2 p-sm-2">
+            </picture>
+            {% endif %}
         </div>
         <div class="d-flex flex-column">
             <figure class="mx-auto" style="margin-top: -80px;">

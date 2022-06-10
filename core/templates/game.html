@@ -44,10 +44,11 @@
                 <div class="section-inner gap-3">
                     {% for i in teams %}
                     <div class="section-single rounded">
-                        <figure class="">
-                            <img class="img-sq__sm" src="{{ i.avatar.image.url }}" title="{{ i }} CS:GO" alt="{{ i }}">
-                            <figcaption class="visually-hidden">{{ i }}</figcaption>
-                        </figure>
+                        <picture>
+                            <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
+                            <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
+                            <img class="img-sq__sm" src="{{ i.image_url }}" title="{{ i }} CS:GO" alt="{{ i }}">
+                        </picture>
                         <h3 class="fs-6 fw-bold">{{ i.title }}</h3>
                         <div class="team-links">
                             <a class="team-links__roster link-btn" href="{% url 'teamprofile' obj.slug i.slug %}"

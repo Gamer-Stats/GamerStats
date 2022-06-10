@@ -63,7 +63,7 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                             <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
                             <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
                             <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings"
-                                title="{{ i.title }}">
+                                title="{{ i.title }}" load="lazy">
                         </picture>
                         <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
                     </figure>
@@ -105,7 +105,8 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                         <picture>
                             <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
                             <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
-                            <img src="{{ i.avatar.image.url }}" alt="{{ i.title }} Wiki" title="{{ i.title }}">
+                            <img src="{{ i.avatar.image.url }}" alt="{{ i.title }} Wiki" title="{{ i.title }}"
+                                load="lazy">
                         </picture>
                         <figcaption class="visually-hidden">{{ i.title }} Wiki</figcaption>
                     </figure>

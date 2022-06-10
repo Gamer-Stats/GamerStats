@@ -73,7 +73,14 @@
             {{ obj.updated_at|article_age }}
           </time>
         </span>
-        <img class="d-block my-3 object-img rounded" src="{{ obj.avatar.image.url }}" alt="{{ obj.avatar.caption }}">
+        <picture>
+          <source media="(min-width: 992px)" srcset="{{ obj.avatar.image.url }}-720.webp">
+          <source media="(min-width: 576px)" srcset="{{ obj.avatar.image.url }}-512.webp">
+          <source media="(max-width: 575px)" srcset="{{ obj.avatar.image.url }}-304.webp">
+          <img class="d-block my-3 featured-image rounded" src="{{ obj.avatar.image.url }}"
+            alt="{{ obj.avatar.caption }}">
+        </picture>
+
         <div class="pt-2 border-bottom">
           {{ obj.overview|safe }}
         </div>
@@ -102,24 +109,32 @@
   <aside class="row mt-4">
     <div class="col-md-10 py-3 py-md-4 bg-white shadow-sm mx-auto">
       <h2 class="fs-6 fw-bold text-uppercase">Related News:</h2>
-      <div class="flex-row row">
+      <div class="d-flex flex-row gap-3">
         {% for i in news %}
-        <article class="col-md-6 col-lg-4 mb-3">
-          <div
-            class="d-flex flex-row d-md-block hover-element__main overflow-hidden position-relative shadow-sm border rounded">
-            <figure class="col-4 col-md-12 m-0">
-              <img class="object-img" src="{{ i.avatar.image.url }}" alt="{{ i.title }}">
-              <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
-            </figure>
-            <div class="col-8 col-md-12 bg-light rounded p-2 hover-element__border">
-              <time class="text-12px text-muted text-uppercase"
-                datetime="{{ i.created_at|date:'Y-m-d' }}T{{ i.created_at|date:'H:iO' }}">
-                {{ i.updated_at|article_age }}</time>
-              <span class="text-12px text-muted text-uppercase">by {{ i.writer }}</span>
-              <h3 class="mb-0 mt-1 text-15px">{{ i.title }}</h3>
-            </div>
-            <a class="stretched-link" href="{% url 'news_single' i.slug %}"><span class="visually-hidden">Read
-                more about {{ i.title }}</span></a>
+        <article
+          class="bg-light hover-element__main overflow-hidden position-relative border rounded news-article flex-wrap d-flex d-md-block">
+          <figure class="m-0 col-auto">
+            <picture>
+              <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-304.webp">
+              <source media="(max-width: 767px)" srcset="{{ i.avatar.image.url }}-128.webp">
+              <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" title="{{ i.title }}">
+            </picture>
+            <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
+          </figure>
+          <div class="col rounded p-2 hover-element__border hover-element__border__jam">
+            <span class="text-12px text-muted text-uppercase">
+              <span class="visually-hidden">Last updated</span>
+              <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+                {{ i.updated_at|article_age }}
+              </time>
+              <address class="author"> by <span rel="author">{{ i.writer.username }}</span>
+              </address>
+            </span>
+            <h2 class="mb-0 mt-1 fs-6 fw-semibold">
+              <a class="stretched-link txt-link border-0" href="{% url 'news_single' i.slug %}">
+                {{ i.title }}
+              </a>
+            </h2>
           </div>
         </article>
         {% endfor %}
@@ -127,7 +142,26 @@
     </div>
   </aside>
 </main>
+<style>
+  .featured-image {
+    width: 304px;
+    height: 171px;
+  }
 
+  @media (min-width: 576px) {
+    .featured-image {
+      width: 512px;
+      height: 288px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .featured-image {
+      width: 720px;
+      height: 405px;
+    }
+  }
+</style>
 <script>
   let table = document.getElementsByTagName("table");
   for (let i = 0; i < table.length; i++) {

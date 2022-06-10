@@ -33,10 +33,14 @@
 </div>
 <main class="container">
     <div class="section-boxes text-14px">
-        <header class="d-flex flex-md-row flex-column align-items-center gap-4 ">
-            <img class="img-sq__md bg-gradient bg-secondary rounded p-2" style="--bs-bg-opacity: .3;"
-                src="{{ obj.avatar.image.url }}" title="{{ obj.title }} {{ obj.esports_game.title }} Esports Team"
-                alt="{{ obj.meta_title }} {{ obj.esports_game.title }} Roster Players">
+        <header class="d-flex flex-md-row flex-column align-items-center gap-4">
+            <picture
+                class="bg-secondary bg-gredient d-block rounded border border-5 border-secondary section-single__image">
+                <source media="(min-width: 540px)" srcset="{{ obj.avatar.image.url }}-180.webp">
+                <source media="(max-width: 539px)" srcset="{{ obj.avatar.image.url }}-140.webp">
+                <img src="{{ obj.avatar.image.url }}" title="{{ obj.title }} {{ obj.esports_game.title }} Roster"
+                    alt="{{ obj.title }} {{ obj.esports_game.title }} Roster">
+            </picture>
             <div>
                 <h1 class="fs-3 fw-bold">{{ obj.meta_title }} {{ obj.esports_game.title }} Roster</h1>
                 {{ obj.team_wiki.overview|safe }}
@@ -50,12 +54,12 @@
             <div class="section-inner gap-3">
                 {% for i in active_members %}
                 <div class="section-single section-single-md rounded position-relative">
-                    <figure>
-                        <img class="img-sq__md bg-secondary bg-gradient" src="{{ i.avatar.image.url }}"
-                            title="{{ i }} CS:GO Wiki" alt="{{ i.title }} Wiki">
-                        <figcaption class="visually-hidden">{{ i.title }}</figcaption>
-                    </figure>
-                    <h3 class="fs-6 fw-semibold section-single__title">
+                    <picture class="section-single__image bg-secondary bg-gredient d-block">
+                        <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
+                        <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
+                        <img src="{{ i.avatar.image.url }}" title="{{ i }} CS:GO" alt="{{ i }}">
+                    </picture>
+                    <h3 class="fs-6 fw-semibold section-single__title mt-3">
                         <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}"
                             title="{{ i.title }} {{ obj.esports_game }} Wiki">
                             <span>{{ i.title }}</span>
@@ -72,12 +76,12 @@
             <div class="section-inner gap-3">
                 {% for i in inactive_members %}
                 <div class="section-single section-single-md rounded position-relative">
-                    <figure>
-                        <img class="img-sq__md bg-secondary bg-gradient" src="{{ i.avatar.image.url }}"
-                            title="{{ i }} CS:GO Wiki" alt="{{ i.title }} Wiki">
-                        <figcaption class="visually-hidden">{{ i }}</figcaption>
-                    </figure>
-                    <h3 class="fs-6 fw-semibold section-single__title">
+                    <picture class="section-single__image bg-secondary bg-gredient d-block">
+                        <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
+                        <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
+                        <img src="{{ i.avatar.image.url }}" title="{{ i }} CS:GO" alt="{{ i }}">
+                    </picture>
+                    <h3 class="fs-6 fw-semibold section-single__title mt-3">
                         <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}"
                             title="{{ i.title }} {{ obj.esports_game }} Wiki">
                             <span>{{ i.title }}</span>
@@ -95,12 +99,12 @@
             <div class="section-inner gap-3">
                 {% for i in former_members %}
                 <div class="section-single section-single-md rounded position-relative">
-                    <figure>
-                        <img class="img-sq__md bg-secondary bg-gradient" src="{{ i.avatar.image.url }}"
-                            title="{{ i }} CS:GO Wiki" alt="{{ i.title }} Wiki">
-                        <figcaption class="visually-hidden">{{ i }}</figcaption>
-                    </figure>
-                    <h3 class="fs-6 fw-semibold section-single__title">
+                    <picture class="section-single__image bg-secondary bg-gredient d-block">
+                        <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
+                        <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
+                        <img src="{{ i.avatar.image.url }}" title="{{ i }} CS:GO" alt="{{ i }}">
+                    </picture>
+                    <h3 class="fs-6 fw-semibold section-single__title mt-3">
                         <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}"
                             title="{{ i.title }} {{ obj.esports_game }} Wiki">
                             <span>{{ i.title }}</span>

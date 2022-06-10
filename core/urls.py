@@ -33,7 +33,7 @@ urlpatterns = [
     path("wiki/categories/<slug:slug>/", views.wiki_filter,
          name="wiki_filter"),
     path("<slug:slug>/", views.gameprofile, name="gameprofile"),
-    path("dd/<slug:slug>/",
+    path("<game_url>/<slug:slug>/",
          views.teamprofile, name="teamprofile"),
 
     # Sitemaps

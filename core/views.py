@@ -275,11 +275,11 @@ def gameprofile(request, slug):
     return render(request, template_name, context)
 
 
-def teamprofile(request, slug):
+def teamprofile(request, game_url, slug):
     try:
         obj = TeamProfile.objects.select_related(
             'avatar', 'team_wiki', 'esports_game'
-        ).get(slug=slug)
+        ).get(slug=slug, esports_game__slug=game_url)
 
         active_members = obj.active_members.filter(
             publish=True).order_by("-updated_at").select_related(
