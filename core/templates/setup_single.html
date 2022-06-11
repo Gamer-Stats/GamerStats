@@ -4,11 +4,13 @@
 {% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}{{ obj.meta_title }}{% endblock %}
 {% endblock %}{% endblock %}{% endblock %}
 
-{% block description %}{% block og_description %}{% block tw_description %}{{ obj.meta_description }}
+{% block description %}{% block og_description %}{% block tw_description %}
+{% if obj.meta_description %}{{ obj.meta_description }}{% else %}{{ obj.team.title }} {{ obj.title }}'s
+{{ obj.game.title }}{% endif %} settings and setup, including crosshair, sensitivity, viewmodel, CFG, and Gaming PC
+Setup. Regular updates for {{ obj.game.title }}.
 {% endblock %}{% endblock %}{% endblock %}
 
-{% block tw_url %}{% block og_url %}{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}{% endblock %}
-{% endblock %}
+{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
 
 {% block schema %}
 

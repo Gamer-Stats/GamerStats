@@ -23,21 +23,27 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{% block og_title %}{% endblock %}" />
   <meta property="og:description" content="{% block og_description %}{% endblock %}" />
-  <meta property="og:image" content="{% block og_img %}{% endblock %}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="675" />
-  <meta property="og:image:alt" content="{% block og_img_alt %}{% endblock %}" />
+  <meta property="og:image"
+    content="{% if og_img %}{% block og_img %}{% endblock %}{% else %}{% static 'img/GamerStats.png' %}{% endif %}" />
+  <meta property="og:image:width"
+    content="{% if og_width %}{% block og_width %}{% endblock %}{% else %}1920{% endif %}" />
+  <meta property="og:image:height"
+    content="{% if og_height %}{% block og_height %}{% endblock %}{% else %}1080{% endif %}" />
+  <meta property="og:image:alt"
+    content="{% if og_img_alt %}{% block og_img_alt %}{% endblock %}{% else %}Gamer Stats{% endif %}" />
   <meta property="og:site_name" content="Gamer Stats" />
-  <meta property="og:url" content="{% block og_url %}{% endblock %}" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <!--Twitter Card Metadata-->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@TheGamerStats" />
   <meta name="twitter:creator" content="@TheGamerStats" />
   <meta name="twitter:title" content="{% block tw_title %}{% endblock %}" />
   <meta name="twitter:description" content="{% block tw_description %}{% endblock %}" />
-  <meta name="twitter:image" content="{% block tw_img %}{% endblock %}" />
-  <meta name="twitter:image:alt" content="{% block tw_img_alt %}{% endblock %}" />
-  <meta name="twitter:url" content="{% block tw_url %}{% endblock %}" />
+  <meta name="twitter:image"
+    content="{% if tw_img %}{% block tw_img %}{% endblock %}{% else %}{% static 'img/GamerStats.png' %}{% endif %}" />
+  <meta name="twitter:image:alt"
+    content="{% if tw_img_alt %}{% block tw_img_alt %}{% endblock %}{% else %}Gamer Stats{% endif %}" />
+  <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",

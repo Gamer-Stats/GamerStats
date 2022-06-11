@@ -5,13 +5,11 @@
 {% if cats_page.title %}{{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}
 {% endblock %}{% endblock %}{% endblock %}{% endblock %}
 
-{% block description %}{% block og_description %}{% block tw_description %}Esports pro players and teams wiki
+{% block description %}{% block og_description %}{% block tw_description %}Read the latest and free encyclopedia
+of esports players, teams, games, and streamers from all around the world.
 {% endblock %}{% endblock %}{% endblock %}
 
-{% block tw_url %}{% block og_url %}{% block can_url %}
-https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }}/{% endif %}{% endblock %}
-{% endblock %}{% endblock %}
-
+{% block can_url %}https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }}/{% endif %}{% endblock %}
 
 {% block schema %}
 

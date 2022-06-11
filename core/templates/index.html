@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}Esports News, Live Updates, Pro Settings
-and Setup{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+{% load static %}{% load age %}
+
+{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}{% block og_img_alt %}Esports News, Live
+Updates, Pro Settings and Setup{% endblock %}{% endblock %}{% endblock %}{% endblock %}{% endblock %}
 
 {% block description %}{% block og_description %}{% block tw_description %}Gamer Stats covers streamers and pro esports
 player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all
 Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
 
-{% block tw_url %}{% block og_url %}{% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
-{% endblock %}{% endblock %}
-
-
-{% load static %}{% load age %}
 {% block content %}
 
 <div class=" bg-white">

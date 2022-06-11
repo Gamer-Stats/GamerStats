@@ -2,15 +2,14 @@
 {% load static %} {% load age %}
 <!-- Head Elements -->
 {% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}
-{% if cats.title %}{{ cats.title }} News{% else %}Esports News{% endif %}
+{% if cats.title %}{{ cats.title }} News{% else %}Esports News: Pro Players, Teams and Game Leaks{% endif %}
 {% endblock %}{% endblock %}{% endblock %}{% endblock %}
 
-{% block description %}{% block og_description %}{% block tw_description %}Esports pro players and teams news
-{% endblock %}{% endblock %}{% endblock %}
+{% block description %}{% block og_description %}{% block tw_description %}
+The latest and greatest in pro scenes and gaming world. Stay up to date on the competitive gaming scene with us with the
+latest and greatest news, updates, and leaks.{% endblock %}{% endblock %}{% endblock %}
 
-{% block tw_url %}{% block og_url %}{% block can_url %}
-https://gamerstats.net{% url 'news' %}{% if cats.slug %}{{ cats.slug }}/{% endif %}
-{% endblock %}{% endblock %}{% endblock %}
+{% block can_url %}https://gamerstats.net{% url 'news' %}{% if cats.slug %}{{ cats.slug }}/{% endif %}{% endblock %}
 
 {% block schema %}
 
