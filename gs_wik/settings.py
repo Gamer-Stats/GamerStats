@@ -9,17 +9,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = config("S_KEY")
 SECRET_KEY = "django-insecure-calfa6oj0vtz7s+d@l((!e*tumhz%a7xm@^8ml&doz^p3nm6!#"
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
 
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    "localhost"
-    # ...
-]
+# INTERNAL_IPS = [
+#     # ...
+#     "127.0.0.1",
+#     "localhost"
+#     # ...
+# ]
 
 # Application definition
 
@@ -225,7 +225,8 @@ CKEDITOR_CONFIGS = {
                     "Redo",
                 ],
             },
-            {"name": "editing", "items": ["Find", "Replace", "-", "SelectAll"]},
+            {"name": "editing", "items": [
+                "Find", "Replace", "-", "SelectAll"]},
             {
                 "name": "forms",
                 "items": [
@@ -291,7 +292,8 @@ CKEDITOR_CONFIGS = {
                 ],
             },
             "/",
-            {"name": "styles", "items": ["Styles", "Format", "Font", "FontSize"]},
+            {"name": "styles", "items": [
+                "Styles", "Format", "Font", "FontSize"]},
             {"name": "colors", "items": ["TextColor", "BGColor"]},
             {"name": "tools", "items": ["Maximize", "ShowBlocks"]},
             {"name": "about", "items": ["About"]},
