@@ -48,84 +48,113 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
             </span>
         </div>
 
-        <!-- Pro settings -->
-        <section class="section-main row mt-5 pb-5">
-            <h2 class="fs-4 fw-bold mb-3">Pro Players Settings</h2>
-            <div class="section-inner gap-3">
-                {% for i in setup %}
-                <article class="section-single rounded position-relative">
-                    {% if i.image_url %}
-                    <figure class="section-single__image">
-                        <picture>
-                            <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
-                            <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
-                            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings"
-                                title="{{ i.title }}" load="lazy">
-                        </picture>
-                        <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
-                    </figure>
-                    {% endif %}
-                    <h3 class="fs-6 fw-semibold section-single__title">
-                        <a class="stretched-link txt-link" href="{% url 'setup_single' i.slug %}">
-                            {{ i.title }} Settings
-                        </a>
-                    </h3>
-                    {% if i.is_pro is true %}
-                    <p class="text-12px mb-0">{{ i.game__title }} professional for {{ i.team__title }}</p>
-                    {% else %}
-                    <p class="text-12px mb-0">Streamer and Content Creator</p>
-                    {% endif %}
-                    <span class="text-12px text-muted text-uppercase">
-                        <span class="visually-hidden">Last updated</span>
-                        <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
-                            {{ i.updated_at|article_age }}
-                        </time>
-                        <address class="author"> by <span rel="author">{{ i.writer__name }}</span></address>
-                    </span>
-                </article>
-                {% endfor %}
+        <section class="mt-5 pb-5">
+            <div class="d-grid grid-xl-3 column-gap-2">
+                <h2 class="fs-5 fw-bold mb-3 grid-row-1">Esports Teams</h2>
+                <table class="html-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 33.33%; text-align: left;">Profle</th>
+                            <th style="width: 33.33%; text-align: center;">Name</th>
+                            <th style="width: 33.33%; text-align: right;">Game</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in teams %}
+                        <tr>
+                            <td style="text-align: left;">
+                                <a href="{% url 'teamprofile' i.esports_game__slug i.slug %}">
+                                    <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
+                                        title="{{ i.title }} {{ i.esports_game__title }} Roster" load="lazy" width="35"
+                                        height="35">
+                                </a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a href="{% url 'teamprofile' i.esports_game__slug i.slug %}"
+                                    title="{{ i.title }} {{ i.esports_game__title }} Roster">
+                                    {{ i.title }}
+                                </a>
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{% url 'gameprofile' i.esports_game__slug %}">
+                                    <img srcset="{{ i.game_image_url }}-140.webp" src="{{ i.game_image_url }}"
+                                        title="{{ i.esports_game__title }}" alt="{{ i.esports_game__title }}"
+                                        load="lazy" width="35" height="35">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h2 class="fs-5 fw-bold mb-3 grid-row-1">CS:GO Professionals</h2>
+                <table class="html-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 33.33%; text-align: left;">Profle</th>
+                            <th style="width: 33.33%; text-align: center;">Name</th>
+                            <th style="width: 33.33%; text-align: right;">Team</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in cs_players %}
+                        <tr>
+                            <td style="text-align: left;">
+                                <a href="{% url 'setup_single' i.slug %}">
+                                    <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
+                                        title="{{ i.title }} CS:GO Settings" load="lazy" width="35" height="35">
+                                </a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a href="{% url 'setup_single' i.slug %}" title="{{ i.title }} CS:GO Settings">
+                                    {{ i.title }}
+                                </a>
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{% url 'teamprofile' i.game__slug i.team__slug %}">
+                                    <img srcset="{{ i.team_url }}-140.webp" src="{{ i.team_url }}"
+                                        title="{{ i.team__meta_title }}" alt="{{ i.team__title }}" load="lazy"
+                                        width="35" height="35">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h2 class="fs-5 fw-bold mb-3 grid-row-1">VALORANT Professionals</h2>
+                <table class="html-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 33.33%; text-align: left;">Profle</th>
+                            <th style="width: 33.33%; text-align: center;">Name</th>
+                            <th style="width: 33.33%; text-align: right;">Team</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in valo_players %}
+                        <tr>
+                            <td style="text-align: left;">
+                                <a href="{% url 'setup_single' i.slug %}">
+                                    <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
+                                        title="{{ i.title }} VALORANT Settings" load="lazy" width="35" height="35">
+                                </a>
+                            </td>
+                            <td style="text-align: center;">
+                                <a href=" {% url 'setup_single' i.slug %}" title="{{ i.title }} VALORANT Settings">
+                                    {{ i.title }}
+                                </a>
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{% url 'teamprofile' i.game__slug i.team__slug %}">
+                                    <img srcset="{{ i.team_url }}-140.webp" src="{{ i.team_url }}"
+                                        title="{{ i.team__meta_title }}" alt="{{ i.team__title }}" load="lazy"
+                                        width="35" height="35">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <footer>
-                <a class="mt-3 link-btn" href="{% url 'setup' %}">View All Players</a>
-            </footer>
-        </section>
-
-        <!-- Esports Wikis -->
-
-        <section class="section-main row mt-5 pb-5">
-            <h2 class="fs-4 fw-bold mb-3">Esports Wikis</h2>
-            <div class="section-inner gap-3">
-                {% for i in wikis %}
-                <article class="section-single rounded position-relative">
-                    {% if i.avatar.image.url %}
-                    <figure class="section-single__image">
-                        <picture>
-                            <source media="(min-width: 540px)" srcset="{{ i.avatar.image.url }}-180.webp">
-                            <source media="(max-width: 539px)" srcset="{{ i.avatar.image.url }}-140.webp">
-                            <img src="{{ i.avatar.image.url }}" alt="{{ i.title }} Wiki" title="{{ i.title }}"
-                                load="lazy">
-                        </picture>
-                        <figcaption class="visually-hidden">{{ i.title }} Wiki</figcaption>
-                    </figure>
-                    {% endif %}
-                    <span class="text-12px text-muted">
-                        <span class="visually-hidden">Last updated</span>
-                        <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
-                            {{ i.updated_at|article_age }}
-                        </time>
-                        <address class="author"> by <span rel="author">{{ i.writer }}</span></address>
-                    </span>
-                    <h3 class="fs-6 fw-semibold section-single__title mt-1">
-                        <a class="stretched-link txt-link" href="{% url 'wiki_single' i.slug %}">
-                            <span>{{ i.title }}</span>
-                        </a>
-                    </h3>
-                </article>
-                {% endfor %}
-            </div>
-            <footer>
-                <a class="mt-5 link-btn" href="{% url 'wiki' %}">View all wikis</a>
-            </footer>
         </section>
     </main>
 </div>

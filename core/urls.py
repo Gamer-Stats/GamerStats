@@ -17,7 +17,7 @@ news_sitemaps = {
 wiki_sitemaps = {
     "wiki_s": Wiki_Sitemap,
 }
-
+# <game_url>
 
 urlpatterns = [
     path("", views.index, name="index"),

@@ -60,7 +60,7 @@ class SetupAdmin(admin.ModelAdmin):
     list_display = ("title", "team", "game", "publish", "is_pro")
     list_filter = ["is_pro"]
     autocomplete_fields = ("specs", "avatar")
-    readonly_fields = ["image_url"]
+    readonly_fields = ["image_url", "team_url"]
 
 
 @admin.register(GameProfile)
@@ -77,7 +77,9 @@ class TeamProfileAdmin(admin.ModelAdmin):
     list_display = ("title", "esports_game", "updated_at", "publish")
     list_filter = ["publish", "esports_game"]
     autocomplete_fields = ["team_wiki", "esports_game",
-                           "active_members", "inactive_members", "former_members"]
+                           "active_members", "inactive_members",
+                           "former_members"]
+    readonly_fields = ["image_url", "game_image_url"]
 
 
 admin.site.register(NewsCategory)

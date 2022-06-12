@@ -338,6 +338,8 @@ class TeamProfile(BaseOptions):
         Wiki, blank=True, related_name="inactive_roster")
     former_members = models.ManyToManyField(
         Wiki, blank=True, related_name="former_roster")
+    image_url = models.CharField(max_length=120, blank=True, null=True)
+    game_image_url = models.CharField(max_length=120, blank=True, null=True)
 
     class Meta:
         verbose_name = "Team Profile"
@@ -349,6 +351,7 @@ class TeamProfile(BaseOptions):
 
 class SetupSettings(BaseOptions):
     image_url = models.CharField(max_length=120, blank=True, null=True)
+    team_url = models.CharField(max_length=120, blank=True, null=True)
     is_pro = models.BooleanField(default=True)
     meta_images = models.ForeignKey(
         SEOImage,

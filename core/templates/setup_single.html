@@ -232,7 +232,7 @@ Setup. Regular updates for {{ obj.game.title }}.
                 </table>
             </div>
         </section>
-        <section class="text-14px border-top px-3 pt-4 pb-2 pb-md-0 p-md-4">
+        <section class="text-14px border-top px-3 pt-4 pb-2 p-md-4">
             <h2 class="fs-5 fw-bold mb-3" id="{{ related_title }}">{{ related_title }}</h2>
             <div class="section-inner gap-3">
                 {% for i in related %}
@@ -242,8 +242,7 @@ Setup. Regular updates for {{ obj.game.title }}.
                         <picture>
                             <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
                             <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
-                            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings"
-                                title="{{ i.title }}">
+                            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings">
                         </picture>
                         <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
                     </figure>
@@ -253,13 +252,8 @@ Setup. Regular updates for {{ obj.game.title }}.
                             {{ i.title }} Settings
                         </a>
                     </h3>
-                    {% if i.is_pro is true %}
-                    <p class="text-12px mb-0">{{ i.game__title }} professional for {{ i.team__title }}</p>
-                    {% else %}
-                    <p class="text-12px mb-0">Streamer and Content Creator</p>
-                    {% endif %}
-                    <span class="text-12px text-muted text-uppercase">
-                        <span class="visually-hidden">Last updated</span>
+                    <span class="visually-hidden">
+                        <span>Last updated</span>
                         <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
                             {{ i.updated_at|article_age }}
                         </time>

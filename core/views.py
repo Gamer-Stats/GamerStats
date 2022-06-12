@@ -1,3 +1,4 @@
+from curses import has_key
 from itertools import chain
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,28 +15,32 @@ from core.models import (GameProfile, News, NewsCategory, SetupSettings,
 
 # Homepage
 def index(request):
-    setup = (
-        SetupSettings.objects.select_related(
-            "game__title", "team__title", "writer__name"
-        )
-        .order_by("-updated_at")
-        .values(
-            "team__title",
-            "game__title",
-            "title",
-            "writer__name",
-            "updated_at",
-            "slug",
-            "image_url",
-        )
-        .filter(publish=True)[:12]
-    )
 
-    wikis = (
-        Wiki.objects.select_related("avatar", "page_type", "writer")
-        .order_by("-updated_at")
-        .filter(publish=True)[:12]
-    )
+    players = SetupSettings.objects.filter(
+        publish=True).values(
+        "title",
+        "slug",
+        "image_url",
+        "team_url",
+        "team__slug",
+        "game__slug",
+        "game",
+        "team__title",
+        "team__meta_title")
+
+    cs_players = players.filter(game=1)[:20]
+
+    valo_players = players.filter(game=2)[:20]
+
+    teams = TeamProfile.objects.filter(publish=True).values(
+        "title",
+        "slug",
+        "esports_game__title",
+        "esports_game__slug",
+        "image_url",
+        "game_image_url"
+    )[:20]
+
     news = (
         News.objects.select_related("avatar", "writer")
         .order_by("-updated_at")
@@ -43,7 +48,9 @@ def index(request):
     )
 
     template_name = "index.html"
-    context = {"setup": setup, "wikis": wikis, "news": news}
+    context = {"cs_players": cs_players, "teams": teams,
+               "news": news, "valo_players": valo_players}
+
     return render(request, template_name, context)
 
 
@@ -228,7 +235,7 @@ def wiki_single(request, slug):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
 
-    if obj.page_type.pk == 2:
+    if obj.page_type.pk == 2 or obj.page_type.pk == 6:
         history_title = "Early Life"
         career_title = "Career"
         team_history_title = "Team History"

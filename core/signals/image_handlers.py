@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-from core.models import News, SetupSettings
+from core.models import GameProfile, News, SetupSettings, TeamProfile
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from gs_wik.settings import MEDIA_URL
@@ -13,6 +13,21 @@ from PIL import Image
 @receiver(pre_save, sender=SetupSettings)
 def get_image_url(sender, instance, **kwargs):
     instance.image_url = instance.avatar.image.url
+    try:
+        team_img = TeamProfile.objects.get(pk=instance.team_id)
+        instance.team_url = team_img.avatar.image.url
+    except:
+        print("no team image, {0}".format(instance.title))
+
+
+@receiver(pre_save, sender=TeamProfile)
+def get_team_image_url(sender, instance, **kwargs):
+    instance.image_url = instance.avatar.image.url
+    try:
+        game_image_url = GameProfile.objects.get(pk=instance.esports_game_id)
+        instance.game_image_url = game_image_url.avatar.image.url
+    except:
+        print("no team image, {0}".format(instance.title))
 
 
 # News Image = 720*405 || 512*288 || 304*171

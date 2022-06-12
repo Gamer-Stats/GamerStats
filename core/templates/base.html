@@ -140,7 +140,6 @@
       --bs-bg-opacity: .3;
       --bs-secondary-rgb: 233, 236, 239;
       background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity));
-      padding: 8px;
       text-align: center;
       transition: all .25s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
@@ -155,6 +154,14 @@
       background-color: #fff;
     }
 
+    .section-single figure {
+      margin-bottom: 10px;
+    }
+
+    .section-single__title {
+      margin-bottom: 10px;
+    }
+
     .section-single__image {
       background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity))
     }
@@ -162,6 +169,13 @@
     .section-single__image img {
       width: 140px;
       height: 140px;
+    }
+
+    .section-single__meta {
+      display: inline-block;
+      font-size: 10px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
     @media (min-width: 768px) {
@@ -182,7 +196,7 @@
       }
 
       .section-single {
-        width: 200px;
+        width: 180px;
       }
 
       .section-single-md {
@@ -261,6 +275,59 @@
     footer a:hover {
       border-bottom-color: rgb(209, 213, 219);
       color: rgb(209, 213, 219);
+    }
+
+    .text-10px {
+      font-size: 10px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: inherit;
+    }
+
+    @media (min-width: 768px) {}
+
+    @media (min-width: 992px) {
+      .grid-row-1 {
+        grid-row: 1;
+      }
+    }
+
+    @media (min-width: 1200px) {}
+
+    .column-gap-2 {
+      column-gap: 2rem;
+    }
+
+    .row-gap-2 {
+      row-gap: 2rem;
+    }
+
+    .html-table {
+      border-collapse: collapse;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .html-table>:not(caption)>*>* {
+      padding: 0.3rem 0.8rem;
+    }
+
+    .html-table tr:nth-child(even) {
+      background-color: rgb(131 131 131 / 8%);
+    }
+
+    .html-table tr {
+      border-bottom: solid 1px #adb5bd;
+    }
+
+    .html-table>tbody {
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -413,6 +480,7 @@
     </div>
   </div>
   <!-- Footer -->
+  {% comment %}
   <footer class="container-fluid text-normal mt-3" style="background: #1f2937;">
     <h2 class="visually-hidden">Footer</h2>
     <div class="container pt-5 pb-3">
@@ -732,6 +800,7 @@
       </div>
     </div>
   </footer>
+  {% endcomment %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
     crossorigin="anonymous"></script>
