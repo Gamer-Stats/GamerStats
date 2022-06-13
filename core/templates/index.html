@@ -10,44 +10,42 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
 
 {% block content %}
 
-<div class=" bg-white">
+<div class="bg-white">
     <main class="container">
-        <div class="row border-bottom pt-3 pb-5 py-md-5">
-            <h1 class="fs-4 fw-bold mb-3">Gamer Stats - Latest Esports News</h1>
-            <div class="d-flex flex-column flex-md-row flex-md-wrap" style="gap: 12px;">
-                {% for i in news %}
-                <article
-                    class="bg-light hover-element__main overflow-hidden position-relative border rounded news-article flex-wrap d-flex d-md-block">
-                    <figure class="m-0 col-auto">
-                        <picture>
-                            <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-304.webp">
-                            <source media="(max-width: 767px)" srcset="{{ i.avatar.image.url }}-128.webp">
-                            <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" title="{{ i.title }}">
-                        </picture>
-                        <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
-                    </figure>
-                    <div class="col rounded p-2 hover-element__border hover-element__border__jam">
-                        <span class="text-12px text-muted text-uppercase">
-                            <span class="visually-hidden">Last updated</span>
-                            <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
-                                {{ i.updated_at|article_age }}
-                            </time>
-                            <address class="author"> by <span rel="author">{{ i.writer.username }}</span></address>
-                        </span>
-                        <h2 class="mb-0 mt-1 fs-6 fw-semibold">
-                            <a class="stretched-link txt-link border-0" href="{% url 'news_single' i.slug %}">
-                                {{ i.title }}
-                            </a>
-                        </h2>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-            <span>
-                <a class=" link-btn mt-4" href="{% url 'news' %}">View all news</a>
-            </span>
-        </div>
-
+        <header class="py-5 border-bottom">
+            <h1 class="fs-3 fw-bold">Pro Gamers and Esports Database for Gamers</h1>
+            <p>Welcome to GamerStats.net, the ultimate destination for gamers to track their favorite esports
+                professionals
+                and teams' stats, news, and achievements.</p>
+            <form class="form-floating home-search" action="{% url 'search' %}">
+                <input type="text" class="form-control" id="homeSearch" name="q" placeholder="s1mple, shroud, NiKo...">
+                <label for="homeSearch">Search your favorite...</label>
+                <button type="button" class="btn">Search</button>
+            </form>
+        </header>
+        <section class="row py-5 border-bottom">
+            <h2 class="fs-4 fw-bold">Esports News</h2>
+            {% for i in news %}
+            <article class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a href="{% url 'news_single' i.slug %}">
+                    <picture class="image-wrap">
+                        <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-512.webp">
+                        <source media="(max-width: 767px)"
+                            srcset="{{ i.avatar.image.url }}-304.webp, {{ i.avatar.image.url }}-512.webp 1.6x">
+                        <img src="{{ i.avatar.image.url }}" alt="{{ i.avatar.alt }}" title="{{ i.title }}">
+                    </picture>
+                </a>
+                <h3 class="fs-6 fw-semibold mb-0 mt-2"><a href="{% url 'news_single' i.slug %}">{{ i.title }}</a></h3>
+                <span class="text-12px text-muted text-uppercase">
+                    <span class="visually-hidden">Last updated</span>
+                    <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+                        {{ i.updated_at|article_age }}
+                    </time>
+                    <address class="author"> by <span rel="author">{{ i.writer.username }}</span></address>
+                </span>
+            </article>
+            {% endfor %}
+        </section>
         <section class="mt-5 pb-5">
             <div class="d-grid grid-xl-3 column-gap-2">
                 <h2 class="fs-5 fw-bold mb-3 grid-row-1">Esports Teams</h2>
@@ -62,20 +60,20 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                     <tbody>
                         {% for i in teams %}
                         <tr>
-                            <td style="text-align: left;">
+                            <td class="text-start">
                                 <a href="{% url 'teamprofile' i.esports_game__slug i.slug %}">
                                     <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
                                         title="{{ i.title }} {{ i.esports_game__title }} Roster" load="lazy" width="35"
                                         height="35">
                                 </a>
                             </td>
-                            <td style="text-align: center;">
+                            <td class="text-center">
                                 <a href="{% url 'teamprofile' i.esports_game__slug i.slug %}"
                                     title="{{ i.title }} {{ i.esports_game__title }} Roster">
                                     {{ i.title }}
                                 </a>
                             </td>
-                            <td style="text-align: right;">
+                            <td class="text-end">
                                 <a href="{% url 'gameprofile' i.esports_game__slug %}">
                                     <img srcset="{{ i.game_image_url }}-140.webp" src="{{ i.game_image_url }}"
                                         title="{{ i.esports_game__title }}" alt="{{ i.esports_game__title }}"
@@ -85,6 +83,22 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                         </tr>
                         {% endfor %}
                     </tbody>
+                    <tfoot>
+                        <tr style="background-color: var(--bs-gray-200);">
+                            <td class="text-start">
+                                <a class="link-btn text-decoration-none text-12px"
+                                    href="{% url 'gameprofile' 'csgo' %}">CS:GO Teams</a>
+                            </td>
+                            <td class="text-center">
+                                <a class="link-btn text-decoration-none text-12px"
+                                    href="{% url 'gameprofile' 'valorant' %}">VALORANT Teams</a>
+                            </td>
+                            <td class="text-end">
+                                <a class="link-btn text-decoration-none text-12px"
+                                    href="{% url 'gameprofile' 'fortnite' %}">Fortnite Teams</a>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <h2 class="fs-5 fw-bold mb-3 grid-row-1">CS:GO Professionals</h2>
                 <table class="html-table" style="width: 100%;">
@@ -119,6 +133,14 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                         </tr>
                         {% endfor %}
                     </tbody>
+                    <tfoot>
+                        <tr style="background-color: var(--bs-gray-200);">
+                            <td colspan="3" class="text-center">
+                                <a class="link-btn text-decoration-none text-12px"
+                                    href="{% url 'gameprofile' 'csgo' %}#players">CS:GO Players</a>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <h2 class="fs-5 fw-bold mb-3 grid-row-1">VALORANT Professionals</h2>
                 <table class="html-table" style="width: 100%;">
@@ -153,9 +175,18 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                         </tr>
                         {% endfor %}
                     </tbody>
+                    <tfoot>
+                        <tr style="background-color: var(--bs-gray-200);">
+                            <td colspan="3" class="text-center">
+                                <a class="link-btn text-decoration-none text-12px"
+                                    href="{% url 'gameprofile' 'valorant' %}#players">VALORANT Players</a>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </section>
     </main>
 </div>
+
 {% endblock %}

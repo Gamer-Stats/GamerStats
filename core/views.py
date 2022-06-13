@@ -193,7 +193,7 @@ def wiki(request):
         .select_related("parent")
     )
     wikis = list(chain(wikis))
-    paginator = Paginator(wikis, 20)
+    paginator = Paginator(wikis, 30)
 
     page_num = request.GET.get("page")
     obj = paginator.get_page(page_num)
@@ -272,13 +272,25 @@ def gameprofile(request, slug):
     obj = GameProfile.objects.get(slug=slug)
 
     teams = (
-        TeamProfile.objects.filter(esports_game=obj)
+        TeamProfile.objects.filter(esports_game=obj, publish=True)
         .select_related("avatar", "team_wiki")
         .order_by("-updated_at")
     )
 
+    players = SetupSettings.objects.filter(
+        publish=True, game=1).values(
+        "title",
+        "slug",
+        "image_url",
+        "team_url",
+        "team__slug",
+        "game__slug",
+        "game",
+        "team__title",
+        "team__meta_title")
+
     template_name = "game.html"
-    context = {"obj": obj, "teams": teams}
+    context = {"obj": obj, "teams": teams, "players": players}
     return render(request, template_name, context)
 
 

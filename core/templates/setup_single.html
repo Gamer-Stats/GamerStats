@@ -232,6 +232,7 @@ Setup. Regular updates for {{ obj.game.title }}.
                 </table>
             </div>
         </section>
+        {% if related %}
         <section class="text-14px border-top px-3 pt-4 pb-2 p-md-4">
             <h2 class="fs-5 fw-bold mb-3" id="{{ related_title }}">{{ related_title }}</h2>
             <div class="section-inner gap-3">
@@ -263,6 +264,7 @@ Setup. Regular updates for {{ obj.game.title }}.
                 {% endfor %}
             </div>
         </section>
+        {% endif %}
     </article>
 </main>
 <style>

@@ -53,7 +53,7 @@ opponents!{% endblock %}{% endblock %}{% endblock %}
     <h1 class="fs-3 fw-bold text-center mb-4">Pro Settings and Setup</h1>
     <div class="section-inner gap-3">
       {% for i in obj %}
-      <article class="section-single rounded position-relative">
+      <article class="section-single rounded position-relative pb-2">
         {% if i.image_url %}
         <figure class="section-single__image">
           <picture>
@@ -69,11 +69,6 @@ opponents!{% endblock %}{% endblock %}{% endblock %}
             {{ i.title }} Settings
           </a>
         </h3>
-        {% if i.is_pro is true %}
-        <p class="text-12px mb-0">{{ i.game__title }} professional for {{ i.team__title }}</p>
-        {% else %}
-        <p class="text-12px mb-0">Streamer and Content Creator</p>
-        {% endif %}
         <span class="text-12px text-muted text-uppercase">
           <span class="visually-hidden">Last updated</span>
           <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
