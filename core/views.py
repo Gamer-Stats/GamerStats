@@ -278,7 +278,7 @@ def gameprofile(request, slug):
     )
 
     players = SetupSettings.objects.filter(
-        publish=True, game=1).values(
+        publish=True, game=obj, is_pro=True).values(
         "title",
         "slug",
         "image_url",
