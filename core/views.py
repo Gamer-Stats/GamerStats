@@ -3,7 +3,7 @@ from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 
 from core.models import (GameProfile, News, NewsCategory, SetupSettings,
@@ -24,12 +24,9 @@ def index(request):
         "game__slug",
         "game",
         "team__title",
-        "team__meta_title")
-
-    cs_players = players.filter(game=1)[:20]
-
-    valo_players = players.filter(game=2)[:20]
-
+        "team__meta_title").order_by("-updated_at").exclude(is_pro=False)
+    cs_players = players.filter(game=1)[:10]
+    valo_players = players.filter(game=2)[:10]
     teams = TeamProfile.objects.filter(publish=True).values(
         "title",
         "slug",
@@ -37,7 +34,7 @@ def index(request):
         "esports_game__slug",
         "image_url",
         "game_image_url"
-    )[:20]
+    )[:10]
 
     news = (
         News.objects.select_related("avatar", "writer")
@@ -81,7 +78,8 @@ def news_single(request, slug):
             .get(slug=slug)
         )
     except ObjectDoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponseNotFound(render(request, template_name="404.html"))
+
     news = (
         News.objects.select_related("writer", "avatar")
         .order_by("-updated_at")
@@ -145,7 +143,7 @@ def setup_single(request, slug):
             .get(slug=slug)
         )
     except ObjectDoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponseNotFound(render(request, template_name="404.html"))
 
     if obj.team:
         related = (
@@ -200,7 +198,7 @@ def wiki_single(request, slug):
             "avatar", "page_type", "meta_images", "info_box", "writer"
         ).get(slug=slug, publish=True)
     except ObjectDoesNotExist:
-        return HttpResponse(status=404)
+        return HttpResponseNotFound(render(request, template_name="404.html"))
 
     if obj.page_type.pk == 2 or obj.page_type.pk == 6:
         history_title = "Early Life"
@@ -236,7 +234,10 @@ def wiki_single(request, slug):
 
 # Game
 def gameprofile(request, slug):
-    obj = GameProfile.objects.get(slug=slug)
+    try:
+        obj = GameProfile.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(render(request, template_name="404.html"))
 
     teams = (
         TeamProfile.objects.filter(esports_game=obj, publish=True)
@@ -254,7 +255,7 @@ def gameprofile(request, slug):
         "game__slug",
         "game",
         "team__title",
-        "team__meta_title")
+        "team__meta_title")[:20]
 
     template_name = "game.html"
     context = {"obj": obj, "teams": teams, "players": players}
@@ -308,3 +309,9 @@ def search(request):
     context = {"players_cat": players_cat,
                "wiki": wiki, "query": query, "count": count}
     return render(request, template_name, context)
+
+
+def customhandler404(request, exception, template_name='404.html'):
+    response = render(request, template_name)
+    response.status_code = 404
+    return response

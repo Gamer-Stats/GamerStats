@@ -18,9 +18,10 @@ Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
                 professionals
                 and teams' stats, news, and achievements.</p>
             <form class="form-floating home-search" action="{% url 'search' %}">
-                <input type="text" class="form-control" id="homeSearch" name="q" placeholder="s1mple, shroud, NiKo...">
+                <input type="text" class="form-control" id="homeSearch" name="q" placeholder="s1mple, shroud, NiKo..."
+                    required>
                 <label for="homeSearch">Search your favorite...</label>
-                <button type="button" class="btn">Search</button>
+                <button type="submit" class="btn">Search</button>
             </form>
         </header>
         <section class="row py-5 border-bottom">
