@@ -2,12 +2,11 @@
 {% load static %} {% load age %}
 <!-- Head Elements -->
 {% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}
-{% if cats_page.title %}{{ cats_page.title }} Wiki{% else %}Esports Players and Teams Wiki{% endif %}
-{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+{% if cats_page.title %}{{ cats_page.title }} Encyclopedia{% else %}Esports Players, Teams, and Streamers
+Encyclopedia{% endif %}{% endblock %}{% endblock %}{% endblock %}{% endblock %}
 
 {% block description %}{% block og_description %}{% block tw_description %}Read the latest and free encyclopedia
-of esports players, teams, games, and streamers from all around the world.
-{% endblock %}{% endblock %}{% endblock %}
+of esports players, teams, games, and streamers from all around the world.{% endblock %}{% endblock %}{% endblock %}
 
 {% block can_url %}https://gamerstats.net{% url 'wiki' %}{% if cats_page.slug %}{{ cats_page.slug }}/{% endif %}{% endblock %}
 
@@ -41,7 +40,7 @@ of esports players, teams, games, and streamers from all around the world.
 <!-- Page Header and Breadcrumb -->
 <nav aria-label="breadcrumb" class="container-md">
     <div class="row mx-0 border-bottom">
-        <ol class="breadcrumb mb-0 py-2 d-flex">
+        <ol class="breadcrumb mb-0 py-2">
             <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
             <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
                 Wiki
