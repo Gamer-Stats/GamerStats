@@ -44,12 +44,18 @@ Setup. Regular updates for {{ obj.game.title }}.
           {
             "@type": "ListItem",
             "position": 1,
+            "name": "Home",
+            "item": "https://gamerstats.net{% url 'index' %}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
             "name": "{{ bread }}",
             "item": "https://gamerstats.net{% url 'setup' %}"
           },
           {
             "@type": "ListItem",
-            "position": 2,
+            "position": 3,
             "name": "{{ obj.meta_title }}"
           }
         ]
@@ -62,19 +68,20 @@ Setup. Regular updates for {{ obj.game.title }}.
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<div class="container-fluid">
-    <nav aria-label="breadcrumb" class="row bg--dark">
-        <ol class="breadcrumb mb-0 p-2 px-sm-4 d-flex">
-            <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'setup' %}">{{ bread }}</a>
-            </li>
-            <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+<nav aria-label="breadcrumb" class="container-md">
+    <div class="row mx-0 border-bottom">
+        <ol class="breadcrumb mb-0 py-2 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item"><a class="text-12px" href="{% url 'setup' %}">{{ bread }}</a></li>
+            <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
                 {{ obj.meta_title }}
             </li>
         </ol>
-    </nav>
-</div>
+    </div>
+</nav>
+<!-- Main Content -->
 <main class="container-md px-0 px-sm-2">
-    <article class="px-2 p-sm-0 col-lg-10 bg-white shadow-sm mx-auto">
+    <article class="px-2 p-sm-0 bg-white shadow-sm mx-auto">
         <div>
             {% if obj.game.slug == "csgo" %}
             <picture>
@@ -102,7 +109,7 @@ Setup. Regular updates for {{ obj.game.title }}.
         <div class="d-flex flex-column">
             <figure class="mx-auto" style="margin-top: -80px;">
                 <picture>
-                    <img class="rounded-circle d-inline-block border border-5 border-white bg-secondary bg-gradient"
+                    <img class="profle-image bg-gradient"
                         srcset="{{ obj.image_url }}-140.webp, {{ obj.image_url }}-180.webp 1.2x"
                         src="{{ obj.image_url }}" alt="{{ obj.meta_title }}" title="{{ obj.title }}" width="150"
                         height="150">
@@ -129,18 +136,23 @@ Setup. Regular updates for {{ obj.game.title }}.
                 </a>
             </div>
         </div>
-        <nav class="navbar-collapse text-14px position-sticky top-0 mt-4 bg--dark" aria-label="table of contents"
-            style="z-index: 22222222;">
+        <nav class="navbar-collapse text-14px position-sticky top-0 bread" aria-label="table of contents">
             <ol class="d-flex flex-row justify-content-center navbar-nav gap-4">
+                {% if obj.settings %}
                 <li class="nav-item"><a class="nav-link" href="#Settings">Settings</a></li>
+                {% endif %}
+                {% if obj.specs.all %}
                 <li class="nav-item"><a class="nav-link" href="#Setup">Setup & Specs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#Pc-Cost">PC Cost</a></li>
+                {% endif %}
+                {% if related %}
                 <li class="nav-item"><a class="nav-link" href="#{{ related_title }}">{{ related_title }}</a></li>
+                {% endif %}
             </ol>
         </nav>
+        {% if obj.settings %}
         <section class="text-14px border-top px-3 py-4 p-md-4">
             <h2 class="fs-5 fw-bold" id="Settings">{{ obj.title }} {{ obj.game.title }} Settings</h2>
-            {{ obj.settings_body|safe }}
             {% for title, values in obj.settings.data.items %}
             <div class="border-top pt-4 pb-2">
                 <h3 class="fs-6 fw-bold text-primary mb-3">
@@ -151,7 +163,7 @@ Setup. Regular updates for {{ obj.game.title }}.
                 <h4 class="mt-3 text-13px fw-bold text-secondary text-uppercase">{{ key }}</h4>
                 <dl class="d-flex flex-row flex-wrap m-0">
                     {% for k,v in val.items %}
-                    <div class="col-lg-4 col-6 mb-3">
+                    <div class="col-lg-3 col-md-4 col-6 mb-3">
                         <dt class="mb-1 text-muted text-12px fw-normal">{{ k }}</dt>
                         <dd class="fw-semibold text-uppercase text-14px">{{ v }}</dd>
                     </div>
@@ -172,9 +184,10 @@ Setup. Regular updates for {{ obj.game.title }}.
             </div>
             {% endfor %}
         </section>
+        {% endif %}
+        {% if obj.specs.all %}
         <section class="text-14px border-top px-3 py-4 p-md-4">
             <h2 class="fs-5 fw-bold" id="Setup">{{ obj.title }} Setup</h2>
-            {{ obj.setup_body|safe }}
             <small class="text-muted mb-3 d-inline-block">Click on the image to check price</small>
             <div class="d-flex flex-wrap pc-specs">
                 {% for i in obj.specs.all %}
@@ -200,7 +213,7 @@ Setup. Regular updates for {{ obj.game.title }}.
             </div>
         </section>
         <section class="text-14px border-top px-3 pt-4 pb-2 pb-md-0 p-md-4">
-            <h2 class="fs-5 fw-bold mb-3" id="Pc-Cost">{{ obj.title }} Setup Cost</h2>
+            <h2 class="fs-5 fw-bold mb-3" id="Pc-Cost">{{ obj.title }} PC Specs Cost</h2>
             <div class="table-responsive">
                 <table class="text-12px">
                     <thead class="bg--dark">
@@ -231,6 +244,41 @@ Setup. Regular updates for {{ obj.game.title }}.
                     </tfoot>
                 </table>
             </div>
+        </section>
+        {% endif %}
+        <section class="text-14px border-top px-3 py-4 p-md-4 accordion">
+            {% if obj.settings %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="settings-head">
+                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#settings-collapse" aria-expanded="false" aria-controls="settings-collapse"
+                        style="color: #444953">
+                        {{ obj.title }}'s Settings Details
+                    </button>
+                </h2>
+                <div id="settings-collapse" class="accordion-collapse collapse" aria-labelledby="settings-head">
+                    <div class="accordion-body text-12px" style="color: #444953">
+                        {{ obj.settings_body|safe }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if obj.specs.all %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="setup-head">
+                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#setup-collapse" aria-expanded="false" aria-controls="setup-collapse"
+                        style="color: #444953">
+                        {{ obj.title }}'s Setup amd PC Specs Details
+                    </button>
+                </h2>
+                <div id="setup-collapse" class="accordion-collapse collapse" aria-labelledby="setup-head">
+                    <div class="accordion-body text-12px" style="color: #444953">
+                        {{ obj.setup_body|safe }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </section>
         {% if related %}
         <section class="text-14px border-top px-3 pt-4 pb-2 p-md-4">
@@ -279,6 +327,14 @@ Setup. Regular updates for {{ obj.game.title }}.
         object-position: center center;
     }
 
+    .bread {
+        z-index: 3;
+        background-color: var(--bs-gray-200);
+        border-bottom: solid 1px;
+        margin-top: 3rem;
+        font-weight: 500;
+    }
+
     @media (max-width: 500px) {
         .pc-specs {
             justify-content: space-between;
@@ -290,6 +346,15 @@ Setup. Regular updates for {{ obj.game.title }}.
 
         .cover-img {
             height: 300px;
+        }
+
+        .bread {
+            margin-right: -.5rem;
+            margin-left: -.5rem;
+        }
+
+        .bread .nav-link {
+            border: 0;
         }
     }
 </style>

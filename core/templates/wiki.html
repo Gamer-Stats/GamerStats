@@ -39,15 +39,15 @@ of esports players, teams, games, and streamers from all around the world.
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<nav aria-label="breadcrumb" class="border-bottom bg--dark">
-    <ol class="breadcrumb mb-0 p-2 d-flex">
-        <li class="breadcrumb-item">
-            <a class="text-12px text--light" href="{% url 'index' %}">Home</a>
-        </li>
-        <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
-            Wiki
-        </li>
-    </ol>
+<nav aria-label="breadcrumb" class="container-md">
+    <div class="row mx-0 border-bottom">
+        <ol class="breadcrumb mb-0 py-2 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
+                Wiki
+            </li>
+        </ol>
+    </div>
 </nav>
 <!-- bg-white shadow-sm rounded my-4 -->
 <main class="container-md">

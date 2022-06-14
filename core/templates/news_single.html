@@ -32,14 +32,20 @@
       "@type": "BreadcrumbList",
       "itemListElement": [
         {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://gamerstats.net{% url 'index' %}"
+        },
+        {
           "@type": "ListItem",
-          "position": 1,
+          "position": 2,
           "name": "News",
           "item": "https://gamerstats.net{% url 'news' %}"
         },
         {
           "@type": "ListItem",
-          "position": 2,
+          "position": 3,
           "name": "{{ obj.meta_title }}"
         }
       ]
@@ -50,21 +56,21 @@
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<div class="container-fluid">
-  <nav aria-label="breadcrumb" class="row bg--dark">
-    <ol class="breadcrumb mb-0 p-2 px-sm-4 d-flex">
-      <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'news' %}">News</a>
-      </li>
-      <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+<nav aria-label="breadcrumb" class="container-md">
+  <div class="row mx-0 border-bottom">
+    <ol class="breadcrumb mb-0 py-2 d-flex">
+      <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item"><a class="text-12px" href="{% url 'news' %}">News</a></li>
+      <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
         {{ obj.meta_title }}
       </li>
     </ol>
-  </nav>
-</div>
+  </div>
+</nav>
 <!-- Mains -->
 <main class="container">
-  <article class="row">
-    <div class="col-md-10 py-3 py-sm-4 bg-white shadow-sm mx-auto">
+  <article class="row mx-auto">
+    <div class="mt-3 rounded py-3 py-sm-4 bg-white shadow-sm mx-auto">
       <header>
         <h1 class="fs-3 fw-bold">{{ obj.title }}</h1>
         <span class="text-12px text-muted fw-semibold text-uppercase">
@@ -106,40 +112,29 @@
       </footer>
     </div>
   </article>
-  <aside class="row mt-4">
-    <div class="col-md-10 py-3 py-md-4 bg-white shadow-sm mx-auto">
-      <h2 class="fs-6 fw-bold text-uppercase">Related News:</h2>
-      <div class="d-flex flex-row gap-3">
-        {% for i in news %}
-        <article
-          class="bg-light hover-element__main overflow-hidden position-relative border rounded news-article flex-wrap d-flex d-md-block">
-          <figure class="m-0 col-auto">
-            <picture>
-              <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-304.webp">
-              <source media="(max-width: 767px)" srcset="{{ i.avatar.image.url }}-128.webp">
-              <img src="{{ i.avatar.image.url }}" alt="{{ i.title }}" title="{{ i.title }}">
-            </picture>
-            <figcaption class="visually-hidden">{{ i.avatar.caption }}</figcaption>
-          </figure>
-          <div class="col rounded p-2 hover-element__border hover-element__border__jam">
-            <span class="text-12px text-muted text-uppercase">
-              <span class="visually-hidden">Last updated</span>
-              <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
-                {{ i.updated_at|article_age }}
-              </time>
-              <address class="author"> by <span rel="author">{{ i.writer.username }}</span>
-              </address>
-            </span>
-            <h2 class="mb-0 mt-1 fs-6 fw-semibold">
-              <a class="stretched-link txt-link border-0" href="{% url 'news_single' i.slug %}">
-                {{ i.title }}
-              </a>
-            </h2>
-          </div>
-        </article>
-        {% endfor %}
-      </div>
-    </div>
+  <aside class="row mt-4 mx-auto">
+    <h2 class="fs-6 fw-bold text-uppercase">Related News:</h2>
+    {% for i in news %}
+    <article class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <a href="{% url 'news_single' i.slug %}">
+        <picture class="image-wrap">
+          <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-512.webp">
+          <source media="(max-width: 767px)"
+            srcset="{{ i.avatar.image.url }}-304.webp, {{ i.avatar.image.url }}-512.webp 1.6x">
+          <img src="{{ i.avatar.image.url }}" alt="{{ i.avatar.alt }}" title="{{ i.title }}">
+        </picture>
+      </a>
+      <h3 class="fs-6 fw-semibold mb-0 mt-2"><a href="{% url 'news_single' i.slug %}">{{ i.title }}</a>
+      </h3>
+      <span class="text-12px text-muted text-uppercase">
+        <span class="visually-hidden">Last updated</span>
+        <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
+          {{ i.updated_at|article_age }}
+        </time>
+        <address class="author"> by <span rel="author">{{ i.writer.username }}</span></address>
+      </span>
+    </article>
+    {% endfor %}
   </aside>
 </main>
 <style>

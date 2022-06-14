@@ -8,23 +8,25 @@
 {% block og_description %}{{ obj.meta_description }}{% endblock %}
 {% block tw_description %}{{ obj.meta_description }}{% endblock %}
 <!-- meta urls -->
-{% block tw_url %}{{ request.build_absolute_uri }}{% endblock %}
-{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
 {% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
 <!-- loading required assets  -->
 {% load static %} {% load age %}
 <!-- main page html -->
 {% block content %}
-<nav aria-label="breadcrumb" class="border-bottom bg--dark">
-    <ol class="breadcrumb mb-0 p-2 d-flex">
-        <li class="breadcrumb-item">
-            <a class="text-12px text--light" href="{% url 'gameprofile' obj.esports_game.slug %}"
-                title="Professional {{ obj.esports_game.title }} Players & Teams">{{ obj.esports_game.title }}</a>
-        </li>
-        <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
-            {{ obj.title }} Roster
-        </li>
-    </ol>
+<!-- Page Header and Breadcrumb -->
+<nav aria-label="breadcrumb" class="container-md">
+    <div class="row mx-0 border-bottom">
+        <ol class="breadcrumb mb-0 py-2 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a class="text-12px" href="{% url 'gameprofile' obj.esports_game.slug %}"
+                    title="Professional {{ obj.esports_game.title }} Players & Teams">{{ obj.esports_game.title }}</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
+                {{ obj.title }} Roster
+            </li>
+        </ol>
+    </div>
 </nav>
 
 <main class="container-md">
@@ -36,7 +38,7 @@
         <div class="col-md mt-3 mt-md-0">
             <h1 class="fs-3 fw-bold">{{ obj.meta_title }} {{ obj.esports_game.title }} Roster</h1>
             {{ obj.team_wiki.overview|safe }}
-            <a class="link-btn" target="_blank" href="{% url 'wiki_single' obj.team_wiki.slug %}">
+            <a class="link-btn text-decoration-none" target="_blank" href="{% url 'wiki_single' obj.team_wiki.slug %}">
                 {{ obj.team_wiki.title }} Wiki
             </a>
         </div>
@@ -65,7 +67,7 @@
     {% endif %}
     {% if inactive_members %}
     <section class="row bg-white mx-0 py-4 px-md-3 shadow-sm rounded my-4">
-        <h2 class="fs-4 fw-bold mb-3">Active Roster</h2>
+        <h2 class="fs-4 fw-bold mb-3">Inactive Roster</h2>
         {% for i in inactive_members %}
         <article class="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
             <div class="section-single rounded py-2">
@@ -87,7 +89,7 @@
     {% endif %}
     {% if former_members %}
     <section class="row bg-white mx-0 py-4 px-md-3 shadow-sm rounded my-4">
-        <h2 class="fs-4 fw-bold mb-3">Active Roster</h2>
+        <h2 class="fs-4 fw-bold mb-3">Former Roster</h2>
         {% for i in former_members %}
         <article class="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
             <div class="section-single rounded py-2">

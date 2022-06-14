@@ -1,4 +1,3 @@
-from curses import has_key
 from itertools import chain
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,9 +6,8 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 
-from core.models import (CountryTag, GameProfile, News, NewsCategory,
-                         PortalTag, RegionTag, SetupSettings, TeamProfile,
-                         Wiki, WikiCategory)
+from core.models import (GameProfile, News, NewsCategory, SetupSettings,
+                         TeamProfile, Wiki)
 
 # from django.views.decorators.cache import cache_page
 

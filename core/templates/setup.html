@@ -36,49 +36,40 @@ opponents!{% endblock %}{% endblock %}{% endblock %}
 {% endblock %}
 
 {% block content %}
-
-<div class="container-fluid">
-  <nav aria-label="breadcrumb" class="row border-bottom bg--dark">
-    <ol class="breadcrumb mb-0 p-2 px-4 d-flex">
-      <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
-      </li>
-      <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
+<nav aria-label="breadcrumb" class="container-md">
+  <div class="row mx-0 border-bottom">
+    <ol class="breadcrumb mb-0 py-2 d-flex">
+      <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
         Pro Settings & Setup
       </li>
     </ol>
-  </nav>
-</div>
-<main class="container bg-white py-3 pb-md-5 pt-md-4 shadow-sm">
-  <article class="row">
+  </div>
+</nav>
+<main class="container-md">
+  <div class="row bg-white mx-0 py-4 px-md-3 shadow-sm rounded my-4">
     <h1 class="fs-3 fw-bold text-center mb-4">Pro Settings and Setup</h1>
-    <div class="section-inner gap-3">
-      {% for i in obj %}
-      <article class="section-single rounded position-relative pb-2">
+    {% for i in obj %}
+    <article class="col-6 col-sm-4 col-lg-auto mb-3">
+      <div class="section-single rounded pb-3 overflow-hidden">
         {% if i.image_url %}
-        <figure class="section-single__image">
+        <a href="{% url 'setup_single' i.slug %}">
           <picture>
-            <source media="(min-width: 540px)" srcset="{{ i.image_url }}-180.webp">
-            <source media="(max-width: 539px)" srcset="{{ i.image_url }}-140.webp">
-            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings" title="{{ i.title }}">
+            <source srcset="{{ i.image_url }}-140.webp, {{ i.image_url }}-180.webp 1.2x">
+            <img src="{{ i.image_url }}" alt="{{ i.title }} {{ i.game__title }} Settings" title="{{ i.title }}"
+              width="160" height="160">
           </picture>
-          <figcaption class="visually-hidden">{{ i.title }} {{ i.game__title }} Settings</figcaption>
-        </figure>
+        </a>
         {% endif %}
-        <h3 class="fs-6 fw-semibold section-single__title">
-          <a class="stretched-link txt-link" href="{% url 'setup_single' i.slug %}">
-            {{ i.title }} Settings
+        <h2 class="fs-6 fw-semibold mt-3">
+          <a class="team-links__wiki link-btn text-decoration-none" href="{% url 'setup_single' i.slug %}">
+            {{ i.title }}
           </a>
-        </h3>
-        <span class="text-12px text-muted text-uppercase">
-          <span class="visually-hidden">Last updated</span>
-          <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
-            {{ i.updated_at|article_age }}
-          </time>
-          <address class="author"> by <span rel="author">{{ i.writer.name }}</span></address>
-        </span>
-      </article>
-      {% endfor %}
-    </div>
+        </h2>
+      </div>
+    </article>
+    {% endfor %}
+
     <!-- Pagination -->
     <nav class="d-flex justify-content-center mt-4" aria-label="Pagination">
       <ol class="pagination">
@@ -105,6 +96,6 @@ opponents!{% endblock %}{% endblock %}{% endblock %}
         {% endif %}
       </ol>
     </nav>
-  </article>
+  </div>
 </main>
 {% endblock %}

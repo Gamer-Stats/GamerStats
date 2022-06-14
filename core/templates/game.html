@@ -8,22 +8,22 @@
 {% block og_description %}{{ obj.meta_description }}{% endblock %}
 {% block tw_description %}{{ obj.meta_description }}{% endblock %}
 <!-- meta urls -->
-{% block tw_url %}{{ request.build_absolute_uri }}{% endblock %}
-{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
 {% block can_url %}{{ request.build_absolute_uri }}{% endblock %}
 <!-- loading required assets  -->
 {% load static %} {% load age %}
 <!-- main page html -->
 {% block content %}
-<nav aria-label="breadcrumb" class="border-bottom bg--dark">
-    <ol class="breadcrumb mb-0 p-2 d-flex">
-        <li class="breadcrumb-item">
-            <a class="text-12px text--light" href="{% url 'index' %}" title="Home - Gamer Stats">Home</a>
-        </li>
-        <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
-            Professional {{ obj.title }} Players & Teams
-        </li>
-    </ol>
+<nav aria-label="breadcrumb" class="container">
+    <div class="row mx-0 border-bottom">
+        <ol class="breadcrumb mb-0 py-2 d-flex">
+            <li class="breadcrumb-item">
+                <a class="text-12px" href="{% url 'index' %}" title="Home - Gamer Stats">Home</a>
+            </li>
+            <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
+                Professional {{ obj.title }} Players & Teams
+            </li>
+        </ol>
+    </div>
 </nav>
 <main class="container-md">
     <header class="row mx-0 align-items-center rounded bg-white py-4 px-md-3 shadow-sm my-4">

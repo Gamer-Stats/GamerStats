@@ -38,14 +38,15 @@ latest and greatest news, updates, and leaks.{% endblock %}{% endblock %}{% endb
 
 {% block content %}
 <!-- Page Header and Breadcrumb -->
-<nav aria-label="breadcrumb" class="border-bottom bg--dark">
-    <ol class="breadcrumb mb-0 p-2 d-flex">
-        <li class="breadcrumb-item"><a class="text-12px text--light" href="{% url 'index' %}">Home</a>
-        </li>
-        <li class="breadcrumb-item active text-12px align-self-end text--light" aria-current="page">
-            {% if cats.title %}{{ cats.title }} News{% else %}Esports News{% endif %}
-        </li>
-    </ol>
+<nav aria-label="breadcrumb" class="container-md">
+    <div class="row mx-0 border-bottom">
+        <ol class="breadcrumb mb-0 py-2 d-flex">
+            <li class="breadcrumb-item"><a class="text-12px" href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item active text-12px align-self-end" aria-current="page">
+                {% if cats.title %}{{ cats.title }} News{% else %}Esports News{% endif %}
+            </li>
+        </ol>
+    </div>
 </nav>
 <main class="container-md">
     <!-- Main Content -->
