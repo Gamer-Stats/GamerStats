@@ -4,6 +4,7 @@ from io import BytesIO
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.forms import CharField
 from django.utils.text import slugify
 from jsoneditor.fields.django3_jsonfield import JSONField
 from PIL import Image
@@ -23,7 +24,7 @@ def upload_dir(instance, filename):
 
 class ImageCollection(models.Model):
     IMAGE_TYPES = (("N", "News"), ("S", "PcSpecs"),
-                   ("P", "Profile"), ("C", "Category"))
+                   ("P", "Profile"), ("C", "Category"), ("I", "Icon"))
     title = models.CharField(max_length=70)
     image = models.ImageField(upload_to=upload_dir)
     image_type = models.CharField(max_length=1, choices=IMAGE_TYPES)
@@ -54,6 +55,13 @@ class ImageCollection(models.Model):
             sizes = [
                 (180, 180),
                 (140, 140),
+            ]
+        elif self.image_type == "I":
+            sizes = [
+                (50, 50),
+                (100, 100),
+                (150, 150),
+                (300, 300),
             ]
 
         for size in sizes:
@@ -152,9 +160,58 @@ class Topic(BaseOptions):
         return self.title
 
 
+class BaseTags(models.Model):
+    title = models.CharField(max_length=40)
+    slug = models.SlugField(max_length=50, blank=True, null=True, unique=True)
+    avatar = models.ForeignKey(
+        ImageCollection,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    text = RichTextUploadingField(blank=True)
+    publish = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(BaseTags, self).save(*args, **kwargs)
+
+
+# Portal
+class PortalTag(BaseTags):
+    pass
+
+    def __str__(self):
+        return self.title
+
+
+# Region
+class RegionTag(BaseTags):
+    pass
+
+    def __str__(self):
+        return self.title
+
+
+# Country
+class CountryTag(BaseTags):
+    pass
+
+    def __str__(self):
+        return self.title
+
+
 class WikiCategory(BaseOptions):
     CAT_LEVEL = (
+        ("r", "Region"),
         ("c", "Country"),
+        ("g", "Games"),
         ("t", "Teams"),
         ("p", "Players"),
     )
@@ -204,7 +261,10 @@ class Wiki(BaseOptions):
     team_history = RichTextUploadingField(blank=True, null=True)
     achievements = RichTextUploadingField(blank=True, null=True)
     controversies = RichTextUploadingField(blank=True, null=True)
-    ref = RichTextField(blank=True)
+    portal = models.ForeignKey(PortalTag, on_delete=models.PROTECT, null=True)
+    region = models.ForeignKey(RegionTag, on_delete=models.PROTECT, null=True)
+    country = models.ForeignKey(
+        CountryTag, on_delete=models.PROTECT, null=True)
     tags = models.ManyToManyField(
         WikiCategory, related_name="wiki_tags", blank=True)
     related = models.ManyToManyField("self", blank=True)

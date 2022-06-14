@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from core.models import (Author, GameProfile, ImageCollection, JsonData, News,
-                         NewsCategory, PcSpecs, SEOImage, SetupSettings,
-                         TeamProfile, Topic, Wiki, WikiCategory)
+from core.models import (Author, CountryTag, GameProfile, ImageCollection,
+                         JsonData, News, NewsCategory, PcSpecs, PortalTag,
+                         RegionTag, SEOImage, SetupSettings, TeamProfile,
+                         Topic, Wiki, WikiCategory)
 
 
 @admin.action(description="Mark as published")
@@ -85,3 +86,6 @@ class TeamProfileAdmin(admin.ModelAdmin):
 admin.site.register(NewsCategory)
 admin.site.register(SEOImage)
 admin.site.register(Author)
+admin.site.register(PortalTag)
+admin.site.register(RegionTag)
+admin.site.register(CountryTag)

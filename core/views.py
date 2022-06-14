@@ -7,15 +7,15 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 
-from core.models import (GameProfile, News, NewsCategory, SetupSettings,
-                         TeamProfile, Wiki, WikiCategory)
+from core.models import (CountryTag, GameProfile, News, NewsCategory,
+                         PortalTag, RegionTag, SetupSettings, TeamProfile,
+                         Wiki, WikiCategory)
 
 # from django.views.decorators.cache import cache_page
 
 
 # Homepage
 def index(request):
-
     players = SetupSettings.objects.filter(
         publish=True).values(
         "title",
@@ -180,53 +180,22 @@ def setup_single(request, slug):
     return render(request, template_name, context)
 
 
-# Wiki Main - OP - PAGE DONE
+# Wiki Main
 def wiki(request):
-    wikis = (
-        Wiki.objects.select_related("writer", "page_type", "avatar")
-        .order_by("-updated_at")
-        .filter(publish=True)
-    )
-    cats = (
-        WikiCategory.objects.filter(publish=True)
-        .order_by("-updated_at")
-        .select_related("parent")
-    )
-    wikis = list(chain(wikis))
-    paginator = Paginator(wikis, 30)
+    wikis = Wiki.objects.select_related(
+        "portal", "country", "avatar", "page_type").filter(publish=True)
+
+    wikis = Paginator(wikis, 20)
 
     page_num = request.GET.get("page")
-    obj = paginator.get_page(page_num)
+    obj = wikis.get_page(page_num)
 
     template_name = "wiki.html"
-    context = {"obj": obj, "cats": cats}
+    context = {"obj": obj}
     return render(request, template_name, context)
 
 
-# Wiki Category/Tag
-def wiki_filter(request, slug):
-    cats_page = get_object_or_404(WikiCategory, slug=slug, publish=True)
-    wiki = Wiki.objects.select_related("writer", "page_type", "avatar").filter(
-        Q(publish=True) & Q(tags=cats_page))
-
-    cats = (
-        WikiCategory.objects.filter(publish=True)
-        .order_by("-updated_at")
-        .select_related("parent")
-    )
-
-    paginator = Paginator(wiki, 20)
-
-    page_num = request.GET.get("page")
-    obj = paginator.get_page(page_num)
-
-    name = "cats"
-    template_name = "wiki.html"
-    context = {"obj": obj, "name": name, "cats_page": cats_page, "cats": cats}
-    return render(request, template_name, context)
-
-
-# wiki single - h-op
+# Wiki Single
 def wiki_single(request, slug):
     try:
         obj = Wiki.objects.select_related(

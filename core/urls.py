@@ -30,8 +30,6 @@ urlpatterns = [
     path("setup/<slug:slug>/", views.setup_single, name="setup_single"),
     path("wiki/", views.wiki, name="wiki"),
     path("wiki/<slug:slug>/", views.wiki_single, name="wiki_single"),
-    path("wiki/categories/<slug:slug>/", views.wiki_filter,
-         name="wiki_filter"),
     path("<slug:slug>/", views.gameprofile, name="gameprofile"),
     path("<game_url>/<slug:slug>/",
          views.teamprofile, name="teamprofile"),
