@@ -1,0 +1,1 @@
+{"Name:": "\u0410\u0440\u0442\u0451\u043c \u0421\u043c\u043e\u043b\u0438\u0439", "Romanized Name:": "Artyom Smoliy", "Born:": "February 26, 1998 (1998-02-26) (age\u00a024)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Role:": "AWPer", "Approx. Total Winnings:": "$5,884", "Games:": "Global Offensive"}

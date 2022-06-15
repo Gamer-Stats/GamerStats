@@ -1,0 +1,1 @@
+{"Name:": "Leonardo Silva", "Nationality:": " Brazil", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Role:": "Rifler", "Approx. Total Winnings:": "$3,431", "Games:": "Global Offensive"}

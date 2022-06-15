@@ -1,0 +1,1 @@
+{"Name:": "Ivan Mihai", "Born:": "July 29, 1999 (1999-07-29) (age\u00a022)", "Nationality:": " Romania", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "Team GamerLegion", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$28,761", "Alternate IDs:": "iM-", "Games:": "Global Offensive"}

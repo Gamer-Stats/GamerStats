@@ -1,0 +1,1 @@
+{"Name:": "\u041f\u0451\u0442\u0440 \u0421\u0442\u0435\u043f\u0430\u043d\u043e\u0432", "Romanized Name:": "Pyotr Stepanov", "Born:": "January 24, 1992 (1992-01-24) (age\u00a030)", "Nationality:": " Russia", "Status:": "Inactive\n", "Years Active (Player):": "2014 \u2013 2019", "Role:": "Rifler", "Approx. Total Winnings:": "$2,781", "Games:": "Global Offensive"}

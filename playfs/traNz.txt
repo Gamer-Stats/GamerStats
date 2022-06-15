@@ -1,0 +1,1 @@
+{"Name:": "Anas Ayub", "Nationality:": " Pakistan", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Role:": "Rifler", "Approx. Total Winnings:": "$3,443", "Games:": "Global Offensive"}

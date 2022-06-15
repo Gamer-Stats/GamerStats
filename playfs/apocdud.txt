@@ -1,0 +1,1 @@
+{"Name:": "Tom Henry", "Born:": "January 31, 1999 (1999-01-31) (age\u00a023)", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "VERTEX Esports Club", "Roles:": "In-game leaderAWPer", "Approx. Total Winnings:": "$12,197", "Games:": "Global Offensive"}

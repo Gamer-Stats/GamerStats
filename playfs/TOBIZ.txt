@@ -1,0 +1,1 @@
+{"Name:": "Tobias Theo", "Born:": "March 2, 1995 (1995-03-02) (age\u00a027)", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 2021", "Years Active (Coach):": "2022 \u2013 Present", "Team:": "MOUZ NXT", "Role:": "Coach", "Approx. Total Winnings:": "$3,035", "Games:": "Global Offensive"}

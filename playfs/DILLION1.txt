@@ -1,0 +1,1 @@
+{"Name:": "Juan Reyes", "Born:": "December 16, 1995 (1995-12-16) (age\u00a026)", "Nationality:": " Uruguay", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Team:": "WINDINGO", "Roles:": "AWPerRifler (entry fragger)", "Approx. Total Winnings:": "$6,051", "Alternate IDs:": "DILLIONZAO, harper", "Games:": "Global Offensive"}

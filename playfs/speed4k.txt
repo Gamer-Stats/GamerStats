@@ -1,0 +1,1 @@
+{"Name:": "\u0410\u043d\u0442\u043e\u043d \u0422\u0438\u0442\u043e\u0432", "Romanized Name:": "Anton Titov", "Born:": "June 4, 1996 (1996-06-04) (age\u00a026)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Roles:": "AWPerRifler", "Approx. Total Winnings:": "$34,532", "Games:": "Global Offensive"}

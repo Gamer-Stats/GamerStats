@@ -1,0 +1,1 @@
+{"Name:": "William Johansson", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Sector One", "Approx. Total Winnings:": "$3,731.47", "Games:": "Counter-StrikeGlobal Offensive"}

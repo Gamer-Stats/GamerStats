@@ -1,0 +1,1 @@
+{"Name:": "Michael Hawkins", "Nationality:": " New Zealand", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Paradox Esports", "Role:": "AWPer", "Approx. Total Winnings:": "$7,805", "Games:": "Global Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "David Kuntz", "Born:": "August 2, 1994 (1994-08-02) (age\u00a027)", "Nationality:": " United States", "Status:": "Active\n", "Role:": "Observer", "Alternate IDs:": "DJ", "Games:": "Global Offensive"}

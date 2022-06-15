@@ -1,0 +1,1 @@
+{"Name:": "Mohamed Hamdani", "Nationality:": " Tunisia", "Status:": "Active\n", "Role:": "Rifler", "Approx. Total Winnings:": "$1,937", "Games:": "Global Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "Jack Hepple", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "BLVKHVND", "Role:": "Rifler", "Approx. Total Winnings:": "$3,635", "Alternate IDs:": "Jsav", "Games:": "Global Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "Tommy Ryan", "Born:": "May 22, 2001 (2001-05-22) (age\u00a021)", "Nationality:": " United States", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 2020", "Years Active (Coach):": "2020 \u2013 Present", "Team:": "Evil Geniuses", "Role:": "Coach", "Approx. Total Winnings:": "$2,900", "Games:": "Global Offensive"}

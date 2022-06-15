@@ -1,0 +1,1 @@
+{"Name:": "\u0415\u0433\u043e\u0440 \u0421\u0442\u043e\u0440\u043e\u0436\u043e\u043a", "Romanized Name:": "Egor Storozhok", "Born:": "April 5, 2001 (2001-04-05) (age\u00a021)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2019 \u2013 Present", "Role:": "AWPer", "Approx. Total Winnings:": "$5,419.64", "Games:": "Global Offensive"}

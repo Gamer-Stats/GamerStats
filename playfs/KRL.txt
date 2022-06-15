@@ -1,0 +1,1 @@
+{"Name:": "S\u00e9bastien Perez", "Nationality:": " France", "Status:": "Active\n", "Years Active (Player):": "2007 \u2013 2017", "Years Active (Org):": "2021 \u2013 Present", "Years Active (Coach):": "2017 \u2013 Present", "Team:": "GenOne", "Role:": "In-game leader", "Approx. Total Winnings:": "$9,837", "Alternate IDs:": "krL", "Games:": "SourceGlobal Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "Bart\u0142omiej Trybu\u0142a", "Born:": "January 2, 2001 (2001-01-02) (age\u00a021)", "Nationality:": " Poland", "Status:": "Active\n", "Years Active (Player):": "2019 \u2013 Present", "Team:": "Illuminar Gaming", "Role:": "AWPer", "Approx. Total Winnings:": "$4,226.13", "Alternate IDs:": "masked", "Games:": "Global Offensive"}

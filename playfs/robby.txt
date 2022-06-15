@@ -1,0 +1,1 @@
+{"Name:": "Robert Brown", "Born:": "February 12, 2001 (2001-02-12) (age\u00a021)", "Nationality:": " United States", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$5,720", "Games:": "Global Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "Lars Breitenbach", "Nationality:": " Germany", "Status:": "Inactive\n", "Years Active (Player):": "2013 \u2013 2018", "Roles:": "AWPerRifler (lurker)", "Approx. Total Winnings:": "$406", "Games:": "Global Offensive"}

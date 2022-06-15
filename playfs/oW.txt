@@ -1,0 +1,1 @@
+{"Name:": "Oliver Winther", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2011 \u2013 Present", "Role:": "AWPer", "Approx. Total Winnings:": "$3,543", "Alternate IDs:": "oW^", "Games:": "Counter-StrikeGlobal Offensive"}

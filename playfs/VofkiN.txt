@@ -1,0 +1,1 @@
+{"Name:": "\u0412\u043b\u0430\u0434\u0438\u043c\u0438\u0440 \u0428\u043c\u0430\u043a\u043e\u0432", "Romanized Name:": "Vladimir Shmakov", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2006 \u2013 2017 2019 \u2013 Present", "Role:": "Rifler", "Approx. Total Winnings:": "$1,518", "Games:": "Counter-StrikeGlobal Offensive"}

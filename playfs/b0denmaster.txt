@@ -1,0 +1,1 @@
+{"Name:": "Jonathan Bodenmalm", "Born:": "April 4, 1998 (1998-04-04) (age\u00a024)", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Years Active (Org):": "2018 \u2013 2022", "Team:": "ATK", "Role:": "AWPer", "Approx. Total Winnings:": "$41,693.04", "Alternate IDs:": "b0den", "Games:": "Global Offensive"}

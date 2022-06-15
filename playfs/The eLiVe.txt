@@ -1,0 +1,1 @@
+{"Name:": "Erik Sith", "Nationality:": " Slovakia", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "ENTERPRISE esports", "Roles:": "In-game leaderRifler", "Approx. Total Winnings:": "$25,644", "Alternate IDs:": "THE ELIVE, Bluewar", "Games:": "Global Offensive"}

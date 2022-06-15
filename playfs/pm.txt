@@ -1,0 +1,1 @@
+{"Name:": "Arthur Guillermet", "Nationality:": " France", "Status:": "Active\n", "Years Active (Player):": "2004 \u2212 2012", "Years Active (Talent):": "2016 \u2212 Present", "Team:": "1PV", "Role:": "Commentator", "Approx. Total Winnings:": "$689", "Alternate IDs:": "PoireauMalefique", "Games:": "SourceGlobal Offensive"}

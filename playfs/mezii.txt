@@ -1,0 +1,1 @@
+{"Name:": "William Merriman", "Born:": "October 15, 1998 (1998-10-15) (age\u00a023)", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Fnatic", "Roles:": "In-game leaderRifler", "Approx. Total Winnings:": "$61,638", "Alternate IDs:": "kingmezii", "Games:": "Global Offensive"}

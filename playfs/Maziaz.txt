@@ -1,0 +1,1 @@
+{"Name:": "Mathias Hansen", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Team:": "Aquiver eSports", "Approx. Total Winnings:": "$2,352", "Games:": "Global Offensive"}

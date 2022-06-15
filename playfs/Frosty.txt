@@ -1,0 +1,1 @@
+{"Name:": "Mark Mortensen", "Born:": "November 20, 1997 (1997-11-20) (age\u00a024)", "Nationality:": " Denmark", "Status:": "Active\n", "Role:": "Observer", "Games:": "Global Offensive"}

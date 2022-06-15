@@ -1,0 +1,1 @@
+{"Name:": "Chris Orfanellis", "Born:": "June 4, 1986 (1986-06-04) (age\u00a036)", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Org):": "2013 \u2013 Present", "Team:": "ORDERVox Eminor", "Role:": "Manager", "Games:": "Global Offensive"}

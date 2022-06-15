@@ -1,0 +1,1 @@
+{"Name:": "Ian Hardy", "Born:": "October 23, 1999 (1999-10-23) (age\u00a022)", "Nationality:": " United States", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Team:": "ATK", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$58,100", "Games:": "Global Offensive"}

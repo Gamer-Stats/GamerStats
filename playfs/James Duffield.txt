@@ -1,0 +1,1 @@
+{"Name:": "James Duffield", "Nationality:": " United Kingdom", "Status:": "Active\n", "Role:": "Host", "Games:": "Global Offensive"}

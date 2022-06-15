@@ -1,0 +1,1 @@
+{"Name:": "Jack Saunders", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Talent):": "2019 \u2013 Present", "Role:": "Commentator", "Alternate IDs:": "Wolfy", "Games:": "Global Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "Callum Jones", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Player):": "2019 \u2013 Present", "Team:": "FAMBIT", "Role:": "Rifler (support)", "Approx. Total Winnings:": "$5,771", "Games:": "Global Offensive"}

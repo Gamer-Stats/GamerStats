@@ -1,0 +1,1 @@
+{"Name:": "\u041a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438\u043d \u0422\u0440\u0443\u0431\u0430\u0440\u043e\u0432", "Romanized Name:": "Konstantin Trubarov", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2020 \u2013 Present", "Roles:": "RiflerAWPer", "Approx. Total Winnings:": "$11,341", "Games:": "Global Offensive"}

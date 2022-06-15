@@ -1,0 +1,1 @@
+{"Name:": "Frazer Scully", "Born:": "June 10, 2001 (2001-06-10) (age\u00a020)", "Nationality:": " United Kingdom", "Status:": "Active\n", "Roles:": "ObserverProducer", "Games:": "Global Offensive"}

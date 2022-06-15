@@ -1,0 +1,1 @@
+{"Name:": "Kia Man", "Born:": "May 11, 1996 (1996-05-11) (age\u00a026)", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Player):": "2013 \u2013 Present", "Team:": "Endpoint", "Roles:": "Rifler (lurker)AWPer", "Approx. Total Winnings:": "$96,867", "Games:": "Global Offensive"}

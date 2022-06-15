@@ -1,0 +1,1 @@
+{"Name:": "Josef Maurenc", "Nationality:": " Czech Republic", "Status:": "Active\n", "Years Active (Player):": "2020 \u2013 Present", "Team:": "Entropiq Prague", "Roles:": "RiflerAWPer", "Approx. Total Winnings:": "$4,683", "Games:": "Global Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "Daniel Michel", "Born:": "May 1, 1999 (1999-05-01) (age\u00a023)", "Nationality:": " Germany", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Entropy Gaming", "Role:": "Rifler", "Approx. Total Winnings:": "$10,379.57", "Games:": "Global Offensive"}

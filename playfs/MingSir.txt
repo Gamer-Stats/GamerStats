@@ -1,0 +1,1 @@
+{"Name:": "\u94ed\u6587", "Romanized Name:": "Ming Wen", "Nationality:": " China", "Status:": "Active\n", "Years Active (Coach):": "2020", "Years Active (Analyst):": "2017", "Roles:": "CoachAnalyst", "Alternate IDs:": "ProjectAIM", "Games:": "Global Offensive"}

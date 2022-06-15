@@ -1,0 +1,1 @@
+{"Name:": "Bastian Faber", "Born:": "November 28, 1998 (1998-11-28) (age\u00a023)", "Nationality:": " Denmark", "Status:": "Active\n", "Role:": "Observer", "Games:": "Global Offensive"}

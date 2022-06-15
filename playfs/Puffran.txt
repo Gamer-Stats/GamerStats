@@ -1,0 +1,1 @@
+{"Name:": "Niclas Sundell", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 2019", "Years Active (Org):": "2019 \u2013 Present", "Team:": "EsportsAdviser", "Role:": "Rifler", "Approx. Total Winnings:": "$1,181", "Games:": "Global Offensive"}

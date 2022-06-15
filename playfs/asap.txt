@@ -1,0 +1,1 @@
+{"Name:": "Tyson Paterson", "Born:": "May 1, 2003 (2003-05-01) (age\u00a019)", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Player):": "2019 \u2013 Present", "Team:": "Paradox Esports", "Role:": "Rifler", "Approx. Total Winnings:": "$5,375", "Games:": "Global Offensive"}

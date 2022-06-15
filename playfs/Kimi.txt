@@ -1,0 +1,1 @@
+{"Name:": "\u0410\u043d\u0434\u0440\u0435\u0439 \u041a\u0432\u0430\u0441\u043d\u0435\u0432\u0441\u043a\u0438\u0439", "Romanized Name:": "Andrei Kvasnevskyi", "Born:": "May 31, 1993 (1993-05-31) (age\u00a029)", "Nationality:": " Ukraine", "Status:": "Active\n", "Years Active (Org):": "2014 \u2013 Present", "Team:": "ULTI Agency", "Role:": "Manager", "Games:": "Global Offensive"}

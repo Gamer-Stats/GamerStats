@@ -1,0 +1,1 @@
+{"Name:": "\u0414\u0435\u043d\u0438\u0441 \u0416\u0443\u043a\u043e\u0432", "Romanized Name:": "Denis Zhukov", "Born:": "July 10, 2001 (2001-07-10) (age\u00a020)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "1win", "Roles:": "AWPerRifler", "Approx. Total Winnings:": "$24,266", "Games:": "Global Offensive"}

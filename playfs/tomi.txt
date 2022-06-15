@@ -1,0 +1,1 @@
+{"Name:": "Tom\u00e1s Guardia", "Nationality:": " Argentina", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$8,358", "Games:": "Global Offensive"}

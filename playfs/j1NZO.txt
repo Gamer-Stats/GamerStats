@@ -1,0 +1,1 @@
+{"Name:": "Jonas Jalowski", "Born:": "April 1, 2001 (2001-04-01) (age\u00a021)", "Nationality:": " Germany", "Status:": "Active\n", "Team:": "Entropiq Prague", "Role:": "Rifler (lurker)", "Approx. Total Winnings:": "$7,861", "Games:": "Global Offensive"}

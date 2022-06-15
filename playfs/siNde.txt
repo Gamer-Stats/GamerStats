@@ -1,0 +1,1 @@
+{"Name:": "Rasmus Sindberg", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 2019", "Years Active (Coach):": "2019 \u2013 Present", "Role:": "Coach", "Approx. Total Winnings:": "$478", "Games:": "Global Offensive"}

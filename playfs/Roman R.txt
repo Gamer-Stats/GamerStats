@@ -1,0 +1,1 @@
+{"Name:": "Roman Reinhardt", "Born:": "July 7, 1983 (1983-07-07) (age\u00a038)", "Nationality:": " Germany", "Status:": "Active\n", "Years Active (Player):": "2003 \u2013 2012", "Years Active (Org):": "2022 \u2013 Present", "Team:": "BIG", "Role:": "Manager", "Approx. Total Winnings:": "$68,545", "Games:": "Counter-Strike"}

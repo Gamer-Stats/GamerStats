@@ -1,0 +1,1 @@
+{"Name:": "Lasse Uronen", "Born:": "October 15, 1993 (1993-10-15) (age\u00a028)", "Nationality:": " Finland", "Status:": "Active\n", "Years Active (Player):": "2012 \u2013 Present", "Team:": "team temp", "Role:": "AWPer", "Approx. Total Winnings:": "$138,346", "Games:": "SourceGlobal Offensive"}

@@ -1,0 +1,1 @@
+{"Name:": "\u0410\u0440\u0442\u0435\u043c \u041c\u043e\u0440\u043e\u0437", "Romanized Name:": "Artem Moroz", "Born:": "October 27, 2004 (2004-10-27) (age\u00a017)", "Nationality:": " Ukraine", "Status:": "Active\n", "Years Active (Player):": "2020 \u2013 Present", "Team:": "B8", "Role:": "AWPer", "Approx. Total Winnings:": "$5,620", "Games:": "Global Offensive"}

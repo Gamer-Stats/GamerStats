@@ -1,0 +1,1 @@
+{"Name:": "Marvin Labenz", "Born:": "May 14, 2000 (2000-05-14) (age\u00a022)", "Nationality:": " Germany", "Status:": "Active\n", "Role:": "Rifler", "Approx. Total Winnings:": "$4,651", "Games:": "Global Offensive"}

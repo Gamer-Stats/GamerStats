@@ -1,0 +1,1 @@
+{"Name:": "\u041a\u0440\u0438\u0441\u0442\u0438\u043d\u0430 \u0421\u0442\u0435\u0432\u0430\u043d\u043e\u0432\u0438\u045b", "Romanized Name:": "Kristina Stevanovi\u0107", "Nationality:": " Serbia", "Status:": "Inactive\n", "Years Active (Player):": "2015 \u2013 2020", "Role:": "Rifler", "Approx. Total Winnings:": "$5,457", "Games:": "Global Offensive"}

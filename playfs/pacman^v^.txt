@@ -1,0 +1,1 @@
+{"Name:": "Renato Morales", "Born:": "September 25, 1997 (1997-09-25) (age\u00a024)", "Nationality:": " Peru", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Infinity", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$3,351", "Alternate IDs:": "pacman", "Games:": "Global Offensive"}

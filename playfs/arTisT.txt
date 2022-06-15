@@ -1,0 +1,1 @@
+{"Name:": "Tom Clarke", "Nationality:": " Ireland", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "FAMBIT", "Roles:": "In-game leaderRifler", "Approx. Total Winnings:": "$7,281", "Games:": "Global Offensive"}
