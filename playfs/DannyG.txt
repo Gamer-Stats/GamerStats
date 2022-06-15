@@ -1,1 +1,0 @@
-{"Name:": "Daniel Giusa", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "Paradox Esports", "Role:": "Rifler", "Approx. Total Winnings:": "$5,966", "Games:": "Global Offensive"}

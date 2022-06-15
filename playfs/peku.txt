@@ -1,1 +1,0 @@
-{"Name:": "Petteri Jaakkola", "Born:": "May 16, 1996 (1996-05-16) (age\u00a026)", "Nationality:": " Finland", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 2021", "Years Active (Coach):": "2021 \u2013 Present", "Team:": "KOVA Esports", "Role:": "Coach", "Approx. Total Winnings:": "$21,690", "Games:": "Global Offensive"}

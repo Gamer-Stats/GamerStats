@@ -1,1 +1,0 @@
-{"Name:": "Ludvig Alonso", "Born:": "December 24, 1999 (1999-12-24) (age\u00a022)", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Dignitas", "Role:": "Rifler (lurker)", "Approx. Total Winnings:": "$29,454", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "\u05d2\u05dc \u05e9\u05de\u05d5\u05dc\u05d1\u05d9\u05e5", "Romanized Name:": "Gal Shmulevich", "Born:": "November 17, 2000 (2000-11-17) (age\u00a021)", "Nationality:": " Israel", "Status:": "Inactive\n", "Years Active (Player):": "2015 \u2013 2018", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$1,555", "Games:": "Global Offensive"}

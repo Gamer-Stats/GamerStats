@@ -1,1 +1,0 @@
-{"Name:": "Jonas Rantam\u00e4ki", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Lemondogs", "Role:": "AWPer", "Approx. Total Winnings:": "$7,678", "Alternate IDs:": "hemzk", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "Tim Isak", "Born:": "November 2, 2000 (2000-11-02) (age\u00a021)", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2020 \u2013 Present", "Team:": "Coalesce", "Role:": "Rifler", "Approx. Total Winnings:": "$15,615.12", "Games:": "Global Offensive"}

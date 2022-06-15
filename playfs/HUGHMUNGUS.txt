@@ -1,1 +1,0 @@
-{"Name:": "Hugh Anderson", "Born:": "March 31, 2000 (2000-03-31) (age\u00a022)", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Team Aftershock", "Role:": "Rifler", "Approx. Total Winnings:": "$13,188", "Alternate IDs:": "stat", "Games:": "Global Offensive"}

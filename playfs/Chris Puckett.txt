@@ -1,1 +1,0 @@
-{"Name:": "Chris Puckett", "Born:": "May 7, 1986 (1986-05-07) (age\u00a036)", "Nationality:": " United States", "Status:": "Inactive\n", "Role:": "Host", "Alternate IDs:": "Puckett", "Games:": "Global Offensive"}

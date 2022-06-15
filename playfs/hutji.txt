@@ -1,1 +1,0 @@
-{"Name:": "\u041f\u0430\u0432\u0435\u043b \u041b\u0430\u0448\u043a\u043e\u0432", "Romanized Name:": "Pavel Lashkov", "Born:": "September 13, 1995 (1995-09-13) (age\u00a026)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Role:": "Rifler", "Approx. Total Winnings:": "$66,048", "Games:": "Global Offensive"}

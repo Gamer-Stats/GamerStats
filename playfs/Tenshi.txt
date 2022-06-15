@@ -1,1 +1,0 @@
-{"Name:": "Lucas Collard", "Born:": "July 28, 1993 (1993-07-28) (age\u00a028)", "Nationality:": " Sweden", "Status:": "Active\n", "Role:": "Commentator", "Games:": "Global Offensive"}

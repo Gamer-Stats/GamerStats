@@ -1,1 +1,0 @@
-{"Name:": "Vojt\u011bch Mydl\u00e1\u0159", "Nationality:": " Czech Republic", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Dynamo Eclot", "Role:": "Rifler (lurker)", "Approx. Total Winnings:": "$9,753", "Games:": "Global Offensive"}

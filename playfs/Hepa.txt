@@ -1,1 +1,0 @@
-{"Name:": "Juan Borges", "Born:": "December 27, 1992 (1992-12-27) (age\u00a029)", "Nationality:": " Spain", "Status:": "Active\n", "Years Active (Coach):": "2017 \u2013 2018", "Years Active (Analyst):": "2018 \u2013 Present", "Role:": "Analyst", "Games:": "Global Offensive"}

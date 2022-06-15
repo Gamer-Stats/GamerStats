@@ -1,1 +1,0 @@
-{"Name:": "Julian Acosta", "Nationality:": " Argentina", "Status:": "Active\n", "Years Active (Player):": "2007 \u2013 2021", "Years Active (Analyst):": "2022 \u2013 Present", "Team:": "Isurus", "Roles:": "AnalystRifler (lurker)", "Approx. Total Winnings:": "$12,297", "Alternate IDs:": "Zorsei", "Games:": "Counter-StrikeGlobal Offensive"}

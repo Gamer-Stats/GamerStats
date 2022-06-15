@@ -1,1 +1,0 @@
-{"Name:": "Bogdan Carp", "Nationalities:": " Romania Ireland", "Status:": "Active\n", "Team:": "ESEN", "Role:": "Commentator", "Games:": "Global Offensive"}

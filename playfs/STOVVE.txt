@@ -1,1 +1,0 @@
-{"Name:": "Toni Liukkonen", "Nationality:": " Finland", "Status:": "Active\n", "Years Active (Player):": "2001 \u2013 Present", "Team:": "SAWO Esports", "Role:": "Rifler", "Approx. Total Winnings:": "$11,793", "Alternate IDs:": "STOVVe, stovve, STOVVE=DD", "Games:": "Counter-StrikeGlobal Offensive"}

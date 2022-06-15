@@ -1,1 +1,0 @@
-{"Name:": "Simon Atterstam", "Nationality:": " Sweden", "Status:": "Inactive\n", "Years Active (Player):": "2009 \u2013 2017", "Role:": "Rifler", "Approx. Total Winnings:": "$11,570", "Games:": "Global Offensive"}

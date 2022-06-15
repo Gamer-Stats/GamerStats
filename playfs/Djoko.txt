@@ -1,1 +1,0 @@
-{"Name:": "Thomas Pavoni", "Born:": "April 16, 1997 (1997-04-16) (age\u00a025)", "Nationality:": " France", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "HEET", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$25,471", "Games:": "Global Offensive"}

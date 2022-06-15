@@ -1,1 +1,0 @@
-{"Name:": "Jarkko Rahja", "Nationality:": " Finland", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "KOVA Esports", "Role:": "AWPer", "Approx. Total Winnings:": "$15,180", "Games:": "Global Offensive"}

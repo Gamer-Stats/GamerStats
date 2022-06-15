@@ -1,1 +1,0 @@
-{"Name:": "\u05d2\u05d9\u05d0 \u05d0\u05d9\u05dc\u05d5\u05d6", "Romanized Name:": "Guy Iluz", "Born:": "July 12, 1999 (1999-07-12) (age\u00a022)", "Nationality:": " Israel", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Team:": "Endpoint", "Role:": "Rifler", "Approx. Total Winnings:": "$22,744", "Alternate IDs:": "NertZ", "Games:": "Global Offensive"}

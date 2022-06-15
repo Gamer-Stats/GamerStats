@@ -1,1 +1,0 @@
-{"Name:": "Jonas Olofsson", "Born:": "July 2, 1993 (1993-07-02) (age\u00a028)", "Nationality:": " Sweden", "Status:": "Active\n", "Years Active (Player):": "2014 \u2013 Present", "Team:": "Dignitas", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$464,828", "Games:": "Global Offensive"}

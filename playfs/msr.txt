@@ -1,1 +1,0 @@
-{"Name:": "Leonardo Caixeta", "Born:": "February 5, 1993 (1993-02-05) (age\u00a029)", "Nationality:": " Brazil", "Status:": "Active\n", "Years Active (Player):": "2013 \u2013 2019", "Years Active (Coach):": "2019 \u2013 Present", "Team:": "FURIA Academy", "Role:": "Coach", "Approx. Total Winnings:": "$125", "Alternate IDs:": "MSR, minisr", "Games:": "Global Offensive"}

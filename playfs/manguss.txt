@@ -1,1 +1,0 @@
-{"Name:": "Robert Kasper", "Nationality:": " Czech Republic", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "ENTERPRISE esports", "Role:": "Rifler (lurker)", "Approx. Total Winnings:": "$13,014", "Games:": "Global Offensive"}

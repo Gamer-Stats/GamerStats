@@ -1,1 +1,0 @@
-{"Name:": "\u0406\u0432\u0430\u043d \u041a\u043e\u043f\u043b\u0435\u043d\u043a\u043e", "Romanized Name:": "Ivan Koplenko", "Nationality:": " Ukraine", "Status:": "Active\n", "Years Active (Player):": "2018 \u2212 Present", "Role:": "Rifler", "Approx. Total Winnings:": "$6,740", "Games:": "Global Offensive"}

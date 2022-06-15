@@ -1,1 +1,0 @@
-{"Name:": "Jan Patocka", "Nationality:": " Germany", "Status:": "Active\n", "Years Active (Player):": "2013 \u2013 Present", "Role:": "AWPer", "Approx. Total Winnings:": "$14,483", "Games:": "Global Offensive"}

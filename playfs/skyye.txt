@@ -1,1 +1,0 @@
-{"Name:": "Tom Hagedorn", "Born:": "July 22, 2002 (2002-07-22) (age\u00a019)", "Nationality:": " Germany", "Status:": "Active\n", "Team:": "ALTERNATE aTTaX", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$15,296", "Games:": "Global Offensive"}

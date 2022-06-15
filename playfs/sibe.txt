@@ -1,1 +1,0 @@
-{"Name:": "James Martin", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Approx. Total Winnings:": "$1,748", "Alternate IDs:": "c0sm0, ronin, frost, siBE, s9b9, rre1d, cosmo_starchild", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "Rasmus Beck", "Born:": "January 3, 1999 (1999-01-03) (age\u00a023)", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Heroic", "Role:": "Rifler (support)", "Approx. Total Winnings:": "$381,207", "Games:": "Global Offensive"}

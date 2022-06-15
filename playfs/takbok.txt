@@ -1,1 +1,0 @@
-{"Name:": "Jan Theron", "Nationality:": " South Africa", "Status:": "Active\n", "Years Active (Player):": "2015 \u2013 Present", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$17,305", "Games:": "Global Offensive"}

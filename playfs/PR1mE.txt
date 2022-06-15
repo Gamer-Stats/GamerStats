@@ -1,1 +1,0 @@
-{"Name:": "Mathias Carlsen", "Born:": "May 4, 2001 (2001-05-04) (age\u00a021)", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Tricked Esport", "Role:": "Rifler", "Approx. Total Winnings:": "$8,773", "Games:": "Global Offensive"}

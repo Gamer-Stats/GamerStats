@@ -1,1 +1,0 @@
-{"Name:": "Ben Normand", "Born:": "October 11, 1999 (1999-10-11) (age\u00a022)", "Nationality:": " South Africa", "Status:": "Active\n", "Years Active (Player):": "2020 \u2013 Present", "Team:": "DNMK Esports", "Role:": "Rifler (lurker)", "Approx. Total Winnings:": "$2,307", "Games:": "Global Offensive"}

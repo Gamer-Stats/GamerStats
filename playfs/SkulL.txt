@@ -1,1 +1,0 @@
-{"Name:": "Jordan Newland", "Born:": "January 1, 1998 (1998-01-01) (age\u00a024)", "Nationality:": " Australia", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Antic Esports", "Role:": "Rifler", "Approx. Total Winnings:": "$5,538", "Alternate IDs:": "Skullhunter", "Games:": "Global Offensive"}

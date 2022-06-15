@@ -1,1 +1,0 @@
-{"Name:": "Will Dallas", "Nationality:": " United States", "Status:": "Active\n", "Team:": "ESEA", "Roles:": "CommentatorBroadcast Analyst", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "\u0411\u043e\u0440\u0438\u0441 \u0412\u043e\u0440\u043e\u0431\u044c\u0435\u0432", "Romanized Name:": "Boris Vorobyev", "Born:": "June 3, 2003 (2003-06-03) (age\u00a019)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "Team Spirit", "Approx. Total Winnings:": "$148,052", "Games:": "Global Offensive"}

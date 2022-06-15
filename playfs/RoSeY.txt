@@ -1,1 +1,0 @@
-{"Name:": "Jasmeet Gill", "Nationality:": " Norway", "Status:": "ActiveValve Banned (Expired)\n", "Years Active (Player):": "2016 \u2013 2018", "Years Active (Org):": "2019 \u2013 Present", "Years Active (Coach):": "2018 \u2013 2019", "Team:": "Nordavind", "Roles:": "ManagerCoach", "Approx. Total Winnings:": "$3,575", "Alternate IDs:": "roseh", "Games:": "Global Offensive"}

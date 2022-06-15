@@ -1,1 +1,0 @@
-{"Name:": "Joseph Beard", "Nationality:": " United States", "Status:": "Active\n", "Years Active (Player):": "2014 \u2013 20172021 \u2013 Present", "Role:": "In-game leader", "Alternate IDs:": "gl0be", "Games:": "Global Offensive"}

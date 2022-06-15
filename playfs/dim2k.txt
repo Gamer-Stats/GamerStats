@@ -1,1 +1,0 @@
-{"Name:": "Dimitri Larue", "Nationality:": " France", "Status:": "Active\n", "Years Active (Player):": "2001 \u2013 Present", "Role:": "AWPer", "Approx. Total Winnings:": "$5,154", "Games:": "Counter-StrikeGlobal Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "\u041f\u0451\u0442\u0440 \u0411\u043e\u043b\u044b\u0448\u0435\u0432", "Romanized Name:": "Pyotr Bolyshev", "Born:": "March 3, 2003 (2003-03-03) (age\u00a019)", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2019 \u2013 Present", "Team:": "Virtus.pro", "Role:": "Rifler", "Approx. Total Winnings:": "$48,142", "Games:": "Global Offensive"}

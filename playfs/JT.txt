@@ -1,1 +1,0 @@
-{"Name:": "Joe Talbot", "Nationality:": " United Kingdom", "Status:": "Inactive\n", "Years Active (Player):": "2013 \u2013 2017", "Role:": "Rifler", "Approx. Total Winnings:": "$2,395", "Games:": "Global Offensive"}

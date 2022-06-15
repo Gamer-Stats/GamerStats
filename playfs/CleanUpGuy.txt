@@ -1,1 +1,0 @@
-{"Name:": "Ola Stenberg", "Nationality:": " Sweden", "Status:": "Inactive\n", "Years Active (Player):": "2014 \u2013 2019", "Role:": "AWPer", "Approx. Total Winnings:": "$615", "Alternate IDs:": "CUG420, 024GUC", "Games:": "Global Offensive"}

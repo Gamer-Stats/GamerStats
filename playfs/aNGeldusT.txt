@@ -1,1 +1,0 @@
-{"Name:": "Juha Kurppa", "Nationality:": " Finland", "Status:": "Active\n", "Years Active (Player):": "2008 \u2013 2012", "Years Active (Org):": "2016 \u2013 Present", "Team:": "ENCE eSports", "Role:": "Commentator", "Approx. Total Winnings:": "$5,657", "Games:": "SourceGlobal Offensive"}

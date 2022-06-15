@@ -1,1 +1,0 @@
-{"Name:": "\u0411\u043e\u0433\u0434\u0430\u043d \u041d\u0430\u043a\u043e\u043d\u0435\u0447\u043d\u0438\u0439", "Romanized Name:": "Bohdan Nakonechnyi", "Nationality:": " Ukraine", "Status:": "Inactive\n", "Years Active (Player):": "2013 \u2013 2019", "Approx. Total Winnings:": "$1,070", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "\u0421\u0442\u0435\u043f\u0430\u043d \u0428\u0443\u043b\u044c\u0433\u0430", "Romanized Name:": "Stepan Shulha", "Born:": "October 5, 1981 (1981-10-05) (age\u00a040)", "Nationality:": " Ukraine", "Status:": "Active\n", "Role:": "Host", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "Thomas Becker", "Born:": "November 28, 1999 (1999-11-28) (age\u00a022)", "Nationality:": " Germany", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "Entropy Gaming", "Role:": "Rifler (entry fragger)", "Approx. Total Winnings:": "$9,695.91", "Games:": "Global Offensive"}

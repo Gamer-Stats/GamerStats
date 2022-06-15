@@ -1,1 +1,0 @@
-{"Name:": "\u0412\u0438\u043a\u0442\u043e\u0440 \u041c\u0438\u0442\u0435\u0432", "Romanized Name:": "Viktor Mitev", "Born:": "May 21, 2001 (2001-05-21) (age\u00a021)", "Nationality:": " Bulgaria", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Role:": "Rifler", "Approx. Total Winnings:": "$52,306", "Games:": "Global Offensive"}

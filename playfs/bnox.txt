@@ -1,1 +1,0 @@
-{"Name:": "Bartosz Niebisz", "Born:": "April 17, 2000 (2000-04-17) (age\u00a022)", "Nationality:": " Poland", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "PACT", "Role:": "Rifler", "Approx. Total Winnings:": "$7,637.88", "Games:": "Counter-Strike"}

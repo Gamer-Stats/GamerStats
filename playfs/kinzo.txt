@@ -1,1 +1,0 @@
-{"Name:": "Marek B\u00edlek", "Nationality:": " Czech Republic", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "Cryptova", "Role:": "Rifler", "Approx. Total Winnings:": "$3,673", "Games:": "Global Offensive"}

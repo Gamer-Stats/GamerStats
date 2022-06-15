@@ -1,1 +1,0 @@
-{"Name:": "Jacob Holm", "Nationality:": " Denmark", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 Present", "Team:": "Imperishable Clan", "Role:": "Rifler", "Approx. Total Winnings:": "$10,161", "Games:": "Global Offensive"}

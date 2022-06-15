@@ -1,1 +1,0 @@
-{"Name:": "Keanu Reyes", "Born:": "May 3, 1997 (1997-05-03) (age\u00a025)", "Nationality:": " United States", "Status:": "Active\n", "Years Active (Player):": "2017 \u2013 Present", "Team:": "Brazen", "Role:": "Rifler", "Approx. Total Winnings:": "$5,560", "Alternate IDs:": "DaneJoris", "Games:": "Global Offensive"}

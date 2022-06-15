@@ -1,1 +1,0 @@
-{"Name:": "Pontus Wahlqvist", "Nationality:": " Sweden", "Status:": "Active\n", "Role:": "Rifler", "Approx. Total Winnings:": "$4,085", "Alternate IDs:": "PONKUS", "Games:": "Global Offensive"}

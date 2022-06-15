@@ -1,1 +1,0 @@
-{"Name:": "\u041f\u0430\u0432\u043b\u043e \u0411\u0456\u043b\u043e\u0432", "Romanized Name:": "Pavlo Bilov", "Born:": "May 1, 1999 (1999-05-01) (age\u00a023)", "Nationality:": " Ukraine", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 Present", "Team:": "Esports Club Kyiv", "Role:": "Rifler", "Approx. Total Winnings:": "$6,709", "Games:": "Global Offensive"}

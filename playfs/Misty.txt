@@ -1,1 +1,0 @@
-{"Name:": "Jordan Johnson", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Talent):": "2016 \u2013 Present", "Role:": "Observer", "Games:": "Global Offensive"}

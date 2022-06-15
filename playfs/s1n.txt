@@ -1,1 +1,0 @@
-{"Name:": "Elias Stein", "Born:": "March 18, 2002 (2002-03-18) (age\u00a020)", "Nationality:": " Germany", "Status:": "Active\n", "Team:": "BIG Academy", "Role:": "Rifler", "Approx. Total Winnings:": "$19,969", "Games:": "Global Offensive"}

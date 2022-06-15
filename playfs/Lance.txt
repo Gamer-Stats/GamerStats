@@ -1,1 +1,0 @@
-{"Name:": "Norberto Lage", "Nationality:": " Brazil", "Status:": "Active\n", "Years Active (Player):": "2005 \u2013 2015", "Years Active (Org):": "2020 \u2013 Present", "Team:": "Bravos Gaming", "Role:": "Manager", "Approx. Total Winnings:": "$9,699", "Games:": "Counter-StrikeSource"}

@@ -1,1 +1,0 @@
-{"Name:": "Matheus Queiroz", "Born:": "August 16, 2000", "Died:": "December 15, 2019(2019-12-15) (aged\u00a019)", "Nationality:": " Brazil", "Status:": "Passed Away\n", "Years Active (Player):": "2018 \u2013 2019", "Roles:": "AWPerRifler", "Approx. Total Winnings:": "$1,482", "Alternate IDs:": "bruttJ", "Games:": "Global Offensive"}

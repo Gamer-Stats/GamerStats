@@ -1,1 +1,0 @@
-{"Name:": "Juan Cruz Crespo", "Born:": "June 28, 1994 (1994-06-28) (age\u00a027)", "Nationality:": " Argentina", "Status:": "Active\n", "Years Active (Player):": "2016 \u2013 2018", "Years Active (Coach):": "2019 \u2013 Present", "Team:": "Stone Esports", "Roles:": "CoachAnalyst", "Games:": "Global Offensive"}

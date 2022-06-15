@@ -1,1 +1,0 @@
-{"Name:": "Joel Holmlund", "Born:": "September 24, 2004 (2004-09-24) (age\u00a017)", "Nationality:": " Sweden", "Status:": "Active\n", "Team:": "MONAD eSport", "Role:": "AWPer", "Approx. Total Winnings:": "$22,023.92", "Alternate IDs:": "joelxd", "Games:": "Global Offensive"}

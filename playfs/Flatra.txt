@@ -1,1 +1,0 @@
-{"Name:": "\u0410\u043b\u0435\u043a\u0441\u0435\u0439 \u0417\u043b\u043e\u0431\u0438\u0447", "Romanized Name:": "Aleksey Zlobich", "Nationality:": " Russia", "Status:": "Active\n", "Years Active (Player):": "2003 \u2013 20112013", "Years Active (Coach):": "2020", "Role:": "Assistant Coach", "Approx. Total Winnings:": "$22,862", "Games:": "Counter-StrikeGlobal Offensive"}

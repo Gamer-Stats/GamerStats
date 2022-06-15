@@ -1,1 +1,0 @@
-{"Name:": "Simen Henriksen", "Nationality:": " Norway", "Status:": "Active\n", "Years Active (Player):": "2007 \u2013 2010", "Years Active (Org):": "2018 \u2013 Present", "Team:": "Apeks", "Role:": "Commentator", "Approx. Total Winnings:": "$2,516", "Games:": "SourceGlobal Offensive"}

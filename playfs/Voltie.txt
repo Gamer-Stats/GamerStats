@@ -1,1 +1,0 @@
-{"Name:": "Robin Takac", "Born:": "September 4, 1999 (1999-09-04) (age\u00a022)", "Nationality:": " Sweden", "Status:": "Active\n", "Role:": "Commentator", "Games:": "Global Offensive"}

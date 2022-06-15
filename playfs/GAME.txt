@@ -1,1 +1,0 @@
-{"Name:": "Pontus Perlborn", "Nationality:": " Sweden", "Status:": "Inactive\n", "Years Active (Player):": "2009 \u2013 2019", "Role:": "AWPer", "Approx. Total Winnings:": "$571", "Games:": "SourceGlobal Offensive"}

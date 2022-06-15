@@ -1,1 +1,0 @@
-{"Name:": "Pere Solsona Saumell", "Born:": "May 31, 2000 (2000-05-31) (age\u00a022)", "Nationality:": " Spain", "Status:": "Active\n", "Years Active (Player):": "2019 \u2013 Present", "Team:": "Coalesce", "Role:": "Rifler (lurker)", "Approx. Total Winnings:": "$13,106", "Alternate IDs:": "sausoL", "Games:": "Global Offensive"}

@@ -1,1 +1,0 @@
-{"Name:": "Sam Wilks", "Born:": "August 18, 1998 (1998-08-18) (age\u00a023)", "Nationality:": " United Kingdom", "Status:": "Active\n", "Years Active (Player):": "2018 \u2013 2019", "Years Active (Coach):": "2019 \u2013 Present", "Team:": "1PIN", "Role:": "Coach", "Games:": "Global Offensive"}
