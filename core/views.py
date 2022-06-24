@@ -5,14 +5,14 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
+from django.views.decorators.cache import cache_page
 
 from core.models import (GameProfile, News, NewsCategory, SetupSettings,
                          TeamProfile, Wiki)
 
-# from django.views.decorators.cache import cache_page
-
 
 # Homepage
+@cache_page(60 * 129600)
 def index(request):
     players = SetupSettings.objects.filter(
         publish=True).values(
@@ -49,7 +49,8 @@ def index(request):
     return render(request, template_name, context)
 
 
-# News Main op
+# News Main
+@cache_page(60 * 129600)
 def news(request):
     news = (
         News.objects.select_related("avatar", "writer")
@@ -69,7 +70,8 @@ def news(request):
     return render(request, template_name, context)
 
 
-# News Single op
+# News Single
+@cache_page(60 * 129600)
 def news_single(request, slug):
     try:
         obj = (
@@ -93,6 +95,7 @@ def news_single(request, slug):
 
 
 # News Tags/Category
+@cache_page(60 * 129600)
 def news_filter(request, slug):
     cats = get_object_or_404(NewsCategory, slug=slug)
     news = (
@@ -111,8 +114,8 @@ def news_filter(request, slug):
     return render(request, template_name, context)
 
 
-# Setup Main - OP - PAGE DONE
-# @cache_page(60 * 15)
+# Setup Main
+@cache_page(60 * 129600)
 def setup(request):
     setups = (
         SetupSettings.objects.select_related(
@@ -132,7 +135,8 @@ def setup(request):
     return render(request, template_name, context)
 
 
-# Setup Single - half op DONE
+# Setup Single
+@cache_page(60 * 129600)
 def setup_single(request, slug):
     try:
         obj = (
@@ -177,6 +181,7 @@ def setup_single(request, slug):
 
 
 # Wiki Main
+@cache_page(60 * 129600)
 def wiki(request):
     wikis = Wiki.objects.select_related(
         "portal", "country", "avatar", "page_type").filter(publish=True)
@@ -192,6 +197,7 @@ def wiki(request):
 
 
 # Wiki Single
+@cache_page(60 * 129600)
 def wiki_single(request, slug):
     try:
         obj = Wiki.objects.select_related(
@@ -233,6 +239,7 @@ def wiki_single(request, slug):
 
 
 # Game
+@cache_page(60 * 129600)
 def gameprofile(request, slug):
     try:
         obj = GameProfile.objects.get(slug=slug)
@@ -261,7 +268,10 @@ def gameprofile(request, slug):
     context = {"obj": obj, "teams": teams, "players": players}
     return render(request, template_name, context)
 
+# Team Profile
 
+
+@cache_page(60 * 129600)
 def teamprofile(request, game_url, slug):
     try:
         obj = TeamProfile.objects.select_related(
@@ -292,6 +302,7 @@ def teamprofile(request, game_url, slug):
 
 
 # Search
+@cache_page(60 * 15)
 def search(request):
     if request.method == "GET":
         query = request.GET.get("q")
