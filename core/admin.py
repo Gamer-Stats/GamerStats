@@ -1,9 +1,24 @@
 from django.contrib import admin
 
-from core.models import (Author, CountryTag, GameProfile, ImageCollection,
-                         JsonData, News, NewsCategory, PcSpecs, PortalTag,
-                         RegionTag, SEOImage, SetupSettings, TeamProfile,
-                         Topic, Wiki, WikiCategory)
+from core.models import (
+    Author,
+    CountryTag,
+    GameProfile,
+    ImageCollection,
+    JsonData,
+    News,
+    NewsCategory,
+    PcSpecs,
+    PortalTag,
+    RegionTag,
+    SEOImage,
+    SetupSettings,
+    SiteNav,
+    TeamProfile,
+    Topic,
+    Wiki,
+    WikiCategory,
+)
 
 
 @admin.action(description="Mark as published")
@@ -13,6 +28,11 @@ def make_published(modeladmin, request, queryset):
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
+    list_display = ["title", "id"]
+
+
+@admin.register(SiteNav)
+class SiteNavAdmin(admin.ModelAdmin):
     list_display = ["title", "id"]
 
 
@@ -77,9 +97,13 @@ class TeamProfileAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ("title", "esports_game", "updated_at", "publish")
     list_filter = ["publish", "esports_game"]
-    autocomplete_fields = ["team_wiki", "esports_game",
-                           "active_members", "inactive_members",
-                           "former_members"]
+    autocomplete_fields = [
+        "team_wiki",
+        "esports_game",
+        "active_members",
+        "inactive_members",
+        "former_members",
+    ]
     readonly_fields = ["image_url", "game_image_url"]
 
 

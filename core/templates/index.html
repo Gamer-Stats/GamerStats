@@ -1,193 +1,151 @@
-{% extends 'base.html' %}
-{% load static %}{% load age %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}{% block og_title %}{% block tw_title %}{% block tw_img_alt %}{% block og_img_alt %}Esports News, Live
-Updates, Pro Settings and Setup{% endblock %}{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/styles/home.css' %}">
 
-{% block description %}{% block og_description %}{% block tw_description %}Gamer Stats covers streamers and pro esports
-player's setup, PC specs, and gaming gear as well as esports news, game leaks, and streamers rumors and gossips of all
-Twitch streamers and YouTubers...{% endblock %}{% endblock %}{% endblock %}
+</head>
 
-{% block content %}
-
-<div class="bg-white">
-    <main class="container">
-        <header class="py-5 border-bottom">
-            <h1 class="fs-3 fw-bold">Pro Gamers and Esports Database for Gamers</h1>
-            <p>Welcome to GamerStats.net, the ultimate destination for gamers to track their favorite esports
-                professionals
-                and teams' stats, news, and achievements.</p>
-            <form class="form-floating home-search" action="{% url 'search' %}">
-                <input type="text" class="form-control" id="homeSearch" name="q" placeholder="s1mple, shroud, NiKo..."
-                    required>
-                <label for="homeSearch">Search your favorite...</label>
-                <button type="submit" class="btn">Search</button>
-            </form>
-        </header>
-        <section class="row py-5 border-bottom">
-            <h2 class="fs-4 fw-bold">Esports News</h2>
-            {% for i in news %}
-            <article class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <a href="{% url 'news_single' i.slug %}">
-                    <picture class="image-wrap">
-                        <source media="(min-width: 768px)" srcset="{{ i.avatar.image.url }}-512.webp">
-                        <source media="(max-width: 767px)"
-                            srcset="{{ i.avatar.image.url }}-304.webp, {{ i.avatar.image.url }}-512.webp 1.6x">
-                        <img src="{{ i.avatar.image.url }}" alt="{{ i.avatar.alt }}" title="{{ i.title }}">
-                    </picture>
-                </a>
-                <h3 class="fs-6 fw-semibold mb-0 mt-2"><a href="{% url 'news_single' i.slug %}">{{ i.title }}</a></h3>
-                <span class="text-12px text-muted text-uppercase">
-                    <span class="visually-hidden">Last updated</span>
-                    <time pubdate datetime="{{ obj.updated_at|date:'c' }}">
-                        {{ i.updated_at|article_age }}
-                    </time>
-                    <address class="author"> by <span rel="author">{{ i.writer.username }}</span></address>
-                </span>
-            </article>
-            {% endfor %}
-        </section>
-        <section class="mt-5 pb-5">
-            <div class="d-grid grid-xl-3 column-gap-2">
-                <h2 class="fs-5 fw-bold mb-3 grid-row-1">Esports Teams</h2>
-                <table class="html-table" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="width: 33.33%; text-align: left;">Profle</th>
-                            <th style="width: 33.33%; text-align: center;">Name</th>
-                            <th style="width: 33.33%; text-align: right;">Game</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in teams %}
-                        <tr>
-                            <td class="text-start">
-                                <a href="{% url 'teamprofile' i.esports_game__slug i.slug %}">
-                                    <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
-                                        title="{{ i.title }} {{ i.esports_game__title }} Roster" load="lazy" width="35"
-                                        height="35">
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <a href="{% url 'teamprofile' i.esports_game__slug i.slug %}"
-                                    title="{{ i.title }} {{ i.esports_game__title }} Roster">
-                                    {{ i.title }}
-                                </a>
-                            </td>
-                            <td class="text-end">
-                                <a href="{% url 'gameprofile' i.esports_game__slug %}">
-                                    <img srcset="{{ i.game_image_url }}-140.webp" src="{{ i.game_image_url }}"
-                                        title="{{ i.esports_game__title }}" alt="{{ i.esports_game__title }}"
-                                        load="lazy" width="35" height="35">
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr style="background-color: var(--bs-gray-200);">
-                            <td class="text-start">
-                                <a class="link-btn text-decoration-none text-12px"
-                                    href="{% url 'gameprofile' 'csgo' %}">CS:GO Teams</a>
-                            </td>
-                            <td class="text-center">
-                                <a class="link-btn text-decoration-none text-12px"
-                                    href="{% url 'gameprofile' 'valorant' %}">VALORANT Teams</a>
-                            </td>
-                            <td class="text-end">
-                                <a class="link-btn text-decoration-none text-12px"
-                                    href="{% url 'gameprofile' 'fortnite' %}">Fortnite Teams</a>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <h2 class="fs-5 fw-bold mb-3 grid-row-1">CS:GO Professionals</h2>
-                <table class="html-table" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="width: 33.33%; text-align: left;">Profle</th>
-                            <th style="width: 33.33%; text-align: center;">Name</th>
-                            <th style="width: 33.33%; text-align: right;">Team</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in cs_players %}
-                        <tr>
-                            <td style="text-align: left;">
-                                <a href="{% url 'setup_single' i.slug %}">
-                                    <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
-                                        title="{{ i.title }} CS:GO Settings" load="lazy" width="35" height="35">
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="{% url 'setup_single' i.slug %}" title="{{ i.title }} CS:GO Settings">
-                                    {{ i.title }}
-                                </a>
-                            </td>
-                            <td style="text-align: right;">
-                                <a href="{% url 'teamprofile' i.game__slug i.team__slug %}">
-                                    <img srcset="{{ i.team_url }}-140.webp" src="{{ i.team_url }}"
-                                        title="{{ i.team__meta_title }}" alt="{{ i.team__title }}" load="lazy"
-                                        width="35" height="35">
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr style="background-color: var(--bs-gray-200);">
-                            <td colspan="3" class="text-center">
-                                <a class="link-btn text-decoration-none text-12px"
-                                    href="{% url 'gameprofile' 'csgo' %}#players">CS:GO Players</a>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <h2 class="fs-5 fw-bold mb-3 grid-row-1">VALORANT Professionals</h2>
-                <table class="html-table" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="width: 33.33%; text-align: left;">Profle</th>
-                            <th style="width: 33.33%; text-align: center;">Name</th>
-                            <th style="width: 33.33%; text-align: right;">Team</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in valo_players %}
-                        <tr>
-                            <td style="text-align: left;">
-                                <a href="{% url 'setup_single' i.slug %}">
-                                    <img srcset="{{ i.image_url }}-140.webp" src="{{ i.image_url }}" alt="{{ i.title }}"
-                                        title="{{ i.title }} VALORANT Settings" load="lazy" width="35" height="35">
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href=" {% url 'setup_single' i.slug %}" title="{{ i.title }} VALORANT Settings">
-                                    {{ i.title }}
-                                </a>
-                            </td>
-                            <td style="text-align: right;">
-                                <a href="{% url 'teamprofile' i.game__slug i.team__slug %}">
-                                    <img srcset="{{ i.team_url }}-140.webp" src="{{ i.team_url }}"
-                                        title="{{ i.team__meta_title }}" alt="{{ i.team__title }}" load="lazy"
-                                        width="35" height="35">
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot>
-                        <tr style="background-color: var(--bs-gray-200);">
-                            <td colspan="3" class="text-center">
-                                <a class="link-btn text-decoration-none text-12px"
-                                    href="{% url 'gameprofile' 'valorant' %}#players">VALORANT Players</a>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
+<body>
+    <header class="site-header">
+        <div class="logo">
+            <a href="">
+                <img src="https://cdn.gamerstats.net/static/img/g-dark.png" alt="Gamer Stats" width="200">
+            </a>
+        </div>
+        <button class="hamburg" id="ham">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+                <title>Site Menu</title>
+                <path d="M3.2 17.6v-1.35h17.65v1.35Zm0-4.95V11.3h17.65v1.35Zm0-4.9V6.4h17.65v1.35Z" />
+            </svg>
+        </button>
+        <nav class="site-nav">
+            {% for main_menu_item in site_nav.navigation %}
+            {% if main_menu_item.menu_type == "NORMAL" %}
+            <div class="nav-item">
+                <a class="nav-link" href="{{ main_menu_item.link }}">{{ main_menu_item.text }}</a>
             </div>
+            {% else %}
+            <div class="nav-item has-dropdown" data-dropdown>
+                <button class="nav-link" data-dropdown-button>{{ main_menu_item.text }}</button>
+                {% if main_menu_item.menu_type == "MEGA_MENU" %}
+                <div class="nav-dropdown nav-dropdown-mega">
+                    {% for sub_item in main_menu_item.children %}
+                    <div>
+                        <div class="dropdown-heading">{{ sub_item.text }}</div>
+                        <ul class="sub-nav">
+                            {% for sub_item_child in sub_item.children %}
+                            <li class="nav-item nav-item-with-image">
+                                <a class="nav-link" href="{{ sub_item_child.link }}">
+                                    <figure>
+                                        <img src="{{ sub_item_child.image }}" alt="{{ sub_item_child.text }}"
+                                            loading="lazy">
+                                        <figcaption>{{ sub_item_child.text }}</figcaption>
+                                    </figure>
+
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <ul class="nav-dropdown nav-dropdown-normal sub-nav">
+                    {% for sub_item in main_menu_item.children %}
+                    <li class="nav-item nav-item-with-image">
+                        <a class="nav-link" href="{{ sub_item.link }}">
+                            <figure>
+                                <img src="{{ sub_item.image }}" alt="{{ sub_item.text }}" loading="lazy">
+                                <figcaption>{{ sub_item.text }}</figcaption>
+                            </figure>
+
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </nav>
+    </header>
+
+    <main>
+        <header class="wrap">
+            <h1>Pro Gamers and Esports Database for Gamers</h1>
+            <p>Welcome to Gamer Stats, the ultimate destination for gamers to track their favorite esports
+                professionals and teams' stats, news, and achievements.</p>
+        </header>
+        <section class="wrap">
+            <h2 id="esports_news" class="mt-0">Latest News</h2>
+            <div>
+                {% for news_item in news %}
+                <article class="news-item">
+                    <div class="news-item-image">
+                        <img srcset="{{ news_item.avatar.image.url }}-128.webp"
+                            src="{{ news_item.avatar.image.url }}-304.webp" alt="{{ news_item.title }}" loading="lazy">
+                    </div>
+                    <div class="news-item-content">
+                        <h3>{{ news_item.title }}</h3>
+                        <a href="{{ news_item.link }}" class="news-item-link">
+                            <span class="sr-only">Read More about {{ news_item.title }}</span>
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            <a class="read-more" href="{% url 'news' %}">
+                <span>Read More News</span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" aria-hidden="true">
+                    <path d="m14.125 17.55-.95-.975 3.95-3.95H4.275v-1.35h12.85l-3.95-3.95.95-.975 5.6 5.6Z" />
+                </svg>
+            </a>
+        </section>
+        <section class="wrap">
+            <h2 id="games">Recently Updated Games</h2>
+            <div class="games">
+                {% for game in games %}
+                <div class="game-item">
+                    <figure>
+                        <img srcset="{{ game.avatar.image.url }}" src="{{ game.avatar.image.url }}-180.webp"
+                            alt="{{ game.title }}" loading="lazy">
+                        <figcaption class="sr-only">Official Banner of {{ game.title }}</figcaption>
+                    </figure>
+                    <h3>{{ game.title }}</h3>
+                </div>
+                {% endfor %}
         </section>
     </main>
-</div>
 
-{% endblock %}
+    <script>
+        document.addEventListener("click", e => {
+            const isDropdownButton = e.target.matches("[data-dropdown-button]")
+            if (!isDropdownButton && e.target.closest("[data-dropdown]") != null) return
+
+            let currentDropdown
+            if (isDropdownButton) {
+                currentDropdown = e.target.closest("[data-dropdown]")
+                currentDropdown.classList.toggle("active")
+            }
+
+            document.querySelectorAll("[data-dropdown].active").forEach(dropdown => {
+                if (dropdown === currentDropdown) return
+                dropdown.classList.remove("active")
+            })
+        })
+        document.getElementById("ham").addEventListener("click", () => {
+            document.querySelector(".site-nav").classList.toggle("ham-active")
+        })
+    </script>
+</body>
+
+</html>
