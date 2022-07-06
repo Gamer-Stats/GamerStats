@@ -1,12 +1,10 @@
-from os.path import splitext
-
-from django.conf import settings
 from django.core.files.storage import get_storage_class
+from gs_wik.settings.production import MEDIAFILES_LOCATION, STATICFILES_LOCATION
 from storages.backends.s3boto3 import S3Boto3Storage
 
 
 class StaticStorage(S3Boto3Storage):
-    location = settings.STATICFILES_LOCATION
+    location = STATICFILES_LOCATION
 
 
 class CachedS3BotoStorage(S3Boto3Storage):
@@ -23,4 +21,4 @@ class CachedS3BotoStorage(S3Boto3Storage):
 
 
 class MediaStorage(S3Boto3Storage):
-    location = settings.MEDIAFILES_LOCATION
+    location = MEDIAFILES_LOCATION

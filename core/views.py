@@ -7,24 +7,34 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.cache import cache_page
 
-from core.models import (GameProfile, News, NewsCategory, SetupSettings,
-                         TeamProfile, Wiki)
+from core.models import (
+    GameProfile,
+    News,
+    NewsCategory,
+    SetupSettings,
+    TeamProfile,
+    Wiki,
+)
 
 
 # Homepage
-@cache_page(60 * 129600)
 def index(request):
-    players = SetupSettings.objects.filter(
-        publish=True).values(
-        "title",
-        "slug",
-        "image_url",
-        "team_url",
-        "team__slug",
-        "game__slug",
-        "game",
-        "team__title",
-        "team__meta_title").order_by("-updated_at").exclude(is_pro=False)
+    players = (
+        SetupSettings.objects.filter(publish=True)
+        .values(
+            "title",
+            "slug",
+            "image_url",
+            "team_url",
+            "team__slug",
+            "game__slug",
+            "game",
+            "team__title",
+            "team__meta_title",
+        )
+        .order_by("-updated_at")
+        .exclude(is_pro=False)
+    )
     cs_players = players.filter(game=1)[:10]
     valo_players = players.filter(game=2)[:10]
     teams = TeamProfile.objects.filter(publish=True).values(
@@ -33,7 +43,7 @@ def index(request):
         "esports_game__title",
         "esports_game__slug",
         "image_url",
-        "game_image_url"
+        "game_image_url",
     )[:10]
 
     news = (
@@ -42,23 +52,34 @@ def index(request):
         .filter(publish=True)[:12]
     )
 
-    template_name = "index.html"
-    context = {"cs_players": cs_players, "teams": teams,
-               "news": news, "valo_players": valo_players}
+    games = (
+        GameProfile.objects.select_related("avatar")
+        .exclude(title="Various")
+        .order_by("-updated_at")
+        .filter(publish=True)[:6]
+    )
 
+    template_name = "index.html"
+    context = {
+        "cs_players": cs_players,
+        "teams": teams,
+        "news": news,
+        "valo_players": valo_players,
+        "games": games,
+    }
     return render(request, template_name, context)
 
 
 # News Main
-@cache_page(60 * 129600)
+
+
 def news(request):
     news = (
         News.objects.select_related("avatar", "writer")
         .order_by("-updated_at")
         .filter(publish=True)
     )
-    news_cat = NewsCategory.objects.order_by(
-        "-updated_at").only("title", "slug")
+    news_cat = NewsCategory.objects.order_by("-updated_at").only("title", "slug")
     news = list(chain(news))
     paginator = Paginator(news, 12)
 
@@ -71,7 +92,8 @@ def news(request):
 
 
 # News Single
-@cache_page(60 * 129600)
+
+
 def news_single(request, slug):
     try:
         obj = (
@@ -95,7 +117,8 @@ def news_single(request, slug):
 
 
 # News Tags/Category
-@cache_page(60 * 129600)
+
+
 def news_filter(request, slug):
     cats = get_object_or_404(NewsCategory, slug=slug)
     news = (
@@ -103,8 +126,7 @@ def news_filter(request, slug):
         .order_by("-updated_at")
         .filter(Q(publish=True) & Q(tags=cats))
     )
-    news_cat = NewsCategory.objects.order_by(
-        "-updated_at").only("title", "slug")
+    news_cat = NewsCategory.objects.order_by("-updated_at").only("title", "slug")
     paginator = Paginator(news, 12)
 
     page_num = request.GET.get("page")
@@ -115,11 +137,11 @@ def news_filter(request, slug):
 
 
 # Setup Main
-@cache_page(60 * 129600)
+
+
 def setup(request):
     setups = (
-        SetupSettings.objects.select_related(
-            "avatar", "game", "team", "writer")
+        SetupSettings.objects.select_related("avatar", "game", "team", "writer")
         .order_by("-updated_at")
         .filter(publish=True)
     )
@@ -136,7 +158,8 @@ def setup(request):
 
 
 # Setup Single
-@cache_page(60 * 129600)
+
+
 def setup_single(request, slug):
     try:
         obj = (
@@ -151,9 +174,8 @@ def setup_single(request, slug):
 
     if obj.team:
         related = (
-            SetupSettings.objects.select_related(
-                "avatar", "game", "team", "writer"
-            ).filter(Q(game=obj.game) & Q(team=obj.team))
+            SetupSettings.objects.select_related("avatar", "game", "team", "writer")
+            .filter(Q(game=obj.game) & Q(team=obj.team))
             .exclude(title=obj.title)
             .select_related("avatar")
         )
@@ -161,9 +183,8 @@ def setup_single(request, slug):
         bread = "Pro Settings"
     else:
         related = (
-            SetupSettings.objects.select_related(
-                "avatar", "game", "team", "writer"
-            ).filter(game=obj.game)
+            SetupSettings.objects.select_related("avatar", "game", "team", "writer")
+            .filter(game=obj.game)
             .exclude(title=obj.title)
             .select_related("avatar")
         )[:8]
@@ -181,10 +202,12 @@ def setup_single(request, slug):
 
 
 # Wiki Main
-@cache_page(60 * 129600)
+
+
 def wiki(request):
     wikis = Wiki.objects.select_related(
-        "portal", "country", "avatar", "page_type").filter(publish=True)
+        "portal", "country", "avatar", "page_type"
+    ).filter(publish=True)
 
     wikis = Paginator(wikis, 20)
 
@@ -197,7 +220,8 @@ def wiki(request):
 
 
 # Wiki Single
-@cache_page(60 * 129600)
+
+
 def wiki_single(request, slug):
     try:
         obj = Wiki.objects.select_related(
@@ -224,8 +248,7 @@ def wiki_single(request, slug):
         team_history_title = "Organization"
 
     cats = obj.tags.all()
-    wikis = Wiki.objects.select_related(
-        "avatar").filter(Q(tags=cats) & Q(publish=True))
+    wikis = Wiki.objects.select_related("avatar").filter(Q(tags=cats) & Q(publish=True))
     template_name = "wiki_single.html"
     context = {
         "obj": obj,
@@ -239,7 +262,8 @@ def wiki_single(request, slug):
 
 
 # Game
-@cache_page(60 * 129600)
+
+
 def gameprofile(request, slug):
     try:
         obj = GameProfile.objects.get(slug=slug)
@@ -252,8 +276,7 @@ def gameprofile(request, slug):
         .order_by("-updated_at")
     )
 
-    players = SetupSettings.objects.filter(
-        publish=True, game=obj, is_pro=True).values(
+    players = SetupSettings.objects.filter(publish=True, game=obj, is_pro=True).values(
         "title",
         "slug",
         "image_url",
@@ -262,38 +285,48 @@ def gameprofile(request, slug):
         "game__slug",
         "game",
         "team__title",
-        "team__meta_title")[:20]
+        "team__meta_title",
+    )[:20]
 
     template_name = "game.html"
     context = {"obj": obj, "teams": teams, "players": players}
     return render(request, template_name, context)
 
+
 # Team Profile
 
 
-@cache_page(60 * 129600)
 def teamprofile(request, game_url, slug):
     try:
         obj = TeamProfile.objects.select_related(
-            'avatar', 'team_wiki', 'esports_game'
+            "avatar", "team_wiki", "esports_game"
         ).get(slug=slug, esports_game__slug=game_url)
 
-        active_members = obj.active_members.filter(
-            publish=True).order_by("-updated_at").select_related(
-                'avatar', 'page_type')
+        active_members = (
+            obj.active_members.filter(publish=True)
+            .order_by("-updated_at")
+            .select_related("avatar", "page_type")
+        )
 
-        inactive_members = obj.inactive_members.filter(
-            publish=True).order_by("-updated_at").select_related(
-                'avatar', 'page_type')
+        inactive_members = (
+            obj.inactive_members.filter(publish=True)
+            .order_by("-updated_at")
+            .select_related("avatar", "page_type")
+        )
 
-        former_members = obj.former_members.filter(
-            publish=True).order_by("-updated_at").select_related(
-                'avatar', 'page_type')
+        former_members = (
+            obj.former_members.filter(publish=True)
+            .order_by("-updated_at")
+            .select_related("avatar", "page_type")
+        )
 
         template_name = "team.html"
-        context = {"obj": obj, "active_members": active_members,
-                   "inactive_members": inactive_members,
-                   "former_members": former_members}
+        context = {
+            "obj": obj,
+            "active_members": active_members,
+            "inactive_members": inactive_members,
+            "former_members": former_members,
+        }
 
         return render(request, template_name, context)
 
@@ -302,27 +335,23 @@ def teamprofile(request, game_url, slug):
 
 
 # Search
-@cache_page(60 * 15)
 def search(request):
     if request.method == "GET":
         query = request.GET.get("q")
         wiki = Wiki.objects.filter(
-            Q(title__icontains=query) | Q(
-                overview__icontains=query) & Q(publish=True)
+            Q(title__icontains=query) | Q(overview__icontains=query) & Q(publish=True)
         )
         players_cat = SetupSettings.objects.filter(
-            Q(title__icontains=query) | Q(
-                overview__icontains=query) & Q(publish=True)
+            Q(title__icontains=query) | Q(overview__icontains=query) & Q(publish=True)
         )
         count = len(wiki) + len(players_cat)
 
     template_name = "searched.html"
-    context = {"players_cat": players_cat,
-               "wiki": wiki, "query": query, "count": count}
+    context = {"players_cat": players_cat, "wiki": wiki, "query": query, "count": count}
     return render(request, template_name, context)
 
 
-def customhandler404(request, exception, template_name='404.html'):
+def customhandler404(request, exception, template_name="404.html"):
     response = render(request, template_name)
     response.status_code = 404
     return response
