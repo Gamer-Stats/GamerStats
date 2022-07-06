@@ -8,7 +8,7 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
- html {
+html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
@@ -174,7 +174,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -184,7 +185,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 
@@ -355,11 +357,16 @@ body {
 }
 
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #343c52
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #343c52;
 }
 
 p {
@@ -390,8 +397,6 @@ p {
   background: rgb(0 0 0 / 0);
 }
 
-
-
 .site-nav {
   display: flex;
   gap: 1rem;
@@ -408,7 +413,8 @@ p {
   border-bottom: 1px solid #bdbdbd;
 }
 
-.sub-nav .nav-item, .nav-item-with-image {
+.sub-nav .nav-item,
+.nav-item-with-image {
   border: none;
 }
 
@@ -439,9 +445,9 @@ p {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  margin-top: .7em;
+  margin-top: 0.7em;
   padding: 0;
-  padding-bottom: 1em
+  padding-bottom: 1em;
 }
 
 .nav-dropdown {
@@ -451,10 +457,10 @@ p {
 
 .dropdown-heading {
   font-weight: 600;
-  font-size: .8em;
+  font-size: 0.8em;
   text-transform: uppercase;
   color: #484848;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   transition: all 250ms ease-in-out;
   margin-bottom: 2em;
 }
@@ -511,25 +517,26 @@ p {
   flex: 0 0 auto;
 }
 
-.has-dropdown.active>.nav-link, .link:hover {
-    color: rgb(79 73 233);
+.has-dropdown.active > .nav-link,
+.link:hover {
+  color: rgb(79 73 233);
 }
 
 @media (max-width: 619px) {
   .site-nav {
     position: absolute;
     right: 0;
-    top: calc(100% + .25rem);
-    padding: 1.4em .75em 1em;
-    border-radius: .25rem;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+    top: calc(100% + 0.25rem);
+    padding: 1.4em 0.75em 1em;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     z-index: 1;
   }
-  
+
   .site-nav.ham-active {
     opacity: 1;
     pointer-events: auto;
@@ -549,19 +556,19 @@ p {
   .nav-item {
     border: none;
   }
-  
+
   .has-dropdown {
     position: relative;
   }
-  
+
   .nav-dropdown {
     position: absolute;
     right: 0;
-    top: calc(100% + .25rem);
+    top: calc(100% + 0.25rem);
     background-color: rgb(255 255 255 / 46%);
-    padding: 1.4em .75em 1em;
-    border-radius: .25rem;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+    padding: 1.4em 0.75em 1em;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
@@ -573,13 +580,13 @@ p {
     overflow: unset;
     height: auto;
   }
-  
-  .has-dropdown.active>.nav-link+.nav-dropdown {
+
+  .has-dropdown.active > .nav-link + .nav-dropdown {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
-  
+
   .dropdown-heading {
     font-weight: 500;
     font-size: 1em;
@@ -589,41 +596,40 @@ p {
   .nav-dropdown {
     width: unset;
   }
-  
+
   .nav-dropdown-mega {
     display: flex;
     gap: 1em;
   }
-  
+
   .nav-dropdown-mega .sub-nav {
     padding: 0;
   }
-  
+
   .nav-dropdown.nav-dropdown-normal.sub-nav {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .nav-dropdown-mega div:not(:first-child) .dropdown-heading {
     margin-top: 0;
   }
-  
-  
+
   .sub-nav .nav-link {
-    font-size: .9em;
+    font-size: 0.9em;
     display: block;
     width: max-content;
   }
 
   .nav-item-with-image .nav-link {
     border: solid 1px #ddd;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     overflow: hidden;
     width: min-content;
     min-width: -webkit-fill-available;
     transition: all 350ms ease-in-out;
   }
-  
+
   .hamburg {
     display: none;
   }
@@ -681,7 +687,7 @@ img {
 .news-item {
   margin-bottom: 1em;
   border: solid 1px #ccc;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   overflow: hidden;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -703,25 +709,25 @@ img {
 }
 
 .news-item-content {
-  padding: .4em;
+  padding: 0.4em;
 }
 
 .news-item-content h3 {
-  font-size: .9em;
+  font-size: 0.9em;
   margin: 0;
 }
 
 .read-more {
-  font-size: .9em;
+  font-size: 0.9em;
   color: var(--blue);
   text-decoration: none;
   transition: all 350ms ease-in-out;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
-  padding: .4em .8em;
+  padding: 0.4em 0.8em;
   border: solid 1px rgb(204 204 204 / 32%);
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .read-more:hover {
@@ -751,16 +757,15 @@ img {
   justify-content: space-between;
 }
 
-
 .game-item {
   border: solid 1px #ccc;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   overflow: hidden;
 }
 
 .game-item h3 {
   margin: 0;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .game-item img {
