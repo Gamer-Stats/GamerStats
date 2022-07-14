@@ -6,63 +6,71 @@
 <main class="bg-primary text-white">
     <header class="relative">
         {% image page.cover width-550 format-webp as webp_image %}
-        <img src="{{ webp_image.url }}" width="{{ webp_image.width }}" height="{{ webp_image.height }}"
-            alt="{{ webp_image.alt }}" class="h-60 object-center object-cover" />
-        <div class="h-60 w-full absolute inset-0 bg-gradient-to-t from-primary"></div>
+        {% image page.cover width-1280 format-webp as webp_image_1280 %}
+        {% image page.cover width-1280 format-jpeg as jpeg_image_1280 %}
+        <picture>
+            <source media="(min-width: 587px)" srcset="{{ webp_image_1280.url }}">
+            <source media="(max-width: 586px)" srcset="{{ webp_image.url }}">
+            <img src="{{ jpeg_image_1280.url }}" width="{{ webp_image_1280.width }}"
+                height="{{ webp_image_1280.height }}" alt="{{ webp_image.alt }}"
+                class="h-96 object-center object-cover w-full" />
+        </picture>
+        <div class="h-96 w-full absolute inset-0 bg-gradient-to-t from-primary"></div>
         <div class="absolute top-1/4 text-center w-full">
-            <h1 class="text-4xl font-bold mb-5">{{ page.title }}</h1>
+            <h1 class="text-4xl md:text-5xl font-bold mb-5">{{ page.title }}</h1>
             <figure class="bg-slate-100 bg-opacity-30 w-64 rounded-lg mx-auto">
                 {% image page.avatar width-400 format-webp-lossless webpquality-50 %}
                 <figcaption class="sr-only">{player.avatar.data.attributes.caption}</figcaption>
             </figure>
         </div>
     </header>
-    <section class="text-center pt-40 px-2">
-        <h2 class="text-xl font-semibold mb-1">{{ page.full_name }}</h2>
-        <p class="text-sm">{{ page.intro|safe }}</p>
-        <table class="table-auto text-left text-sm w-full">
-            <tbody class="my-4 p-2 gap-1 grid bg-secondary border border-primary rounded-lg grid-cols-12">
-                <tr class="flex flex-col col-span-6">
-                    <th class="font-light">Native Name</th>
-                    <td class="flex gap-1 items-center font-bold">{{ page.native_name }}</td>
-                </tr>
-                <tr class="flex flex-col col-span-6">
+    <section class="text-center pt-12 px-2 max-w-5xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-semibold mb-1">{{ page.full_name }}</h2>
+        <div class="text-sm md:text-lg">{{ page.intro|safe }}</div>
+        <table class="table-auto text-left text-sm md:text-base w-full md:mt-3">
+            <tbody
+                class="my-4 p-2 md:p-4 gap-1 md:gap-3 grid bg-secondary border border-primary rounded-lg grid-cols-12">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Birth Date</th>
                     <td class="font-bold">{{ page.birth_date }}</td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Birth Place</th>
                     <td class="font-bold">{{ page.hometown }}</td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Country</th>
                     <td class="flex gap-1 items-center font-bold">
                         <span>{{ page.player_country.title }}</span>
                         {% image page.player_country.flag width-22 format-webp-lossless %}
                     </td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Game</th>
                     <td class="font-bold">{{ page.game.title }}</td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Team</th>
                     <td class="flex gap-1 items-center font-bold">
                         <span>{{ page.team.title }}</span>
                         {% image page.team.avatar width-22 format-webp-lossless %}
                     </td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Role</th>
                     <td class="font-bold">{{ page.player_role }}</td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Rank</th>
                     <td class="font-bold">{{ page.player_rank }}</td>
                 </tr>
-                <tr class="flex flex-col col-span-6">
+                <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Earnings</th>
                     <td class="font-bold">${{ page.earnings|intcomma }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Native Name</th>
+                    <td class="flex gap-1 items-center font-bold">{{ page.native_name }}</td>
                 </tr>
                 <tr class="flex flex-col col-span-12">
                     <th class="font-light">Social</th>
@@ -77,8 +85,8 @@
             </tbody>
         </table>
     </section>
-    <section class="px-2">
-        <h2 class="text-xl font-semibold">{{ page.title }} PC Specs</h2>
+    <section class="px-2 max-w-5xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} PC Specs</h2>
         {% for spec in page.player_specs.all %}
         <div
             class="relative overflow-hidden bg-secondary border border-primary rounded-lg grid grid-cols-7 grid-flow-col my-4 items-center gap-4">
@@ -103,8 +111,8 @@
         </div>
         {% endfor %}
     </section>
-    <section class="px-2">
-        <h2 class="text-xl font-semibold">{{ page.title }} {{ page.game.title }} Settings</h2>
+    <section class="px-2 max-w-5xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} {{ page.game.title }} Settings</h2>
         {% for block in page.player_settings.all %}
         <div class="border border-primary rounded-lg bg-secondary my-4 p-2">
             <h3 class="text-lg font-medium mb-1 border-b border-gray-800 pb-1">{{ block.title }} Settings</h3>
@@ -132,14 +140,44 @@
         </div>
         {% endfor %}
     </section>
-    <section class="px-2 pb-6">
-        <h2 class="text-xl font-semibold">{{ page.title }} Wiki</h2>
-        <div class="border border-primary rounded-lg bg-secondary my-4 p-2">
+    <section class="px-2 pb-6 max-w-5xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} Wiki</h2>
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4 prose">
             {{ page.body|safe }}
         </div>
     </section>
 </main>
+<style>
+    .prose h3 {
+        font-size: 1.5em;
+        line-height: 1.7em;
+        margin-top: .4em;
+        margin-bottom: .2em;
+        font-weight: 500;
+    }
 
+    .prose h3,
+    .prose h3 b,
+    .prose h3 strong .prose h4,
+    .prose h4 b,
+    .prose h4 strong {
+        font-weight: 500;
+    }
+
+    .prose table {
+        text-align: left;
+        width: 100%;
+    }
+
+    .prose table tr {
+        display: flex;
+    }
+
+    .prose table td,
+    .prose table th {
+        width: 100%;
+    }
+</style>
 {% comment %}
 <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 {% endcomment %}

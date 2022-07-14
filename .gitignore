@@ -9,7 +9,8 @@ db1.json
 teams.json
 # C extensions
 *.so
-
+db.backup
+.DS_Store
 # Distribution / packaging
 .Python
 build/
