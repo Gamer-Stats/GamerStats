@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %} {% load wagtailimages_tags %} {% load humanize %}
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+<main class="bg-primary text-white">
+    <header class="relative">
+        {% image page.cover width-550 format-webp as webp_image %}
+        <img src="{{ webp_image.url }}" width="{{ webp_image.width }}" height="{{ webp_image.height }}"
+            alt="{{ webp_image.alt }}" class="h-60 object-center object-cover" />
+        <div class="h-60 w-full absolute inset-0 bg-gradient-to-t from-primary"></div>
+        <div class="absolute top-1/4 text-center w-full">
+            <h1 class="text-4xl font-bold mb-5">{{ page.title }}</h1>
+            <figure class="bg-slate-100 bg-opacity-30 w-64 rounded-lg mx-auto">
+                {% image page.avatar width-400 format-webp-lossless webpquality-50 %}
+                <figcaption class="sr-only">{player.avatar.data.attributes.caption}</figcaption>
+            </figure>
+        </div>
+    </header>
+    <section class="text-center pt-40 px-2">
+        <h2 class="text-xl font-semibold mb-1">{{ page.full_name }}</h2>
+        <p class="text-sm">{{ page.intro|safe }}</p>
+        <table class="table-auto text-left text-sm w-full">
+            <tbody class="my-4 p-2 gap-1 grid bg-secondary border border-primary rounded-lg grid-cols-12">
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Native Name</th>
+                    <td class="flex gap-1 items-center font-bold">{{ page.native_name }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Birth Date</th>
+                    <td class="font-bold">{{ page.birth_date }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Birth Place</th>
+                    <td class="font-bold">{{ page.hometown }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Country</th>
+                    <td class="flex gap-1 items-center font-bold">
+                        <span>{{ page.player_country.title }}</span>
+                        {% image page.player_country.flag width-22 format-webp-lossless %}
+                    </td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Game</th>
+                    <td class="font-bold">{{ page.game.title }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Team</th>
+                    <td class="flex gap-1 items-center font-bold">
+                        <span>{{ page.team.title }}</span>
+                        {% image page.team.avatar width-22 format-webp-lossless %}
+                    </td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Role</th>
+                    <td class="font-bold">{{ page.player_role }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Rank</th>
+                    <td class="font-bold">{{ page.player_rank }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Earnings</th>
+                    <td class="font-bold">${{ page.earnings|intcomma }}</td>
+                </tr>
+                <tr class="flex flex-col col-span-12">
+                    <th class="font-light">Social</th>
+                    <td>
+                        {% for social in page.player_social.all %}
+                        <a href="{{ social.url }}" target="_blank">
+                            {% image social.icon width-24 format-webp-lossless %}
+                        </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="px-2">
+        <h2 class="text-xl font-semibold">{{ page.title }} PC Specs</h2>
+        {% for spec in page.player_specs.all %}
+        <div
+            class="relative overflow-hidden bg-secondary border border-primary rounded-lg grid grid-cols-7 grid-flow-col my-4 items-center gap-4">
+            <figure class="bg-gradient-to-b from-gray-700 to-transparent col-span-3">
+                {% image spec.product_image width-200 format-webp as webp_image %}
+                {% image spec.product_image width-200 format-png as png_image %}
+                <picture>
+                    <source srcset="{{ webp_image.url }}" type="image/webp" />
+                    <source srcset="{{ png_image.url }}" type="image/png" />
+                    <img src="{{ png_image.url }}" alt="{{ spec.product_name }}" width="140" height="140" />
+                </picture>
+                <figcaption class="sr-only">{{ page.title }} uses a {{ spec.product_name }}
+                    {{ spec.get_product_type_display }}
+                </figcaption>
+            </figure>
+            <div class="py-2 col-span-4">
+                <h3 class="text-xs text-lime-500 uppercase tracking-wide">{{ spec.get_product_type_display }}</h3>
+                <p>{{ spec.product_name }}</p>
+                <a class="external-link text-xs underline link-over" href="{{ spec.amazon_url }}" target="_blank"
+                    rel="nofollow">Check Price</a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    <section class="px-2">
+        <h2 class="text-xl font-semibold">{{ page.title }} {{ page.game.title }} Settings</h2>
+        {% for block in page.player_settings.all %}
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2">
+            <h3 class="text-lg font-medium mb-1 border-b border-gray-800 pb-1">{{ block.title }} Settings</h3>
+            {% for i in block.profile_settings %}
+            <table class="text-left text-sm w-full">
+                {% if i.value.sub_heading %}
+                <thead>
+                    <tr>
+                        <th colspan="2" class="text-gray-300 font-normal border-b border-gray-800 inline-block">
+                            {{ i.value.sub_heading }} Settings
+                        </th>
+                    </tr>
+                </thead>
+                {% endif %}
+                <tbody class="gap-2 grid grid-cols-12 my-2">
+                    {% for z in i.value.section_details %}
+                    <tr class="flex flex-col {% if i.value.sub_heading %}col-span-6{% else %}col-span-4{% endif %}">
+                        <th class="font-light text-gray-300">{{ z.key_name }}</th>
+                        <td class="font-medium">{{ z.value_name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </section>
+    <section class="px-2 pb-6">
+        <h2 class="text-xl font-semibold">{{ page.title }} Wiki</h2>
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2">
+            {{ page.body|safe }}
+        </div>
+    </section>
+</main>
+
+{% comment %}
+<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+{% endcomment %}
+{% endblock %}

@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+wiki.json
+players.json
+*.sqlite3
+db1.json
 
 # C extensions
 *.so

@@ -1,0 +1,248 @@
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.images.models import Image
+from wagtail.models import Orderable, Page
+from wagtail.search import index
+
+
+class ProfileIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro", classname="full"),
+    ]
+
+
+class Country(Page):
+    iso = models.CharField(max_length=2)
+    flag = models.ForeignKey(Image,
+                             on_delete=models.SET_NULL,
+                             related_name='flag_image',
+                             blank=True,
+                             null=True)
+    search_fields = Page.search_fields + [
+        index.SearchField("title"),
+    ]
+    content_panels = Page.content_panels + [
+        FieldPanel("iso"),
+        FieldPanel("flag"),
+    ]
+
+
+class SettingsBlock(blocks.StructBlock):
+    key_name = blocks.CharBlock(required=False)
+    value_name = blocks.CharBlock(required=False)
+
+
+class SettingsMain(Orderable):
+    profile = ParentalKey('ProfilePage',
+                          on_delete=models.SET_NULL,
+                          related_name='player_settings',
+                          null=True)
+    title = models.CharField(max_length=150, blank=True)
+    profile_settings = StreamField(
+        [('section_settings',
+          blocks.StructBlock([
+              ('sub_heading', blocks.CharBlock(required=False)),
+              ('section_details', blocks.ListBlock(SettingsBlock())),
+          ]))],
+        use_json_field=True,
+        blank=True)
+
+
+class Specs(Orderable):
+    PRODUCT_ITEMS = (
+        ('CPU', 'CPU'),
+        ('GPU', 'GPU'),
+        ('RAM', 'RAM'),
+        ('SSD', 'SSD'),
+        ('CASE', 'Case'),
+        ('MB', 'Motherboard'),
+        ('PS', 'Power Supply'),
+        ('HDD', 'Hard Drive'),
+        ('KBD', 'Keyboard'),
+        ('MOU', 'Mouse'),
+        ('MON', 'Monitor'),
+        ('CAM', 'Camera'),
+        ('WEB', 'WEBCAM'),
+        ('SPE', 'Speaker'),
+        ('ARM', 'ARM'),
+        ('MIC', 'Microphone'),
+        ('MP', 'Mousepad'),
+        ('HS', 'Headset'),
+        ('CHAIR', 'Chair'),
+        ('LC', 'Liquid Cooling'),
+    )
+    profile = ParentalKey('ProfilePage',
+                          on_delete=models.SET_NULL,
+                          related_name='player_specs',
+                          null=True)
+    product_type = models.CharField(max_length=150,
+                                    blank=True,
+                                    choices=PRODUCT_ITEMS)
+    product_name = models.CharField(max_length=150, blank=True, null=True)
+    product_image = models.ForeignKey(Image,
+                                      on_delete=models.SET_NULL,
+                                      related_name='spec_image',
+                                      blank=True,
+                                      null=True)
+    amazon_url = models.URLField(blank=True, null=True)
+
+
+class SocialMedia(Orderable):
+    profile = ParentalKey('ProfilePage',
+                          on_delete=models.SET_NULL,
+                          related_name='player_social',
+                          blank=True,
+                          null=True)
+    team = ParentalKey('TeamPage',
+                       on_delete=models.SET_NULL,
+                       related_name='team_social',
+                       blank=True,
+                       null=True)
+    title = models.CharField(max_length=150, blank=True)
+    icon = models.ForeignKey(Image,
+                             on_delete=models.SET_NULL,
+                             related_name='social_icon',
+                             blank=True,
+                             null=True)
+    url = models.URLField(blank=True, null=True)
+
+
+class ProfilePage(Page):
+    created_at = models.DateTimeField("Post date")
+    updated_at = models.DateTimeField("Last updated", null=True)
+    full_name = models.CharField(max_length=150, blank=True)
+    native_name = models.CharField(max_length=150, blank=True)
+    intro = RichTextField(null=True, blank=True)
+    hometown = models.CharField(max_length=150, blank=True)
+    birth_date = models.DateField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    player_country = models.ForeignKey(Country,
+                                       on_delete=models.SET_NULL,
+                                       related_name='profile_country',
+                                       blank=True,
+                                       null=True)
+    avatar = models.ForeignKey(Image,
+                               on_delete=models.SET_NULL,
+                               related_name='profile_avatar',
+                               blank=True,
+                               null=True)
+    cover = models.ForeignKey(Image,
+                              on_delete=models.SET_NULL,
+                              related_name='profile_cover',
+                              blank=True,
+                              null=True)
+
+    player_rank = models.PositiveIntegerField(blank=True, null=True)
+    body = RichTextField(blank=True)
+    earnings = models.PositiveIntegerField(blank=True, null=True)
+    is_pro = models.BooleanField(default=False)
+    player_role = models.CharField(max_length=150, blank=True, null=True)
+    game = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    team = models.ForeignKey('TeamPage',
+                             on_delete=models.SET_NULL,
+                             related_name='player_team',
+                             blank=True,
+                             null=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField("intro"),
+        index.SearchField("body"),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("created_at"),
+        FieldPanel("updated_at"),
+        FieldPanel("full_name"),
+        FieldPanel("native_name"),
+        FieldPanel("avatar"),
+        FieldPanel("cover"),
+        FieldPanel("hometown"),
+        FieldPanel("player_rank"),
+        FieldPanel("team"),
+        FieldPanel("game"),
+        FieldPanel("is_pro"),
+        FieldPanel("player_role"),
+        FieldPanel("birth_date"),
+        FieldPanel("intro"),
+        FieldPanel("start_date"),
+        FieldPanel("end_date"),
+        FieldPanel("player_country"),
+        FieldPanel("earnings"),
+        FieldPanel("body", classname="full"),
+        InlinePanel('player_specs', label="Player Specs"),
+        InlinePanel('player_settings', label="Player Settings"),
+        InlinePanel('player_social', label="Player Social"),
+    ]
+
+
+class TeamIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro", classname="full"),
+    ]
+
+
+class TeamPage(Page):
+    created_at = models.DateTimeField("Post date")
+    updated_at = models.DateTimeField("Last updated", null=True)
+    abbr = models.CharField(max_length=50, blank=True)
+    avatar = models.ForeignKey(Image,
+                               on_delete=models.SET_NULL,
+                               related_name='team_avatar',
+                               blank=True,
+                               null=True)
+    in_game_leader = models.ForeignKey(ProfilePage,
+                                       on_delete=models.SET_NULL,
+                                       related_name='team_leader',
+                                       blank=True,
+                                       null=True)
+    earnings = models.PositiveIntegerField(blank=True, null=True)
+    team_info = StreamField(
+        [('section_settings',
+          blocks.StructBlock([
+              ('key_name', blocks.CharBlock(required=False)),
+              ('key_value', blocks.CharBlock(required=False)),
+              ('key_url', blocks.CharBlock(required=False)),
+          ]))],
+        use_json_field=True)
+    intro = RichTextField(blank=True, null=True)
+    hometown = models.CharField(max_length=150, blank=True)
+    body = RichTextField(blank=True)
+    team_country = models.ForeignKey(Country,
+                                     on_delete=models.SET_NULL,
+                                     related_name='teamcountry',
+                                     blank=True,
+                                     null=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField("intro"),
+        index.SearchField("body"),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("created_at"),
+        FieldPanel("updated_at"),
+        FieldPanel("abbr"),
+        FieldPanel("avatar"),
+        FieldPanel("in_game_leader"),
+        FieldPanel("earnings"),
+        FieldPanel("team_info"),
+        FieldPanel("intro"),
+        FieldPanel("hometown"),
+        FieldPanel("body"),
+        FieldPanel("team_country"),
+        InlinePanel('team_social', label="Team Social"),
+    ]
