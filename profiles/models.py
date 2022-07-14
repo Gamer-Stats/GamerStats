@@ -144,11 +144,11 @@ class ProfilePage(Page):
     is_pro = models.BooleanField(default=False)
     player_role = models.CharField(max_length=150, blank=True, null=True)
     game = models.ForeignKey(
-        'wagtailcore.Page',
+        'GamePage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name='player_game',
     )
     team = models.ForeignKey('TeamPage',
                              on_delete=models.SET_NULL,
@@ -187,17 +187,9 @@ class ProfilePage(Page):
     ]
 
 
-class TeamIndexPage(Page):
-    intro = RichTextField(blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel("intro", classname="full"),
-    ]
-
-
 class TeamPage(Page):
-    created_at = models.DateTimeField("Post date")
-    updated_at = models.DateTimeField("Last updated", null=True)
+    created_at = models.DateTimeField("Post date", null=True, blank=True)
+    updated_at = models.DateTimeField("Last updated", null=True, blank=True)
     abbr = models.CharField(max_length=50, blank=True)
     avatar = models.ForeignKey(Image,
                                on_delete=models.SET_NULL,
@@ -217,7 +209,7 @@ class TeamPage(Page):
               ('key_value', blocks.CharBlock(required=False)),
               ('key_url', blocks.CharBlock(required=False)),
           ]))],
-        use_json_field=True)
+        use_json_field=True, null=True, blank=True)
     intro = RichTextField(blank=True, null=True)
     hometown = models.CharField(max_length=150, blank=True)
     body = RichTextField(blank=True)
@@ -245,4 +237,38 @@ class TeamPage(Page):
         FieldPanel("body"),
         FieldPanel("team_country"),
         InlinePanel('team_social', label="Team Social"),
+    ]
+
+
+class GamePage(Page):
+    created_at = models.DateTimeField("Post date", null=True)
+    updated_at = models.DateTimeField("Last updated", null=True)
+    full_name = models.CharField(max_length=100, blank=True)
+    avatar = models.ForeignKey(Image,
+                               on_delete=models.SET_NULL,
+                               related_name='game_avatar',
+                               blank=True,
+                               null=True)
+    cover = models.ForeignKey(Image,
+                              on_delete=models.SET_NULL,
+                              related_name='game_cover',
+                              blank=True,
+                              null=True)
+    intro = RichTextField(blank=True, null=True)
+    body = RichTextField(blank=True, null=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField("full_name"),
+        index.SearchField("intro"),
+        index.SearchField("body"),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel("created_at"),
+        FieldPanel("updated_at"),
+        FieldPanel("full_name"),
+        FieldPanel("avatar"),
+        FieldPanel("cover"),
+        FieldPanel("intro", classname="full"),
+        FieldPanel("body", classname="full"),
     ]

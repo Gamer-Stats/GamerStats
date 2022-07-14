@@ -6,7 +6,7 @@ wiki.json
 players.json
 *.sqlite3
 db1.json
-
+teams.json
 # C extensions
 *.so
 
