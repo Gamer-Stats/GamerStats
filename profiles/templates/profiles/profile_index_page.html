@@ -3,13 +3,31 @@
 {% block body_class %}template-blogindexpage{% endblock %}
 {% block content %}
 <main class="bg-primary text-gray-200">
-    <header class="py-28 text-center border-b border-gray-600">
+    <header class="py-20 text-center border-b border-gray-600">
         <h1 class="text-4xl md:text-5xl font-bold">{{ page.title }}</h1>
     </header>
-    <section class="my-8 max-w-7xl mx-auto">
+    <section
+        class="my-8 max-w-7xl mx-auto grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-start p-2 md:p-0">
         {% for profile in profilepages %}
-        {{ profile.intro }}
-        <h2><a href="{% pageurl profile %}">{{ profile.title }}</a></h2>
+        <div class="relative rounded-lg overflow-hidden bg-gradient-to-b from-gray-500 hover:bg-gradient-to-t w-full">
+            {% image profile.specific.avatar width-250 format-webp-lossless webpquality-50 as webp_image %}
+            {% image profile.specific.avatar width-500 format-webp-lossless webpquality-50 as webp_image_2x %}
+            {% image profile.specific.avatar width-250 as png_250 %}
+            {% if profile.specific.avatar %}
+            <picture>
+                <source media="(min-width: 587px)" srcset="{{ webp_image.url }}">
+                <source media="(max-width: 586px)" srcset="{{ webp_image.url }}, {{ webp_image_2x.url }} 2x">
+                <img src="{{ png_250.url }}" width="{{ png_250.width }}" height="{{ png_250.height }}"
+                    alt="{{ png_250.alt }}" />
+            </picture>
+            {% endif %}
+            <h2
+                class="text-base font-semibold {% if profile.specific.avatar %} absolute bottom-0 from-gray-900 bg-gray-900 bg-opacity-70 bg-gradient-to-b{% else %} flex items-center justify-center h-32 {% endif %} text-white px-2 rounded">
+                {{ profile.title }}</h2>
+            <a class="absolute inset-0" href="{% pageurl profile %}">
+                <span class="sr-only">View {{ profile.title }} PC Specs and Settings</span>
+            </a>
+        </div>
         {% endfor %}
     </section>
 </main>

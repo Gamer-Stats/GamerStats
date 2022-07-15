@@ -7,6 +7,8 @@ players.json
 *.sqlite3
 db1.json
 teams.json
+data.json
+media
 # C extensions
 *.so
 db.backup
