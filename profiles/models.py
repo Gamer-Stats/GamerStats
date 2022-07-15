@@ -229,6 +229,13 @@ class TeamPage(Page):
         blank=True,
         null=True,
     )
+    cover = models.ForeignKey(
+        Image,
+        on_delete=models.SET_NULL,
+        related_name="team_cover",
+        blank=True,
+        null=True,
+    )
     in_game_leader = models.ForeignKey(
         ProfilePage,
         on_delete=models.SET_NULL,
@@ -275,6 +282,7 @@ class TeamPage(Page):
         FieldPanel("updated_at"),
         FieldPanel("abbr"),
         FieldPanel("avatar"),
+        FieldPanel("cover"),
         FieldPanel("in_game_leader"),
         FieldPanel("earnings"),
         FieldPanel("team_info"),
@@ -322,3 +330,9 @@ class GamePage(Page):
         FieldPanel("intro", classname="full"),
         FieldPanel("body", classname="full"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        teampages = self.get_children().live().order_by("live_revision")
+        context["teampages"] = teampages
+        return context

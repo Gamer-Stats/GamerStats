@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% block body_class %}template-gamepage bg-primary{% endblock %}
+{% block content %}
+<main class="text-gray-200 max-w-7xl mx-auto">
+    <header class="bg-secondary border border-primary rounded-lg flex gap-4 mt-8 p-3 items-center">
+        {% image page.avatar width-250 format-webp-lossless webpquality-50 as webp_image %}
+        {% image page.avatar width-500 format-webp-lossless webpquality-50 as webp_image_2x %}
+        {% image page.avatar width-250 as png_250 %}
+        {% if page.avatar %}
+        <picture class="flex-none">
+            <source media="(min-width: 587px)" srcset="{{ webp_image.url }}">
+            <source media="(max-width: 586px)" srcset="{{ webp_image.url }}, {{ webp_image_2x.url }} 2x">
+            <img src="{{ png_250.url }}" width="{{ png_250.width }}" height="{{ png_250.height }}"
+                alt="{{ png_250.alt }}" class="rounded-lg" />
+        </picture>
+        {% endif %}
+        <div class="flex-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">{{ page.full_name }}</h1>
+            <div class="prose">{{ page.intro|richtext }}</div>
+        </div>
+    </header>
+    <section class="bg-secondary border border-primary rounded-lg mt-6 p-3 items-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} Esports' Teams</h2>
+        <div
+            class="my-4 max-w-7xl mx-auto grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-start p-2 md:p-0">
+            {% for team in teampages %}
+            <div
+                class="relative rounded-lg overflow-hidden bg-gradient-to-b from-gray-500 hover:bg-gradient-to-t w-full border border-gray-800">
+                {% image team.specific.avatar width-200 format-webp-lossless webpquality-50 as webp_image %}
+                {% image team.specific.avatar width-400 format-webp-lossless webpquality-50 as webp_image_2x %}
+                {% image team.specific.avatar width-200 as png_200 %}
+                {% if team.specific.avatar %}
+                <picture>
+                    <source media="(min-width: 587px)" srcset="{{ webp_image.url }}">
+                    <source media="(max-width: 586px)" srcset="{{ webp_image.url }}, {{ webp_image_2x.url }} 2x">
+                    <img src="{{ png_200.url }}" width="{{ png_200.width }}" height="{{ png_200.height }}"
+                        alt="{{ png_200.alt }}" class="mx-auto" />
+                </picture>
+                {% endif %}
+                <h2
+                    class="text-lg font-semibold flex items-center justify-center{% if not team.specific.avatar  %} h-full{% endif %} text-white p-2 rounded">
+                    {{ team.title }}</h2>
+                <a class="absolute inset-0" href="{% pageurl team %}">
+                    <span class="sr-only">View {{ team.title }} PC Specs and Settings</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="bg-secondary border border-primary rounded-lg mt-6 p-3 items-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} Wiki</h2>
+        <div class="text-base prose">
+            {{ page.body|safe }}
+        </div>
+    </section>
+</main>
+{% endblock %}

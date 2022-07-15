@@ -16,6 +16,12 @@ class NewsIndexPage(Page):
         FieldPanel('intro', classname="full")
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        newpages = self.get_children().live().order_by("last_published_at")
+        context["newpages"] = newpages
+        return context
+
 
 class NewsPageTag(TaggedItemBase):
     content_object = ParentalKey('NewsPage',
@@ -24,8 +30,6 @@ class NewsPageTag(TaggedItemBase):
 
 
 class NewsPage(Page):
-    created_at = models.DateField("Post date")
-    updated_at = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=NewsPageTag, blank=True)
@@ -42,11 +46,9 @@ class NewsPage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('created_at'),
-            FieldPanel('updated_at'),
             FieldPanel('tags'),
-        ],
-                        heading="Blog information"),
-        FieldPanel('intro'),
+            FieldPanel('featured_image'),
+            FieldPanel('intro'),
+        ], heading="Meta"),
         FieldPanel('body', classname="full"),
     ]
