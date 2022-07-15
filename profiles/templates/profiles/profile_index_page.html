@@ -1,18 +1,16 @@
 {% extends "base.html" %}
-
-{% load wagtailcore_tags %}
-
+{% load wagtailimages_tags wagtailcore_tags %}
 {% block body_class %}template-blogindexpage{% endblock %}
-
 {% block content %}
-<h1>{{ page.title }}</h1>
-
-<div class="intro">{{ page.intro|richtext }}</div>
-
-{% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-{{ post.specific.intro }}
-{{ post.specific.body|richtext }}
-{% endfor %}
-
+<main class="bg-primary text-gray-200">
+    <header class="py-28 text-center border-b border-gray-600">
+        <h1 class="text-4xl md:text-5xl font-bold">{{ page.title }}</h1>
+    </header>
+    <section class="my-8 max-w-7xl mx-auto">
+        {% for profile in profilepages %}
+        {{ profile.intro }}
+        <h2><a href="{% pageurl profile %}">{{ profile.title }}</a></h2>
+        {% endfor %}
+    </section>
+</main>
 {% endblock %}
