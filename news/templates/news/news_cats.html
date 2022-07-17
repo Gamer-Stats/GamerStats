@@ -8,7 +8,6 @@
     </header>
     <article class="my-8 max-w-7xl mx-auto grid gap-3 grid-cols-2 md:grid-cols-3 justify-items-start p-2 md:p-0">
         {% for news in newpages %}
-        {% if not news.specific.bol %}
         <article class="group">
             <div
                 class="bg-secondary rounded-lg overflow-hidden ring-2 ring-gray-800 group-hover:ring-indigo-600 transition-all delay-75">
@@ -36,8 +35,8 @@
                 </h2>
             </div>
         </article>
-        {% endif %}
         {% endfor %}
     </article>
 </main>
+{{ page.page_type }}
 {% endblock %}

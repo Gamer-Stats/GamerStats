@@ -1,7 +1,4 @@
 from django.db import models
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
-from taggit.models import TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images.models import Image
@@ -18,21 +15,33 @@ class NewsIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        newpages = self.get_children().live().order_by("last_published_at")
+        newpages = self.get_children().live().order_by("-last_published_at")
         context["newpages"] = newpages
         return context
 
 
-class NewsPageTag(TaggedItemBase):
-    content_object = ParentalKey('NewsPage',
-                                 related_name='tagged_items',
-                                 on_delete=models.CASCADE)
+class NewsCats(Page):
+    intro = RichTextField(blank=True)
+    bol = models.BooleanField(default=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('bol')
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        newpages = NewsPage.objects.live().order_by("-last_published_at").filter(
+            category__slug=self.slug
+            )
+        context["newpages"] = newpages
+        return context
 
 
 class NewsPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    tags = ClusterTaggableManager(through=NewsPageTag, blank=True)
+    bol = models.BooleanField(default=False)
+    category = models.ForeignKey(NewsCats, on_delete=models.SET_NULL, null=True, blank=True)
     featured_image = models.ForeignKey(Image,
                                        on_delete=models.SET_NULL,
                                        related_name='news_image',
@@ -46,9 +55,10 @@ class NewsPage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('tags'),
             FieldPanel('featured_image'),
             FieldPanel('intro'),
+            FieldPanel('category'),
+            FieldPanel('bol'),
         ], heading="Meta"),
         FieldPanel('body', classname="full"),
     ]

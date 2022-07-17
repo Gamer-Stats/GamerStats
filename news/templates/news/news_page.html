@@ -32,11 +32,10 @@
         </section>
 
         <section class="border-t border-gray-700 mt-6 mb-2">
+            <h3>Posted in:</h3>
             <div class="mt-5 flex gap-4 flex-wrap">
-                {% for tag in page.tags.all %}
                 <a class="inline-block ring-2 ring-indigo-600 rounded-lg px-2 hover:text-white focus:ring-4"
-                    href="{{ self.get_parent.url }}?tag={{ tag.slug }}">{{ tag }}</a>
-                {% endfor %}
+                    href="{% pageurl page.category %}">{{ page.category }}</a>
             </div>
         </section>
     </article>
