@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     "profiles",
     "home",
     "search",
+    "wagtail.contrib.table_block",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",

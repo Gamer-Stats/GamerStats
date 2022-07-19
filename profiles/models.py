@@ -1,11 +1,39 @@
+from django import forms
 from django.db import models
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import ObjectList, TabbedInterface
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.fields import RichTextField, StreamField
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import Image
 from wagtail.models import Orderable, Page
 from wagtail.search import index
+
+new_table_options = {
+    'autoColumnSize': True,
+    'mergeCells': True,
+    'contextMenu': [
+        'mergeCells',
+        'row_above',
+        'row_below',
+        '---------',
+        'col_left',
+        'col_right',
+        '---------',
+        'remove_row',
+        'remove_col',
+        '---------',
+        'undo',
+        'redo',
+        '---------',
+        'copy',
+        'cut'
+        '---------',
+        'alignment',
+    ],
+}
 
 
 class ProfileIndexPage(Page):
@@ -167,6 +195,11 @@ class ProfilePage(Page):
     )
 
     player_rank = models.PositiveIntegerField(blank=True, null=True)
+    text = StreamField([
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('table', TableBlock(table_options=new_table_options)),
+    ], use_json_field=True, null=True, blank=True)
     body = RichTextField(blank=True)
     earnings = models.PositiveIntegerField(blank=True, null=True)
     is_pro = models.BooleanField(default=False)
@@ -186,8 +219,9 @@ class ProfilePage(Page):
         null=True,
     )
 
+    related_profiles = ParentalManyToManyField('self', blank=True)
+
     search_fields = Page.search_fields + [
-        index.SearchField("title"),
         index.SearchField("intro"),
         index.SearchField("body"),
     ]
@@ -211,11 +245,30 @@ class ProfilePage(Page):
         FieldPanel("end_date"),
         FieldPanel("player_country"),
         FieldPanel("earnings"),
+        FieldPanel('text'),
         FieldPanel("body", classname="full"),
         InlinePanel("player_specs", label="Player Specs"),
         InlinePanel("player_settings", label="Player Settings"),
         InlinePanel("player_social", label="Player Social"),
     ]
+
+    related_panel = [
+        MultiFieldPanel(
+            [
+                FieldPanel('related_profiles', widget=forms.CheckboxSelectMultiple),
+            ],
+            heading="Related Profiles",
+        ),
+    ]
+
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading='Content'),
+            ObjectList(related_panel, heading='Related Profiles'),
+            ObjectList(Page.promote_panels, heading='SEO'),
+            ObjectList(Page.settings_panels, heading='Settings'),
+        ]
+    )
 
 
 class TeamPage(Page):
@@ -263,6 +316,11 @@ class TeamPage(Page):
     )
     intro = RichTextField(blank=True, null=True)
     hometown = models.CharField(max_length=150, blank=True)
+    text = StreamField([
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('table', TableBlock(table_options=new_table_options)),
+    ], use_json_field=True, null=True, blank=True)
     body = RichTextField(blank=True)
     team_country = models.ForeignKey(
         Country,
@@ -273,7 +331,6 @@ class TeamPage(Page):
     )
 
     search_fields = Page.search_fields + [
-        index.SearchField("title"),
         index.SearchField("intro"),
         index.SearchField("body"),
     ]
@@ -289,6 +346,7 @@ class TeamPage(Page):
         FieldPanel("team_info"),
         FieldPanel("intro"),
         FieldPanel("hometown"),
+        FieldPanel('text'),
         FieldPanel("body"),
         FieldPanel("team_country"),
         InlinePanel("team_social", label="Team Social"),
@@ -314,10 +372,14 @@ class GamePage(Page):
         null=True,
     )
     intro = RichTextField(blank=True, null=True)
+    text = StreamField([
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('table', TableBlock(table_options=new_table_options)),
+    ], use_json_field=True, null=True, blank=True)
     body = RichTextField(blank=True, null=True)
 
     search_fields = Page.search_fields + [
-        index.SearchField("title"),
         index.SearchField("full_name"),
         index.SearchField("intro"),
         index.SearchField("body"),
@@ -330,6 +392,7 @@ class GamePage(Page):
         FieldPanel("avatar"),
         FieldPanel("cover"),
         FieldPanel("intro", classname="full"),
+        FieldPanel('text'),
         FieldPanel("body", classname="full"),
     ]
 

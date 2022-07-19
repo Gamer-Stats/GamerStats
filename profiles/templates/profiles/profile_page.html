@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %} {% load wagtailimages_tags %} {% load humanize %}
-{% block body_class %}template-blogpage{% endblock %}
+{% block body_class %}template-playerprofile bg-primary text-gray-200{% endblock %}
 
 {% block content %}
-<main class="bg-primary text-white">
+<main class="">
     <header class="relative">
         {% image page.cover width-550 format-webp as webp_image %}
         {% image page.cover width-1280 format-webp as webp_image_1280 %}
@@ -26,7 +26,7 @@
     </header>
     <section class="text-center pt-12 px-2 max-w-5xl mx-auto">
         <h2 class="text-xl md:text-2xl font-semibold mb-1">{{ page.full_name }}</h2>
-        <div class="text-sm md:text-lg">{{ page.intro|safe }}</div>
+        <div class="text-sm md:text-base">{{ page.intro|safe }}</div>
         <table class="table-auto text-left text-sm md:text-base w-full md:mt-3">
             <tbody
                 class="my-4 p-2 md:p-4 gap-1 md:gap-3 grid bg-secondary border border-primary rounded-lg grid-cols-12">
@@ -74,9 +74,10 @@
                 </tr>
                 <tr class="flex flex-col col-span-12">
                     <th class="font-light">Social</th>
-                    <td>
+                    <td class="flex gap-4 items-center mt-2 ">
                         {% for social in page.player_social.all %}
-                        <a href="{{ social.url }}" target="_blank">
+                        <a href="{{ social.url }}" target="_blank" title="{{ social.title }}"
+                            class="grayscale hover:grayscale-0">
                             {% image social.icon width-24 format-webp-lossless %}
                         </a>
                         {% endfor %}
@@ -87,29 +88,33 @@
     </section>
     <section class="px-2 max-w-5xl mx-auto">
         <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} PC Specs</h2>
-        {% for spec in page.player_specs.all %}
-        <div
-            class="relative overflow-hidden bg-secondary border border-primary rounded-lg grid grid-cols-7 grid-flow-col my-4 items-center gap-4">
-            <figure class="bg-gradient-to-b from-gray-700 to-transparent col-span-3">
-                {% image spec.product_image width-200 format-webp as webp_image %}
-                {% image spec.product_image width-200 format-png as png_image %}
-                <picture>
-                    <source srcset="{{ webp_image.url }}" type="image/webp" />
-                    <source srcset="{{ png_image.url }}" type="image/png" />
-                    <img src="{{ png_image.url }}" alt="{{ spec.product_name }}" width="140" height="140" />
-                </picture>
-                <figcaption class="sr-only">{{ page.title }} uses a {{ spec.product_name }}
-                    {{ spec.get_product_type_display }}
-                </figcaption>
-            </figure>
-            <div class="py-2 col-span-4">
-                <h3 class="text-xs text-lime-500 uppercase tracking-wide">{{ spec.get_product_type_display }}</h3>
-                <p>{{ spec.product_name }}</p>
-                <a class="external-link text-xs underline link-over" href="{{ spec.amazon_url }}" target="_blank"
-                    rel="nofollow">Check Price</a>
+        <div class="md:grid md:grid-cols-2  lg:grid-cols-3 md:gap-5 my-5">
+            {% for spec in page.player_specs.all %}
+            <div
+                class="group relative overflow-hidden bg-secondary border border-primary rounded-lg grid grid-cols-7 grid-flow-col my-4 md:my-0 items-center gap-4">
+                <figure
+                    class="bg-gradient-to-b from-gray-700 to-transparent group-hover:bg-gradient-to-t col-span-3 h-full flex items-center justify-center">
+                    {% image spec.product_image width-200 format-webp as webp_image %}
+                    {% image spec.product_image width-200 format-png as png_image %}
+                    <picture>
+                        <source srcset="{{ webp_image.url }}" type="image/webp" />
+                        <source srcset="{{ png_image.url }}" type="image/png" />
+                        <img src="{{ png_image.url }}" alt="{{ spec.product_name }}" width="140" height="140" />
+                    </picture>
+                    <figcaption class="sr-only">{{ page.title }} uses a {{ spec.product_name }}
+                        {{ spec.get_product_type_display }}
+                    </figcaption>
+                </figure>
+                <div class="py-2 col-span-4">
+                    <h3 class="text-xs text-lime-500 uppercase tracking-wide">{{ spec.get_product_type_display }}</h3>
+                    <p class="text-sm">{{ spec.product_name }}</p>
+                    <a class="external-link text-xs underline link-over group-hover:text-lime-500 z-10"
+                        title="View {{ spec.product_name }} on Amazon" href="{{ spec.amazon_url }}" target="_blank"
+                        rel="nofollow">Check Price</a>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </section>
     <section class="px-2 max-w-5xl mx-auto">
         <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} {{ page.game.title }} Settings</h2>
@@ -141,9 +146,37 @@
         {% endfor %}
     </section>
     <section class="px-2 pb-6 max-w-5xl mx-auto">
-        <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} Wiki</h2>
-        <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4 prose">
-            {{ page.body|safe }}
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2"> {{ page.title }} Teammates</h2>
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4">
+            <div
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center gap-4 justify-items-start text-center">
+                {% for profile in page.related_profiles.all %}
+                <div
+                    class="relative group hover:border-gray-500 bg-gradient-to-b from-gray-700 to-transparent p-2 border border-gray-800 rounded-lg">
+                    {% image profile.avatar width-150 format-webp-lossless %}
+                    <h3 class="text-lg font-medium mt-2"><a class="link-over group-hover:text-lime-500"
+                            title="View {{ profile.title }}'s Profile" href="{{ profile.url }}">{{ profile.title }}</a>
+                    </h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="px-2 pb-6 max-w-5xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2">About {{ page.title }}</h2>
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4">
+            {% for block in page.text %}
+            {% if block.block_type == 'table' %}
+            <div class="table-wrap mt-5 border rounded-lg overflow-hidden border-gray-800 prose text-sm">
+                {% include_block block %}
+            </div>
+            {% elif block.block_type == 'paragraph' %}
+            <h3 class="text-xl mb-3 font-semibold">{{ page.title }} Biography</h3>
+            <div class="prose">
+                {% include_block block %}
+            </div>
+            {% endif %}
+            {% endfor %}
         </div>
     </section>
 </main>
