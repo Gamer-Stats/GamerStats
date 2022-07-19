@@ -187,7 +187,7 @@ class ProfilePage(Page):
     )
 
     search_fields = Page.search_fields + [
-        index.SearchField("avatar"),
+        index.SearchField("title"),
         index.SearchField("intro"),
         index.SearchField("body"),
     ]
@@ -273,6 +273,7 @@ class TeamPage(Page):
     )
 
     search_fields = Page.search_fields + [
+        index.SearchField("title"),
         index.SearchField("intro"),
         index.SearchField("body"),
     ]
@@ -316,6 +317,7 @@ class GamePage(Page):
     body = RichTextField(blank=True, null=True)
 
     search_fields = Page.search_fields + [
+        index.SearchField("title"),
         index.SearchField("full_name"),
         index.SearchField("intro"),
         index.SearchField("body"),
