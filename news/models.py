@@ -58,7 +58,8 @@ class NewsPage(Page):
         ('image', ImageChooserBlock()),
         ('table', TableBlock(table_options=new_table_options)),
     ], use_json_field=True, null=True, blank=True)
-    tags = ParentalManyToManyField(
+    publication_date = models.DateField("Publication date", auto_now_add=True, blank=True, null=True)
+    keywords = ParentalManyToManyField(
         'wagtailcore.Page',
         blank=True,
         related_name='news_tags',
@@ -86,7 +87,7 @@ class NewsPage(Page):
     tags_panel = [
         MultiFieldPanel(
             [
-                FieldPanel('tags', widget=forms.CheckboxSelectMultiple),
+                FieldPanel('keywords', widget=forms.CheckboxSelectMultiple),
             ],
             heading="Add Tags",
         ),

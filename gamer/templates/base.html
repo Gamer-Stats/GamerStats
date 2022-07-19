@@ -16,12 +16,12 @@
         {% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="description"
+        content="{% if page.meta_description %}{{ page.meta_description }}{% else %}{{ page.intro }}{% endif %}" />
     {# Global stylesheets #}
     <link rel="stylesheet" type="text/css" href="{% static 'css/gamer.css' %}">
     <link rel="stylesheet" href="https://use.typekit.net/ksm2xbb.css">
     {% block extra_css %}
-    {# Override this in templates to add extra stylesheets #}
     {% endblock %}
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -32,9 +32,7 @@
 
     {# Global javascript #}
     <script type="text/javascript" src="{% static 'js/gamer.js' %}"></script>
-    {% block extra_js %}
-    {# Override this in templates to add extra javascript #}
-    {% endblock %}
+    {% block extra_js %}{% endblock %}
 </body>
 
 </html>

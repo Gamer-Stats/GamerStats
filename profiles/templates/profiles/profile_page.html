@@ -184,3 +184,44 @@
 <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 {% endcomment %}
 {% endblock %}
+
+{% block extra_js %}
+{% image page.avatar width-500 as player_avatar %}
+<script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "ProfilePage",
+        "mainEntity" : {
+            "@type" : "Person",
+            "name" : "{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}",
+            {% if page.is_pro %}
+            "jobTitle" : "Professional {{ page.game.title }} Player",
+            {% else %}
+            "jobTitle" : "{{ page.game.title }} Streamer",
+            {% endif %}
+            "image" : "httsp://gamerstats.net{{ player_avatar.url }}",
+            "url" : "httsp://gamerstats.net{{ page.url }}",
+            "worksFor": {
+                "@type": "Organization",
+                {% if page.team %}
+                "name": "{{ page.team.title }}",
+                "url": "httsp://gamerstats.net{{ page.team.url }}"
+                {% else %}
+                "name": "Self-Employed",
+                "url": "httsp://gamerstats.net{{ page.url }}"
+                {% endif %}
+            },
+            "gender": "male",
+            "award": [
+                "______",
+                "______"
+            ],
+            "sameAs": [
+                {% for social in page.player_social.all %}
+                "{{ social.url }}" {% if forloop.counter != page.player_social.all|length %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    }
+    </script>
+{% endblock %}

@@ -1,14 +1,24 @@
 from django.conf import settings
-from django.urls import include, path
 from django.contrib import admin
-
-from wagtail.admin import urls as wagtailadmin_urls
+from django.contrib.sitemaps.views import sitemap
+from django.urls import include, path
+from search import views as search_views
 from wagtail import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from search import views as search_views
+from gamer.sitemaps import NewsSitemap
+
+news_sitemaps = {
+    'newssitemap': NewsSitemap,
+}
 
 urlpatterns = [
+    path(
+        'sitemap.xml',
+        sitemap, {'sitemaps': news_sitemaps, 'template_name': 'news_sitemap.xml'},
+        name='django.contrib.sitemaps.views.sitemap'
+        ),
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

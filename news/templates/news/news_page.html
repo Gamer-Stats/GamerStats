@@ -11,7 +11,8 @@
                 <span class="sr-only">Last updated</span>
                 <time datetime="{{ page.last_published_at|date:'c' }}"
                     pubdate>{{ page.last_published_at|date:'Y/m/d' }}</time>
-                <address class="author"> by <span rel="author">{{ page.owner }}</span></address>
+                <address class="author"> by <span rel="author">{{ page.owner.first_name }}
+                        {{ page.owner.last_name }}</span></address>
             </div>
             <p class="mb-4 font-medium text-lg italic">{{ page.intro }}</p>
             {% image page.featured_image width-512 format-webp as webp_image %}
@@ -63,4 +64,28 @@
         </section>
     </aside>
 </main>
+{% endblock %}
+{% block extra_js %}
+{% image page.featured_image fill-960x960 as wide_1_1 %}
+{% image page.featured_image fill-960x720 as wide_4_3 %}
+{% image page.featured_image width-1280 as wide_1280 %}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}",
+      "image": [
+        "https://gamerstats.net{{ wide_1_1.url }}",
+        "https://gamerstats.net{{ wide_4_3.url }}",
+        "https://gamerstats.net{{ wide_1280.url }}"
+       ],
+      "datePublished": "{{ page.first_published_at|date:'c' }}",
+      "dateModified": "{{ page.last_published_at|date:'c' }}",
+      "author": [{
+          "@type": "Person",
+          "name": "{{ page.owner.first_name }} {{ page.owner.last_name }}",
+          "url": "https://twitter.com/thegamerstats"
+        }]
+    }
+    </script>
 {% endblock %}
