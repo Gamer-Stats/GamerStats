@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags wagtailcore_tags %}
-{% block body_class %}template-gamepage bg-primary{% endblock %}
+{% block body_class %}template-gamepage bg-primary text-gray-200{% endblock %}
 {% block content %}
-<main class="text-gray-200 max-w-7xl mx-auto">
-    <header class="bg-secondary border border-primary rounded-lg flex gap-4 mt-8 p-3 items-center">
+<main class="max-w-7xl mx-auto">
+    <!-- || Header -->
+    <header class="bg-secondary border border-primary rounded-lg flex flex-col sm:flex-row gap-4 mt-8 p-3 items-center">
         {% image page.avatar width-250 format-webp-lossless webpquality-50 as webp_image %}
         {% image page.avatar width-500 format-webp-lossless webpquality-50 as webp_image_2x %}
         {% image page.avatar width-250 as png_250 %}
@@ -16,10 +17,63 @@
         </picture>
         {% endif %}
         <div class="flex-auto">
+            <nav class="flex mb-3" aria-label="Breadcrumb">
+                <ol role="list" class="flex items-center space-x-2 md:space-x-4 px-2 overflow-hidden">
+                    {% for p in self.get_ancestors %}
+                    {% if p.is_root == False %}
+                    {% if forloop.counter == 2 %}
+                    <li>
+                        <div>
+                            <a href="/" class="text-gray-400 hover:text-gray-500">
+                                <!-- Heroicon name: solid/home -->
+                                <svg class="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path
+                                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                </svg>
+                                <span class="sr-only">Home</span>
+                            </a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li>
+                        <div class="flex items-center">
+                            <!-- Heroicon name: solid/chevron-right -->
+                            <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <a href="{{ p.url }}"
+                                class="truncate ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-700">{{ p.title }}</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    <li>
+                        <div class="flex items-center">
+                            <!-- Heroicon name: solid/chevron-right -->
+                            <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <a href="{{ self.url }}"
+                                class="truncate ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-700"
+                                aria-current="page">{{ self.title }}</a>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
             <h1 class="text-3xl md:text-4xl font-bold mb-2">{{ page.full_name }}</h1>
             <div class="prose">{{ page.intro|richtext }}</div>
         </div>
     </header>
+    <!-- || Teams -->
+    {% if teampages %}
     <section class="bg-secondary border border-primary rounded-lg mt-6 p-3 items-center">
         <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} Esports' Teams</h2>
         <div
@@ -48,11 +102,45 @@
             {% endfor %}
         </div>
     </section>
+    {% endif %}
+    {% if players %}
+    <section class="bg-secondary border border-primary rounded-lg mt-6 p-3">
+        <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} Players</h2>
+        <div class="flex gap-4 flex-wrap mt-6">
+            {% for player in players %}
+            <div class="flex gap-2 border border-primary rounded-lg items-center">
+                {% if player.avatar %}
+                {% image player.avatar fill-150x150 format-webp as avatar %}
+                <img src="{{ avatar.url }}" alt="Image of {{ page.title }} player {{ player.title }}"
+                    width="{{ avatar.width }}" height="{{ avatar.height }}" title="{{ player.full_name }}">
+                {% endif %}
+                <div class="flex flex-col p-2 relative">
+                    {% if player.player_rank %}
+                    <p class="text-xs uppercase text-gray-400 tracking-wide">{{ page.title }} World Rank:</p>
+                    <p class="text-7xl absolute -top-2 -left-10 text-gray-400">{{ player.player_rank }}</p>
+                    {% endif %}
+                    <h3 class="text-lg font-semibold">{{ player.title }}</h3>
+                    <div class="text-sm flex flex-col mt-2">
+                        <a title="{{ player.title }} PC Specs and Gaming Gear" href="" class="underline mb-1">PC
+                            Specs</a>
+                        <a title="{{ player.title }} {{ page.title }} Settings" href="" class="underline mb-1">Game
+                            Settings</a>
+                        <a title="{{ player.title }} Wiki and Biography" href="" class="underline">Biography</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    <!-- || Content -->
+    {% if page.body %}
     <section class="bg-secondary border border-primary rounded-lg mt-6 p-3 items-center">
         <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} Wiki</h2>
         <div class="text-base prose">
             {{ page.body|safe }}
         </div>
     </section>
+    {% endif %}
 </main>
 {% endblock %}

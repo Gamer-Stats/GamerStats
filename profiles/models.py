@@ -398,6 +398,10 @@ class GamePage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        teampages = self.get_children().live().order_by("live_revision")
+        teampages = self.get_children().live().order_by("last_published_at")
+        players = ProfilePage.objects.filter(
+            game=self.id
+            ).live().order_by("player_rank")
         context["teampages"] = teampages
+        context["players"] = players
         return context

@@ -58,7 +58,12 @@ class NewsPage(Page):
         ('image', ImageChooserBlock()),
         ('table', TableBlock(table_options=new_table_options)),
     ], use_json_field=True, null=True, blank=True)
-    publication_date = models.DateField("Publication date", auto_now_add=True, blank=True, null=True)
+    publication_date = models.DateField(
+        "Publication date",
+        auto_now_add=True,
+        blank=True,
+        null=True
+    )
     keywords = ParentalManyToManyField(
         'wagtailcore.Page',
         blank=True,
@@ -104,6 +109,8 @@ class NewsPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        related_posts = NewsPage.objects.live().exclude(id=self.id).filter(tags__in=self.tags.all()).distinct()
+        related_posts = NewsPage.objects.live().exclude(id=self.id).filter(
+            keywords__in=self.keywords.all()
+            ).distinct()
         context["related_posts"] = related_posts
         return context
