@@ -1,7 +1,6 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from requests import head
 from wagtail import blocks
 from wagtail.admin.edit_handlers import ObjectList, TabbedInterface
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -51,6 +50,14 @@ class ProfileIndexPage(Page):
         return context
 
 
+class CountryIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro", classname="full"),
+    ]
+
+
 class Country(Page):
     iso = models.CharField(max_length=2)
     flag = models.ForeignKey(
@@ -67,6 +74,19 @@ class Country(Page):
         FieldPanel("iso"),
         FieldPanel("flag"),
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context["players"] = ProfilePage.objects.filter(
+            player_country=self.id
+            ).live().order_by("-last_published_at")
+
+        context["teampages"] = TeamPage.objects.filter(
+            team_country=self.id
+            ).live().order_by("-last_published_at")
+
+        return context
 
 
 class Specs(Orderable):
