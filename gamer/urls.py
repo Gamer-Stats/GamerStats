@@ -7,18 +7,64 @@ from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from gamer.sitemaps import NewsSitemap
+from gamer.sitemaps import (GameSitemap, HomeSitemap, NewsSitemap,
+                            ProfileIndexSitemap, ProfileSitemap, TeamSitemap)
 
 news_sitemaps = {
     'newssitemap': NewsSitemap,
 }
 
+players_sitemaps = {
+    'playerssitemap': ProfileSitemap,
+}
+
+teams_sitemaps = {
+    'teamssitemap': TeamSitemap,
+}
+
+games_sitemaps = {
+    'gamessitemap': GameSitemap,
+}
+
+page_sitemaps = {
+    'static': HomeSitemap,
+}
+
+profile_index_sitemaps = {
+    'profile_index': ProfileIndexSitemap,
+}
+
 urlpatterns = [
     path(
-        'sitemap.xml',
+        'sitemap-setup.xml',
+        sitemap, {'sitemaps': profile_index_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+        ),
+    path(
+        'sitemap-pages.xml',
+        sitemap, {'sitemaps': page_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+        ),
+    path(
+        'sitemap-news.xml',
         sitemap, {'sitemaps': news_sitemaps, 'template_name': 'news_sitemap.xml'},
         name='django.contrib.sitemaps.views.sitemap'
         ),
+    path(
+        'sitemap-players.xml',
+        sitemap, {'sitemaps': players_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
+    path(
+        'sitemap-teams.xml',
+        sitemap, {'sitemaps': teams_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
+    path(
+        'sitemap-games.xml',
+        sitemap, {'sitemaps': games_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

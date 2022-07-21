@@ -68,36 +68,6 @@ class Country(Page):
     ]
 
 
-class SettingsBlock(blocks.StructBlock):
-    key_name = blocks.CharBlock(required=False)
-    value_name = blocks.CharBlock(required=False)
-
-
-class SettingsMain(Orderable):
-    profile = ParentalKey(
-        "ProfilePage",
-        on_delete=models.SET_NULL,
-        related_name="player_settings",
-        null=True,
-    )
-    title = models.CharField(max_length=150, blank=True)
-    profile_settings = StreamField(
-        [
-            (
-                "section_settings",
-                blocks.StructBlock(
-                    [
-                        ("sub_heading", blocks.CharBlock(required=False)),
-                        ("section_details", blocks.ListBlock(SettingsBlock())),
-                    ]
-                ),
-            )
-        ],
-        use_json_field=True,
-        blank=True,
-    )
-
-
 class Specs(Orderable):
     PRODUCT_ITEMS = (
         ("CPU", "CPU"),
@@ -200,6 +170,9 @@ class ProfilePage(Page):
         ('image', ImageChooserBlock()),
         ('table', TableBlock(table_options=new_table_options)),
     ], use_json_field=True, null=True, blank=True)
+    settings = StreamField([
+        ('table', TableBlock(table_options=new_table_options)),
+    ], use_json_field=True, null=True, blank=True)
     body = RichTextField(blank=True)
     earnings = models.PositiveIntegerField(blank=True, null=True)
     is_pro = models.BooleanField(default=False)
@@ -246,9 +219,9 @@ class ProfilePage(Page):
         FieldPanel("player_country"),
         FieldPanel("earnings"),
         FieldPanel('text'),
+        FieldPanel('settings'),
         FieldPanel("body", classname="full"),
         InlinePanel("player_specs", label="Player Specs"),
-        InlinePanel("player_settings", label="Player Settings"),
         InlinePanel("player_social", label="Player Social"),
     ]
 

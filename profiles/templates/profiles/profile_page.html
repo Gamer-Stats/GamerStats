@@ -166,7 +166,8 @@
         <div class="md:grid md:grid-cols-2  lg:grid-cols-3 md:gap-5 my-5">
             {% for spec in page.player_specs.all %}
             <div
-                class="group relative overflow-hidden bg-secondary border border-primary rounded-lg grid grid-cols-7 grid-flow-col my-4 md:my-0 items-center gap-4">
+                class="group relative overflow-hidden bg-secondary border border-primary rounded-lg grid {% if spec.product_image %}grid-cols-7{% endif %} my-4 md:my-0 items-center gap-4">
+                {% if spec.product_image %}
                 <figure
                     class="bg-gradient-to-b from-gray-700 to-transparent group-hover:bg-gradient-to-t col-span-3 h-full flex items-center justify-center">
                     {% image spec.product_image width-200 format-webp as webp_image %}
@@ -180,7 +181,8 @@
                         {{ spec.get_product_type_display }}
                     </figcaption>
                 </figure>
-                <div class="py-2 col-span-4">
+                {% endif %}
+                <div class="p-2 col-span-4">
                     <h3 class="text-xs text-lime-500 uppercase tracking-wide">{{ spec.get_product_type_display }}</h3>
                     <p class="text-sm">{{ spec.product_name }}</p>
                     <a class="external-link text-xs underline link-over group-hover:text-lime-500 z-10"
@@ -193,37 +195,14 @@
     </section>
     {% endif %}
     <!-- || settings -->
-    {% if page.player_settings.all %}
     <section class="px-2 max-w-5xl mx-auto">
         <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} {{ page.game.title }} Settings</h2>
-        {% for block in page.player_settings.all %}
+        {% for block in page.settings %}
         <div class="border border-primary rounded-lg bg-secondary my-4 p-2">
-            <h3 class="text-lg font-medium mb-1 border-b border-gray-800 pb-1">{{ block.title }} Settings</h3>
-            {% for i in block.profile_settings %}
-            <table class="text-left text-sm w-full">
-                {% if i.value.sub_heading %}
-                <thead>
-                    <tr>
-                        <th colspan="2" class="text-gray-300 font-normal border-b border-gray-800 inline-block">
-                            {{ i.value.sub_heading }} Settings
-                        </th>
-                    </tr>
-                </thead>
-                {% endif %}
-                <tbody class="gap-2 grid grid-cols-12 my-2">
-                    {% for z in i.value.section_details %}
-                    <tr class="flex flex-col {% if i.value.sub_heading %}col-span-6{% else %}col-span-4{% endif %}">
-                        <th class="font-light text-gray-300">{{ z.key_name }}</th>
-                        <td class="font-medium">{{ z.value_name }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% endfor %}
+            {% include_block block %}
         </div>
         {% endfor %}
     </section>
-    {% endif %}
     <!-- || related profiles -->
     {% if page.related_profiles.all %}
     <section class="px-2 pb-6 max-w-5xl mx-auto">
