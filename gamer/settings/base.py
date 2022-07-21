@@ -155,7 +155,7 @@ AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
 COMPRESS_STORAGE = "gamer.custom_storages.CachedS3BotoStorage"
 
 STATICFILES_LOCATION = "static"
-# STATICFILES_STORAGE = "gamer.custom_storages.StaticStorage"
+STATICFILES_STORAGE = "gamer.custom_storages.StaticStorage"
 
 STATIC_URL = config("AWS_DOMAIN") + "/"
 
