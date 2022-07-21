@@ -162,8 +162,8 @@
     <!-- || specs -->
     {% if page.player_specs.all %}
     <section class="px-2 max-w-5xl mx-auto">
-        <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} PC Specs</h2>
-        <div class="md:grid md:grid-cols-2  lg:grid-cols-3 md:gap-5 my-5">
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2" id="PC-Specs">{{ page.title }} PC Specs</h2>
+        <div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 my-5">
             {% for spec in page.player_specs.all %}
             <div
                 class="group relative overflow-hidden bg-secondary border border-primary rounded-lg grid {% if spec.product_image %}grid-cols-7{% endif %} my-4 md:my-0 items-center gap-4">
@@ -196,9 +196,10 @@
     {% endif %}
     <!-- || settings -->
     <section class="px-2 max-w-5xl mx-auto">
-        <h2 class="text-xl md:text-2xl font-semibold md:px-2">{{ page.title }} {{ page.game.title }} Settings</h2>
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2" id="{{ page.game.title }}-Settings">{{ page.title }}
+            {{ page.game.title }} Settings</h2>
         {% for block in page.settings %}
-        <div class="border border-primary rounded-lg bg-secondary my-4 p-2">
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2 prose table-wrap">
             {% include_block block %}
         </div>
         {% endfor %}
@@ -206,7 +207,8 @@
     <!-- || related profiles -->
     {% if page.related_profiles.all %}
     <section class="px-2 pb-6 max-w-5xl mx-auto">
-        <h2 class="text-xl md:text-2xl font-semibold md:px-2"> {{ page.title }} Teammates</h2>
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2"
+            id="{% if page.is_pro %}Teammates{% else %}Related{% endif %}"> {{ page.title }} Teammates</h2>
         <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4">
             <div
                 class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center gap-4 justify-items-start text-center">
@@ -226,7 +228,7 @@
     <!-- || bio -->
     {% if page.text %}
     <section class="px-2 pb-6 max-w-5xl mx-auto">
-        <h2 class="text-xl md:text-2xl font-semibold md:px-2">About {{ page.title }}</h2>
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2" id="About-{{ page.title }}">About {{ page.title }}</h2>
         <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4">
             {% for block in page.text %}
             {% if block.block_type == 'table' %}
@@ -285,4 +287,25 @@
         }
     }
     </script>
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Gamer Stats",
+        "item": "https://gamerstats.net"
+        },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ page.get_parent }}",
+        "item": "https://gamerstats.net{{ page.get_parent.url }}"
+        },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{ page.title }}"
+        }]
+    }
+</script>
 {% endblock %}

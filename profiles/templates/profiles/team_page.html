@@ -112,3 +112,27 @@
     </section>
 </main>
 {% endblock %}
+
+{% block extra_js %}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Gamer Stats",
+        "item": "https://gamerstats.net"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ page.get_parent }}",
+        "item": "https://gamerstats.net{{ page.get_parent.url }}"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{ page.title }}"
+      }]
+    }
+    </script>
+{% endblock %}

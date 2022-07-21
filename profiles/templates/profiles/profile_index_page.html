@@ -60,7 +60,8 @@
     <section
         class="my-8 max-w-7xl mx-auto grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-start p-2">
         {% for profile in profilepages %}
-        <div class="relative rounded-lg overflow-hidden bg-gradient-to-b from-gray-500 hover:bg-gradient-to-t w-full">
+        <div
+            class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl">
             {% image profile.specific.avatar width-250 format-webp-lossless webpquality-50 as webp_image %}
             {% image profile.specific.avatar width-500 format-webp-lossless webpquality-50 as webp_image_2x %}
             {% image profile.specific.avatar width-250 as png_250 %}
@@ -69,7 +70,7 @@
                 <source media="(min-width: 587px)" srcset="{{ webp_image.url }}">
                 <source media="(max-width: 586px)" srcset="{{ webp_image.url }}, {{ webp_image_2x.url }} 2x">
                 <img src="{{ png_250.url }}" width="{{ png_250.width }}" height="{{ png_250.height }}"
-                    alt="{{ png_250.alt }}" />
+                    alt="{{ png_250.alt }}" class="bg-gradient-to-b from-gray-800 group-hover:bg-gradient-to-t" />
             </picture>
             {% else %}
             <img src="{% static 'img/blank.jpg' fill-250x250 %}" width="{{ png_250.width }}"
@@ -85,4 +86,23 @@
         {% endfor %}
     </section>
 </main>
+{% endblock %}
+
+{% block extra_js %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Gamer Stats",
+        "item": "https://gamerstats.net"
+        },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ page.title }}"
+        }]
+    }
+</script>
 {% endblock %}

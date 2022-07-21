@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from requests import head
 from wagtail import blocks
 from wagtail.admin.edit_handlers import ObjectList, TabbedInterface
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -221,8 +222,24 @@ class ProfilePage(Page):
         FieldPanel('text'),
         FieldPanel('settings'),
         FieldPanel("body", classname="full"),
-        InlinePanel("player_specs", label="Player Specs"),
-        InlinePanel("player_social", label="Player Social"),
+    ]
+
+    pc_specs_panel = [
+        MultiFieldPanel(
+            [
+                InlinePanel("player_specs", label="Player Specs"),
+            ],
+            heading="PC Specs",
+        )
+    ]
+
+    social_panel = [
+        MultiFieldPanel(
+            [
+                InlinePanel("player_social", label="Player Social"),
+            ],
+            heading="Social Media Profiles",
+        )
     ]
 
     related_panel = [
@@ -237,7 +254,9 @@ class ProfilePage(Page):
     edit_handler = TabbedInterface(
         [
             ObjectList(content_panels, heading='Content'),
-            ObjectList(related_panel, heading='Related Profiles'),
+            ObjectList(related_panel, heading='Related'),
+            ObjectList(pc_specs_panel, heading='PC Specs'),
+            ObjectList(social_panel, heading='Social'),
             ObjectList(Page.promote_panels, heading='SEO'),
             ObjectList(Page.settings_panels, heading='Settings'),
         ]
