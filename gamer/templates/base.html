@@ -19,11 +19,20 @@
     <meta name="description"
         content="{% if page.meta_description %}{{ page.meta_description }}{% else %}{{ page.intro }}{% endif %}" />
     {# Global stylesheets #}
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="dns-prefetch" href="https://use.typekit.net">
+
+    <link rel="preconnect" href="https://cdn.gamerstats.net">
+    <link rel="dns-prefetch" href="https://cdn.gamerstats.net">
+
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://unpkg.com">
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/gamer.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@1.9.6/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/ksm2xbb.css">
     {% block extra_css %}
     {% endblock %}
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
