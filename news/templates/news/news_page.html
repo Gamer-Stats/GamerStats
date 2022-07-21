@@ -76,7 +76,11 @@
             </picture>
         </header>
         <section class="mt-6 text-base prose">
-            {{ page.body|richtext }}
+            {% for block in page.text %}
+            <div>
+                {{ block }}
+            </div>
+            {% endfor %}
         </section>
 
         <section class="border-t border-gray-700 mt-6 mb-2 pt-4">

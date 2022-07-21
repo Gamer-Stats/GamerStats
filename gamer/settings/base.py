@@ -136,7 +136,30 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_BASE_URL = "https://gamerstats.net"
 
 WAGTAILIMAGES_JPEG_QUALITY = 80
 WAGTAILIMAGES_WEBP_QUALITY = 85
+
+
+# AWS Settings
+AWS_S3_REGION_NAME = config("AWS_REGION")
+AWS_ACCESS_KEY_ID = config("AWS_KEY")
+AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
+
+AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
+AWS_S3_SECURE_URLS = True
+
+AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
+
+COMPRESS_STORAGE = "gamer.custom_storages.CachedS3BotoStorage"
+
+STATICFILES_LOCATION = "static"
+# STATICFILES_STORAGE = "gamer.custom_storages.StaticStorage"
+
+STATIC_URL = config("AWS_DOMAIN") + "/"
+
+AWS_IS_GZIPPED = True
+
+MEDIAFILES_LOCATION = "media"
+DEFAULT_FILE_STORAGE = "gamer.custom_storages.MediaStorage"

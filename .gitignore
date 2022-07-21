@@ -9,6 +9,7 @@ db1.json
 teams.json
 data.json
 media
+.env
 # C extensions
 *.so
 db.backup
