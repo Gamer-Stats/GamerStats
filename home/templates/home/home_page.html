@@ -14,8 +14,9 @@
             {% for post in news_posts %}
             <article
                 class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl">
-                {% image post.featured_image fill-416x234 as post_image %}
-                <img title="{{ post.title }}" src="{{ post_image.url }}" alt="{{ post_image.alt }}">
+                {% image post.featured_image fill-416x234 format-webp as post_image %}
+                <img title="{{ post.title }}" src="{{ post_image.url }}" alt="{{ post_image.alt }}"
+                    width="{{ post_image.width }}" height="{{ post_image.height }}">
                 <div class="text-sm pt-3 pb-2 px-3 flex flex-wrap gap-1">
                     <span class="sr-only">Last updated</span>
                     <time datetime="{{ post.specific.last_published_at|date:'c' }}"
@@ -44,9 +45,10 @@
             <article
                 class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl ">
                 {% if post.avatar %}
-                {% image post.avatar fill-250x250 as game_image %}
+                {% image post.avatar fill-250x250 format-webp as game_image %}
                 <img class="bg-gradient-to-b from-gray-800 group-hover:bg-gradient-to-t" title="{{ game_image.alt }}"
-                    src="{{ game_image.url }}" alt="Image of {{ post.game.title }} player {{ post.full_name }}">
+                    src="{{ game_image.url }}" alt="Image of {{ post.game.title }} player {{ post.full_name }}"
+                    width="{{ game_image.width }}" height="{{ game_image.height }}">
                 {% endif %}
                 <h3 class="text-lg md:text-xl font-medium p-3 text-center">
                     <a class="transition group-hover:text-blue-600" title="{{ post.title }} PC Specs and Settings"
@@ -66,9 +68,10 @@
             <article
                 class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl ">
                 {% if post.avatar %}
-                {% image post.avatar fill-250x250 as game_image %}
+                {% image post.avatar fill-250x250 format-webp as game_image %}
                 <img class="bg-gradient-to-b from-gray-800 group-hover:bg-gradient-to-t" title="{{ game_image.alt }}"
-                    src="{{ game_image.url }}" alt="Image of {{ post.game.title }} player {{ post.full_name }}">
+                    src="{{ game_image.url }}" alt="Image of {{ post.game.title }} player {{ post.full_name }}"
+                    width="{{ game_image.width }}" height="{{ game_image.height }}">
                 {% endif %}
                 <h3 class="text-lg md:text-xl font-medium p-3 text-center">
                     <a class="transition group-hover:text-blue-600" title="{{ post.title }} PC Specs and Settings"
