@@ -1,5 +1,4 @@
 {% load static wagtailcore_tags wagtailuserbar compress %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +17,7 @@
     {# Global stylesheets #}
     <link rel="preconnect" href="https://cdn.gamerstats.net">
     <link rel="dns-prefetch" href="https://cdn.gamerstats.net">
-    {% compress css inline %}
+    {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/gamer.css' %}">
