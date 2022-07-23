@@ -16,12 +16,7 @@
         </picture>
         <div class="h-96 w-full absolute inset-0 bg-gradient-to-t from-primary"></div>
         <div class="absolute top-1/4 text-center w-full">
-            <figure class="mx-auto">
-                {% image page.avatar width-230 format-webp-lossless webpquality-50 as avatar %}
-                <img src="{{ avatar.url }}" width="{{ avatar.width }}" height="{{ avatar.height }}"
-                    alt="{{ avatar.alt }}" class="mx-auto bg-gradient-to-b from-gray-500 rounded-lg p-2" />
-                <figcaption class="sr-only">{player.avatar.data.attributes.caption}</figcaption>
-            </figure>
+
             <nav class="flex justify-center mt-2" aria-label="Breadcrumb">
                 <ol role="list" class="flex items-center space-x-2 md:space-x-4 px-2 overflow-hidden">
                     {% for p in self.get_ancestors %}
@@ -73,9 +68,71 @@
                     </li>
                 </ol>
             </nav>
-            <h1 class="text-4xl md:text-5xl font-bold mt-2">{{ page.title }}</h1>
+            <figure class="mx-auto">
+                {% image page.avatar width-230 format-webp-lossless webpquality-50 as avatar %}
+                <img src="{{ avatar.url }}" width="{{ avatar.width }}" height="{{ avatar.height }}"
+                    alt="{{ avatar.alt }}" class="mx-auto bg-gradient-to-b from-gray-500 rounded-lg p-2" />
+                <figcaption class="sr-only">{player.avatar.data.attributes.caption}</figcaption>
+                <h1 class="text-4xl md:text-5xl font-bold mt-2">{{ page.title }}</h1>
+            </figure>
         </div>
     </header>
+    <!-- || intro -->
+    <section class="text-center pt-20 px-2 max-w-5xl mx-auto">
+        <div class="text-sm md:text-base">{{ page.intro|safe }}</div>
+        <table class="table-auto text-left text-sm md:text-base w-full md:mt-3">
+            <tbody
+                class="my-4 p-2 md:p-4 gap-1 md:gap-3 grid bg-secondary border border-primary rounded-lg grid-cols-12">
+                {% if page.in_game_leader %}
+                <tr class="flex flex-col col-span-6 md:col-span-3">
+                    <th class="font-light">In-Game Leader</th>
+                    <td class="font-bold">{{ page.in_game_leader }}</td>
+                </tr>
+                {% endif %}
+                {% if page.hometown %}
+                <tr class="flex flex-col col-span-6 md:col-span-3">
+                    <th class="font-light">Locale</th>
+                    <td class="font-bold">{{ page.hometown }}</td>
+                </tr>
+                {% endif %}
+                {% if page.team_country %}
+                <tr class="flex flex-col col-span-6 md:col-span-3">
+                    <th class="font-light">Country</th>
+                    <td class="flex gap-1 items-center font-bold">
+                        <span>{{ page.team_country.title }}</span>
+                        {% image page.team_country.flag width-22 format-webp-lossless %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if page.earnings %}
+                <tr class="flex flex-col col-span-6 md:col-span-3">
+                    <th class="font-light">Earnings</th>
+                    <td class="font-bold">${{ page.earnings|intcomma }}</td>
+                </tr>
+                {% endif %}
+                {% if page.abbr %}
+                <tr class="flex flex-col col-span-6">
+                    <th class="font-light">Abbrivation Name</th>
+                    <td class="flex gap-1 items-center font-bold">{{ page.abbr }}</td>
+                </tr>
+                {% endif %}
+                {% if page.team_social.all %}
+                <tr class="flex flex-col col-span-12">
+                    <th class="font-light">Social</th>
+                    <td class="flex gap-4 items-center mt-2 ">
+                        {% for social in page.team_social.all %}
+                        <a href="{{ social.url }}" target="_blank" title="{{ social.title }}"
+                            class="grayscale hover:grayscale-0">
+                            {% image social.icon width-24 format-webp-lossless %}
+                        </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+
     <section class="bg-secondary border border-primary rounded-lg mt-12 p-3 items-center">
         <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} {{ jpeg_image_1280.alt }} Roster</h2>
         <div
@@ -104,10 +161,15 @@
             {% endfor %}
         </div>
     </section>
-    <section class="bg-secondary border border-primary rounded-lg mt-6 p-3 items-center">
-        <h2 class="text-xl md:text-2xl font-bold mb-2">{{ page.title }} Wiki</h2>
-        <div class="text-base prose">
-            {{ page.body|safe }}
+    <section class="px-2 pb-6 max-w-5xl mx-auto">
+        <h2 class="text-xl md:text-2xl font-semibold md:px-2" id="About-{{ page.title }}">About {{ page.title }}</h2>
+        <div class="border border-primary rounded-lg bg-secondary my-4 p-2 text-base md:p-4">
+            {% for block in page.text %}
+            <div
+                class="{% if block.block_type == 'table' %}table-wrap mt-5 border rounded-lg overflow-hidden border-gray-800 text-sm{% endif %} prose">
+                {% include_block block %}
+            </div>
+            {% endfor %}
         </div>
     </section>
 </main>

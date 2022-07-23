@@ -145,10 +145,9 @@
         </div>
     </footer>
     {# Global javascript #}
-    <script type="text/javascript" src="{% static 'js/gamer.js' %}"></script>
     {% block extra_js %}{% endblock %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-121670545-12"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121670545-12"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }

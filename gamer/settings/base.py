@@ -114,7 +114,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
+    os.path.join(BASE_DIR, "assets"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -139,15 +139,21 @@ AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
 AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
 AWS_S3_SECURE_URLS = True
 
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000',
+}
+
 AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
-COMPRESS_STORAGE = "gamer.custom_storages.CachedS3BotoStorage"
-STATICFILES_STORAGE = COMPRESS_STORAGE
+COMPRESS_STORAGE = "storages.backends.s3boto3.S3ManifestStaticStorage"
+# STATICFILES_STORAGE = "gamer.custom_storages.StaticToS3Storage"
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
 
 AWS_IS_GZIPPED = True
 
 STATIC_URL = config("CDN")
 
-COMPRESS_URL = STATIC_URL
+COMPRESS_URL = config("CDN")
 COMPRESS_ROOT = STATIC_ROOT
 
 MEDIAFILES_LOCATION = "media"

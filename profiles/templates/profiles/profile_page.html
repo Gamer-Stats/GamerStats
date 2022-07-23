@@ -119,6 +119,20 @@
                     </td>
                 </tr>
                 {% endif %}
+                {% if page.start_date %}
+                <tr class="flex flex-col col-span-6 md:col-span-3">
+                    <th class="font-light">Start Date</th>
+                    <td class="flex gap-1 items-center font-bold">
+                        {{ page.start_date }}
+                    </td>
+                </tr>
+                <tr class="flex flex-col col-span-6 md:col-span-3">
+                    <th class="font-light">End Date</th>
+                    <td class="flex gap-1 items-center font-bold">
+                        {% if page.end_date %}{{ page.end_date }}{% else %}Currently Playing{% endif %}
+                    </td>
+                </tr>
+                {% endif %}
                 {% if page.player_role %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Role</th>
@@ -139,7 +153,7 @@
                 {% endif %}
                 {% if page.native_name %}
                 <tr class="flex flex-col col-span-6">
-                    <th class="font-light">Native Name</th>
+                    <th class="font-light">Name</th>
                     <td class="flex gap-1 items-center font-bold">{{ page.native_name }}</td>
                 </tr>
                 {% endif %}
@@ -195,6 +209,7 @@
     </section>
     {% endif %}
     <!-- || settings -->
+    {% if page.player_settings %}
     <section class="px-2 max-w-5xl mx-auto">
         <h2 class="text-xl md:text-2xl font-semibold md:px-2" id="{{ page.game.title }}-Settings">{{ page.title }}
             {{ page.game.title }} Settings</h2>
@@ -204,6 +219,7 @@
         </div>
         {% endfor %}
     </section>
+    {% endif %}
     <!-- || related profiles -->
     {% if page.related_profiles.all %}
     <section class="px-2 pb-6 max-w-5xl mx-auto">
@@ -274,17 +290,34 @@
                 "url": "httsp://gamerstats.net{{ page.url }}"
                 {% endif %}
             },
-            "gender": "male",
-            "award": [
-                "______",
-                "______"
-            ],
             "sameAs": [
                 {% for social in page.player_social.all %}
                 "{{ social.url }}" {% if forloop.counter != page.player_social.all|length %},{% endif %}
                 {% endfor %}
             ]
         }
+    }
+</script>
+{% image page.avatar fill-500x500 as wide_1_1 %}
+{% image page.avatar fill-960x720 as wide_4_3 %}
+{% image page.avatar fill-1280x720 as wide_1280 %}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}",
+      "image": [
+        "https://gamerstats.net{{ wide_1_1.url }}",
+        "https://gamerstats.net{{ wide_4_3.url }}",
+        "https://gamerstats.net{{ wide_1280.url }}"
+       ],
+      "datePublished": "{{ page.first_published_at|date:'c' }}",
+      "dateModified": "{{ page.last_published_at|date:'c' }}",
+      "author": [{
+          "@type": "Person",
+          "name": "{{ page.owner.first_name }} {{ page.owner.last_name }}",
+          "url": "https://twitter.com/thegamerstats"
+        }]
     }
     </script>
 <script type="application/ld+json">
@@ -308,4 +341,5 @@
         }]
     }
 </script>
+
 {% endblock %}
