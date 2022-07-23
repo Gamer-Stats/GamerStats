@@ -129,9 +129,9 @@
       "@type": "NewsArticle",
       "headline": "{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}",
       "image": [
-        "https://gamerstats.net{{ wide_1_1.url }}",
-        "https://gamerstats.net{{ wide_4_3.url }}",
-        "https://gamerstats.net{{ wide_1280.url }}"
+        "{{ wide_1_1.url }}",
+        "{{ wide_4_3.url }}",
+        "{{ wide_1280.url }}"
        ],
       "datePublished": "{{ page.first_published_at|date:'c' }}",
       "dateModified": "{{ page.last_published_at|date:'c' }}",

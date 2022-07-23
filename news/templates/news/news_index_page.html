@@ -63,7 +63,8 @@
             class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl">
             {% if post.specific.featured_image %}
             {% image post.specific.featured_image fill-416x234 as post_image %}
-            <img title="{{ post.title }}" src="{{ post_image.url }}" alt="{{ post_image.alt }}">
+            <img title="{{ post.title }}" src="{{ post_image.url }}" alt="{{ post_image.alt }}"
+                width="{{ post_image.width }}" height="{{ post_image.height }}">
             {% endif %}
             <div class="text-sm pt-3 pb-2 px-3 flex flex-wrap gap-1">
                 <span class="sr-only">Last updated</span>
