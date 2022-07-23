@@ -19,15 +19,13 @@
     <meta name="description"
         content="{% if page.meta_description %}{{ page.meta_description }}{% else %}{{ page.intro }}{% endif %}" />
     {# Global stylesheets #}
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="dns-prefetch" href="https://use.typekit.net">
 
     <link rel="preconnect" href="https://cdn.gamerstats.net">
     <link rel="dns-prefetch" href="https://cdn.gamerstats.net">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/gamer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}">
-    <link rel="stylesheet" href="https://use.typekit.net/ksm2xbb.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/gamer.css' %}">
     {% block extra_css %}
     {% endblock %}
 </head>
