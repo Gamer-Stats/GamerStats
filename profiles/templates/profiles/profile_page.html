@@ -70,9 +70,13 @@
                 </ol>
             </nav>
             <h1 class="text-4xl md:text-5xl font-bold mb-5">{{ page.title }}</h1>
-            <figure class="bg-slate-100 bg-opacity-30 w-64 rounded-lg mx-auto">
-                {% image page.avatar width-400 format-webp-lossless webpquality-50 %}
-                <figcaption class="sr-only">{player.avatar.data.attributes.caption}</figcaption>
+            <figure class="bg-gradient-to-b from-gray-800 w-64 rounded-lg mx-auto" style="border-radius: 50%;">
+                {% image page.avatar width-400 format-webp-lossless as img %}
+                <img src="{{ img.url }}" alt="{{ page.title }} {{ page.game.title }} Settings and PC Specs"
+                    width="{{ img.width }}" height="{{ img.height }}" style="border-radius: 50%;">
+                <figcaption class="sr-only">Image of {{ page.game.title }} pro
+                    {% if page.native_name %}{{ page.native_name }}{% elif page.full_name %}{{ page.full_name }} aka
+                    {{ page.title }}{% else %}{{ page.title }}{% endif %}</figcaption>
             </figure>
         </div>
     </header>
@@ -107,15 +111,17 @@
                 {% if page.game %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Game</th>
-                    <td class="font-bold">{{ page.game.title }}</td>
+                    <td class="font-bold"><a href="{{ page.game.url }}">{{ page.game.title }}</a></td>
                 </tr>
                 {% endif %}
                 {% if page.team %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Team</th>
                     <td class="flex gap-1 items-center font-bold">
-                        <span>{{ page.team.title }}</span>
-                        {% image page.team.avatar width-22 format-webp-lossless %}
+                        <a href="{{ page.team.url }}">
+                            <span>{{ page.team.title }}</span>
+                            {% image page.team.avatar width-22 format-webp-lossless %}
+                        </a>
                     </td>
                 </tr>
                 {% endif %}
@@ -307,9 +313,9 @@
       "@type": "Article",
       "headline": "{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}",
       "image": [
-        "https://gamerstats.net{{ wide_1_1.url }}",
-        "https://gamerstats.net{{ wide_4_3.url }}",
-        "https://gamerstats.net{{ wide_1280.url }}"
+        "{{ wide_1_1.url }}",
+        "{{ wide_4_3.url }}",
+        "{{ wide_1280.url }}"
        ],
       "datePublished": "{{ page.first_published_at|date:'c' }}",
       "dateModified": "{{ page.last_published_at|date:'c' }}",
