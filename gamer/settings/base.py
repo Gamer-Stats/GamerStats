@@ -145,9 +145,8 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
-COMPRESS_STORAGE = "storages.backends.s3boto3.S3ManifestStaticStorage"
-# STATICFILES_STORAGE = "gamer.custom_storages.StaticToS3Storage"
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+COMPRESS_STORAGE = "gamer.custom_storages.CachedS3BotoStorage"
+STATICFILES_STORAGE = "gamer.custom_storages.StaticToS3Storage"
 
 AWS_IS_GZIPPED = True
 
