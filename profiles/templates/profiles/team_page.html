@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags %} {% load humanize %}
+{% load wagtailimages_tags wagtailcore_tags %} {% load humanize cache %}
 {% block body_class %}template-teampage bg-primary{% endblock %}
 {% block content %}
 <main class="text-gray-200 max-w-7xl mx-auto">
@@ -19,8 +19,10 @@
             <nav class="flex justify-center mt-2" aria-label="Breadcrumb">
                 <ol role="list" class="flex items-center space-x-2 md:space-x-4 px-2 overflow-hidden">
                     {% for p in self.get_ancestors %}
+                    {% cache 3000000 p p.id %}
                     {% if p.is_root == False %}
                     {% if forloop.counter == 2 %}
+
                     <li>
                         <div>
                             <a href="/" class="text-gray-400 hover:text-gray-500">
@@ -48,8 +50,10 @@
                                 class="truncate ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-700">{{ p.title }}</a>
                         </div>
                     </li>
+
                     {% endif %}
                     {% endif %}
+                    {% endcache %}
                     {% endfor %}
                     <li>
                         <div class="flex items-center">
@@ -137,6 +141,7 @@
         <div
             class="my-4 max-w-7xl mx-auto grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-start p-2 md:p-0">
             {% for team in page.player_team.all %}
+            {% cache 30000000 team team.id %}
             <div
                 class="relative rounded-lg overflow-hidden bg-gradient-to-b from-gray-500 hover:bg-gradient-to-t w-full border border-gray-800">
                 {% image team.specific.avatar width-200 format-webp-lossless webpquality-50 as webp_image %}
@@ -157,6 +162,7 @@
                     <span class="sr-only">View {{ team.title }} PC Specs and Settings</span>
                 </a>
             </div>
+            {% endcache %}
             {% endfor %}
         </div>
     </section>

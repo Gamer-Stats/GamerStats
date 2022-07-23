@@ -1,11 +1,13 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %} {% load wagtailimages_tags %} {% load humanize %}
+{% load wagtailcore_tags %} {% load wagtailimages_tags %} {% load humanize cache %}
 {% block body_class %}template-playerprofile bg-primary text-gray-200{% endblock %}
 
 {% block content %}
+
 <main class="">
     <!-- || header -->
     <header class="relative">
+        {% cache 300000000 page.cover %}
         {% image page.cover width-550 format-webp as webp_image %}
         {% image page.cover width-1280 format-webp as webp_image_1280 %}
         {% image page.cover width-1280 format-jpeg as jpeg_image_1280 %}
@@ -16,11 +18,14 @@
                 height="{{ webp_image_1280.height }}" alt="{{ webp_image.alt }}"
                 class="h-96 object-center object-cover w-full" />
         </picture>
+        {% endcache %}
         <div class="h-96 w-full absolute inset-0 bg-gradient-to-t from-primary"></div>
         <div class="absolute top-1/4 text-center w-full">
+
             <nav class="flex lg:col-span-7 lg:mb-0 justify-center" aria-label="Breadcrumb">
                 <ol role="list" class="flex items-center space-x-2 md:space-x-4 px-2 overflow-hidden">
                     {% for p in self.get_ancestors %}
+                    {% cache 300000000 p p.id %}
                     {% if p.is_root == False %}
                     {% if forloop.counter == 2 %}
                     <li>
@@ -52,6 +57,7 @@
                     </li>
                     {% endif %}
                     {% endif %}
+                    {% endcache %}
                     {% endfor %}
                     <li>
                         <div class="flex items-center">
@@ -78,6 +84,7 @@
                     {% if page.native_name %}{{ page.native_name }}{% elif page.full_name %}{{ page.full_name }} aka
                     {{ page.title }}{% else %}{{ page.title }}{% endif %}</figcaption>
             </figure>
+
         </div>
     </header>
     <!-- || intro -->
@@ -87,18 +94,23 @@
         <table class="table-auto text-left text-sm md:text-base w-full md:mt-3">
             <tbody
                 class="my-4 p-2 md:p-4 gap-1 md:gap-3 grid bg-secondary border border-primary rounded-lg grid-cols-12">
+                {% cache 300000000 page.birth_date page.id %}
                 {% if page.birth_date %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Birth Date</th>
                     <td class="font-bold">{{ page.birth_date }}</td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.hometown page.id %}
                 {% if page.hometown %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Birth Place</th>
                     <td class="font-bold">{{ page.hometown }}</td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.player_country page.id %}
                 {% if page.player_country %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Country</th>
@@ -108,12 +120,16 @@
                     </td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.game page.id %}
                 {% if page.game %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Game</th>
                     <td class="font-bold"><a href="{{ page.game.url }}">{{ page.game.title }}</a></td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.team page.id %}
                 {% if page.team %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Team</th>
@@ -125,6 +141,8 @@
                     </td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.start_date page.id %}
                 {% if page.start_date %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Start Date</th>
@@ -139,52 +157,68 @@
                     </td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.player_role page.id %}
                 {% if page.player_role %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Role</th>
                     <td class="font-bold">{{ page.player_role }}</td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.player_rank page.id %}
                 {% if page.player_rank %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Rank</th>
                     <td class="font-bold">{{ page.player_rank }}</td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.earnings page.id %}
                 {% if page.earnings %}
                 <tr class="flex flex-col col-span-6 md:col-span-3">
                     <th class="font-light">Earnings</th>
                     <td class="font-bold">${{ page.earnings|intcomma }}</td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+                {% cache 300000000 page.native_name page.id %}
                 {% if page.native_name %}
                 <tr class="flex flex-col col-span-6">
                     <th class="font-light">Name</th>
                     <td class="flex gap-1 items-center font-bold">{{ page.native_name }}</td>
                 </tr>
                 {% endif %}
+                {% endcache %}
+
                 {% if page.player_social.all %}
                 <tr class="flex flex-col col-span-12">
                     <th class="font-light">Social</th>
                     <td class="flex gap-4 items-center mt-2 ">
                         {% for social in page.player_social.all %}
+                        {% cache 3000000 social social.id %}
                         <a href="{{ social.url }}" target="_blank" title="{{ social.title }}"
                             class="grayscale hover:grayscale-0">
                             {% image social.icon width-24 format-webp-lossless %}
                         </a>
+                        {% endcache %}
                         {% endfor %}
                     </td>
                 </tr>
                 {% endif %}
+
             </tbody>
         </table>
     </section>
     <!-- || specs -->
+
     {% if page.player_specs.all %}
+
     <section class="px-2 max-w-5xl mx-auto">
         <h2 class="text-xl md:text-2xl font-semibold md:px-2" id="PC-Specs">{{ page.title }} PC Specs</h2>
         <div class="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 my-5">
             {% for spec in page.player_specs.all %}
+            {% cache 3000000 spec spec.id %}
             <div
                 class="group relative overflow-hidden bg-secondary border border-primary rounded-lg grid {% if spec.product_image %}grid-cols-7{% endif %} my-4 md:my-0 items-center gap-4">
                 {% if spec.product_image %}
@@ -210,10 +244,12 @@
                         rel="nofollow">Check Price</a>
                 </div>
             </div>
+            {% endcache %}
             {% endfor %}
         </div>
     </section>
     {% endif %}
+
     <!-- || settings -->
     {% if page.player_settings %}
     <section class="px-2 max-w-5xl mx-auto">
@@ -226,6 +262,8 @@
         {% endfor %}
     </section>
     {% endif %}
+
+
     <!-- || related profiles -->
     {% if page.related_profiles.all %}
     <section class="px-2 pb-6 max-w-5xl mx-auto">
@@ -235,6 +273,7 @@
             <div
                 class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 items-center gap-4 justify-items-start text-center">
                 {% for profile in page.related_profiles.all %}
+                {% cache 3000000 profile profile.id %}
                 <div
                     class="relative group hover:border-gray-500 bg-gradient-to-b from-gray-700 to-transparent p-2 border border-gray-800 rounded-lg">
                     {% image profile.avatar width-150 format-webp-lossless %}
@@ -242,6 +281,7 @@
                             title="View {{ profile.title }}'s Profile" href="{{ profile.url }}">{{ profile.title }}</a>
                     </h3>
                 </div>
+                {% endcache %}
                 {% endfor %}
             </div>
         </div>
@@ -297,9 +337,13 @@
                 {% endif %}
             },
             "sameAs": [
+                
                 {% for social in page.player_social.all %}
+                {% cache 300000000 social social.id %}
                 "{{ social.url }}" {% if forloop.counter != page.player_social.all|length %},{% endif %}
+                {% endcache %}
                 {% endfor %}
+                
             ]
         }
     }
@@ -338,8 +382,10 @@
         },{
         "@type": "ListItem",
         "position": 2,
+        {% cache 3000000 page.get_parent %}
         "name": "{{ page.get_parent }}",
         "item": "https://gamerstats.net{{ page.get_parent.url }}"
+        {% endcache %}
         },{
         "@type": "ListItem",
         "position": 3,
@@ -347,5 +393,6 @@
         }]
     }
 </script>
+
 
 {% endblock %}

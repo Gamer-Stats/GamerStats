@@ -5,6 +5,7 @@ from decouple import config
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+
 INSTALLED_APPS = [
     "news",
     "profiles",
@@ -175,3 +176,14 @@ WAGTAILADMIN_BASE_URL = "https://gamerstats.net"
 
 WAGTAILIMAGES_JPEG_QUALITY = 80
 WAGTAILIMAGES_WEBP_QUALITY = 85
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/db_gamer',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailimages_tags wagtailcore_tags cache %}
 {% block body_class %}template-news-archive bg-primary{% endblock %}
 {% block content %}
 <main class="text-gray-200">
@@ -59,6 +59,7 @@
     </header>
     <article class="my-8 max-w-7xl mx-auto grid gap-3 grid-cols-2 md:grid-cols-3 justify-items-start p-2">
         {% for post in newpages %}
+        {% cache 300000000 post post.id %}
         <article
             class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl">
             {% if post.specific.featured_image %}
@@ -79,6 +80,7 @@
                 </a>
             </h2>
         </article>
+        {% endcache %}
         {% endfor %}
     </article>
 </main>

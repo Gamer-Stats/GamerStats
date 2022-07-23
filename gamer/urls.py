@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
+from django.views.decorators.cache import cache_page
 from search import views as search_views
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -79,6 +80,9 @@ if settings.DEBUG:
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # Add debug toolbar
+    urlpatterns = urlpatterns + [path('__debug__/', include('debug_toolbar.urls')),]
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
