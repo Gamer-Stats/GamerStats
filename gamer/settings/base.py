@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     "profiles",
     "home",
     "search",
+    "compressor",
     "wagtail.contrib.table_block",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -105,16 +106,16 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Static files (CSS, JavaScript, Images, AWS S3)
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 ]
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
@@ -122,8 +123,37 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-# Wagtail settings
+COMPRESS_ENABLED = True
+COMPRESS_CSS_HASHING_METHOD = "content"
+COMPRESS_CSS_FILTERS = [
+    "compressor.filters.css_default.CssAbsoluteFilter",
+    "compressor.filters.cssmin.CSSMinFilter",
+]
 
+# AWS Settings
+AWS_S3_REGION_NAME = config("AWS_REGION")
+
+AWS_ACCESS_KEY_ID = config("AWS_KEY")
+AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
+
+AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
+AWS_S3_SECURE_URLS = True
+
+AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
+COMPRESS_STORAGE = "gamer.custom_storages.CachedS3BotoStorage"
+STATICFILES_STORAGE = COMPRESS_STORAGE
+
+AWS_IS_GZIPPED = True
+
+STATIC_URL = config("CDN")
+
+COMPRESS_URL = STATIC_URL
+COMPRESS_ROOT = STATIC_ROOT
+
+MEDIAFILES_LOCATION = "media"
+DEFAULT_FILE_STORAGE = "gamer.custom_storages.MediaStorage"
+
+# Wagtail settings
 WAGTAIL_SITE_NAME = "gamer"
 
 # Search
@@ -140,26 +170,3 @@ WAGTAILADMIN_BASE_URL = "https://gamerstats.net"
 
 WAGTAILIMAGES_JPEG_QUALITY = 80
 WAGTAILIMAGES_WEBP_QUALITY = 85
-
-
-# AWS Settings
-AWS_S3_REGION_NAME = config("AWS_REGION")
-AWS_ACCESS_KEY_ID = config("AWS_KEY")
-AWS_SECRET_ACCESS_KEY = config("AWS_PASS")
-
-AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
-AWS_S3_SECURE_URLS = True
-
-AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")
-
-COMPRESS_STORAGE = "gamer.custom_storages.CachedS3BotoStorage"
-
-STATICFILES_LOCATION = "static"
-STATICFILES_STORAGE = "gamer.custom_storages.StaticStorage"
-
-STATIC_URL = config("AWS_DOMAIN") + "/"
-
-AWS_IS_GZIPPED = True
-
-MEDIAFILES_LOCATION = "media"
-DEFAULT_FILE_STORAGE = "gamer.custom_storages.MediaStorage"
