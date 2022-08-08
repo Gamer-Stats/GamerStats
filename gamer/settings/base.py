@@ -176,14 +176,3 @@ WAGTAILADMIN_BASE_URL = "https://gamerstats.net"
 
 WAGTAILIMAGES_JPEG_QUALITY = 80
 WAGTAILIMAGES_WEBP_QUALITY = 85
-
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/db_gamer',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
