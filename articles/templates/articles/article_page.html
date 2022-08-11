@@ -64,8 +64,7 @@
                 <span class="sr-only">Last updated</span>
                 <time datetime="{{ page.last_published_at|date:'c' }}"
                     pubdate>{{ page.last_published_at|date:'Y/m/d' }}</time>
-                <address class="author"> by <span rel="author">{{ page.owner.first_name }}
-                        {{ page.owner.last_name }}</span></address>
+                <address class="author"> by <span rel="author">Gamer Stats</span></address>
             </div>
             <p class="mb-4 font-medium text-lg italic">{{ page.intro }}</p>
             {% image page.featured_image width-512 format-webp as webp_image %}
@@ -148,8 +147,8 @@
       "datePublished": "{{ page.first_published_at|date:'c' }}",
       "dateModified": "{{ page.last_published_at|date:'c' }}",
       "author": [{
-          "@type": "Person",
-          "name": "{{ page.owner.first_name }} {{ page.owner.last_name }}",
+          "@type": "Organization",
+          "name": "Gamer Stats",
           "url": "https://twitter.com/thegamerstats"
         }]
     }
