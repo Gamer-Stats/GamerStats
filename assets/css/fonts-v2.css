@@ -8,7 +8,7 @@
   font-stretch: normal;
 }
 
-@font-face {
+/* @font-face {
   font-family: "sofia-pro";
   src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-500.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-500.woff") format("woff"),
     url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-500.otf") format("opentype");
@@ -16,7 +16,7 @@
   font-style: normal;
   font-weight: 500;
   font-stretch: normal;
-}
+} */
 
 @font-face {
   font-family: "sofia-pro";
@@ -37,7 +37,7 @@
   font-weight: 400;
   font-stretch: normal;
 }
-
+/* 
 @font-face {
   font-family: "sofia-pro";
   src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-600.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-600.woff") format("woff"),
@@ -46,4 +46,4 @@
   font-style: normal;
   font-weight: 600;
   font-stretch: normal;
-}
+} */

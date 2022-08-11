@@ -15,10 +15,10 @@
     <meta name="description"
         content="{% if page.meta_description %}{{ page.meta_description }}{% else %}{{ page.intro }}{% endif %}" />
     {# Global stylesheets #}
-    <link rel="preconnect" href="https://cdn.gamerstats.net">
+    <link rel="preconnect" href="https://cdn.gamerstats.net" crossorigin="anonymous">
     <link rel="dns-prefetch" href="https://cdn.gamerstats.net">
     {% compress css inline %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts-v2.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/gamer.css' %}">
     <style>

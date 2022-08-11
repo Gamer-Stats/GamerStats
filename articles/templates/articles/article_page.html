@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% block body_class %}template-newspage bg-primary{% endblock %}
+{% block content %}
+<main class="text-gray-200 max-w-7xl mx-auto my-12 lg:grid md:p-2 lg:gap-6 lg:grid-cols-7">
+
+    <nav class="flex lg:col-span-7 mb-4 lg:mb-0" aria-label="Breadcrumb">
+        <ol role="list" class="flex items-center space-x-2 md:space-x-4 px-2 overflow-hidden">
+            {% for p in self.get_ancestors %}
+            {% if p.is_root == False %}
+            {% if forloop.counter == 2 %}
+            <li>
+                <div>
+                    <a href="/" class="text-gray-400 hover:text-gray-500">
+                        <!-- Heroicon name: solid/home -->
+                        <svg class="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                        </svg>
+                        <span class="sr-only">Home</span>
+                    </a>
+                </div>
+            </li>
+            {% else %}
+            <li>
+                <div class="flex items-center">
+                    <!-- Heroicon name: solid/chevron-right -->
+                    <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <a href="{{ p.url }}"
+                        class="truncate ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-700">{{ p.title }}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% endif %}
+
+            {% endfor %}
+            <li>
+                <div class="flex items-center">
+                    <!-- Heroicon name: solid/chevron-right -->
+                    <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <a href="{{ self.url }}"
+                        class="truncate ml-2 md:ml-4 text-sm font-medium text-gray-400 hover:text-gray-700"
+                        aria-current="page">{{ self.title }}</a>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <article class="max-w-5xl bg-secondary border border-primary rounded-lg p-3 lg:col-span-5">
+        <header class="my-2">
+            <h1 class="text-2xl md:text-4xl font-bold mb-4">{{ page.title }}</h1>
+            <div class="text-sm flex flex-wrap gap-1 mb-4">
+                <span class="sr-only">Last updated</span>
+                <time datetime="{{ page.last_published_at|date:'c' }}"
+                    pubdate>{{ page.last_published_at|date:'Y/m/d' }}</time>
+                <address class="author"> by <span rel="author">{{ page.owner.first_name }}
+                        {{ page.owner.last_name }}</span></address>
+            </div>
+            <p class="mb-4 font-medium text-lg italic">{{ page.intro }}</p>
+            {% image page.featured_image width-512 format-webp as webp_image %}
+            {% image page.featured_image width-720 format-webp as webp_image_2x %}
+            {% image page.featured_image width-720 format-jpeg as jpeg_image %}
+            <picture>
+                <source media="(min-width: 587px)" srcset="{{ webp_image_2x.url }}">
+                <source media="(max-width: 586px)" srcset="{{ webp_image.url }}, {{ webp_image_2x.url }} 2x">
+                <img src="{{ jpeg_image.url }}" width="{{ jpeg_image.width }}" height="{{ jpeg_image.height }}"
+                    alt="{{ jpeg_image.alt }}" class="object-center object-cover rounded-lg" />
+            </picture>
+
+        </header>
+        <section class="mt-6 text-base prose">
+            {% for block in page.text %}
+            <div>
+                {{ block }}
+            </div>
+            {% endfor %}
+        </section>
+
+        <section class="border-t border-gray-700 mt-6 mb-2 pt-4">
+            <h3>Tagged:</h3>
+            <div class="mt-5 flex gap-4 flex-wrap">
+                {% for tag in page.keywords.all %}
+                <a class="inline-block ring-2 ring-indigo-600 rounded-lg px-2 hover:text-white focus:ring-4"
+                    href="{{ tag.url }}">{{ tag.title }}</a>
+
+                {% endfor %}
+            </div>
+        </section>
+    </article>
+    <aside class="lg:max-w-2xl lg:col-span-2">
+        {% if related_posts %}
+
+        <section class="bg-secondary border border-primary rounded-lg mb-4 p-2">
+            <h2 class="text-xl font-semibold mb-4">Related News</h2>
+            {% for post in related_posts %}
+            <article
+                class="group relative bg-secondary border-b border-primary flex items-center gap-3 mb-4 p-2 hover:border-gray-500">
+                {% image post.featured_image width-120 format-webp %}
+                <h3><a class="link-over group-hover:text-lime-500" href="{{ post.url }}">{{ post.title }}</a></h3>
+            </article>
+
+            {% endfor %}
+        </section>
+        {% endif %}
+
+
+        <section class="bg-secondary border border-primary rounded-lg mb-4 p-2">
+            <h2 class="text-xl font-semibold mb-4">Related Profiles</h2>
+            <ul class="flex flex-col gap-3">
+                {% for tag in page.keywords.all %}
+                <li>
+                    <a class="hover:text-lime-500 external-link" href="{{ tag.url }}">{{ tag.title }}</a>
+                </li>
+
+                {% endfor %}
+            </ul>
+        </section>
+
+    </aside>
+</main>
+{% endblock %}
+{% block extra_js %}
+{% image page.featured_image fill-960x960 as wide_1_1 %}
+{% image page.featured_image fill-960x720 as wide_4_3 %}
+{% image page.featured_image width-1280 as wide_1280 %}
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}",
+      "image": [
+        "{{ wide_1_1.url }}",
+        "{{ wide_4_3.url }}",
+        "{{ wide_1280.url }}"
+       ],
+      "datePublished": "{{ page.first_published_at|date:'c' }}",
+      "dateModified": "{{ page.last_published_at|date:'c' }}",
+      "author": [{
+          "@type": "Person",
+          "name": "{{ page.owner.first_name }} {{ page.owner.last_name }}",
+          "url": "https://twitter.com/thegamerstats"
+        }]
+    }
+    </script>
+<script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Gamer Stats",
+            "item": "https://gamerstats.net"
+            },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ page.get_parent }}",
+            "item": "https://gamerstats.net{{ page.get_parent.url }}"
+            },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ page.title }}"
+            }]
+        }
+    </script>
+{% endblock %}
