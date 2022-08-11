@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     "profiles",
     "home",
     "search",
+    "articles",
     "compressor",
     "wagtail.contrib.table_block",
     "wagtail.contrib.forms",
@@ -141,8 +142,8 @@ AWS_S3_CUSTOM_DOMAIN = config("AWS_DOMAIN")
 AWS_S3_SECURE_URLS = True
 
 AWS_S3_OBJECT_PARAMETERS = {
-    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-    'CacheControl': 'max-age=94608000',
+    "Expires": "Thu, 31 Dec 2099 20:00:00 GMT",
+    "CacheControl": "max-age=94608000",
 }
 
 AWS_STORAGE_BUCKET_NAME = config("AWS_BUCKET")

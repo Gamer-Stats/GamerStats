@@ -1,3 +1,4 @@
+from articles.models import ArticlePage
 from django.contrib.sitemaps import Sitemap
 from home.models import HomePage
 from news.models import NewsPage
@@ -14,6 +15,22 @@ class NewsSitemap(Sitemap):
 
     def items(self):
         obj = NewsPage.objects.filter(live=True)
+        return obj
+
+    def lastmod(self, obj):
+        return obj.last_published_at
+
+
+class ArticleSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 0.7
+    protocol = "https"
+
+    def location(self, obj):
+        return obj.url
+
+    def items(self):
+        obj = ArticlePage.objects.filter(live=True)
         return obj
 
     def lastmod(self, obj):
