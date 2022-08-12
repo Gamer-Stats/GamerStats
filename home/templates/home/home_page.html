@@ -34,7 +34,7 @@
         </div>
         <button class="mt-10">
             <a class="font-semibold tracking-wider ring-2 hover:text-blue-500 rounded-lg px-4 py-2 transition hover:bg-gray-900 hover:ring-blue-600 focus:ring-blue-700 focus:ring-4"
-                href="/news/">MORE NEWS</a>
+                href="/guides/">MORE Guides</a>
         </button>
     </article>
     <!-- || Games -->
@@ -59,33 +59,6 @@
             </article>
             {% endfor %}
         </div>
-    </section>
-    <!-- || Player -->
-    <section class="py-12 p-2">
-        <h2 class="text-xl md:text-2xl font-semibold mb-1">Esports Teams</h2>
-        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {% for post in players %}
-            <article
-                class="transition relative ring-2 ring-gray-800 rounded-lg overflow-hidden group hover:ring-2 hover:ring-blue-600 drop-shadow-2xl ">
-                {% if post.avatar %}
-                {% image post.avatar fill-250x250 format-webp as game_image %}
-                <img class="bg-gradient-to-b from-gray-800 group-hover:bg-gradient-to-t" title="{{ game_image.alt }}"
-                    src="{{ game_image.url }}" alt="Image of {{ post.game.title }} player {{ post.full_name }}"
-                    width="{{ game_image.width }}" height="{{ game_image.height }}">
-                {% endif %}
-                <h3 class="text-lg md:text-xl font-medium p-3 text-center">
-                    <a class="transition group-hover:text-blue-600" title="{{ post.title }} PC Specs and Settings"
-                        href="{{ post.url }}">{{ post.title }}
-                        <span class="absolute inset-0"></span>
-                    </a>
-                </h3>
-            </article>
-            {% endfor %}
-        </div>
-        <button class="mt-10">
-            <a class="font-semibold tracking-wider ring-2 hover:text-blue-500 rounded-lg px-4 py-2 transition hover:bg-gray-900 hover:ring-blue-600 focus:ring-blue-700 focus:ring-4"
-                href="/setup/">ALL PLAYERS</a>
-        </button>
     </section>
 </main>
 {% endblock %}

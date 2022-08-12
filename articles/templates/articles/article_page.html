@@ -112,20 +112,6 @@
             {% endfor %}
         </section>
         {% endif %}
-
-
-        <section class="bg-secondary border border-primary rounded-lg mb-4 p-2">
-            <h2 class="text-xl font-semibold mb-4">Related Profiles</h2>
-            <ul class="flex flex-col gap-3">
-                {% for tag in page.keywords.all %}
-                <li>
-                    <a class="hover:text-lime-500 external-link" href="{{ tag.url }}">{{ tag.title }}</a>
-                </li>
-
-                {% endfor %}
-            </ul>
-        </section>
-
     </aside>
 </main>
 {% endblock %}

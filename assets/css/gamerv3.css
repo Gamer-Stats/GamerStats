@@ -1,3 +1,53 @@
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-700.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-700.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-700.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+}
+
+/* @font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-500.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-500.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-500.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: normal;
+} */
+
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400-I.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400-I.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400-I.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+}
+/* 
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-600.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-600.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-600.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+} */
+
 * {
   font-family: sofia-pro, sans-serif;
   box-sizing: border-box;
@@ -85,15 +135,30 @@
 .prose table {
   text-align: left;
   width: 100%;
+  border: solid 1px var(--border-primary);
+  margin-top: 1.4rem;
+}
+
+.prose table caption {
+  background-color: var(--border-primary);
+  padding: 8px 10px;
+  font-weight: 600;
 }
 
 .prose table tr {
   display: flex;
+  border-bottom: solid 1px var(--border-primary);
+}
+
+.prose table tr:last-child {
+  border: 0;
 }
 
 .prose table td,
 .prose table th {
   width: 100%;
+  padding: 4px 10px;
+  font-size: 15px;
 }
 
 .prose p {
@@ -102,14 +167,6 @@
 
 .prose p:last-child {
   margin-bottom: 0;
-}
-
-.prose a {
-  color: #9993ff;
-}
-
-.prose a:hover {
-  text-decoration: underline;
 }
 
 .table-wrap {
@@ -143,8 +200,11 @@
 }
 
 .prose a {
+  color: #9993ff;
+}
+
+.prose a:hover {
   text-decoration: underline;
-  font-weight: 500;
 }
 
 .prose strong {
@@ -256,6 +316,11 @@
 
 .prose blockquote p:last-of-type::after {
   content: close-quote;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .prose h3 {

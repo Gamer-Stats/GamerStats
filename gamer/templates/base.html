@@ -21,20 +21,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/fonts-v2.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/output.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/gamerv3.css' %}">
-    <style>
-        .external-link:after {
-            content: "";
-            background-image: url(https://cdn.gamerstats.net/static/img/external-white.svg);
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            width: 12px;
-            height: 12px;
-            display: inline-block;
-            margin-left: 0.3em;
-            vertical-align: middle;
-        }
-    </style>
     {% endcompress %}{% block extra_css %}{% endblock %}
 </head>
 
@@ -74,6 +60,7 @@
                 <a class="hover:text-blue-600 p-2" href="/">Home</a>
                 <a class="hover:text-blue-600 p-2" href="/setup/">Players</a>
                 <a class="hover:text-blue-600 p-2" href="/news/">News</a>
+                <a class="hover:text-blue-600 p-2" href="/guides/">Guides</a>
                 <a class="hover:text-blue-600 p-2" href="/search/">Search</a>
             </nav>
         </div>
@@ -100,6 +87,11 @@
                 <div class="px-5 py-2">
                     <a href="/setup/" class="text-base text-gray-400 hover:text-blue-600">
                         Pro Settings
+                    </a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="/guides/" class="text-base text-gray-400 hover:text-blue-600">
+                        Gaming Guides
                     </a>
                 </div>
 
