@@ -1,8 +1,9 @@
+from articles.feed import RssLatestArticles
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
-from django.views.decorators.cache import cache_page
+from news.feed import RssLatest
 from search import views as search_views
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -89,6 +90,8 @@ urlpatterns = [
         {"sitemaps": games_sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
+    path("news/rss/", RssLatest(), name="rss_latest"),
+    path("guides/rss/", RssLatestArticles(), name="rss_latest_articles"),
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
