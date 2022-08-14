@@ -1,21 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% load static %}
 
-<body>
-    <h1>{{ category.name }}</h1>
-    <ul>
+{% block main %}
+
+<main class="container">
+    <header class="hero">
+        <div class="hero-body">
+            <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+                <ul>
+                    <li><a class="has-text-light" href="{% url 'index' %}">Home</a></li>
+                    <li><a class="has-text-light" href="{{ category.game.get_absolute_url }}">{{ category.game }}</a>
+                    </li>
+                    <li class="is-active"><a style="color: slategrey;" href="{{ category.get_absolute_url }}"
+                            aria-current="page">{{ category.name }}</a></li>
+                </ul>
+            </nav>
+            <h1 class="title has-text-light">
+                {{ category.name }}
+            </h1>
+            <p class="subtitle has-text-light">
+                {{ category.game }} {{ category.name }} [Description needed]
+            </p>
+        </div>
+
+    </header>
+    <div class="archive-section section">
         {% for page in pages %}
-        <li>{{ page.title }}</li>
-        <a href="{{ page.get_absolute_url }}"></a>
+        <article class="archive-item">
+            <figure class="image is-1by1 ">
+                <img src="{{ page.image.url }}" alt="{{ page.title }}" height="{{ page.image.height }}"
+                    width="{{ page.image.width }}" class="archive-item-image">
+            </figure>
+            <div class="py-2">
+                <h3 class="is-size-5 has-text-light has-text-weight-medium">{{ page.title }}</h3>
+                <time datetime="{{ page.updated_at|date:'c' }}"
+                    class="has-text-light is-size-7 is-uppercase">{{ page.updated_at|date:'F j, Y' }}</time>
+            </div>
+            <a href="{{ page.get_absolute_url }}" class="archive-item-link">
+                <span class="sr-only">View more about {{ page.title }} {{ category.game }} {{ category.name }}</span>
+            </a>
+        </article>
         {% endfor %}
-    </ul>
-</body>
+    </div>
 
-</html>
+</main>
+
+{% endblock %}

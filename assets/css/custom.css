@@ -1,0 +1,122 @@
+:root {
+  --primary: #12162a;
+  --secondary: rgb(10 14 34 / 51%);
+  --border-primary: #1f253e;
+  --indigo: rgb(79 70 229);
+}
+
+.primary {
+  color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
+.from-gray-800 {
+  --tw-gradient-from: #1f2937;
+  --tw-gradient-to: rgb(31 41 55 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+
+.border-gray-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(55 65 81 / var(--tw-border-opacity));
+}
+
+.drop-shadow-2xl {
+  --tw-drop-shadow: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-700.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-700.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-700.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: "sofia-pro";
+  src: url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400-I.woff2") format("woff2"), url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400-I.woff") format("woff"),
+    url("https://cdn.gamerstats.net/static/css/fonts/sofia-pro-400-I.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+* {
+  font-family: "sofia-pro", sans-serif;
+}
+
+.archive-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.archive-section .archive-item {
+  text-align: center;
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.archive-section .archive-item:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.archive-item-image {
+  border-bottom: solid 1px var(--border-primary);
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.archive-item-link:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+}
